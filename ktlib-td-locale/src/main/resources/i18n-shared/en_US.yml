@@ -1,0 +1,73 @@
+NAME: English
+ID_STR: 0
+
+ENABLE: Enable
+DISABLE: Disable
+ENABLED: Enabled
+DISABLED: Disabled
+DELETE: Delete
+DELETED: Deleted
+
+SET: Set
+EDIT: Edit
+RESET: Reset
+BACK_ARROW: 🔙
+
+LOADING: Loading...
+SETTING_SAVED: Setting Saved.
+NO_PERMISSION: Permission denied, this incident will be reported.
+UNKNOWN_PARAMETER: Unknown parameter "{}"
+
+FN_GROUP_ONLY: Please use this function in a <b>group</b>.
+FN_BASIC_GROUP_ONLY: Please use this function in <b>basicgroup</b>.
+FN_SUPER_GROUP_ONLY: Please use this function in <b>supergroup</b>.
+FN_CHANNEL_ONLY: Please use this function in <b>channel</b>.
+FN_PRIVATE_ONLY: Please use this function in <b>private messages</b>.
+FN_PUBLIC_ONLY: Please use this function in <b>group or channel</b>.
+
+MISSING_PERMISSION: Bot lacks {} permisson(s).
+PERMISSION_CHANGE_INFO: Change Info
+PERMISSION_DELETE_MESSAGES: Delete Messages
+PERMISSION_RESTRICT_MEMBERS: Ban User
+
+FAILED: |-
+  Failed: {}
+
+TIME_SEC: "{} sec"
+TIME_MIN: "{} min"
+TIME_HOUR: "{} hour"
+TIME_DAY: "{} day"
+TIME_FORMAT: |-
+  Time Format: `1d2h3m4s` or `seconds`
+  Sample: `2m30s` ( Two minutes thirty seconds )
+  Or: `180` ( Three minutes )
+TIME_FORMAT_INVALID: |-
+  invalid time format.
+
+CANCEL_NOTIFICATION: |-
+  Use /cancel to cancel the operation
+PREVIOUS_NOTIFICATION: |-
+  Use /previous to back to the previous step
+
+CANCELED: |-
+  Canceled.
+NOTHING_TO_CANCEL: |-
+  No active command to cancel. I wasn't doing anything anyway. Zzzzz...
+
+LICENSE: |-
+  {} Released under <a href="{}">GNU General Public License v3.0]</a>, welcome to visit {}.
+
+HELP_DEF: |-
+  show help message
+CANCEL_DEF: |-
+  cancel the current operation
+
+SELECT_LANGUAGE: |-
+  Please select language:
+SELECT_LANGUAGE_DEF: |-
+  select bot language
+SELECT_LANGUAGE_NO_PERMISSION: |-
+  Only admins can change the language, you can change the personal language use {} in PM.
+LANGUAGE_SELECTED: |-
+  English language is <b>set</b>.
+  This localization may be incomplete. You can help improve translations by contact @nekohasekai.

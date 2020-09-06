@@ -1,0 +1,72 @@
+NAME: 简体中文
+ID_STR: 1
+
+ENABLE: 启用
+DISABLE: 禁用
+ENABLED: 已启用
+DISABLED: 已禁用
+DELETE: 删除
+DELETED: 已删除
+
+SET: 设置
+EDIT: 编辑
+RESET: 重置
+BACK_ARROW: 🔙
+
+LOADING: 正加载
+SETTING_SAVED: 设置已保存.
+NO_PERMISSION: 无权操作, 此事件将被报告.
+UNKNOWN_PARAMETER: 未知参数 "{}"
+
+FN_GROUP_ONLY: 请在 <b>群组</b> 中使用此命令.
+FN_BASIC_GROUP_ONLY: 请在 <b>普通群组</b> 中使用此命令.
+FN_SUPER_GROUP_ONLY: 请在 <b>超级群组</b> 中使用此命令.
+FN_CHANNEL_ONLY: 请在 <b>频道</b> 中使用此命令.
+FN_PRIVATE_ONLY: 请在 <b>私聊</b> 中使用此命令.
+FN_PUBLIC_ONLY: 请在 <b>群组或频道</b> 中使用此命令.
+
+MISSING_PERMISSION: 机器人缺少 {} 权限.
+PERMISSION_CHANGE_INFO: 修改信息
+PERMISSION_DELETE_MESSAGES: 删除消息
+PERMISSION_RESTRICT_MEMBERS: 封禁用户
+
+FAILED: |-
+  失败: {}
+
+TIME_SEC: "{} 秒"
+TIME_MIN: "{} 分"
+TIME_HOUR: "{} 时"
+TIME_DAY: "{} 天"
+TIME_FORMAT: |-
+  时间格式: `1d2h3m4s` 或 `秒数`
+  例子: `2m30s` ( 两分钟三十秒 )
+  或者: `180` ( 三分钟 )
+TIME_FORMAT_INVALID: |-
+  时间格式无效.
+
+CANCEL_NOTIFICATION: |-
+  使用 /cancel 取消当前操作
+PREVIOUS_NOTIFICATION: |-
+  使用 /previous 返回上一步
+
+CANCELED: |-
+  已取消.
+NOTHING_TO_CANCEL: |-
+  无事可做.
+
+LICENSE: |-
+  {} 基于 <a href="{}">GNU 通用公共许可证 v3</a> 发行, 欢迎访问 {}.
+HELP_DEF: |-
+  显示帮助消息
+CANCEL_DEF: |-
+  取消当前操作
+
+SELECT_LANGUAGE: |-
+  请选择语言:
+SELECT_LANGUAGE_DEF: |-
+  选择工作语言
+SELECT_LANGUAGE_NO_PERMISSION: |-
+  只有管理员能修改群组/频道语言, 您可以私聊BOT使用 {} 设置个人语言.
+LANGUAGE_SELECTED: |-
+  已<b>设定</b>为简体中文.
+  请注意, 这种在地化可能不完整. 您可以联系 @nekohasekai 帮助我们改进翻译.

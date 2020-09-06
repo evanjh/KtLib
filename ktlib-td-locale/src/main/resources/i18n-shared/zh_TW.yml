@@ -1,0 +1,72 @@
+NAME: 繁體中文
+ID_STR: 2
+
+ENABLE: 啟用
+DISABLE: 禁用
+ENABLED: 已啟用
+DISABLED: 已禁用
+DELETE: 刪除
+DELETED: 已刪除
+
+SET: 設置
+EDIT: 編輯
+RESET: 重設
+BACK_ARROW: 🔙
+
+LOADING: 正載入
+SETTING_SAVED: 設置已保存.
+NO_PERMISSION: 無權操作, 此事件將被報告.
+UNKNOWN_PARAMETER: 未知參數 "{}"
+
+FN_GROUP_ONLY: 請在 <b>群組</b> 中使用此命令.
+FN_BASIC_GROUP_ONLY: 請在 <b>普通群組</b> 中使用此命令.
+FN_SUPER_GROUP_ONLY: 請在 <b>超級群組</b> 中使用此命令.
+FN_CHANNEL_ONLY: 請在 <b>頻道</b> 中使用此命令.
+FN_PRIVATE_ONLY: 請在 <b>私聊</b> 中使用此命令.
+FN_PUBLIC_ONLY: 請在 <b>群組或頻道</b> 中使用此命令.
+
+MISSING_PERMISSION: 機器人缺少 {} 權限.
+PERMISSION_CHANGE_INFO: 修改訊息
+PERMISSION_DELETE_MESSAGES: 刪除消息
+PERMISSION_RESTRICT_MEMBERS: 封禁用戶
+
+FAILED: |-
+  失敗: {}
+
+TIME_SEC: "{} 秒"
+TIME_MIN: "{} 分"
+TIME_HOUR: "{} 時"
+TIME_DAY: "{} 天"
+TIME_FORMAT: |-
+  時間格式: `1d2h3m4s` 或 `秒數`
+  例子: `2m30s` ( 兩分鐘三十秒 )
+  或者: `180` ( 三分鐘 )
+TIME_FORMAT_INVALID: |-
+  時間格式無效.
+
+CANCEL_NOTIFICATION: |-
+  使用 /cancel 取消當前操作
+PREVIOUS_NOTIFICATION: |-
+  使用 /previous 返回上一步
+
+CANCELED: |-
+  已取消.
+NOTHING_TO_CANCEL: |-
+  無事可做.
+
+LICENSE: |-
+  {} 基於 <a href="{}">GNU 通用公共許可證 v3</a> 發行, 歡迎訪問 {}.
+HELP_DEF: |-
+  顯示幫助消息
+CANCEL_DEF: |-
+  取消當前操作
+
+SELECT_LANGUAGE: |-
+  請選擇語言:
+SELECT_LANGUAGE_DEF: |-
+  選擇工作語言
+SELECT_LANGUAGE_NO_PERMISSION: |-
+  只有管理員能修改群組/頻道語言, 您可以私聊BOT使用 {} 設置個人語言.
+LANGUAGE_SELECTED: |-
+  已<b>設定</b>為繁體中文.
+  請注意, 這種在地化可能不完整. 您可以聯繫 @nekohasekai 幫助我們改進翻譯.
