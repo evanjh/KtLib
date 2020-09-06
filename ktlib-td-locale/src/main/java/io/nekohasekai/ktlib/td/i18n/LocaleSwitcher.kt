@@ -66,8 +66,6 @@ class LocaleSwitcher(private val dataId: Long, private val setupWizard: (suspend
 
     override suspend fun onNewCallbackQuery(userId: Int, chatId: Long, messageId: Long, queryId: Long, data: Array<ByteArray>) {
 
-        var L = localeFor(chatId)
-
         runCatching {
 
             val message = getMessage(chatId, messageId)
@@ -98,7 +96,7 @@ class LocaleSwitcher(private val dataId: Long, private val setupWizard: (suspend
 
             if (!message.fromPrivate && !isChatAdmin(chatId, userId)) {
 
-                sudo makeAlert L.SELECT_LANGUAGE_NO_PERMISSION cacheTime 114 answerTo queryId
+                sudo makeAlert localeFor(chatId, userId).SELECT_LANGUAGE_NO_PERMISSION cacheTime 114 answerTo queryId
 
                 return
 
@@ -106,9 +104,7 @@ class LocaleSwitcher(private val dataId: Long, private val setupWizard: (suspend
 
             LocaleStore.save(chatId, targetLocale)
 
-            L = localeFor(chatId)
-
-            sudo makeHtml L.LANGUAGE_SELECTED editTo message
+            sudo makeHtml localeFor(chatId).LANGUAGE_SELECTED editTo message
 
             if (setup) {
 

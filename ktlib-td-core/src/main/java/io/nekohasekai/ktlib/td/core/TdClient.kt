@@ -24,9 +24,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
+import kotlin.coroutines.*
 
 open class TdClient : TdHandler() {
 
@@ -38,7 +36,6 @@ open class TdClient : TdHandler() {
     open val skipSelfMessage = true
     open val funPrefix = arrayOf("/", "!")
     open val defaultLang: String? = null
-    open val supportedLangs: String? = "en_US,zh_CN,zh_TW"
 
     val payloads = HashMap<String, TdHandler>()
     val functions = HashMap<String, TdHandler>()

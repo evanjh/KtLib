@@ -104,7 +104,6 @@ open class TdCli : TdClient() {
     private val botTokenInEnv get() = stringConfig("BOT_TOKEN")
     private val binlogInEnv get() = stringConfig("BINLONG")
     override val defaultLang get() = stringConfig("BOT_LANG")
-    override val supportedLangs get() = stringConfig("BOT_LANG_LIST")
 
     open fun onArgument(argument: String, value: String?) {
 
@@ -212,7 +211,9 @@ open class TdCli : TdClient() {
 
             } catch (e: Exception) {
 
-                defaultLog.error(">> Parse config failed : ${configFile.path}")
+                defaultLog.error(e, ">> Parse config failed : ${configFile.path}")
+
+                exitProcess(100)
 
             }
 

@@ -4,7 +4,6 @@ package io.nekohasekai.ktlib.td.i18n
 
 import io.nekohasekai.ktlib.core.receive
 import io.nekohasekai.ktlib.core.receiveLazy
-import io.nekohasekai.ktlib.td.i18n.store.LocaleStore
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -31,7 +30,7 @@ open class LocaleController(val LANG: String) {
 
     companion object {
 
-        private const val supportedLangs = "en_US,zh_CN,zh_TW"
+        val supportedLangs = arrayOf("en_US", "zh_CN", "zh_TW")
 
         fun receiveLocaleSet(name: String? = null) = receiveLazy<LocaleController, LocaleSet> { getLocaleSet(name) }
 
@@ -43,7 +42,7 @@ open class LocaleController(val LANG: String) {
 
         val allLocales = LinkedList<LocaleController>().apply {
 
-            (supportedLangs).split(",").forEach {
+            supportedLangs.forEach {
 
                 val localeInstance = LocaleController(it)
 
@@ -53,13 +52,6 @@ open class LocaleController(val LANG: String) {
                 localesById[localeInstance.ID] = localeInstance
 
             }
-
-        }
-
-        @Deprecated("use localeFor", replaceWith = ReplaceWith("localeFor(chatId)","io.nekohasekai.ktlib.td.i18n.localeFor"),level = DeprecationLevel.ERROR)
-        fun forChat(chatId: Number): LocaleController? {
-
-            return localeForChat(chatId)
 
         }
 

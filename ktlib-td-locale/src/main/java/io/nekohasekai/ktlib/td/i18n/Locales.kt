@@ -12,11 +12,7 @@ val TdHandler.clientLocale by receive<TdHandler, LocaleController> {
 
 fun localeForChat(chatId: Number): LocaleController? {
 
-    val chatLocale = LocaleStore.getByChat(chatId.toLong())
-
-    if (chatLocale != null) LocaleController.localesById[chatLocale]
-
-    return null
+    return LocaleStore.getByChat(chatId.toLong())?.let { LocaleController.localesById[it] }
 
 }
 

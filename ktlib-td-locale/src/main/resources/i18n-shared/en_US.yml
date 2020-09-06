@@ -55,7 +55,7 @@ NOTHING_TO_CANCEL: |-
   No active command to cancel. I wasn't doing anything anyway. Zzzzz...
 
 LICENSE: |-
-  {} Released under <a href="{}">GNU General Public License v3.0]</a>, welcome to visit {}.
+  {} Released under <a href="{}">GNU General Public License v3.0</a>, welcome to visit {}.
 
 HELP_DEF: |-
   show help message
