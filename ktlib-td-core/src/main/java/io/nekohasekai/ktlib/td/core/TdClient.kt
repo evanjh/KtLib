@@ -13,6 +13,7 @@ import io.nekohasekai.ktlib.db.openSqliteDatabase
 import io.nekohasekai.ktlib.td.core.extensions.*
 import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.core.utils.confirmTo
+import io.nekohasekai.ktlib.td.core.utils.make
 import kotlinx.coroutines.*
 import td.TdApi.*
 import td.TdNative
@@ -352,13 +353,7 @@ open class TdClient : TdHandler() {
 
                 if (persist != null) {
 
-                    val handler = persistHandlers[persist.persistId]
-
-                    if (handler == null) {
-
-                        finishEvent()
-
-                    }
+                    val handler = persistHandlers[persist.persistId] ?: finishEvent()
 
                     if (function == "cancel" && persist.allowCancel) {
 
@@ -569,7 +564,7 @@ open class TdClient : TdHandler() {
             return
 
         }
-        
+
         val callback = callbackQueries[dataId]!!
 
         userCalled(senderUserId, "queried in ${callback.javaClass.simpleName}")
@@ -814,6 +809,12 @@ open class TdClient : TdHandler() {
         check(!closed) { "已停止" }
 
         TdNative.nativeClientSend(clientId, requestId, function)
+
+    }
+
+    override suspend fun onSendCanceledMessage(userId: Int, chatId: Long) {
+
+        sudo make "Canceled." syncTo chatId
 
     }
 
