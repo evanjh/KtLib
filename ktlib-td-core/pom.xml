@@ -26,6 +26,7 @@
             <groupId>io.nekohasekai</groupId>
             <artifactId>ktlib-db</artifactId>
             <version>${project.parent.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
