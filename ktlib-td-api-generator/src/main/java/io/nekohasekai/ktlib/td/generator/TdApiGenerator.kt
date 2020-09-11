@@ -28,7 +28,7 @@ object TdApiGenerator {
 
         api.forEach { (path, src) ->
 
-            with(File("ktlib-td-core/src/main/java/$path")) {
+            with(File("ktlib-td/src/main/java/$path")) {
 
                 println("write $path")
 

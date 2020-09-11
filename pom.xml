@@ -20,7 +20,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.version>11</java.version>
-        <kotlin.version>1.4.0</kotlin.version>
+        <kotlin.version>1.4.10</kotlin.version>
 
     </properties>
 
@@ -28,9 +28,8 @@
         <module>ktlib-core</module>
         <module>ktlib-compress</module>
         <module>ktlib-db</module>
-        <module>ktlib-td-core</module>
-        <module>ktlib-td-locale</module>
         <module>ktlib-td</module>
+        <module>ktlib-td-cli</module>
         <module>ktlib-td-http-api</module>
     </modules>
 

@@ -18,16 +18,36 @@
 
         <dependency>
             <groupId>io.nekohasekai</groupId>
-            <artifactId>ktlib-td-core</artifactId>
+            <artifactId>ktlib-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.26</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.nekohasekai</groupId>
-            <artifactId>ktlib-td-locale</artifactId>
+            <artifactId>ktlib-db</artifactId>
             <version>${project.parent.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>io.nekohasekai.ktlib.td.core.TdLoader</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -1,0 +1,20 @@
+package io.nekohasekai.ktlib.td.core.persists
+
+import cn.hutool.core.date.SystemClock
+
+class TdPersist(
+
+        var userId: Int,
+        var persistId: Int,
+        var subId: Long,
+        var data: Array<Any?>,
+        var allowFunction: Boolean,
+        var allowCancel: Boolean,
+        var createAt: Int = (SystemClock.now() / 1000L).toInt(),
+        var dontSave: Boolean = false
+
+) {
+
+    constructor() : this(0, 0, 0L, arrayOf(), false, true, 0)
+
+}
