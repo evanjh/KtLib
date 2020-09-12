@@ -72,7 +72,7 @@ fun mkStartPayloadUrl(botUserName: String, vararg payloads: String): String {
 
 }
 
-fun TdHandler.mkStartPayloadUrl(vararg payloads: String): String {
+fun TdHandler.mkStartPayloadUrlForSelf(vararg payloads: String): String {
 
     return mkStartPayloadUrl(me.username, *payloads)
 
@@ -85,8 +85,8 @@ fun mkStartGroupPayloadUrl(botUserName: String, vararg payloads: String): String
 
 }
 
-fun TdHandler.mkStartGroupPayloadUrl(vararg payloads: String): String {
+fun TdHandler.mkStartGroupPayloadUrlForSelf(vararg payloads: String): String {
 
-    return mkStartGroupPayloadUrl(me.username, * payloads)
+    return mkStartPayloadUrl(me.username, * payloads)
 
 }
