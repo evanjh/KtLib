@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Finishes user registration
@@ -14,20 +13,20 @@ import td.TdApi.*
  * @lastName - The last name of the user
  */
 suspend fun TdHandler.registerUser(
-        firstName: String? = null,
-        lastName: String? = null
+    firstName: String? = null,
+    lastName: String? = null
 ) = sync<Ok>(RegisterUser(firstName, lastName))
 
 suspend fun TdHandler.registerUserOrNull(
-        firstName: String? = null,
-        lastName: String? = null
+    firstName: String? = null,
+    lastName: String? = null
 ) = syncOrNull<Ok>(RegisterUser(firstName, lastName))
 
 fun TdHandler.registerUserWith(
-        firstName: String? = null,
-        lastName: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    firstName: String? = null,
+    lastName: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RegisterUser(firstName, lastName), stackIgnore + 1, submit)
 
 /**
@@ -38,8 +37,8 @@ suspend fun TdHandler.getMe() = sync<User>(GetMe())
 suspend fun TdHandler.getMeOrNull() = syncOrNull<User>(GetMe())
 
 fun TdHandler.getMeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<User>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<User>.() -> Unit)? = null
 ) = send(GetMe(), stackIgnore + 1, submit)
 
 /**
@@ -49,17 +48,17 @@ fun TdHandler.getMeWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.getUser(
-        userId: Int
+    userId: Int
 ) = sync<User>(GetUser(userId))
 
 suspend fun TdHandler.getUserOrNull(
-        userId: Int
+    userId: Int
 ) = syncOrNull<User>(GetUser(userId))
 
 fun TdHandler.getUserWith(
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<User>.() -> Unit)? = null
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<User>.() -> Unit)? = null
 ) = send(GetUser(userId), stackIgnore + 1, submit)
 
 /**
@@ -68,17 +67,17 @@ fun TdHandler.getUserWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.getUserFullInfo(
-        userId: Int
+    userId: Int
 ) = sync<UserFullInfo>(GetUserFullInfo(userId))
 
 suspend fun TdHandler.getUserFullInfoOrNull(
-        userId: Int
+    userId: Int
 ) = syncOrNull<UserFullInfo>(GetUserFullInfo(userId))
 
 fun TdHandler.getUserFullInfoWith(
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<UserFullInfo>.() -> Unit)? = null
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<UserFullInfo>.() -> Unit)? = null
 ) = send(GetUserFullInfo(userId), stackIgnore + 1, submit)
 
 /**
@@ -94,29 +93,29 @@ fun TdHandler.getUserFullInfoWith(
  *          Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached
  */
 suspend fun TdHandler.getPollVoters(
-        chatId: Long,
-        messageId: Long,
-        optionId: Int,
-        offset: Int,
-        limit: Int
+    chatId: Long,
+    messageId: Long,
+    optionId: Int,
+    offset: Int,
+    limit: Int
 ) = sync<Users>(GetPollVoters(chatId, messageId, optionId, offset, limit))
 
 suspend fun TdHandler.getPollVotersOrNull(
-        chatId: Long,
-        messageId: Long,
-        optionId: Int,
-        offset: Int,
-        limit: Int
+    chatId: Long,
+    messageId: Long,
+    optionId: Int,
+    offset: Int,
+    limit: Int
 ) = syncOrNull<Users>(GetPollVoters(chatId, messageId, optionId, offset, limit))
 
 fun TdHandler.getPollVotersWith(
-        chatId: Long,
-        messageId: Long,
-        optionId: Int,
-        offset: Int,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Users>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    optionId: Int,
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Users>.() -> Unit)? = null
 ) = send(GetPollVoters(chatId, messageId, optionId, offset, limit), stackIgnore + 1, submit)
 
 /**
@@ -125,17 +124,17 @@ fun TdHandler.getPollVotersWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.blockUser(
-        userId: Int
+    userId: Int
 ) = sync<Ok>(BlockUser(userId))
 
 suspend fun TdHandler.blockUserOrNull(
-        userId: Int
+    userId: Int
 ) = syncOrNull<Ok>(BlockUser(userId))
 
 fun TdHandler.blockUserWith(
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(BlockUser(userId), stackIgnore + 1, submit)
 
 /**
@@ -144,17 +143,17 @@ fun TdHandler.blockUserWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.unblockUser(
-        userId: Int
+    userId: Int
 ) = sync<Ok>(UnblockUser(userId))
 
 suspend fun TdHandler.unblockUserOrNull(
-        userId: Int
+    userId: Int
 ) = syncOrNull<Ok>(UnblockUser(userId))
 
 fun TdHandler.unblockUserWith(
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(UnblockUser(userId), stackIgnore + 1, submit)
 
 /**
@@ -164,20 +163,20 @@ fun TdHandler.unblockUserWith(
  * @limit - The maximum number of users to return
  */
 suspend fun TdHandler.getBlockedUsers(
-        offset: Int,
-        limit: Int
+    offset: Int,
+    limit: Int
 ) = sync<Users>(GetBlockedUsers(offset, limit))
 
 suspend fun TdHandler.getBlockedUsersOrNull(
-        offset: Int,
-        limit: Int
+    offset: Int,
+    limit: Int
 ) = syncOrNull<Users>(GetBlockedUsers(offset, limit))
 
 fun TdHandler.getBlockedUsersWith(
-        offset: Int,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Users>.() -> Unit)? = null
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Users>.() -> Unit)? = null
 ) = send(GetBlockedUsers(offset, limit), stackIgnore + 1, submit)
 
 /**
@@ -188,8 +187,8 @@ suspend fun TdHandler.getContacts() = sync<Users>(GetContacts())
 suspend fun TdHandler.getContactsOrNull() = syncOrNull<Users>(GetContacts())
 
 fun TdHandler.getContactsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Users>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Users>.() -> Unit)? = null
 ) = send(GetContacts(), stackIgnore + 1, submit)
 
 /**
@@ -200,20 +199,20 @@ fun TdHandler.getContactsWith(
  * @limit - The maximum number of users to be returned
  */
 suspend fun TdHandler.searchContacts(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = sync<Users>(SearchContacts(query, limit))
 
 suspend fun TdHandler.searchContactsOrNull(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = syncOrNull<Users>(SearchContacts(query, limit))
 
 fun TdHandler.searchContactsWith(
-        query: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Users>.() -> Unit)? = null
+    query: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Users>.() -> Unit)? = null
 ) = send(SearchContacts(query, limit), stackIgnore + 1, submit)
 
 /**
@@ -224,8 +223,8 @@ suspend fun TdHandler.getRecentInlineBots() = sync<Users>(GetRecentInlineBots())
 suspend fun TdHandler.getRecentInlineBotsOrNull() = syncOrNull<Users>(GetRecentInlineBots())
 
 fun TdHandler.getRecentInlineBotsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Users>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Users>.() -> Unit)? = null
 ) = send(GetRecentInlineBots(), stackIgnore + 1, submit)
 
 /**
@@ -235,20 +234,20 @@ fun TdHandler.getRecentInlineBotsWith(
  * @lastName - The new value of the optional last name for the user
  */
 suspend fun TdHandler.setName(
-        firstName: String? = null,
-        lastName: String? = null
+    firstName: String? = null,
+    lastName: String? = null
 ) = sync<Ok>(SetName(firstName, lastName))
 
 suspend fun TdHandler.setNameOrNull(
-        firstName: String? = null,
-        lastName: String? = null
+    firstName: String? = null,
+    lastName: String? = null
 ) = syncOrNull<Ok>(SetName(firstName, lastName))
 
 fun TdHandler.setNameWith(
-        firstName: String? = null,
-        lastName: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    firstName: String? = null,
+    lastName: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetName(firstName, lastName), stackIgnore + 1, submit)
 
 /**
@@ -257,17 +256,17 @@ fun TdHandler.setNameWith(
  * @bio - The new value of the user bio
  */
 suspend fun TdHandler.setBio(
-        bio: String? = null
+    bio: String? = null
 ) = sync<Ok>(SetBio(bio))
 
 suspend fun TdHandler.setBioOrNull(
-        bio: String? = null
+    bio: String? = null
 ) = syncOrNull<Ok>(SetBio(bio))
 
 fun TdHandler.setBioWith(
-        bio: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    bio: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetBio(bio), stackIgnore + 1, submit)
 
 /**
@@ -277,17 +276,17 @@ fun TdHandler.setBioWith(
  *             Use an empty string to remove the username
  */
 suspend fun TdHandler.setUsername(
-        username: String? = null
+    username: String? = null
 ) = sync<Ok>(SetUsername(username))
 
 suspend fun TdHandler.setUsernameOrNull(
-        username: String? = null
+    username: String? = null
 ) = syncOrNull<Ok>(SetUsername(username))
 
 fun TdHandler.setUsernameWith(
-        username: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    username: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetUsername(username), stackIgnore + 1, submit)
 
 /**
@@ -298,8 +297,8 @@ suspend fun TdHandler.getSupportUser() = sync<User>(GetSupportUser())
 suspend fun TdHandler.getSupportUserOrNull() = syncOrNull<User>(GetSupportUser())
 
 fun TdHandler.getSupportUserWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<User>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<User>.() -> Unit)? = null
 ) = send(GetSupportUser(), stackIgnore + 1, submit)
 
 /**
@@ -309,20 +308,20 @@ fun TdHandler.getSupportUserWith(
  * @rules - The new privacy rules
  */
 suspend fun TdHandler.setUserPrivacySettingRules(
-        setting: UserPrivacySetting? = null,
-        rules: UserPrivacySettingRules? = null
+    setting: UserPrivacySetting? = null,
+    rules: UserPrivacySettingRules? = null
 ) = sync<Ok>(SetUserPrivacySettingRules(setting, rules))
 
 suspend fun TdHandler.setUserPrivacySettingRulesOrNull(
-        setting: UserPrivacySetting? = null,
-        rules: UserPrivacySettingRules? = null
+    setting: UserPrivacySetting? = null,
+    rules: UserPrivacySettingRules? = null
 ) = syncOrNull<Ok>(SetUserPrivacySettingRules(setting, rules))
 
 fun TdHandler.setUserPrivacySettingRulesWith(
-        setting: UserPrivacySetting? = null,
-        rules: UserPrivacySettingRules? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    setting: UserPrivacySetting? = null,
+    rules: UserPrivacySettingRules? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetUserPrivacySettingRules(setting, rules), stackIgnore + 1, submit)
 
 /**
@@ -331,15 +330,15 @@ fun TdHandler.setUserPrivacySettingRulesWith(
  * @setting - The privacy setting
  */
 suspend fun TdHandler.getUserPrivacySettingRules(
-        setting: UserPrivacySetting? = null
+    setting: UserPrivacySetting? = null
 ) = sync<UserPrivacySettingRules>(GetUserPrivacySettingRules(setting))
 
 suspend fun TdHandler.getUserPrivacySettingRulesOrNull(
-        setting: UserPrivacySetting? = null
+    setting: UserPrivacySetting? = null
 ) = syncOrNull<UserPrivacySettingRules>(GetUserPrivacySettingRules(setting))
 
 fun TdHandler.getUserPrivacySettingRulesWith(
-        setting: UserPrivacySetting? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<UserPrivacySettingRules>.() -> Unit)? = null
+    setting: UserPrivacySetting? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<UserPrivacySettingRules>.() -> Unit)? = null
 ) = send(GetUserPrivacySettingRules(setting), stackIgnore + 1, submit)

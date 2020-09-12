@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Removes an active notification from notification list
@@ -14,20 +13,20 @@ import td.TdApi.*
  * @notificationId - Identifier of removed notification
  */
 suspend fun TdHandler.removeNotification(
-        notificationGroupId: Int,
-        notificationId: Int
+    notificationGroupId: Int,
+    notificationId: Int
 ) = sync<Ok>(RemoveNotification(notificationGroupId, notificationId))
 
 suspend fun TdHandler.removeNotificationOrNull(
-        notificationGroupId: Int,
-        notificationId: Int
+    notificationGroupId: Int,
+    notificationId: Int
 ) = syncOrNull<Ok>(RemoveNotification(notificationGroupId, notificationId))
 
 fun TdHandler.removeNotificationWith(
-        notificationGroupId: Int,
-        notificationId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    notificationGroupId: Int,
+    notificationId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveNotification(notificationGroupId, notificationId), stackIgnore + 1, submit)
 
 /**
@@ -38,20 +37,20 @@ fun TdHandler.removeNotificationWith(
  * @maxNotificationId - The maximum identifier of removed notifications
  */
 suspend fun TdHandler.removeNotificationGroup(
-        notificationGroupId: Int,
-        maxNotificationId: Int
+    notificationGroupId: Int,
+    maxNotificationId: Int
 ) = sync<Ok>(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
 
 suspend fun TdHandler.removeNotificationGroupOrNull(
-        notificationGroupId: Int,
-        maxNotificationId: Int
+    notificationGroupId: Int,
+    maxNotificationId: Int
 ) = syncOrNull<Ok>(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
 
 fun TdHandler.removeNotificationGroupWith(
-        notificationGroupId: Int,
-        maxNotificationId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    notificationGroupId: Int,
+    maxNotificationId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveNotificationGroup(notificationGroupId, maxNotificationId), stackIgnore + 1, submit)
 
 /**
@@ -60,17 +59,17 @@ fun TdHandler.removeNotificationGroupWith(
  * @scope - Types of chats for which to return the notification settings information
  */
 suspend fun TdHandler.getScopeNotificationSettings(
-        scope: NotificationSettingsScope? = null
+    scope: NotificationSettingsScope? = null
 ) = sync<ScopeNotificationSettings>(GetScopeNotificationSettings(scope))
 
 suspend fun TdHandler.getScopeNotificationSettingsOrNull(
-        scope: NotificationSettingsScope? = null
+    scope: NotificationSettingsScope? = null
 ) = syncOrNull<ScopeNotificationSettings>(GetScopeNotificationSettings(scope))
 
 fun TdHandler.getScopeNotificationSettingsWith(
-        scope: NotificationSettingsScope? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ScopeNotificationSettings>.() -> Unit)? = null
+    scope: NotificationSettingsScope? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ScopeNotificationSettings>.() -> Unit)? = null
 ) = send(GetScopeNotificationSettings(scope), stackIgnore + 1, submit)
 
 /**
@@ -80,20 +79,20 @@ fun TdHandler.getScopeNotificationSettingsWith(
  * @notificationSettings - The new notification settings for the given scope
  */
 suspend fun TdHandler.setScopeNotificationSettings(
-        scope: NotificationSettingsScope? = null,
-        notificationSettings: ScopeNotificationSettings? = null
+    scope: NotificationSettingsScope? = null,
+    notificationSettings: ScopeNotificationSettings? = null
 ) = sync<Ok>(SetScopeNotificationSettings(scope, notificationSettings))
 
 suspend fun TdHandler.setScopeNotificationSettingsOrNull(
-        scope: NotificationSettingsScope? = null,
-        notificationSettings: ScopeNotificationSettings? = null
+    scope: NotificationSettingsScope? = null,
+    notificationSettings: ScopeNotificationSettings? = null
 ) = syncOrNull<Ok>(SetScopeNotificationSettings(scope, notificationSettings))
 
 fun TdHandler.setScopeNotificationSettingsWith(
-        scope: NotificationSettingsScope? = null,
-        notificationSettings: ScopeNotificationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    scope: NotificationSettingsScope? = null,
+    notificationSettings: ScopeNotificationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetScopeNotificationSettings(scope, notificationSettings), stackIgnore + 1, submit)
 
 /**
@@ -105,8 +104,8 @@ suspend fun TdHandler.resetAllNotificationSettings() = sync<Ok>(ResetAllNotifica
 suspend fun TdHandler.resetAllNotificationSettingsOrNull() = syncOrNull<Ok>(ResetAllNotificationSettings())
 
 fun TdHandler.resetAllNotificationSettingsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ResetAllNotificationSettings(), stackIgnore + 1, submit)
 
 /**
@@ -117,15 +116,15 @@ fun TdHandler.resetAllNotificationSettingsWith(
  * @payload - JSON-encoded push notification payload with all fields sent by the server, and "google.sent_time" and "google.notification.sound" fields added
  */
 suspend fun TdHandler.processPushNotification(
-        payload: String? = null
+    payload: String? = null
 ) = sync<Ok>(ProcessPushNotification(payload))
 
 suspend fun TdHandler.processPushNotificationOrNull(
-        payload: String? = null
+    payload: String? = null
 ) = syncOrNull<Ok>(ProcessPushNotification(payload))
 
 fun TdHandler.processPushNotificationWith(
-        payload: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    payload: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ProcessPushNotification(payload), stackIgnore + 1, submit)

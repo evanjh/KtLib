@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Adds a proxy server for network requests
@@ -16,26 +15,26 @@ import td.TdApi.*
  * @type - Proxy type
  */
 suspend fun TdHandler.addProxy(
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null
 ) = sync<Proxy>(AddProxy(server, port, enable, type))
 
 suspend fun TdHandler.addProxyOrNull(
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null
 ) = syncOrNull<Proxy>(AddProxy(server, port, enable, type))
 
 fun TdHandler.addProxyWith(
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Proxy>.() -> Unit)? = null
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Proxy>.() -> Unit)? = null
 ) = send(AddProxy(server, port, enable, type), stackIgnore + 1, submit)
 
 /**
@@ -49,29 +48,29 @@ fun TdHandler.addProxyWith(
  * @type - Proxy type
  */
 suspend fun TdHandler.editProxy(
-        proxyId: Int,
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null
+    proxyId: Int,
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null
 ) = sync<Proxy>(EditProxy(proxyId, server, port, enable, type))
 
 suspend fun TdHandler.editProxyOrNull(
-        proxyId: Int,
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null
+    proxyId: Int,
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null
 ) = syncOrNull<Proxy>(EditProxy(proxyId, server, port, enable, type))
 
 fun TdHandler.editProxyWith(
-        proxyId: Int,
-        server: String? = null,
-        port: Int,
-        enable: Boolean,
-        type: ProxyType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Proxy>.() -> Unit)? = null
+    proxyId: Int,
+    server: String? = null,
+    port: Int,
+    enable: Boolean,
+    type: ProxyType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Proxy>.() -> Unit)? = null
 ) = send(EditProxy(proxyId, server, port, enable, type), stackIgnore + 1, submit)
 
 /**
@@ -82,17 +81,17 @@ fun TdHandler.editProxyWith(
  * @proxyId - Proxy identifier
  */
 suspend fun TdHandler.enableProxy(
-        proxyId: Int
+    proxyId: Int
 ) = sync<Ok>(EnableProxy(proxyId))
 
 suspend fun TdHandler.enableProxyOrNull(
-        proxyId: Int
+    proxyId: Int
 ) = syncOrNull<Ok>(EnableProxy(proxyId))
 
 fun TdHandler.enableProxyWith(
-        proxyId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    proxyId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(EnableProxy(proxyId), stackIgnore + 1, submit)
 
 /**
@@ -104,8 +103,8 @@ suspend fun TdHandler.disableProxy() = sync<Ok>(DisableProxy())
 suspend fun TdHandler.disableProxyOrNull() = syncOrNull<Ok>(DisableProxy())
 
 fun TdHandler.disableProxyWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DisableProxy(), stackIgnore + 1, submit)
 
 /**
@@ -115,17 +114,17 @@ fun TdHandler.disableProxyWith(
  * @proxyId - Proxy identifier
  */
 suspend fun TdHandler.removeProxy(
-        proxyId: Int
+    proxyId: Int
 ) = sync<Ok>(RemoveProxy(proxyId))
 
 suspend fun TdHandler.removeProxyOrNull(
-        proxyId: Int
+    proxyId: Int
 ) = syncOrNull<Ok>(RemoveProxy(proxyId))
 
 fun TdHandler.removeProxyWith(
-        proxyId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    proxyId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveProxy(proxyId), stackIgnore + 1, submit)
 
 /**
@@ -136,15 +135,15 @@ fun TdHandler.removeProxyWith(
  *            Use 0 to ping a Telegram server without a proxy
  */
 suspend fun TdHandler.pingProxy(
-        proxyId: Int
+    proxyId: Int
 ) = sync<Seconds>(PingProxy(proxyId))
 
 suspend fun TdHandler.pingProxyOrNull(
-        proxyId: Int
+    proxyId: Int
 ) = syncOrNull<Seconds>(PingProxy(proxyId))
 
 fun TdHandler.pingProxyWith(
-        proxyId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Seconds>.() -> Unit)? = null
+    proxyId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Seconds>.() -> Unit)? = null
 ) = send(PingProxy(proxyId), stackIgnore + 1, submit)

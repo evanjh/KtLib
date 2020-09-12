@@ -1,10 +1,7 @@
 package io.nekohasekai.ktlib.td.generator.builder
 
 import cn.hutool.core.util.StrUtil
-import io.nekohasekai.ktlib.td.generator.tl.TlAddition
-import io.nekohasekai.ktlib.td.generator.tl.TlClass
-import io.nekohasekai.ktlib.td.generator.tl.TlScheme
-import io.nekohasekai.ktlib.td.generator.tl.get
+import io.nekohasekai.ktlib.td.generator.tl.*
 
 fun StringBuilder.buildApi(scheme: TlScheme) {
     // suppress("unused")
@@ -63,31 +60,23 @@ fun StringBuilder.buildEvents(scheme: TlScheme) {
 
                     buildDescription(it.descriptionsWithProperties())
 
-                    if (it.type == "updateNewMessage") {
+                    val prefix = if (it.type in arrayOf("updateNewMessage", "updateNewCallbackQuery", "updateNewInlineCallbackQuery")) {
 
-                        append("suspend fun onNewMessage(userId: Int, chatId: Long, message: Message)")
+                        "handle"
 
                     } else {
 
-                        val prefix = if (it.type == "updateNewCallbackQuery" || it.type == "updateNewInlineCallbackQuery") {
+                        "on"
 
-                            "handle"
+                    }
 
-                        } else {
+                    append("suspend fun $prefix${StrUtil.upperFirst(it.type.substringAfter("update"))}")
 
-                            "on"
+                    withRoundBrackets {
 
-                        }
+                        it.metadata.properties.joinTo(this) { property ->
 
-                        append("suspend fun $prefix${StrUtil.upperFirst(it.type.substringAfter("update"))}")
-
-                        withRoundBrackets {
-
-                            it.metadata.properties.joinTo(this) { property ->
-
-                                property.toParameter(scheme.metadata[it], "", property.additions.any { it is TlAddition.Nullable }, false)
-
-                            }
+                            property.toParameter(scheme.metadata[it], "", property.additions.any { it is TlAddition.Nullable }, false)
 
                         }
 
@@ -131,7 +120,7 @@ fun StringBuilder.buildEvents(scheme: TlScheme) {
 
                             append("\n")
 
-                            val prefix = if (it.type == "updateNewCallbackQuery" || it.type == "updateNewInlineCallbackQuery") {
+                            val prefix = if (it.type in arrayOf("updateNewMessage", "updateNewCallbackQuery", "updateNewInlineCallbackQuery")) {
 
                                 "handle"
 
@@ -145,17 +134,9 @@ fun StringBuilder.buildEvents(scheme: TlScheme) {
 
                             withRoundBrackets {
 
-                                if (it.type == "updateNewMessage") {
+                                it.metadata.properties.joinTo(this) {
 
-                                    append("eventObj.message.senderUserId, eventObj.message.chatId, eventObj.message")
-
-                                } else {
-
-                                    it.metadata.properties.joinTo(this) {
-
-                                        "eventObj.${it.name.snakeToCamel()}"
-
-                                    }
+                                    "eventObj.${it.name.snakeToCamel()}"
 
                                 }
 

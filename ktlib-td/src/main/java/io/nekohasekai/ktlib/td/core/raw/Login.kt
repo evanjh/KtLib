@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a button of type inlineKeyboardButtonTypeLoginUrl
@@ -15,23 +14,23 @@ import td.TdApi.*
  * @buttonId - Button identifier
  */
 suspend fun TdHandler.getLoginUrlInfo(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int
 ) = sync<LoginUrlInfo>(GetLoginUrlInfo(chatId, messageId, buttonId))
 
 suspend fun TdHandler.getLoginUrlInfoOrNull(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int
 ) = syncOrNull<LoginUrlInfo>(GetLoginUrlInfo(chatId, messageId, buttonId))
 
 fun TdHandler.getLoginUrlInfoWith(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<LoginUrlInfo>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<LoginUrlInfo>.() -> Unit)? = null
 ) = send(GetLoginUrlInfo(chatId, messageId, buttonId), stackIgnore + 1, submit)
 
 /**
@@ -45,24 +44,24 @@ fun TdHandler.getLoginUrlInfoWith(
  * @allowWriteAccess - True, if the user allowed the bot to send them messages
  */
 suspend fun TdHandler.getLoginUrl(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int,
-        allowWriteAccess: Boolean
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int,
+    allowWriteAccess: Boolean
 ) = sync<HttpUrl>(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
 
 suspend fun TdHandler.getLoginUrlOrNull(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int,
-        allowWriteAccess: Boolean
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int,
+    allowWriteAccess: Boolean
 ) = syncOrNull<HttpUrl>(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
 
 fun TdHandler.getLoginUrlWith(
-        chatId: Long,
-        messageId: Long,
-        buttonId: Int,
-        allowWriteAccess: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    buttonId: Int,
+    allowWriteAccess: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
 ) = send(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess), stackIgnore + 1, submit)

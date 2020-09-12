@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Validates the order information provided by a user and returns the available shipping options for a flexible invoice
@@ -15,24 +14,24 @@ import td.TdApi.*
  * @allowSave - True, if the order information can be saved
  */
 suspend fun TdHandler.validateOrderInfo(
-        chatId: Long,
-        messageId: Long,
-        orderInfo: OrderInfo? = null,
-        allowSave: Boolean
+    chatId: Long,
+    messageId: Long,
+    orderInfo: OrderInfo? = null,
+    allowSave: Boolean
 ) = sync<ValidatedOrderInfo>(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
 
 suspend fun TdHandler.validateOrderInfoOrNull(
-        chatId: Long,
-        messageId: Long,
-        orderInfo: OrderInfo? = null,
-        allowSave: Boolean
+    chatId: Long,
+    messageId: Long,
+    orderInfo: OrderInfo? = null,
+    allowSave: Boolean
 ) = syncOrNull<ValidatedOrderInfo>(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
 
 fun TdHandler.validateOrderInfoWith(
-        chatId: Long,
-        messageId: Long,
-        orderInfo: OrderInfo? = null,
-        allowSave: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ValidatedOrderInfo>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    orderInfo: OrderInfo? = null,
+    allowSave: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ValidatedOrderInfo>.() -> Unit)? = null
 ) = send(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave), stackIgnore + 1, submit)

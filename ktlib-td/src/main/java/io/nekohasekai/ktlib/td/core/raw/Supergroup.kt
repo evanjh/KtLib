@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a supergroup or a channel by its identifier
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @supergroupId - Supergroup or channel identifier
  */
 suspend fun TdHandler.getSupergroup(
-        supergroupId: Int
+    supergroupId: Int
 ) = sync<Supergroup>(GetSupergroup(supergroupId))
 
 suspend fun TdHandler.getSupergroupOrNull(
-        supergroupId: Int
+    supergroupId: Int
 ) = syncOrNull<Supergroup>(GetSupergroup(supergroupId))
 
 fun TdHandler.getSupergroupWith(
-        supergroupId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Supergroup>.() -> Unit)? = null
+    supergroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Supergroup>.() -> Unit)? = null
 ) = send(GetSupergroup(supergroupId), stackIgnore + 1, submit)
 
 /**
@@ -32,17 +31,17 @@ fun TdHandler.getSupergroupWith(
  * @supergroupId - Supergroup or channel identifier
  */
 suspend fun TdHandler.getSupergroupFullInfo(
-        supergroupId: Int
+    supergroupId: Int
 ) = sync<SupergroupFullInfo>(GetSupergroupFullInfo(supergroupId))
 
 suspend fun TdHandler.getSupergroupFullInfoOrNull(
-        supergroupId: Int
+    supergroupId: Int
 ) = syncOrNull<SupergroupFullInfo>(GetSupergroupFullInfo(supergroupId))
 
 fun TdHandler.getSupergroupFullInfoWith(
-        supergroupId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<SupergroupFullInfo>.() -> Unit)? = null
+    supergroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<SupergroupFullInfo>.() -> Unit)? = null
 ) = send(GetSupergroupFullInfo(supergroupId), stackIgnore + 1, submit)
 
 /**
@@ -53,20 +52,20 @@ fun TdHandler.getSupergroupFullInfoWith(
  *             Use an empty string to remove the username
  */
 suspend fun TdHandler.setSupergroupUsername(
-        supergroupId: Int,
-        username: String? = null
+    supergroupId: Int,
+    username: String? = null
 ) = sync<Ok>(SetSupergroupUsername(supergroupId, username))
 
 suspend fun TdHandler.setSupergroupUsernameOrNull(
-        supergroupId: Int,
-        username: String? = null
+    supergroupId: Int,
+    username: String? = null
 ) = syncOrNull<Ok>(SetSupergroupUsername(supergroupId, username))
 
 fun TdHandler.setSupergroupUsernameWith(
-        supergroupId: Int,
-        username: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    username: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetSupergroupUsername(supergroupId, username), stackIgnore + 1, submit)
 
 /**
@@ -78,20 +77,20 @@ fun TdHandler.setSupergroupUsernameWith(
  *                 Use 0 to remove the supergroup sticker set
  */
 suspend fun TdHandler.setSupergroupStickerSet(
-        supergroupId: Int,
-        stickerSetId: Long
+    supergroupId: Int,
+    stickerSetId: Long
 ) = sync<Ok>(SetSupergroupStickerSet(supergroupId, stickerSetId))
 
 suspend fun TdHandler.setSupergroupStickerSetOrNull(
-        supergroupId: Int,
-        stickerSetId: Long
+    supergroupId: Int,
+    stickerSetId: Long
 ) = syncOrNull<Ok>(SetSupergroupStickerSet(supergroupId, stickerSetId))
 
 fun TdHandler.setSupergroupStickerSetWith(
-        supergroupId: Int,
-        stickerSetId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    stickerSetId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetSupergroupStickerSet(supergroupId, stickerSetId), stackIgnore + 1, submit)
 
 /**
@@ -102,20 +101,20 @@ fun TdHandler.setSupergroupStickerSetWith(
  * @signMessages - New value of sign_messages
  */
 suspend fun TdHandler.toggleSupergroupSignMessages(
-        supergroupId: Int,
-        signMessages: Boolean
+    supergroupId: Int,
+    signMessages: Boolean
 ) = sync<Ok>(ToggleSupergroupSignMessages(supergroupId, signMessages))
 
 suspend fun TdHandler.toggleSupergroupSignMessagesOrNull(
-        supergroupId: Int,
-        signMessages: Boolean
+    supergroupId: Int,
+    signMessages: Boolean
 ) = syncOrNull<Ok>(ToggleSupergroupSignMessages(supergroupId, signMessages))
 
 fun TdHandler.toggleSupergroupSignMessagesWith(
-        supergroupId: Int,
-        signMessages: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    signMessages: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleSupergroupSignMessages(supergroupId, signMessages), stackIgnore + 1, submit)
 
 /**
@@ -126,20 +125,20 @@ fun TdHandler.toggleSupergroupSignMessagesWith(
  * @isAllHistoryAvailable - The new value of is_all_history_available
  */
 suspend fun TdHandler.toggleSupergroupIsAllHistoryAvailable(
-        supergroupId: Int,
-        isAllHistoryAvailable: Boolean
+    supergroupId: Int,
+    isAllHistoryAvailable: Boolean
 ) = sync<Ok>(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
 
 suspend fun TdHandler.toggleSupergroupIsAllHistoryAvailableOrNull(
-        supergroupId: Int,
-        isAllHistoryAvailable: Boolean
+    supergroupId: Int,
+    isAllHistoryAvailable: Boolean
 ) = syncOrNull<Ok>(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
 
 fun TdHandler.toggleSupergroupIsAllHistoryAvailableWith(
-        supergroupId: Int,
-        isAllHistoryAvailable: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    isAllHistoryAvailable: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable), stackIgnore + 1, submit)
 
 /**
@@ -152,23 +151,23 @@ fun TdHandler.toggleSupergroupIsAllHistoryAvailableWith(
  *               This list must be non-empty
  */
 suspend fun TdHandler.reportSupergroupSpam(
-        supergroupId: Int,
-        userId: Int,
-        messageIds: LongArray
+    supergroupId: Int,
+    userId: Int,
+    messageIds: LongArray
 ) = sync<Ok>(ReportSupergroupSpam(supergroupId, userId, messageIds))
 
 suspend fun TdHandler.reportSupergroupSpamOrNull(
-        supergroupId: Int,
-        userId: Int,
-        messageIds: LongArray
+    supergroupId: Int,
+    userId: Int,
+    messageIds: LongArray
 ) = syncOrNull<Ok>(ReportSupergroupSpam(supergroupId, userId, messageIds))
 
 fun TdHandler.reportSupergroupSpamWith(
-        supergroupId: Int,
-        userId: Int,
-        messageIds: LongArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    userId: Int,
+    messageIds: LongArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReportSupergroupSpam(supergroupId, userId, messageIds), stackIgnore + 1, submit)
 
 /**
@@ -180,15 +179,15 @@ fun TdHandler.reportSupergroupSpamWith(
  * @supergroupId - Identifier of the supergroup or channel
  */
 suspend fun TdHandler.deleteSupergroup(
-        supergroupId: Int
+    supergroupId: Int
 ) = sync<Ok>(DeleteSupergroup(supergroupId))
 
 suspend fun TdHandler.deleteSupergroupOrNull(
-        supergroupId: Int
+    supergroupId: Int
 ) = syncOrNull<Ok>(DeleteSupergroup(supergroupId))
 
 fun TdHandler.deleteSupergroupWith(
-        supergroupId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    supergroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteSupergroup(supergroupId), stackIgnore + 1, submit)

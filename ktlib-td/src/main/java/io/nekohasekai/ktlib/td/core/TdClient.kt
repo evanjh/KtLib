@@ -111,7 +111,7 @@ open class TdClient : TdHandler() {
 
         persists.gc()
 
-        handlers.filter { it != this }.forEach { it.gc() }
+        handlers.toLinkedList().filter { it != this }.forEach { it.gc() }
 
     }
 
@@ -243,9 +243,23 @@ open class TdClient : TdHandler() {
 
     }
 
-    override suspend fun onNewMessage(userId: Int, chatId: Long, message: Message) = coroutineScope function@{
+    override suspend fun handleNewMessage(message: Message) {
 
-        if (!sudo.waitForAuth() || userId == me.id && skipSelfMessage) finishEvent()
+        val userId = message.senderUserId
+
+        val chatId = message.chatId
+
+        suspend fun processNewMessage(): Nothing {
+
+            handlers.toLinkedList().filter { it != this }.forEach { it.onNewMessage(userId, chatId, message) }
+
+            onNewMessageLast(userId, chatId, message)
+
+            finishEvent()
+
+        }
+
+        if (!sudo.waitForAuth() || userId == me.id && skipSelfMessage || userBlocked(userId)) return
 
         val persist = if (message.fromPrivate) persists.read(userId) else null
 
@@ -357,6 +371,8 @@ open class TdClient : TdHandler() {
 
                 }
 
+                onNewMessage(userId, chatId, message)
+
                 if ("start" == function) {
 
                     if (param.isNotBlank()) {
@@ -425,15 +441,25 @@ open class TdClient : TdHandler() {
 
         }
 
-        if (persist == null) return@function
+        if (persist == null) {
+
+            onNewMessage(userId, chatId, message)
+
+            processNewMessage()
+
+        }
 
         val handler = persistHandlers[persist.persistId]
 
         if (handler == null) {
 
+            sudo removePersist userId
+
             warnUserCalled(userId, "message in undefined persist ${persist.persistId}")
 
-            finishEvent()
+            handleNewMessage(message)
+
+            return
 
         }
 
@@ -449,7 +475,7 @@ open class TdClient : TdHandler() {
 
     override suspend fun handleNewInlineCallbackQuery(id: Long, senderUserId: Int, inlineMessageId: String, chatInstance: Long, payload: CallbackQueryPayload) {
 
-        while (!auth) delay(100L)
+        if (!waitForAuth() || userBlocked(senderUserId)) return
 
         if (payload is CallbackQueryPayloadGame) return
 
@@ -491,7 +517,7 @@ open class TdClient : TdHandler() {
 
     override suspend fun handleNewCallbackQuery(id: Long, senderUserId: Int, chatId: Long, messageId: Long, chatInstance: Long, payload: CallbackQueryPayload) {
 
-        if (!waitForAuth()) return
+        if (!waitForAuth() || userBlocked(senderUserId)) return
 
         if (payload is CallbackQueryPayloadGame) return
 
@@ -1106,6 +1132,8 @@ open class TdClient : TdHandler() {
 
     }
 
+    open suspend fun onNewMessageLast(userId: Int, chatId: Long, message: Message) = Unit
+
     open suspend fun onDropMessages(senderUserId: Int, lastMessage: MessageNode) {
 
         val userName = getUserOrNull(senderUserId)?.displayNameFormatted ?: "$senderUserId"
@@ -1114,6 +1142,7 @@ open class TdClient : TdHandler() {
 
     }
 
-    open suspend fun skipFloodCheck(senderUserId: Int, message: Message) = false
+    open suspend fun skipFloodCheck(senderUserId: Int, message: Message) = me.isUser
+    open suspend fun userBlocked(userId: Int) = false
 
 }

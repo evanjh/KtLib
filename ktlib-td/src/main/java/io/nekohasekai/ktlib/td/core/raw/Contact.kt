@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Adds a user to the contact list or edits an existing contact by their user identifier
@@ -16,20 +15,20 @@ import td.TdApi.*
  *                     Use the field UserFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number
  */
 suspend fun TdHandler.addContact(
-        contact: Contact? = null,
-        sharePhoneNumber: Boolean
+    contact: Contact? = null,
+    sharePhoneNumber: Boolean
 ) = sync<Ok>(AddContact(contact, sharePhoneNumber))
 
 suspend fun TdHandler.addContactOrNull(
-        contact: Contact? = null,
-        sharePhoneNumber: Boolean
+    contact: Contact? = null,
+    sharePhoneNumber: Boolean
 ) = syncOrNull<Ok>(AddContact(contact, sharePhoneNumber))
 
 fun TdHandler.addContactWith(
-        contact: Contact? = null,
-        sharePhoneNumber: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    contact: Contact? = null,
+    sharePhoneNumber: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddContact(contact, sharePhoneNumber), stackIgnore + 1, submit)
 
 /**
@@ -40,17 +39,17 @@ fun TdHandler.addContactWith(
  *             Contacts' vCard are ignored and are not imported
  */
 suspend fun TdHandler.importContacts(
-        contacts: Array<Contact>
+    contacts: Array<Contact>
 ) = sync<ImportedContacts>(ImportContacts(contacts))
 
 suspend fun TdHandler.importContactsOrNull(
-        contacts: Array<Contact>
+    contacts: Array<Contact>
 ) = syncOrNull<ImportedContacts>(ImportContacts(contacts))
 
 fun TdHandler.importContactsWith(
-        contacts: Array<Contact>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ImportedContacts>.() -> Unit)? = null
+    contacts: Array<Contact>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ImportedContacts>.() -> Unit)? = null
 ) = send(ImportContacts(contacts), stackIgnore + 1, submit)
 
 /**
@@ -59,17 +58,17 @@ fun TdHandler.importContactsWith(
  * @userIds - Identifiers of users to be deleted
  */
 suspend fun TdHandler.removeContacts(
-        userIds: IntArray
+    userIds: IntArray
 ) = sync<Ok>(RemoveContacts(userIds))
 
 suspend fun TdHandler.removeContactsOrNull(
-        userIds: IntArray
+    userIds: IntArray
 ) = syncOrNull<Ok>(RemoveContacts(userIds))
 
 fun TdHandler.removeContactsWith(
-        userIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    userIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveContacts(userIds), stackIgnore + 1, submit)
 
 /**
@@ -80,8 +79,8 @@ suspend fun TdHandler.getImportedContactCount() = sync<Count>(GetImportedContact
 suspend fun TdHandler.getImportedContactCountOrNull() = syncOrNull<Count>(GetImportedContactCount())
 
 fun TdHandler.getImportedContactCountWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Count>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Count>.() -> Unit)? = null
 ) = send(GetImportedContactCount(), stackIgnore + 1, submit)
 
 /**
@@ -92,17 +91,17 @@ fun TdHandler.getImportedContactCountWith(
  * @contacts - The new list of contacts, contact's vCard are ignored and are not imported
  */
 suspend fun TdHandler.changeImportedContacts(
-        contacts: Array<Contact>
+    contacts: Array<Contact>
 ) = sync<ImportedContacts>(ChangeImportedContacts(contacts))
 
 suspend fun TdHandler.changeImportedContactsOrNull(
-        contacts: Array<Contact>
+    contacts: Array<Contact>
 ) = syncOrNull<ImportedContacts>(ChangeImportedContacts(contacts))
 
 fun TdHandler.changeImportedContactsWith(
-        contacts: Array<Contact>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ImportedContacts>.() -> Unit)? = null
+    contacts: Array<Contact>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ImportedContacts>.() -> Unit)? = null
 ) = send(ChangeImportedContacts(contacts), stackIgnore + 1, submit)
 
 /**
@@ -113,6 +112,6 @@ suspend fun TdHandler.clearImportedContacts() = sync<Ok>(ClearImportedContacts()
 suspend fun TdHandler.clearImportedContactsOrNull() = syncOrNull<Ok>(ClearImportedContacts())
 
 fun TdHandler.clearImportedContactsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ClearImportedContacts(), stackIgnore + 1, submit)

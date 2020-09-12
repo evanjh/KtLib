@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a chat by its identifier, this is an offline request if the current user is not a bot
@@ -12,17 +11,17 @@ import td.TdApi.*
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.getChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Chat>(GetChat(chatId))
 
 suspend fun TdHandler.getChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Chat>(GetChat(chatId))
 
 fun TdHandler.getChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(GetChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -38,26 +37,26 @@ fun TdHandler.getChatWith(
  *          It is possible that fewer chats than the limit are returned even if the end of the list is not reached
  */
 suspend fun TdHandler.getChats(
-        chatList: ChatList? = null,
-        offsetOrder: Long,
-        offsetChatId: Long,
-        limit: Int
+    chatList: ChatList? = null,
+    offsetOrder: Long,
+    offsetChatId: Long,
+    limit: Int
 ) = sync<Chats>(GetChats(chatList, offsetOrder, offsetChatId, limit))
 
 suspend fun TdHandler.getChatsOrNull(
-        chatList: ChatList? = null,
-        offsetOrder: Long,
-        offsetChatId: Long,
-        limit: Int
+    chatList: ChatList? = null,
+    offsetOrder: Long,
+    offsetChatId: Long,
+    limit: Int
 ) = syncOrNull<Chats>(GetChats(chatList, offsetOrder, offsetChatId, limit))
 
 fun TdHandler.getChatsWith(
-        chatList: ChatList? = null,
-        offsetOrder: Long,
-        offsetChatId: Long,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    chatList: ChatList? = null,
+    offsetOrder: Long,
+    offsetChatId: Long,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetChats(chatList, offsetOrder, offsetChatId, limit), stackIgnore + 1, submit)
 
 /**
@@ -69,17 +68,17 @@ fun TdHandler.getChatsWith(
  * @username - Username to be resolved
  */
 suspend fun TdHandler.searchPublicChat(
-        username: String? = null
+    username: String? = null
 ) = sync<Chat>(SearchPublicChat(username))
 
 suspend fun TdHandler.searchPublicChatOrNull(
-        username: String? = null
+    username: String? = null
 ) = syncOrNull<Chat>(SearchPublicChat(username))
 
 fun TdHandler.searchPublicChatWith(
-        username: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    username: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(SearchPublicChat(username), stackIgnore + 1, submit)
 
 /**
@@ -92,17 +91,17 @@ fun TdHandler.searchPublicChatWith(
  * @query - Query to search for
  */
 suspend fun TdHandler.searchPublicChats(
-        query: String? = null
+    query: String? = null
 ) = sync<Chats>(SearchPublicChats(query))
 
 suspend fun TdHandler.searchPublicChatsOrNull(
-        query: String? = null
+    query: String? = null
 ) = syncOrNull<Chats>(SearchPublicChats(query))
 
 fun TdHandler.searchPublicChatsWith(
-        query: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    query: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(SearchPublicChats(query), stackIgnore + 1, submit)
 
 /**
@@ -114,20 +113,20 @@ fun TdHandler.searchPublicChatsWith(
  * @limit - The maximum number of chats to be returned
  */
 suspend fun TdHandler.searchChats(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = sync<Chats>(SearchChats(query, limit))
 
 suspend fun TdHandler.searchChatsOrNull(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = syncOrNull<Chats>(SearchChats(query, limit))
 
 fun TdHandler.searchChatsWith(
-        query: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    query: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(SearchChats(query, limit), stackIgnore + 1, submit)
 
 /**
@@ -138,20 +137,20 @@ fun TdHandler.searchChatsWith(
  * @limit - The maximum number of chats to be returned
  */
 suspend fun TdHandler.searchChatsOnServer(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = sync<Chats>(SearchChatsOnServer(query, limit))
 
 suspend fun TdHandler.searchChatsOnServerOrNull(
-        query: String? = null,
-        limit: Int
+    query: String? = null,
+    limit: Int
 ) = syncOrNull<Chats>(SearchChatsOnServer(query, limit))
 
 fun TdHandler.searchChatsOnServerWith(
-        query: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    query: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(SearchChatsOnServer(query, limit), stackIgnore + 1, submit)
 
 /**
@@ -162,17 +161,17 @@ fun TdHandler.searchChatsOnServerWith(
  * @location - Current user location
  */
 suspend fun TdHandler.searchChatsNearby(
-        location: Location? = null
+    location: Location? = null
 ) = sync<ChatsNearby>(SearchChatsNearby(location))
 
 suspend fun TdHandler.searchChatsNearbyOrNull(
-        location: Location? = null
+    location: Location? = null
 ) = syncOrNull<ChatsNearby>(SearchChatsNearby(location))
 
 fun TdHandler.searchChatsNearbyWith(
-        location: Location? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatsNearby>.() -> Unit)? = null
+    location: Location? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatsNearby>.() -> Unit)? = null
 ) = send(SearchChatsNearby(location), stackIgnore + 1, submit)
 
 /**
@@ -184,20 +183,20 @@ fun TdHandler.searchChatsNearbyWith(
  *          Up to 30
  */
 suspend fun TdHandler.getTopChats(
-        category: TopChatCategory? = null,
-        limit: Int
+    category: TopChatCategory? = null,
+    limit: Int
 ) = sync<Chats>(GetTopChats(category, limit))
 
 suspend fun TdHandler.getTopChatsOrNull(
-        category: TopChatCategory? = null,
-        limit: Int
+    category: TopChatCategory? = null,
+    limit: Int
 ) = syncOrNull<Chats>(GetTopChats(category, limit))
 
 fun TdHandler.getTopChatsWith(
-        category: TopChatCategory? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    category: TopChatCategory? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetTopChats(category, limit), stackIgnore + 1, submit)
 
 /**
@@ -208,20 +207,20 @@ fun TdHandler.getTopChatsWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.removeTopChat(
-        category: TopChatCategory? = null,
-        chatId: Long
+    category: TopChatCategory? = null,
+    chatId: Long
 ) = sync<Ok>(RemoveTopChat(category, chatId))
 
 suspend fun TdHandler.removeTopChatOrNull(
-        category: TopChatCategory? = null,
-        chatId: Long
+    category: TopChatCategory? = null,
+    chatId: Long
 ) = syncOrNull<Ok>(RemoveTopChat(category, chatId))
 
 fun TdHandler.removeTopChatWith(
-        category: TopChatCategory? = null,
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    category: TopChatCategory? = null,
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveTopChat(category, chatId), stackIgnore + 1, submit)
 
 /**
@@ -232,17 +231,17 @@ fun TdHandler.removeTopChatWith(
  * @chatId - Identifier of the chat to add
  */
 suspend fun TdHandler.addRecentlyFoundChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(AddRecentlyFoundChat(chatId))
 
 suspend fun TdHandler.addRecentlyFoundChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(AddRecentlyFoundChat(chatId))
 
 fun TdHandler.addRecentlyFoundChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddRecentlyFoundChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -251,17 +250,17 @@ fun TdHandler.addRecentlyFoundChatWith(
  * @chatId - Identifier of the chat to be removed
  */
 suspend fun TdHandler.removeRecentlyFoundChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(RemoveRecentlyFoundChat(chatId))
 
 suspend fun TdHandler.removeRecentlyFoundChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(RemoveRecentlyFoundChat(chatId))
 
 fun TdHandler.removeRecentlyFoundChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveRecentlyFoundChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -272,8 +271,8 @@ suspend fun TdHandler.clearRecentlyFoundChats() = sync<Ok>(ClearRecentlyFoundCha
 suspend fun TdHandler.clearRecentlyFoundChatsOrNull() = syncOrNull<Ok>(ClearRecentlyFoundChats())
 
 fun TdHandler.clearRecentlyFoundChatsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ClearRecentlyFoundChats(), stackIgnore + 1, submit)
 
 /**
@@ -282,17 +281,17 @@ fun TdHandler.clearRecentlyFoundChatsWith(
  * @type - Type of the public chats to return
  */
 suspend fun TdHandler.getCreatedPublicChats(
-        type: PublicChatType? = null
+    type: PublicChatType? = null
 ) = sync<Chats>(GetCreatedPublicChats(type))
 
 suspend fun TdHandler.getCreatedPublicChatsOrNull(
-        type: PublicChatType? = null
+    type: PublicChatType? = null
 ) = syncOrNull<Chats>(GetCreatedPublicChats(type))
 
 fun TdHandler.getCreatedPublicChatsWith(
-        type: PublicChatType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    type: PublicChatType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetCreatedPublicChats(type), stackIgnore + 1, submit)
 
 /**
@@ -304,8 +303,8 @@ suspend fun TdHandler.getSuitableDiscussionChats() = sync<Chats>(GetSuitableDisc
 suspend fun TdHandler.getSuitableDiscussionChatsOrNull() = syncOrNull<Chats>(GetSuitableDiscussionChats())
 
 fun TdHandler.getSuitableDiscussionChatsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetSuitableDiscussionChats(), stackIgnore + 1, submit)
 
 /**
@@ -317,8 +316,8 @@ suspend fun TdHandler.getInactiveSupergroupChats() = sync<Chats>(GetInactiveSupe
 suspend fun TdHandler.getInactiveSupergroupChatsOrNull() = syncOrNull<Chats>(GetInactiveSupergroupChats())
 
 fun TdHandler.getInactiveSupergroupChatsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetInactiveSupergroupChats(), stackIgnore + 1, submit)
 
 /**
@@ -331,23 +330,23 @@ fun TdHandler.getInactiveSupergroupChatsWith(
  * @limit - The maximum number of chats to be returned
  */
 suspend fun TdHandler.getGroupsInCommon(
-        userId: Int,
-        offsetChatId: Long,
-        limit: Int
+    userId: Int,
+    offsetChatId: Long,
+    limit: Int
 ) = sync<Chats>(GetGroupsInCommon(userId, offsetChatId, limit))
 
 suspend fun TdHandler.getGroupsInCommonOrNull(
-        userId: Int,
-        offsetChatId: Long,
-        limit: Int
+    userId: Int,
+    offsetChatId: Long,
+    limit: Int
 ) = syncOrNull<Chats>(GetGroupsInCommon(userId, offsetChatId, limit))
 
 fun TdHandler.getGroupsInCommonWith(
-        userId: Int,
-        offsetChatId: Long,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    userId: Int,
+    offsetChatId: Long,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetGroupsInCommon(userId, offsetChatId, limit), stackIgnore + 1, submit)
 
 /**
@@ -359,23 +358,23 @@ fun TdHandler.getGroupsInCommonWith(
  * @revoke - Pass true to try to delete chat history for all users
  */
 suspend fun TdHandler.deleteChatHistory(
-        chatId: Long,
-        removeFromChatList: Boolean,
-        revoke: Boolean
+    chatId: Long,
+    removeFromChatList: Boolean,
+    revoke: Boolean
 ) = sync<Ok>(DeleteChatHistory(chatId, removeFromChatList, revoke))
 
 suspend fun TdHandler.deleteChatHistoryOrNull(
-        chatId: Long,
-        removeFromChatList: Boolean,
-        revoke: Boolean
+    chatId: Long,
+    removeFromChatList: Boolean,
+    revoke: Boolean
 ) = syncOrNull<Ok>(DeleteChatHistory(chatId, removeFromChatList, revoke))
 
 fun TdHandler.deleteChatHistoryWith(
-        chatId: Long,
-        removeFromChatList: Boolean,
-        revoke: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    removeFromChatList: Boolean,
+    revoke: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteChatHistory(chatId, removeFromChatList, revoke), stackIgnore + 1, submit)
 
 /**
@@ -387,23 +386,23 @@ fun TdHandler.deleteChatHistoryWith(
  * @returnLocal - If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown
  */
 suspend fun TdHandler.getChatMessageCount(
-        chatId: Long,
-        filter: SearchMessagesFilter? = null,
-        returnLocal: Boolean
+    chatId: Long,
+    filter: SearchMessagesFilter? = null,
+    returnLocal: Boolean
 ) = sync<Count>(GetChatMessageCount(chatId, filter, returnLocal))
 
 suspend fun TdHandler.getChatMessageCountOrNull(
-        chatId: Long,
-        filter: SearchMessagesFilter? = null,
-        returnLocal: Boolean
+    chatId: Long,
+    filter: SearchMessagesFilter? = null,
+    returnLocal: Boolean
 ) = syncOrNull<Count>(GetChatMessageCount(chatId, filter, returnLocal))
 
 fun TdHandler.getChatMessageCountWith(
-        chatId: Long,
-        filter: SearchMessagesFilter? = null,
-        returnLocal: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Count>.() -> Unit)? = null
+    chatId: Long,
+    filter: SearchMessagesFilter? = null,
+    returnLocal: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Count>.() -> Unit)? = null
 ) = send(GetChatMessageCount(chatId, filter, returnLocal), stackIgnore + 1, submit)
 
 /**
@@ -413,17 +412,17 @@ fun TdHandler.getChatMessageCountWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.sendChatScreenshotTakenNotification(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(SendChatScreenshotTakenNotification(chatId))
 
 suspend fun TdHandler.sendChatScreenshotTakenNotificationOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(SendChatScreenshotTakenNotification(chatId))
 
 fun TdHandler.sendChatScreenshotTakenNotificationWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SendChatScreenshotTakenNotification(chatId), stackIgnore + 1, submit)
 
 /**
@@ -435,20 +434,20 @@ fun TdHandler.sendChatScreenshotTakenNotificationWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.deleteChatMessagesFromUser(
-        chatId: Long,
-        userId: Int
+    chatId: Long,
+    userId: Int
 ) = sync<Ok>(DeleteChatMessagesFromUser(chatId, userId))
 
 suspend fun TdHandler.deleteChatMessagesFromUserOrNull(
-        chatId: Long,
-        userId: Int
+    chatId: Long,
+    userId: Int
 ) = syncOrNull<Ok>(DeleteChatMessagesFromUser(chatId, userId))
 
 fun TdHandler.deleteChatMessagesFromUserWith(
-        chatId: Long,
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteChatMessagesFromUser(chatId, userId), stackIgnore + 1, submit)
 
 /**
@@ -460,20 +459,20 @@ fun TdHandler.deleteChatMessagesFromUserWith(
  * @messageId - The message identifier of the used keyboard
  */
 suspend fun TdHandler.deleteChatReplyMarkup(
-        chatId: Long,
-        messageId: Long
+    chatId: Long,
+    messageId: Long
 ) = sync<Ok>(DeleteChatReplyMarkup(chatId, messageId))
 
 suspend fun TdHandler.deleteChatReplyMarkupOrNull(
-        chatId: Long,
-        messageId: Long
+    chatId: Long,
+    messageId: Long
 ) = syncOrNull<Ok>(DeleteChatReplyMarkup(chatId, messageId))
 
 fun TdHandler.deleteChatReplyMarkupWith(
-        chatId: Long,
-        messageId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteChatReplyMarkup(chatId, messageId), stackIgnore + 1, submit)
 
 /**
@@ -483,20 +482,20 @@ fun TdHandler.deleteChatReplyMarkupWith(
  * @action - The action description
  */
 suspend fun TdHandler.sendChatAction(
-        chatId: Long,
-        action: ChatAction? = null
+    chatId: Long,
+    action: ChatAction? = null
 ) = sync<Ok>(SendChatAction(chatId, action))
 
 suspend fun TdHandler.sendChatActionOrNull(
-        chatId: Long,
-        action: ChatAction? = null
+    chatId: Long,
+    action: ChatAction? = null
 ) = syncOrNull<Ok>(SendChatAction(chatId, action))
 
 fun TdHandler.sendChatActionWith(
-        chatId: Long,
-        action: ChatAction? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    action: ChatAction? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SendChatAction(chatId, action), stackIgnore + 1, submit)
 
 /**
@@ -506,17 +505,17 @@ fun TdHandler.sendChatActionWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.openChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(OpenChat(chatId))
 
 suspend fun TdHandler.openChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(OpenChat(chatId))
 
 fun TdHandler.openChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(OpenChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -526,17 +525,17 @@ fun TdHandler.openChatWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.closeChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(CloseChat(chatId))
 
 suspend fun TdHandler.closeChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(CloseChat(chatId))
 
 fun TdHandler.closeChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(CloseChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -545,17 +544,17 @@ fun TdHandler.closeChatWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.readAllChatMentions(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(ReadAllChatMentions(chatId))
 
 suspend fun TdHandler.readAllChatMentionsOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(ReadAllChatMentions(chatId))
 
 fun TdHandler.readAllChatMentionsWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReadAllChatMentions(chatId), stackIgnore + 1, submit)
 
 /**
@@ -566,20 +565,20 @@ fun TdHandler.readAllChatMentionsWith(
  *          In this case all information about the chat except its type, title and photo can be incorrect
  */
 suspend fun TdHandler.createPrivateChat(
-        userId: Int,
-        force: Boolean
+    userId: Int,
+    force: Boolean
 ) = sync<Chat>(CreatePrivateChat(userId, force))
 
 suspend fun TdHandler.createPrivateChatOrNull(
-        userId: Int,
-        force: Boolean
+    userId: Int,
+    force: Boolean
 ) = syncOrNull<Chat>(CreatePrivateChat(userId, force))
 
 fun TdHandler.createPrivateChatWith(
-        userId: Int,
-        force: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    userId: Int,
+    force: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreatePrivateChat(userId, force), stackIgnore + 1, submit)
 
 /**
@@ -590,20 +589,20 @@ fun TdHandler.createPrivateChatWith(
  *          In this case all information about the chat except its type, title and photo can be incorrect
  */
 suspend fun TdHandler.createBasicGroupChat(
-        basicGroupId: Int,
-        force: Boolean
+    basicGroupId: Int,
+    force: Boolean
 ) = sync<Chat>(CreateBasicGroupChat(basicGroupId, force))
 
 suspend fun TdHandler.createBasicGroupChatOrNull(
-        basicGroupId: Int,
-        force: Boolean
+    basicGroupId: Int,
+    force: Boolean
 ) = syncOrNull<Chat>(CreateBasicGroupChat(basicGroupId, force))
 
 fun TdHandler.createBasicGroupChatWith(
-        basicGroupId: Int,
-        force: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    basicGroupId: Int,
+    force: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateBasicGroupChat(basicGroupId, force), stackIgnore + 1, submit)
 
 /**
@@ -614,20 +613,20 @@ fun TdHandler.createBasicGroupChatWith(
  *          In this case all information about the chat except its type, title and photo can be incorrect
  */
 suspend fun TdHandler.createSupergroupChat(
-        supergroupId: Int,
-        force: Boolean
+    supergroupId: Int,
+    force: Boolean
 ) = sync<Chat>(CreateSupergroupChat(supergroupId, force))
 
 suspend fun TdHandler.createSupergroupChatOrNull(
-        supergroupId: Int,
-        force: Boolean
+    supergroupId: Int,
+    force: Boolean
 ) = syncOrNull<Chat>(CreateSupergroupChat(supergroupId, force))
 
 fun TdHandler.createSupergroupChatWith(
-        supergroupId: Int,
-        force: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    supergroupId: Int,
+    force: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateSupergroupChat(supergroupId, force), stackIgnore + 1, submit)
 
 /**
@@ -636,17 +635,17 @@ fun TdHandler.createSupergroupChatWith(
  * @secretChatId - Secret chat identifier
  */
 suspend fun TdHandler.createSecretChat(
-        secretChatId: Int
+    secretChatId: Int
 ) = sync<Chat>(CreateSecretChat(secretChatId))
 
 suspend fun TdHandler.createSecretChatOrNull(
-        secretChatId: Int
+    secretChatId: Int
 ) = syncOrNull<Chat>(CreateSecretChat(secretChatId))
 
 fun TdHandler.createSecretChatWith(
-        secretChatId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    secretChatId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateSecretChat(secretChatId), stackIgnore + 1, submit)
 
 /**
@@ -657,20 +656,20 @@ fun TdHandler.createSecretChatWith(
  * @title - Title of the new basic group
  */
 suspend fun TdHandler.createNewBasicGroupChat(
-        userIds: IntArray,
-        title: String? = null
+    userIds: IntArray,
+    title: String? = null
 ) = sync<Chat>(CreateNewBasicGroupChat(userIds, title))
 
 suspend fun TdHandler.createNewBasicGroupChatOrNull(
-        userIds: IntArray,
-        title: String? = null
+    userIds: IntArray,
+    title: String? = null
 ) = syncOrNull<Chat>(CreateNewBasicGroupChat(userIds, title))
 
 fun TdHandler.createNewBasicGroupChatWith(
-        userIds: IntArray,
-        title: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    userIds: IntArray,
+    title: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateNewBasicGroupChat(userIds, title), stackIgnore + 1, submit)
 
 /**
@@ -683,26 +682,26 @@ fun TdHandler.createNewBasicGroupChatWith(
  * @location - Chat location if a location-based supergroup is being created
  */
 suspend fun TdHandler.createNewSupergroupChat(
-        title: String? = null,
-        isChannel: Boolean,
-        description: String? = null,
-        location: ChatLocation? = null
+    title: String? = null,
+    isChannel: Boolean,
+    description: String? = null,
+    location: ChatLocation? = null
 ) = sync<Chat>(CreateNewSupergroupChat(title, isChannel, description, location))
 
 suspend fun TdHandler.createNewSupergroupChatOrNull(
-        title: String? = null,
-        isChannel: Boolean,
-        description: String? = null,
-        location: ChatLocation? = null
+    title: String? = null,
+    isChannel: Boolean,
+    description: String? = null,
+    location: ChatLocation? = null
 ) = syncOrNull<Chat>(CreateNewSupergroupChat(title, isChannel, description, location))
 
 fun TdHandler.createNewSupergroupChatWith(
-        title: String? = null,
-        isChannel: Boolean,
-        description: String? = null,
-        location: ChatLocation? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    title: String? = null,
+    isChannel: Boolean,
+    description: String? = null,
+    location: ChatLocation? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateNewSupergroupChat(title, isChannel, description, location), stackIgnore + 1, submit)
 
 /**
@@ -712,17 +711,17 @@ fun TdHandler.createNewSupergroupChatWith(
  * @userId - Identifier of the target user
  */
 suspend fun TdHandler.createNewSecretChat(
-        userId: Int
+    userId: Int
 ) = sync<Chat>(CreateNewSecretChat(userId))
 
 suspend fun TdHandler.createNewSecretChatOrNull(
-        userId: Int
+    userId: Int
 ) = syncOrNull<Chat>(CreateNewSecretChat(userId))
 
 fun TdHandler.createNewSecretChatWith(
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(CreateNewSecretChat(userId), stackIgnore + 1, submit)
 
 /**
@@ -733,17 +732,17 @@ fun TdHandler.createNewSecretChatWith(
  * @chatId - Identifier of the chat to upgrade
  */
 suspend fun TdHandler.upgradeBasicGroupChatToSupergroupChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Chat>(UpgradeBasicGroupChatToSupergroupChat(chatId))
 
 suspend fun TdHandler.upgradeBasicGroupChatToSupergroupChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Chat>(UpgradeBasicGroupChatToSupergroupChat(chatId))
 
 fun TdHandler.upgradeBasicGroupChatToSupergroupChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(UpgradeBasicGroupChatToSupergroupChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -753,17 +752,17 @@ fun TdHandler.upgradeBasicGroupChatToSupergroupChatWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.getChatListsToAddChat(
-        chatId: Long
+    chatId: Long
 ) = sync<ChatLists>(GetChatListsToAddChat(chatId))
 
 suspend fun TdHandler.getChatListsToAddChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<ChatLists>(GetChatListsToAddChat(chatId))
 
 fun TdHandler.getChatListsToAddChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatLists>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatLists>.() -> Unit)? = null
 ) = send(GetChatListsToAddChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -775,20 +774,20 @@ fun TdHandler.getChatListsToAddChatWith(
  *             Use getChatListsToAddChat to get suitable chat lists
  */
 suspend fun TdHandler.addChatToList(
-        chatId: Long,
-        chatList: ChatList? = null
+    chatId: Long,
+    chatList: ChatList? = null
 ) = sync<Ok>(AddChatToList(chatId, chatList))
 
 suspend fun TdHandler.addChatToListOrNull(
-        chatId: Long,
-        chatList: ChatList? = null
+    chatId: Long,
+    chatList: ChatList? = null
 ) = syncOrNull<Ok>(AddChatToList(chatId, chatList))
 
 fun TdHandler.addChatToListWith(
-        chatId: Long,
-        chatList: ChatList? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    chatList: ChatList? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddChatToList(chatId, chatList), stackIgnore + 1, submit)
 
 /**
@@ -797,17 +796,17 @@ fun TdHandler.addChatToListWith(
  * @chatFilterId - Chat filter identifier
  */
 suspend fun TdHandler.getChatFilter(
-        chatFilterId: Int
+    chatFilterId: Int
 ) = sync<ChatFilter>(GetChatFilter(chatFilterId))
 
 suspend fun TdHandler.getChatFilterOrNull(
-        chatFilterId: Int
+    chatFilterId: Int
 ) = syncOrNull<ChatFilter>(GetChatFilter(chatFilterId))
 
 fun TdHandler.getChatFilterWith(
-        chatFilterId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatFilter>.() -> Unit)? = null
+    chatFilterId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatFilter>.() -> Unit)? = null
 ) = send(GetChatFilter(chatFilterId), stackIgnore + 1, submit)
 
 /**
@@ -817,17 +816,17 @@ fun TdHandler.getChatFilterWith(
  * @filter - Chat filter
  */
 suspend fun TdHandler.createChatFilter(
-        filter: ChatFilter? = null
+    filter: ChatFilter? = null
 ) = sync<ChatFilterInfo>(CreateChatFilter(filter))
 
 suspend fun TdHandler.createChatFilterOrNull(
-        filter: ChatFilter? = null
+    filter: ChatFilter? = null
 ) = syncOrNull<ChatFilterInfo>(CreateChatFilter(filter))
 
 fun TdHandler.createChatFilterWith(
-        filter: ChatFilter? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatFilterInfo>.() -> Unit)? = null
+    filter: ChatFilter? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatFilterInfo>.() -> Unit)? = null
 ) = send(CreateChatFilter(filter), stackIgnore + 1, submit)
 
 /**
@@ -838,20 +837,20 @@ fun TdHandler.createChatFilterWith(
  * @filter - The edited chat filter
  */
 suspend fun TdHandler.editChatFilter(
-        chatFilterId: Int,
-        filter: ChatFilter? = null
+    chatFilterId: Int,
+    filter: ChatFilter? = null
 ) = sync<ChatFilterInfo>(EditChatFilter(chatFilterId, filter))
 
 suspend fun TdHandler.editChatFilterOrNull(
-        chatFilterId: Int,
-        filter: ChatFilter? = null
+    chatFilterId: Int,
+    filter: ChatFilter? = null
 ) = syncOrNull<ChatFilterInfo>(EditChatFilter(chatFilterId, filter))
 
 fun TdHandler.editChatFilterWith(
-        chatFilterId: Int,
-        filter: ChatFilter? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatFilterInfo>.() -> Unit)? = null
+    chatFilterId: Int,
+    filter: ChatFilter? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatFilterInfo>.() -> Unit)? = null
 ) = send(EditChatFilter(chatFilterId, filter), stackIgnore + 1, submit)
 
 /**
@@ -860,17 +859,17 @@ fun TdHandler.editChatFilterWith(
  * @chatFilterId - Chat filter identifier
  */
 suspend fun TdHandler.deleteChatFilter(
-        chatFilterId: Int
+    chatFilterId: Int
 ) = sync<Ok>(DeleteChatFilter(chatFilterId))
 
 suspend fun TdHandler.deleteChatFilterOrNull(
-        chatFilterId: Int
+    chatFilterId: Int
 ) = syncOrNull<Ok>(DeleteChatFilter(chatFilterId))
 
 fun TdHandler.deleteChatFilterWith(
-        chatFilterId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatFilterId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteChatFilter(chatFilterId), stackIgnore + 1, submit)
 
 /**
@@ -879,17 +878,17 @@ fun TdHandler.deleteChatFilterWith(
  * @chatFilterIds - Identifiers of chat filters in the new correct order
  */
 suspend fun TdHandler.reorderChatFilters(
-        chatFilterIds: IntArray
+    chatFilterIds: IntArray
 ) = sync<Ok>(ReorderChatFilters(chatFilterIds))
 
 suspend fun TdHandler.reorderChatFiltersOrNull(
-        chatFilterIds: IntArray
+    chatFilterIds: IntArray
 ) = syncOrNull<Ok>(ReorderChatFilters(chatFilterIds))
 
 fun TdHandler.reorderChatFiltersWith(
-        chatFilterIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatFilterIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReorderChatFilters(chatFilterIds), stackIgnore + 1, submit)
 
 /**
@@ -901,20 +900,20 @@ fun TdHandler.reorderChatFiltersWith(
  * @title - New title of the chat
  */
 suspend fun TdHandler.setChatTitle(
-        chatId: Long,
-        title: String? = null
+    chatId: Long,
+    title: String? = null
 ) = sync<Ok>(SetChatTitle(chatId, title))
 
 suspend fun TdHandler.setChatTitleOrNull(
-        chatId: Long,
-        title: String? = null
+    chatId: Long,
+    title: String? = null
 ) = syncOrNull<Ok>(SetChatTitle(chatId, title))
 
 fun TdHandler.setChatTitleWith(
-        chatId: Long,
-        title: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    title: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatTitle(chatId, title), stackIgnore + 1, submit)
 
 /**
@@ -927,20 +926,20 @@ fun TdHandler.setChatTitleWith(
  *          You can pass null to delete the chat photo
  */
 suspend fun TdHandler.setChatPhoto(
-        chatId: Long,
-        photo: InputChatPhoto? = null
+    chatId: Long,
+    photo: InputChatPhoto? = null
 ) = sync<Ok>(SetChatPhoto(chatId, photo))
 
 suspend fun TdHandler.setChatPhotoOrNull(
-        chatId: Long,
-        photo: InputChatPhoto? = null
+    chatId: Long,
+    photo: InputChatPhoto? = null
 ) = syncOrNull<Ok>(SetChatPhoto(chatId, photo))
 
 fun TdHandler.setChatPhotoWith(
-        chatId: Long,
-        photo: InputChatPhoto? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    photo: InputChatPhoto? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatPhoto(chatId, photo), stackIgnore + 1, submit)
 
 /**
@@ -952,20 +951,20 @@ fun TdHandler.setChatPhotoWith(
  * @permissions - New non-administrator members permissions in the chat
  */
 suspend fun TdHandler.setChatPermissions(
-        chatId: Long,
-        permissions: ChatPermissions? = null
+    chatId: Long,
+    permissions: ChatPermissions? = null
 ) = sync<Ok>(SetChatPermissions(chatId, permissions))
 
 suspend fun TdHandler.setChatPermissionsOrNull(
-        chatId: Long,
-        permissions: ChatPermissions? = null
+    chatId: Long,
+    permissions: ChatPermissions? = null
 ) = syncOrNull<Ok>(SetChatPermissions(chatId, permissions))
 
 fun TdHandler.setChatPermissionsWith(
-        chatId: Long,
-        permissions: ChatPermissions? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    permissions: ChatPermissions? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatPermissions(chatId, permissions), stackIgnore + 1, submit)
 
 /**
@@ -975,20 +974,20 @@ fun TdHandler.setChatPermissionsWith(
  * @draftMessage - New draft message
  */
 suspend fun TdHandler.setChatDraftMessage(
-        chatId: Long,
-        draftMessage: DraftMessage? = null
+    chatId: Long,
+    draftMessage: DraftMessage? = null
 ) = sync<Ok>(SetChatDraftMessage(chatId, draftMessage))
 
 suspend fun TdHandler.setChatDraftMessageOrNull(
-        chatId: Long,
-        draftMessage: DraftMessage? = null
+    chatId: Long,
+    draftMessage: DraftMessage? = null
 ) = syncOrNull<Ok>(SetChatDraftMessage(chatId, draftMessage))
 
 fun TdHandler.setChatDraftMessageWith(
-        chatId: Long,
-        draftMessage: DraftMessage? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    draftMessage: DraftMessage? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatDraftMessage(chatId, draftMessage), stackIgnore + 1, submit)
 
 /**
@@ -1000,20 +999,20 @@ fun TdHandler.setChatDraftMessageWith(
  *                         If the chat is muted for more than 1 week, it is considered to be muted forever
  */
 suspend fun TdHandler.setChatNotificationSettings(
-        chatId: Long,
-        notificationSettings: ChatNotificationSettings? = null
+    chatId: Long,
+    notificationSettings: ChatNotificationSettings? = null
 ) = sync<Ok>(SetChatNotificationSettings(chatId, notificationSettings))
 
 suspend fun TdHandler.setChatNotificationSettingsOrNull(
-        chatId: Long,
-        notificationSettings: ChatNotificationSettings? = null
+    chatId: Long,
+    notificationSettings: ChatNotificationSettings? = null
 ) = syncOrNull<Ok>(SetChatNotificationSettings(chatId, notificationSettings))
 
 fun TdHandler.setChatNotificationSettingsWith(
-        chatId: Long,
-        notificationSettings: ChatNotificationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    notificationSettings: ChatNotificationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatNotificationSettings(chatId, notificationSettings), stackIgnore + 1, submit)
 
 /**
@@ -1023,20 +1022,20 @@ fun TdHandler.setChatNotificationSettingsWith(
  * @isMarkedAsUnread - New value of is_marked_as_unread
  */
 suspend fun TdHandler.toggleChatIsMarkedAsUnread(
-        chatId: Long,
-        isMarkedAsUnread: Boolean
+    chatId: Long,
+    isMarkedAsUnread: Boolean
 ) = sync<Ok>(ToggleChatIsMarkedAsUnread(chatId, isMarkedAsUnread))
 
 suspend fun TdHandler.toggleChatIsMarkedAsUnreadOrNull(
-        chatId: Long,
-        isMarkedAsUnread: Boolean
+    chatId: Long,
+    isMarkedAsUnread: Boolean
 ) = syncOrNull<Ok>(ToggleChatIsMarkedAsUnread(chatId, isMarkedAsUnread))
 
 fun TdHandler.toggleChatIsMarkedAsUnreadWith(
-        chatId: Long,
-        isMarkedAsUnread: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    isMarkedAsUnread: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleChatIsMarkedAsUnread(chatId, isMarkedAsUnread), stackIgnore + 1, submit)
 
 /**
@@ -1046,20 +1045,20 @@ fun TdHandler.toggleChatIsMarkedAsUnreadWith(
  * @defaultDisableNotification - New value of default_disable_notification
  */
 suspend fun TdHandler.toggleChatDefaultDisableNotification(
-        chatId: Long,
-        defaultDisableNotification: Boolean
+    chatId: Long,
+    defaultDisableNotification: Boolean
 ) = sync<Ok>(ToggleChatDefaultDisableNotification(chatId, defaultDisableNotification))
 
 suspend fun TdHandler.toggleChatDefaultDisableNotificationOrNull(
-        chatId: Long,
-        defaultDisableNotification: Boolean
+    chatId: Long,
+    defaultDisableNotification: Boolean
 ) = syncOrNull<Ok>(ToggleChatDefaultDisableNotification(chatId, defaultDisableNotification))
 
 fun TdHandler.toggleChatDefaultDisableNotificationWith(
-        chatId: Long,
-        defaultDisableNotification: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    defaultDisableNotification: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleChatDefaultDisableNotification(chatId, defaultDisableNotification), stackIgnore + 1, submit)
 
 /**
@@ -1069,20 +1068,20 @@ fun TdHandler.toggleChatDefaultDisableNotificationWith(
  * @clientData - New value of client_data
  */
 suspend fun TdHandler.setChatClientData(
-        chatId: Long,
-        clientData: String? = null
+    chatId: Long,
+    clientData: String? = null
 ) = sync<Ok>(SetChatClientData(chatId, clientData))
 
 suspend fun TdHandler.setChatClientDataOrNull(
-        chatId: Long,
-        clientData: String? = null
+    chatId: Long,
+    clientData: String? = null
 ) = syncOrNull<Ok>(SetChatClientData(chatId, clientData))
 
 fun TdHandler.setChatClientDataWith(
-        chatId: Long,
-        clientData: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    clientData: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatClientData(chatId, clientData), stackIgnore + 1, submit)
 
 /**
@@ -1094,20 +1093,20 @@ fun TdHandler.setChatClientDataWith(
  * @description - New chat description
  */
 suspend fun TdHandler.setChatDescription(
-        chatId: Long,
-        description: String? = null
+    chatId: Long,
+    description: String? = null
 ) = sync<Ok>(SetChatDescription(chatId, description))
 
 suspend fun TdHandler.setChatDescriptionOrNull(
-        chatId: Long,
-        description: String? = null
+    chatId: Long,
+    description: String? = null
 ) = syncOrNull<Ok>(SetChatDescription(chatId, description))
 
 fun TdHandler.setChatDescriptionWith(
-        chatId: Long,
-        description: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    description: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatDescription(chatId, description), stackIgnore + 1, submit)
 
 /**
@@ -1123,20 +1122,20 @@ fun TdHandler.setChatDescriptionWith(
  *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
  */
 suspend fun TdHandler.setChatDiscussionGroup(
-        chatId: Long,
-        discussionChatId: Long
+    chatId: Long,
+    discussionChatId: Long
 ) = sync<Ok>(SetChatDiscussionGroup(chatId, discussionChatId))
 
 suspend fun TdHandler.setChatDiscussionGroupOrNull(
-        chatId: Long,
-        discussionChatId: Long
+    chatId: Long,
+    discussionChatId: Long
 ) = syncOrNull<Ok>(SetChatDiscussionGroup(chatId, discussionChatId))
 
 fun TdHandler.setChatDiscussionGroupWith(
-        chatId: Long,
-        discussionChatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    discussionChatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatDiscussionGroup(chatId, discussionChatId), stackIgnore + 1, submit)
 
 /**
@@ -1148,20 +1147,20 @@ fun TdHandler.setChatDiscussionGroupWith(
  *             Must be valid and not null
  */
 suspend fun TdHandler.setChatLocation(
-        chatId: Long,
-        location: ChatLocation? = null
+    chatId: Long,
+    location: ChatLocation? = null
 ) = sync<Ok>(SetChatLocation(chatId, location))
 
 suspend fun TdHandler.setChatLocationOrNull(
-        chatId: Long,
-        location: ChatLocation? = null
+    chatId: Long,
+    location: ChatLocation? = null
 ) = syncOrNull<Ok>(SetChatLocation(chatId, location))
 
 fun TdHandler.setChatLocationWith(
-        chatId: Long,
-        location: ChatLocation? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    location: ChatLocation? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatLocation(chatId, location), stackIgnore + 1, submit)
 
 /**
@@ -1174,20 +1173,20 @@ fun TdHandler.setChatLocationWith(
  *                  Must be one of 0, 10, 30, 60, 300, 900, 3600
  */
 suspend fun TdHandler.setChatSlowModeDelay(
-        chatId: Long,
-        slowModeDelay: Int
+    chatId: Long,
+    slowModeDelay: Int
 ) = sync<Ok>(SetChatSlowModeDelay(chatId, slowModeDelay))
 
 suspend fun TdHandler.setChatSlowModeDelayOrNull(
-        chatId: Long,
-        slowModeDelay: Int
+    chatId: Long,
+    slowModeDelay: Int
 ) = syncOrNull<Ok>(SetChatSlowModeDelay(chatId, slowModeDelay))
 
 fun TdHandler.setChatSlowModeDelayWith(
-        chatId: Long,
-        slowModeDelay: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    slowModeDelay: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatSlowModeDelay(chatId, slowModeDelay), stackIgnore + 1, submit)
 
 /**
@@ -1199,23 +1198,23 @@ fun TdHandler.setChatSlowModeDelayWith(
  * @disableNotification - True, if there should be no notification about the pinned message
  */
 suspend fun TdHandler.pinChatMessage(
-        chatId: Long,
-        messageId: Long,
-        disableNotification: Boolean
+    chatId: Long,
+    messageId: Long,
+    disableNotification: Boolean
 ) = sync<Ok>(PinChatMessage(chatId, messageId, disableNotification))
 
 suspend fun TdHandler.pinChatMessageOrNull(
-        chatId: Long,
-        messageId: Long,
-        disableNotification: Boolean
+    chatId: Long,
+    messageId: Long,
+    disableNotification: Boolean
 ) = syncOrNull<Ok>(PinChatMessage(chatId, messageId, disableNotification))
 
 fun TdHandler.pinChatMessageWith(
-        chatId: Long,
-        messageId: Long,
-        disableNotification: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    disableNotification: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(PinChatMessage(chatId, messageId, disableNotification), stackIgnore + 1, submit)
 
 /**
@@ -1225,17 +1224,17 @@ fun TdHandler.pinChatMessageWith(
  * @chatId - Identifier of the chat
  */
 suspend fun TdHandler.unpinChatMessage(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(UnpinChatMessage(chatId))
 
 suspend fun TdHandler.unpinChatMessageOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(UnpinChatMessage(chatId))
 
 fun TdHandler.unpinChatMessageWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(UnpinChatMessage(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1245,17 +1244,17 @@ fun TdHandler.unpinChatMessageWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.joinChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(JoinChat(chatId))
 
 suspend fun TdHandler.joinChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(JoinChat(chatId))
 
 fun TdHandler.joinChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(JoinChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1265,17 +1264,17 @@ fun TdHandler.joinChatWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.leaveChat(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(LeaveChat(chatId))
 
 suspend fun TdHandler.leaveChatOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(LeaveChat(chatId))
 
 fun TdHandler.leaveChatWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(LeaveChat(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1289,23 +1288,23 @@ fun TdHandler.leaveChatWith(
  *                 Ignored for supergroups and channels
  */
 suspend fun TdHandler.addChatMember(
-        chatId: Long,
-        userId: Int,
-        forwardLimit: Int
+    chatId: Long,
+    userId: Int,
+    forwardLimit: Int
 ) = sync<Ok>(AddChatMember(chatId, userId, forwardLimit))
 
 suspend fun TdHandler.addChatMemberOrNull(
-        chatId: Long,
-        userId: Int,
-        forwardLimit: Int
+    chatId: Long,
+    userId: Int,
+    forwardLimit: Int
 ) = syncOrNull<Ok>(AddChatMember(chatId, userId, forwardLimit))
 
 fun TdHandler.addChatMemberWith(
-        chatId: Long,
-        userId: Int,
-        forwardLimit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    userId: Int,
+    forwardLimit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddChatMember(chatId, userId, forwardLimit), stackIgnore + 1, submit)
 
 /**
@@ -1319,20 +1318,20 @@ fun TdHandler.addChatMemberWith(
  * @userIds - Identifiers of the users to be added to the chat
  */
 suspend fun TdHandler.addChatMembers(
-        chatId: Long,
-        userIds: IntArray
+    chatId: Long,
+    userIds: IntArray
 ) = sync<Ok>(AddChatMembers(chatId, userIds))
 
 suspend fun TdHandler.addChatMembersOrNull(
-        chatId: Long,
-        userIds: IntArray
+    chatId: Long,
+    userIds: IntArray
 ) = syncOrNull<Ok>(AddChatMembers(chatId, userIds))
 
 fun TdHandler.addChatMembersWith(
-        chatId: Long,
-        userIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    userIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddChatMembers(chatId, userIds), stackIgnore + 1, submit)
 
 /**
@@ -1346,23 +1345,23 @@ fun TdHandler.addChatMembersWith(
  * @status - The new status of the member in the chat
  */
 suspend fun TdHandler.setChatMemberStatus(
-        chatId: Long,
-        userId: Int,
-        status: ChatMemberStatus? = null
+    chatId: Long,
+    userId: Int,
+    status: ChatMemberStatus? = null
 ) = sync<Ok>(SetChatMemberStatus(chatId, userId, status))
 
 suspend fun TdHandler.setChatMemberStatusOrNull(
-        chatId: Long,
-        userId: Int,
-        status: ChatMemberStatus? = null
+    chatId: Long,
+    userId: Int,
+    status: ChatMemberStatus? = null
 ) = syncOrNull<Ok>(SetChatMemberStatus(chatId, userId, status))
 
 fun TdHandler.setChatMemberStatusWith(
-        chatId: Long,
-        userId: Int,
-        status: ChatMemberStatus? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    userId: Int,
+    status: ChatMemberStatus? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatMemberStatus(chatId, userId, status), stackIgnore + 1, submit)
 
 /**
@@ -1377,23 +1376,23 @@ fun TdHandler.setChatMemberStatusWith(
  * @password - The password of the current user
  */
 suspend fun TdHandler.transferChatOwnership(
-        chatId: Long,
-        userId: Int,
-        password: String? = null
+    chatId: Long,
+    userId: Int,
+    password: String? = null
 ) = sync<Ok>(TransferChatOwnership(chatId, userId, password))
 
 suspend fun TdHandler.transferChatOwnershipOrNull(
-        chatId: Long,
-        userId: Int,
-        password: String? = null
+    chatId: Long,
+    userId: Int,
+    password: String? = null
 ) = syncOrNull<Ok>(TransferChatOwnership(chatId, userId, password))
 
 fun TdHandler.transferChatOwnershipWith(
-        chatId: Long,
-        userId: Int,
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    userId: Int,
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(TransferChatOwnership(chatId, userId, password), stackIgnore + 1, submit)
 
 /**
@@ -1403,20 +1402,20 @@ fun TdHandler.transferChatOwnershipWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.getChatMember(
-        chatId: Long,
-        userId: Int
+    chatId: Long,
+    userId: Int
 ) = sync<ChatMember>(GetChatMember(chatId, userId))
 
 suspend fun TdHandler.getChatMemberOrNull(
-        chatId: Long,
-        userId: Int
+    chatId: Long,
+    userId: Int
 ) = syncOrNull<ChatMember>(GetChatMember(chatId, userId))
 
 fun TdHandler.getChatMemberWith(
-        chatId: Long,
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatMember>.() -> Unit)? = null
+    chatId: Long,
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatMember>.() -> Unit)? = null
 ) = send(GetChatMember(chatId, userId), stackIgnore + 1, submit)
 
 /**
@@ -1430,26 +1429,26 @@ fun TdHandler.getChatMemberWith(
  *           By default, chatMembersFilterMembers
  */
 suspend fun TdHandler.searchChatMembers(
-        chatId: Long,
-        query: String? = null,
-        limit: Int,
-        filter: ChatMembersFilter? = null
+    chatId: Long,
+    query: String? = null,
+    limit: Int,
+    filter: ChatMembersFilter? = null
 ) = sync<ChatMembers>(SearchChatMembers(chatId, query, limit, filter))
 
 suspend fun TdHandler.searchChatMembersOrNull(
-        chatId: Long,
-        query: String? = null,
-        limit: Int,
-        filter: ChatMembersFilter? = null
+    chatId: Long,
+    query: String? = null,
+    limit: Int,
+    filter: ChatMembersFilter? = null
 ) = syncOrNull<ChatMembers>(SearchChatMembers(chatId, query, limit, filter))
 
 fun TdHandler.searchChatMembersWith(
-        chatId: Long,
-        query: String? = null,
-        limit: Int,
-        filter: ChatMembersFilter? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatMembers>.() -> Unit)? = null
+    chatId: Long,
+    query: String? = null,
+    limit: Int,
+    filter: ChatMembersFilter? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatMembers>.() -> Unit)? = null
 ) = send(SearchChatMembers(chatId, query, limit, filter), stackIgnore + 1, submit)
 
 /**
@@ -1458,17 +1457,17 @@ fun TdHandler.searchChatMembersWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.getChatAdministrators(
-        chatId: Long
+    chatId: Long
 ) = sync<ChatAdministrators>(GetChatAdministrators(chatId))
 
 suspend fun TdHandler.getChatAdministratorsOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<ChatAdministrators>(GetChatAdministrators(chatId))
 
 fun TdHandler.getChatAdministratorsWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatAdministrators>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatAdministrators>.() -> Unit)? = null
 ) = send(GetChatAdministrators(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1478,20 +1477,20 @@ fun TdHandler.getChatAdministratorsWith(
  * @compareSound - If true, also chats with non-default sound will be returned
  */
 suspend fun TdHandler.getChatNotificationSettingsExceptions(
-        scope: NotificationSettingsScope? = null,
-        compareSound: Boolean
+    scope: NotificationSettingsScope? = null,
+    compareSound: Boolean
 ) = sync<Chats>(GetChatNotificationSettingsExceptions(scope, compareSound))
 
 suspend fun TdHandler.getChatNotificationSettingsExceptionsOrNull(
-        scope: NotificationSettingsScope? = null,
-        compareSound: Boolean
+    scope: NotificationSettingsScope? = null,
+    compareSound: Boolean
 ) = syncOrNull<Chats>(GetChatNotificationSettingsExceptions(scope, compareSound))
 
 fun TdHandler.getChatNotificationSettingsExceptionsWith(
-        scope: NotificationSettingsScope? = null,
-        compareSound: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chats>.() -> Unit)? = null
+    scope: NotificationSettingsScope? = null,
+    compareSound: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
 ) = send(GetChatNotificationSettingsExceptions(scope, compareSound), stackIgnore + 1, submit)
 
 /**
@@ -1503,23 +1502,23 @@ fun TdHandler.getChatNotificationSettingsExceptionsWith(
  * @isPinned - True, if the chat is pinned
  */
 suspend fun TdHandler.toggleChatIsPinned(
-        chatList: ChatList? = null,
-        chatId: Long,
-        isPinned: Boolean
+    chatList: ChatList? = null,
+    chatId: Long,
+    isPinned: Boolean
 ) = sync<Ok>(ToggleChatIsPinned(chatList, chatId, isPinned))
 
 suspend fun TdHandler.toggleChatIsPinnedOrNull(
-        chatList: ChatList? = null,
-        chatId: Long,
-        isPinned: Boolean
+    chatList: ChatList? = null,
+    chatId: Long,
+    isPinned: Boolean
 ) = syncOrNull<Ok>(ToggleChatIsPinned(chatList, chatId, isPinned))
 
 fun TdHandler.toggleChatIsPinnedWith(
-        chatList: ChatList? = null,
-        chatId: Long,
-        isPinned: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatList: ChatList? = null,
+    chatId: Long,
+    isPinned: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleChatIsPinned(chatList, chatId, isPinned), stackIgnore + 1, submit)
 
 /**
@@ -1529,20 +1528,20 @@ fun TdHandler.toggleChatIsPinnedWith(
  * @chatIds - The new list of pinned chats
  */
 suspend fun TdHandler.setPinnedChats(
-        chatList: ChatList? = null,
-        chatIds: LongArray
+    chatList: ChatList? = null,
+    chatIds: LongArray
 ) = sync<Ok>(SetPinnedChats(chatList, chatIds))
 
 suspend fun TdHandler.setPinnedChatsOrNull(
-        chatList: ChatList? = null,
-        chatIds: LongArray
+    chatList: ChatList? = null,
+    chatIds: LongArray
 ) = syncOrNull<Ok>(SetPinnedChats(chatList, chatIds))
 
 fun TdHandler.setPinnedChatsWith(
-        chatList: ChatList? = null,
-        chatIds: LongArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatList: ChatList? = null,
+    chatIds: LongArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetPinnedChats(chatList, chatIds), stackIgnore + 1, submit)
 
 /**
@@ -1554,17 +1553,17 @@ fun TdHandler.setPinnedChatsWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.generateChatInviteLink(
-        chatId: Long
+    chatId: Long
 ) = sync<ChatInviteLink>(GenerateChatInviteLink(chatId))
 
 suspend fun TdHandler.generateChatInviteLinkOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<ChatInviteLink>(GenerateChatInviteLink(chatId))
 
 fun TdHandler.generateChatInviteLinkWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
 ) = send(GenerateChatInviteLink(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1573,17 +1572,17 @@ fun TdHandler.generateChatInviteLinkWith(
  * @inviteLink - Invite link to be checked
  */
 suspend fun TdHandler.checkChatInviteLink(
-        inviteLink: String? = null
+    inviteLink: String? = null
 ) = sync<ChatInviteLinkInfo>(CheckChatInviteLink(inviteLink))
 
 suspend fun TdHandler.checkChatInviteLinkOrNull(
-        inviteLink: String? = null
+    inviteLink: String? = null
 ) = syncOrNull<ChatInviteLinkInfo>(CheckChatInviteLink(inviteLink))
 
 fun TdHandler.checkChatInviteLinkWith(
-        inviteLink: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatInviteLinkInfo>.() -> Unit)? = null
+    inviteLink: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLinkInfo>.() -> Unit)? = null
 ) = send(CheckChatInviteLink(inviteLink), stackIgnore + 1, submit)
 
 /**
@@ -1593,17 +1592,17 @@ fun TdHandler.checkChatInviteLinkWith(
  * @inviteLink - Invite link to import
  */
 suspend fun TdHandler.joinChatByInviteLink(
-        inviteLink: String? = null
+    inviteLink: String? = null
 ) = sync<Chat>(JoinChatByInviteLink(inviteLink))
 
 suspend fun TdHandler.joinChatByInviteLinkOrNull(
-        inviteLink: String? = null
+    inviteLink: String? = null
 ) = syncOrNull<Chat>(JoinChatByInviteLink(inviteLink))
 
 fun TdHandler.joinChatByInviteLinkWith(
-        inviteLink: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Chat>.() -> Unit)? = null
+    inviteLink: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(JoinChatByInviteLink(inviteLink), stackIgnore + 1, submit)
 
 /**
@@ -1615,23 +1614,23 @@ fun TdHandler.joinChatByInviteLinkWith(
  * @limit - The maximum number of photos to be returned
  */
 suspend fun TdHandler.getUserProfilePhotos(
-        userId: Int,
-        offset: Int,
-        limit: Int
+    userId: Int,
+    offset: Int,
+    limit: Int
 ) = sync<ChatPhotos>(GetUserProfilePhotos(userId, offset, limit))
 
 suspend fun TdHandler.getUserProfilePhotosOrNull(
-        userId: Int,
-        offset: Int,
-        limit: Int
+    userId: Int,
+    offset: Int,
+    limit: Int
 ) = syncOrNull<ChatPhotos>(GetUserProfilePhotos(userId, offset, limit))
 
 fun TdHandler.getUserProfilePhotosWith(
-        userId: Int,
-        offset: Int,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatPhotos>.() -> Unit)? = null
+    userId: Int,
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatPhotos>.() -> Unit)? = null
 ) = send(GetUserProfilePhotos(userId, offset, limit), stackIgnore + 1, submit)
 
 /**
@@ -1647,26 +1646,26 @@ fun TdHandler.getUserProfilePhotosWith(
  *          Up to 200
  */
 suspend fun TdHandler.getSupergroupMembers(
-        supergroupId: Int,
-        filter: SupergroupMembersFilter? = null,
-        offset: Int,
-        limit: Int
+    supergroupId: Int,
+    filter: SupergroupMembersFilter? = null,
+    offset: Int,
+    limit: Int
 ) = sync<ChatMembers>(GetSupergroupMembers(supergroupId, filter, offset, limit))
 
 suspend fun TdHandler.getSupergroupMembersOrNull(
-        supergroupId: Int,
-        filter: SupergroupMembersFilter? = null,
-        offset: Int,
-        limit: Int
+    supergroupId: Int,
+    filter: SupergroupMembersFilter? = null,
+    offset: Int,
+    limit: Int
 ) = syncOrNull<ChatMembers>(GetSupergroupMembers(supergroupId, filter, offset, limit))
 
 fun TdHandler.getSupergroupMembersWith(
-        supergroupId: Int,
-        filter: SupergroupMembersFilter? = null,
-        offset: Int,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatMembers>.() -> Unit)? = null
+    supergroupId: Int,
+    filter: SupergroupMembersFilter? = null,
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatMembers>.() -> Unit)? = null
 ) = send(GetSupergroupMembers(supergroupId, filter, offset, limit), stackIgnore + 1, submit)
 
 /**
@@ -1687,32 +1686,32 @@ fun TdHandler.getSupergroupMembersWith(
  *            By default, events relating to all users will be returned
  */
 suspend fun TdHandler.getChatEventLog(
-        chatId: Long,
-        query: String? = null,
-        fromEventId: Long,
-        limit: Int,
-        filters: ChatEventLogFilters? = null,
-        userIds: IntArray
+    chatId: Long,
+    query: String? = null,
+    fromEventId: Long,
+    limit: Int,
+    filters: ChatEventLogFilters? = null,
+    userIds: IntArray
 ) = sync<ChatEvents>(GetChatEventLog(chatId, query, fromEventId, limit, filters, userIds))
 
 suspend fun TdHandler.getChatEventLogOrNull(
-        chatId: Long,
-        query: String? = null,
-        fromEventId: Long,
-        limit: Int,
-        filters: ChatEventLogFilters? = null,
-        userIds: IntArray
+    chatId: Long,
+    query: String? = null,
+    fromEventId: Long,
+    limit: Int,
+    filters: ChatEventLogFilters? = null,
+    userIds: IntArray
 ) = syncOrNull<ChatEvents>(GetChatEventLog(chatId, query, fromEventId, limit, filters, userIds))
 
 fun TdHandler.getChatEventLogWith(
-        chatId: Long,
-        query: String? = null,
-        fromEventId: Long,
-        limit: Int,
-        filters: ChatEventLogFilters? = null,
-        userIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatEvents>.() -> Unit)? = null
+    chatId: Long,
+    query: String? = null,
+    fromEventId: Long,
+    limit: Int,
+    filters: ChatEventLogFilters? = null,
+    userIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatEvents>.() -> Unit)? = null
 ) = send(GetChatEventLog(chatId, query, fromEventId, limit, filters, userIds), stackIgnore + 1, submit)
 
 /**
@@ -1721,17 +1720,17 @@ fun TdHandler.getChatEventLogWith(
  * @chatId - Chat identifier
  */
 suspend fun TdHandler.removeChatActionBar(
-        chatId: Long
+    chatId: Long
 ) = sync<Ok>(RemoveChatActionBar(chatId))
 
 suspend fun TdHandler.removeChatActionBarOrNull(
-        chatId: Long
+    chatId: Long
 ) = syncOrNull<Ok>(RemoveChatActionBar(chatId))
 
 fun TdHandler.removeChatActionBarWith(
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveChatActionBar(chatId), stackIgnore + 1, submit)
 
 /**
@@ -1743,23 +1742,23 @@ fun TdHandler.removeChatActionBarWith(
  * @messageIds - Identifiers of reported messages, if any
  */
 suspend fun TdHandler.reportChat(
-        chatId: Long,
-        reason: ChatReportReason? = null,
-        messageIds: LongArray
+    chatId: Long,
+    reason: ChatReportReason? = null,
+    messageIds: LongArray
 ) = sync<Ok>(ReportChat(chatId, reason, messageIds))
 
 suspend fun TdHandler.reportChatOrNull(
-        chatId: Long,
-        reason: ChatReportReason? = null,
-        messageIds: LongArray
+    chatId: Long,
+    reason: ChatReportReason? = null,
+    messageIds: LongArray
 ) = syncOrNull<Ok>(ReportChat(chatId, reason, messageIds))
 
 fun TdHandler.reportChatWith(
-        chatId: Long,
-        reason: ChatReportReason? = null,
-        messageIds: LongArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    reason: ChatReportReason? = null,
+    messageIds: LongArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReportChat(chatId, reason, messageIds), stackIgnore + 1, submit)
 
 /**
@@ -1771,23 +1770,23 @@ fun TdHandler.reportChatWith(
  * @isDark - Pass true if a URL with the dark theme must be returned
  */
 suspend fun TdHandler.getChatStatisticsUrl(
-        chatId: Long,
-        parameters: String? = null,
-        isDark: Boolean
+    chatId: Long,
+    parameters: String? = null,
+    isDark: Boolean
 ) = sync<HttpUrl>(GetChatStatisticsUrl(chatId, parameters, isDark))
 
 suspend fun TdHandler.getChatStatisticsUrlOrNull(
-        chatId: Long,
-        parameters: String? = null,
-        isDark: Boolean
+    chatId: Long,
+    parameters: String? = null,
+    isDark: Boolean
 ) = syncOrNull<HttpUrl>(GetChatStatisticsUrl(chatId, parameters, isDark))
 
 fun TdHandler.getChatStatisticsUrlWith(
-        chatId: Long,
-        parameters: String? = null,
-        isDark: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+    chatId: Long,
+    parameters: String? = null,
+    isDark: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
 ) = send(GetChatStatisticsUrl(chatId, parameters, isDark), stackIgnore + 1, submit)
 
 /**
@@ -1799,18 +1798,18 @@ fun TdHandler.getChatStatisticsUrlWith(
  * @isDark - Pass true if a dark theme is used by the app
  */
 suspend fun TdHandler.getChatStatistics(
-        chatId: Long,
-        isDark: Boolean
+    chatId: Long,
+    isDark: Boolean
 ) = sync<ChatStatistics>(GetChatStatistics(chatId, isDark))
 
 suspend fun TdHandler.getChatStatisticsOrNull(
-        chatId: Long,
-        isDark: Boolean
+    chatId: Long,
+    isDark: Boolean
 ) = syncOrNull<ChatStatistics>(GetChatStatistics(chatId, isDark))
 
 fun TdHandler.getChatStatisticsWith(
-        chatId: Long,
-        isDark: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<ChatStatistics>.() -> Unit)? = null
+    chatId: Long,
+    isDark: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatStatistics>.() -> Unit)? = null
 ) = send(GetChatStatistics(chatId, isDark), stackIgnore + 1, submit)

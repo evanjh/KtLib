@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Changes the database encryption key
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @newEncryptionKey - New encryption key
  */
 suspend fun TdHandler.setDatabaseEncryptionKey(
-        newEncryptionKey: ByteArray
+    newEncryptionKey: ByteArray
 ) = sync<Ok>(SetDatabaseEncryptionKey(newEncryptionKey))
 
 suspend fun TdHandler.setDatabaseEncryptionKeyOrNull(
-        newEncryptionKey: ByteArray
+    newEncryptionKey: ByteArray
 ) = syncOrNull<Ok>(SetDatabaseEncryptionKey(newEncryptionKey))
 
 fun TdHandler.setDatabaseEncryptionKeyWith(
-        newEncryptionKey: ByteArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    newEncryptionKey: ByteArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetDatabaseEncryptionKey(newEncryptionKey), stackIgnore + 1, submit)
 
 /**
@@ -34,6 +33,6 @@ suspend fun TdHandler.getDatabaseStatistics() = sync<DatabaseStatistics>(GetData
 suspend fun TdHandler.getDatabaseStatisticsOrNull() = syncOrNull<DatabaseStatistics>(GetDatabaseStatistics())
 
 fun TdHandler.getDatabaseStatisticsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<DatabaseStatistics>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<DatabaseStatistics>.() -> Unit)? = null
 ) = send(GetDatabaseStatistics(), stackIgnore + 1, submit)

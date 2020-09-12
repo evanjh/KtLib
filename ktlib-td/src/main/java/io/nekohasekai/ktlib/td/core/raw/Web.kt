@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns a web page preview by the text of the message
@@ -14,17 +13,17 @@ import td.TdApi.*
  * @text - Message text with formatting
  */
 suspend fun TdHandler.getWebPagePreview(
-        text: FormattedText? = null
+    text: FormattedText? = null
 ) = sync<WebPage>(GetWebPagePreview(text))
 
 suspend fun TdHandler.getWebPagePreviewOrNull(
-        text: FormattedText? = null
+    text: FormattedText? = null
 ) = syncOrNull<WebPage>(GetWebPagePreview(text))
 
 fun TdHandler.getWebPagePreviewWith(
-        text: FormattedText? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<WebPage>.() -> Unit)? = null
+    text: FormattedText? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<WebPage>.() -> Unit)? = null
 ) = send(GetWebPagePreview(text), stackIgnore + 1, submit)
 
 /**
@@ -35,20 +34,20 @@ fun TdHandler.getWebPagePreviewWith(
  * @forceFull - If true, the full instant view for the web page will be returned
  */
 suspend fun TdHandler.getWebPageInstantView(
-        url: String? = null,
-        forceFull: Boolean
+    url: String? = null,
+    forceFull: Boolean
 ) = sync<WebPageInstantView>(GetWebPageInstantView(url, forceFull))
 
 suspend fun TdHandler.getWebPageInstantViewOrNull(
-        url: String? = null,
-        forceFull: Boolean
+    url: String? = null,
+    forceFull: Boolean
 ) = syncOrNull<WebPageInstantView>(GetWebPageInstantView(url, forceFull))
 
 fun TdHandler.getWebPageInstantViewWith(
-        url: String? = null,
-        forceFull: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<WebPageInstantView>.() -> Unit)? = null
+    url: String? = null,
+    forceFull: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<WebPageInstantView>.() -> Unit)? = null
 ) = send(GetWebPageInstantView(url, forceFull), stackIgnore + 1, submit)
 
 /**
@@ -57,17 +56,17 @@ fun TdHandler.getWebPageInstantViewWith(
  * @websiteId - Website identifier
  */
 suspend fun TdHandler.disconnectWebsite(
-        websiteId: Long
+    websiteId: Long
 ) = sync<Ok>(DisconnectWebsite(websiteId))
 
 suspend fun TdHandler.disconnectWebsiteOrNull(
-        websiteId: Long
+    websiteId: Long
 ) = syncOrNull<Ok>(DisconnectWebsite(websiteId))
 
 fun TdHandler.disconnectWebsiteWith(
-        websiteId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    websiteId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DisconnectWebsite(websiteId), stackIgnore + 1, submit)
 
 /**
@@ -78,6 +77,6 @@ suspend fun TdHandler.disconnectAllWebsites() = sync<Ok>(DisconnectAllWebsites()
 suspend fun TdHandler.disconnectAllWebsitesOrNull() = syncOrNull<Ok>(DisconnectAllWebsites())
 
 fun TdHandler.disconnectAllWebsitesWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DisconnectAllWebsites(), stackIgnore + 1, submit)

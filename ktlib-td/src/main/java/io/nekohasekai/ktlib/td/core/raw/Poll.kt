@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Changes the user answer to a poll
@@ -16,23 +15,23 @@ import td.TdApi.*
  *              User can choose more than 1 answer option only is the poll allows multiple answers
  */
 suspend fun TdHandler.setPollAnswer(
-        chatId: Long,
-        messageId: Long,
-        optionIds: IntArray
+    chatId: Long,
+    messageId: Long,
+    optionIds: IntArray
 ) = sync<Ok>(SetPollAnswer(chatId, messageId, optionIds))
 
 suspend fun TdHandler.setPollAnswerOrNull(
-        chatId: Long,
-        messageId: Long,
-        optionIds: IntArray
+    chatId: Long,
+    messageId: Long,
+    optionIds: IntArray
 ) = syncOrNull<Ok>(SetPollAnswer(chatId, messageId, optionIds))
 
 fun TdHandler.setPollAnswerWith(
-        chatId: Long,
-        messageId: Long,
-        optionIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    optionIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetPollAnswer(chatId, messageId, optionIds), stackIgnore + 1, submit)
 
 /**
@@ -45,21 +44,21 @@ fun TdHandler.setPollAnswerWith(
  *                For bots only
  */
 suspend fun TdHandler.stopPoll(
-        chatId: Long,
-        messageId: Long,
-        replyMarkup: ReplyMarkup? = null
+    chatId: Long,
+    messageId: Long,
+    replyMarkup: ReplyMarkup? = null
 ) = sync<Ok>(StopPoll(chatId, messageId, replyMarkup))
 
 suspend fun TdHandler.stopPollOrNull(
-        chatId: Long,
-        messageId: Long,
-        replyMarkup: ReplyMarkup? = null
+    chatId: Long,
+    messageId: Long,
+    replyMarkup: ReplyMarkup? = null
 ) = syncOrNull<Ok>(StopPoll(chatId, messageId, replyMarkup))
 
 fun TdHandler.stopPollWith(
-        chatId: Long,
-        messageId: Long,
-        replyMarkup: ReplyMarkup? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    replyMarkup: ReplyMarkup? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(StopPoll(chatId, messageId, replyMarkup), stackIgnore + 1, submit)

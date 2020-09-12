@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns a 2-step verification recovery email address that was previously set up
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @password - The password for the current user
  */
 suspend fun TdHandler.getRecoveryEmailAddress(
-        password: String? = null
+    password: String? = null
 ) = sync<RecoveryEmailAddress>(GetRecoveryEmailAddress(password))
 
 suspend fun TdHandler.getRecoveryEmailAddressOrNull(
-        password: String? = null
+    password: String? = null
 ) = syncOrNull<RecoveryEmailAddress>(GetRecoveryEmailAddress(password))
 
 fun TdHandler.getRecoveryEmailAddressWith(
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<RecoveryEmailAddress>.() -> Unit)? = null
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<RecoveryEmailAddress>.() -> Unit)? = null
 ) = send(GetRecoveryEmailAddress(password), stackIgnore + 1, submit)
 
 /**
@@ -34,8 +33,8 @@ suspend fun TdHandler.requestPasswordRecovery() = sync<EmailAddressAuthenticatio
 suspend fun TdHandler.requestPasswordRecoveryOrNull() = syncOrNull<EmailAddressAuthenticationCodeInfo>(RequestPasswordRecovery())
 
 fun TdHandler.requestPasswordRecoveryWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(RequestPasswordRecovery(), stackIgnore + 1, submit)
 
 /**
@@ -44,17 +43,17 @@ fun TdHandler.requestPasswordRecoveryWith(
  * @emailAddress - Email address
  */
 suspend fun TdHandler.sendEmailAddressVerificationCode(
-        emailAddress: String? = null
+    emailAddress: String? = null
 ) = sync<EmailAddressAuthenticationCodeInfo>(SendEmailAddressVerificationCode(emailAddress))
 
 suspend fun TdHandler.sendEmailAddressVerificationCodeOrNull(
-        emailAddress: String? = null
+    emailAddress: String? = null
 ) = syncOrNull<EmailAddressAuthenticationCodeInfo>(SendEmailAddressVerificationCode(emailAddress))
 
 fun TdHandler.sendEmailAddressVerificationCodeWith(
-        emailAddress: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
+    emailAddress: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(SendEmailAddressVerificationCode(emailAddress), stackIgnore + 1, submit)
 
 /**
@@ -65,6 +64,6 @@ suspend fun TdHandler.resendEmailAddressVerificationCode() = sync<EmailAddressAu
 suspend fun TdHandler.resendEmailAddressVerificationCodeOrNull() = syncOrNull<EmailAddressAuthenticationCodeInfo>(ResendEmailAddressVerificationCode())
 
 fun TdHandler.resendEmailAddressVerificationCodeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<EmailAddressAuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(ResendEmailAddressVerificationCode(), stackIgnore + 1, submit)

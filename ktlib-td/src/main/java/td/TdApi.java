@@ -1,6 +1,6 @@
 package td;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
 @SuppressWarnings("ALL")
 public class TdApi {
@@ -13,7 +13,7 @@ public class TdApi {
 
     }
 
-    public static abstract class Function extends Object {
+    public static abstract class Function extends Object{
 
         public native String toString();
 
@@ -23,18 +23,17 @@ public class TdApi {
      * An object of this type can be returned on every function call, in case of an error
      *
      * @code - Error code
-     * Subject to future changes
-     * If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
+     *         Subject to future changes
+     *         If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
      * @message - Error message
-     * Subject to future changes
+     *            Subject to future changes
      */
     public static class Error extends Object {
 
         public int code;
         public String message;
 
-        public Error() {
-        }
+        public Error() {}
 
         public Error(int code, String message) {
 
@@ -44,9 +43,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1679978726;
-        }
+        public int getConstructor() { return -1679978726; }
 
     }
 
@@ -57,9 +54,7 @@ public class TdApi {
     public static class Ok extends Object {
 
         @Override
-        public int getConstructor() {
-            return -722616727;
-        }
+        public int getConstructor() { return -722616727; }
 
     }
 
@@ -69,25 +64,25 @@ public class TdApi {
      *
      * @useTestDc - If set to true, the Telegram test environment will be used instead of the production environment
      * @databaseDirectory - The path to the directory for the persistent database
-     * If empty, the current working directory will be used
+     *                      If empty, the current working directory will be used
      * @filesDirectory - The path to the directory for storing files
-     * If empty, database_directory will be used
+     *                   If empty, database_directory will be used
      * @useFileDatabase - If set to true, information about downloaded and uploaded files will be saved between application restarts
      * @useChatInfoDatabase - If set to true, the library will maintain a cache of users, basic groups, supergroups, channels and secret chats
-     * Implies use_file_database
+     *                        Implies use_file_database
      * @useMessageDatabase - If set to true, the library will maintain a cache of chats and messages
-     * Implies use_chat_info_database
+     *                       Implies use_chat_info_database
      * @useSecretChats - If set to true, support for secret chats will be enabled
      * @apiId - Application identifier for Telegram API access, which can be obtained at https://my.telegram.org
      * @apiHash - Application identifier hash for Telegram API access, which can be obtained at https://my.telegram.org
      * @systemLanguageCode - IETF language tag of the user's operating system language
      * @deviceModel - Model of the device the application is being run on
      * @systemVersion - Version of the operating system the application is being run on
-     * If empty, the version is automatically detected by TDLib
+     *                  If empty, the version is automatically detected by TDLib
      * @applicationVersion - Application version
      * @enableStorageOptimizer - If set to true, old files will automatically be deleted
      * @ignoreFileNames - If set to true, original file names will be ignored
-     * Otherwise, downloaded files will be saved under names as close as possible to the original name
+     *                    Otherwise, downloaded files will be saved under names as close as possible to the original name
      */
     public static class TdlibParameters extends Object {
 
@@ -107,8 +102,7 @@ public class TdApi {
         public boolean enableStorageOptimizer;
         public boolean ignoreFileNames;
 
-        public TdlibParameters() {
-        }
+        public TdlibParameters() {}
 
         public TdlibParameters(boolean useTestDc, String databaseDirectory, String filesDirectory, boolean useFileDatabase, boolean useChatInfoDatabase, boolean useMessageDatabase, boolean useSecretChats, int apiId, String apiHash, String systemLanguageCode, String deviceModel, String systemVersion, String applicationVersion, boolean enableStorageOptimizer, boolean ignoreFileNames) {
 
@@ -131,9 +125,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -761520773;
-        }
+        public int getConstructor() { return -761520773; }
 
     }
 
@@ -141,8 +133,7 @@ public class TdApi {
     /**
      * Provides information about the method by which an authentication code is delivered to the user
      */
-    public static abstract class AuthenticationCodeType extends Object {
-    }
+    public static abstract class AuthenticationCodeType extends Object {}
 
     /**
      * An authentication code is delivered via a private Telegram message, which can be viewed from another active session
@@ -153,8 +144,7 @@ public class TdApi {
 
         public int length;
 
-        public AuthenticationCodeTypeTelegramMessage() {
-        }
+        public AuthenticationCodeTypeTelegramMessage() {}
 
         public AuthenticationCodeTypeTelegramMessage(int length) {
 
@@ -163,9 +153,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2079628074;
-        }
+        public int getConstructor() { return 2079628074; }
 
     }
 
@@ -179,8 +167,7 @@ public class TdApi {
 
         public int length;
 
-        public AuthenticationCodeTypeSms() {
-        }
+        public AuthenticationCodeTypeSms() {}
 
         public AuthenticationCodeTypeSms(int length) {
 
@@ -189,9 +176,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 962650760;
-        }
+        public int getConstructor() { return 962650760; }
 
     }
 
@@ -205,8 +190,7 @@ public class TdApi {
 
         public int length;
 
-        public AuthenticationCodeTypeCall() {
-        }
+        public AuthenticationCodeTypeCall() {}
 
         public AuthenticationCodeTypeCall(int length) {
 
@@ -215,9 +199,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1636265063;
-        }
+        public int getConstructor() { return 1636265063; }
 
     }
 
@@ -232,8 +214,7 @@ public class TdApi {
 
         public String pattern;
 
-        public AuthenticationCodeTypeFlashCall() {
-        }
+        public AuthenticationCodeTypeFlashCall() {}
 
         public AuthenticationCodeTypeFlashCall(String pattern) {
 
@@ -242,9 +223,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1395882402;
-        }
+        public int getConstructor() { return 1395882402; }
 
     }
 
@@ -261,12 +240,10 @@ public class TdApi {
 
         public String phoneNumber;
         public AuthenticationCodeType type;
-        @Nullable
-        public AuthenticationCodeType nextType;
+        @Nullable public AuthenticationCodeType nextType;
         public int timeout;
 
-        public AuthenticationCodeInfo() {
-        }
+        public AuthenticationCodeInfo() {}
 
         public AuthenticationCodeInfo(String phoneNumber, AuthenticationCodeType type, @Nullable AuthenticationCodeType nextType, int timeout) {
 
@@ -278,9 +255,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -860345416;
-        }
+        public int getConstructor() { return -860345416; }
 
     }
 
@@ -290,15 +265,14 @@ public class TdApi {
      *
      * @emailAddressPattern - Pattern of the email address to which an authentication code was sent
      * @length - Length of the code
-     * 0 if unknown
+     *           0 if unknown
      */
     public static class EmailAddressAuthenticationCodeInfo extends Object {
 
         public String emailAddressPattern;
         public int length;
 
-        public EmailAddressAuthenticationCodeInfo() {
-        }
+        public EmailAddressAuthenticationCodeInfo() {}
 
         public EmailAddressAuthenticationCodeInfo(String emailAddressPattern, int length) {
 
@@ -308,9 +282,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1151066659;
-        }
+        public int getConstructor() { return 1151066659; }
 
     }
 
@@ -328,8 +300,7 @@ public class TdApi {
         public int length;
         public TextEntityType type;
 
-        public TextEntity() {
-        }
+        public TextEntity() {}
 
         public TextEntity(int offset, int length, TextEntityType type) {
 
@@ -340,9 +311,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1951688280;
-        }
+        public int getConstructor() { return -1951688280; }
 
     }
 
@@ -356,8 +325,7 @@ public class TdApi {
 
         public TextEntity[] entities;
 
-        public TextEntities() {
-        }
+        public TextEntities() {}
 
         public TextEntities(TextEntity[] entities) {
 
@@ -366,9 +334,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -933199172;
-        }
+        public int getConstructor() { return -933199172; }
 
     }
 
@@ -378,18 +344,17 @@ public class TdApi {
      *
      * @text - The text
      * @entities - Entities contained in the text
-     * Entities can be nested, but must not mutually intersect with each other
-     * Pre, Code and PreCode entities can't contain other entities
-     * Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities
-     * All other entities can't contain each other
+     *             Entities can be nested, but must not mutually intersect with each other
+     *             Pre, Code and PreCode entities can't contain other entities
+     *             Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities
+     *             All other entities can't contain each other
      */
     public static class FormattedText extends Object {
 
         public String text;
         public TextEntity[] entities;
 
-        public FormattedText() {
-        }
+        public FormattedText() {}
 
         public FormattedText(String text, TextEntity[] entities) {
 
@@ -399,9 +364,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -252624564;
-        }
+        public int getConstructor() { return -252624564; }
 
     }
 
@@ -411,7 +374,7 @@ public class TdApi {
      *
      * @text - Text of the terms of service
      * @minUserAge - The minimum age of a user to be able to accept the terms
-     * 0 if any
+     *               0 if any
      * @showPopup - True, if a blocking popup with terms of service must be shown to the user
      */
     public static class TermsOfService extends Object {
@@ -420,8 +383,7 @@ public class TdApi {
         public int minUserAge;
         public boolean showPopup;
 
-        public TermsOfService() {
-        }
+        public TermsOfService() {}
 
         public TermsOfService(FormattedText text, int minUserAge, boolean showPopup) {
 
@@ -432,9 +394,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 739422597;
-        }
+        public int getConstructor() { return 739422597; }
 
     }
 
@@ -442,8 +402,7 @@ public class TdApi {
     /**
      * Represents the current authorization state of the TDLib client
      */
-    public static abstract class AuthorizationState extends Object {
-    }
+    public static abstract class AuthorizationState extends Object {}
 
     /**
      * TDLib needs TdlibParameters for initialization
@@ -451,9 +410,7 @@ public class TdApi {
     public static class AuthorizationStateWaitTdlibParameters extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return 904720988;
-        }
+        public int getConstructor() { return 904720988; }
 
     }
 
@@ -467,8 +424,7 @@ public class TdApi {
 
         public boolean isEncrypted;
 
-        public AuthorizationStateWaitEncryptionKey() {
-        }
+        public AuthorizationStateWaitEncryptionKey() {}
 
         public AuthorizationStateWaitEncryptionKey(boolean isEncrypted) {
 
@@ -477,9 +433,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 612103496;
-        }
+        public int getConstructor() { return 612103496; }
 
     }
 
@@ -491,9 +445,7 @@ public class TdApi {
     public static class AuthorizationStateWaitPhoneNumber extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return 306402531;
-        }
+        public int getConstructor() { return 306402531; }
 
     }
 
@@ -507,8 +459,7 @@ public class TdApi {
 
         public AuthenticationCodeInfo codeInfo;
 
-        public AuthorizationStateWaitCode() {
-        }
+        public AuthorizationStateWaitCode() {}
 
         public AuthorizationStateWaitCode(AuthenticationCodeInfo codeInfo) {
 
@@ -517,9 +468,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 52643073;
-        }
+        public int getConstructor() { return 52643073; }
 
     }
 
@@ -528,14 +477,13 @@ public class TdApi {
      * The user needs to confirm authorization on another logged in device by scanning a QR code with the provided link
      *
      * @link - A tg:// URL for the QR code
-     * The link will be updated frequently
+     *         The link will be updated frequently
      */
     public static class AuthorizationStateWaitOtherDeviceConfirmation extends AuthorizationState {
 
         public String link;
 
-        public AuthorizationStateWaitOtherDeviceConfirmation() {
-        }
+        public AuthorizationStateWaitOtherDeviceConfirmation() {}
 
         public AuthorizationStateWaitOtherDeviceConfirmation(String link) {
 
@@ -544,9 +492,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 860166378;
-        }
+        public int getConstructor() { return 860166378; }
 
     }
 
@@ -560,8 +506,7 @@ public class TdApi {
 
         public TermsOfService termsOfService;
 
-        public AuthorizationStateWaitRegistration() {
-        }
+        public AuthorizationStateWaitRegistration() {}
 
         public AuthorizationStateWaitRegistration(TermsOfService termsOfService) {
 
@@ -570,9 +515,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 550350511;
-        }
+        public int getConstructor() { return 550350511; }
 
     }
 
@@ -583,17 +526,15 @@ public class TdApi {
      * @passwordHint - Hint for the password
      * @hasRecoveryEmailAddress - True, if a recovery email address has been set up
      * @recoveryEmailAddressPattern - Pattern of the email address to which the recovery email was sent
-     * Empty until a recovery email has been sent
+     *                                Empty until a recovery email has been sent
      */
     public static class AuthorizationStateWaitPassword extends AuthorizationState {
 
-        @Nullable
-        public String passwordHint;
+        @Nullable public String passwordHint;
         public boolean hasRecoveryEmailAddress;
         public String recoveryEmailAddressPattern;
 
-        public AuthorizationStateWaitPassword() {
-        }
+        public AuthorizationStateWaitPassword() {}
 
         public AuthorizationStateWaitPassword(@Nullable String passwordHint, boolean hasRecoveryEmailAddress, String recoveryEmailAddressPattern) {
 
@@ -604,9 +545,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 187548796;
-        }
+        public int getConstructor() { return 187548796; }
 
     }
 
@@ -618,9 +557,7 @@ public class TdApi {
     public static class AuthorizationStateReady extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return -1834871737;
-        }
+        public int getConstructor() { return -1834871737; }
 
     }
 
@@ -631,9 +568,7 @@ public class TdApi {
     public static class AuthorizationStateLoggingOut extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return 154449270;
-        }
+        public int getConstructor() { return 154449270; }
 
     }
 
@@ -646,9 +581,7 @@ public class TdApi {
     public static class AuthorizationStateClosing extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return 445855311;
-        }
+        public int getConstructor() { return 445855311; }
 
     }
 
@@ -663,9 +596,7 @@ public class TdApi {
     public static class AuthorizationStateClosed extends AuthorizationState {
 
         @Override
-        public int getConstructor() {
-            return 1526047584;
-        }
+        public int getConstructor() { return 1526047584; }
 
     }
 
@@ -682,15 +613,12 @@ public class TdApi {
     public static class PasswordState extends Object {
 
         public boolean hasPassword;
-        @Nullable
-        public String passwordHint;
+        @Nullable public String passwordHint;
         public boolean hasRecoveryEmailAddress;
         public boolean hasPassportData;
-        @Nullable
-        public EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo;
+        @Nullable public EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo;
 
-        public PasswordState() {
-        }
+        public PasswordState() {}
 
         public PasswordState(boolean hasPassword, @Nullable String passwordHint, boolean hasRecoveryEmailAddress, boolean hasPassportData, @Nullable EmailAddressAuthenticationCodeInfo recoveryEmailAddressCodeInfo) {
 
@@ -703,9 +631,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1154797731;
-        }
+        public int getConstructor() { return -1154797731; }
 
     }
 
@@ -719,8 +645,7 @@ public class TdApi {
 
         public String recoveryEmailAddress;
 
-        public RecoveryEmailAddress() {
-        }
+        public RecoveryEmailAddress() {}
 
         public RecoveryEmailAddress(String recoveryEmailAddress) {
 
@@ -729,9 +654,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1290526187;
-        }
+        public int getConstructor() { return 1290526187; }
 
     }
 
@@ -747,8 +670,7 @@ public class TdApi {
         public boolean hasPassword;
         public int validFor;
 
-        public TemporaryPasswordState() {
-        }
+        public TemporaryPasswordState() {}
 
         public TemporaryPasswordState(boolean hasPassword, int validFor) {
 
@@ -758,9 +680,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 939837410;
-        }
+        public int getConstructor() { return 939837410; }
 
     }
 
@@ -774,17 +694,16 @@ public class TdApi {
      * @isDownloadingActive - True, if the file is currently being downloaded (or a local copy is being generated by some other means)
      * @isDownloadingCompleted - True, if the local copy is fully available
      * @downloadOffset - Download will be started from this offset
-     * Downloaded_prefix_size is calculated from this offset
+     *                   Downloaded_prefix_size is calculated from this offset
      * @downloadedPrefixSize - If is_downloading_completed is false, then only some prefix of the file starting from download_offset is ready to be read
-     * Downloaded_prefix_size is the size of that prefix
+     *                         Downloaded_prefix_size is the size of that prefix
      * @downloadedSize - Total downloaded file bytes
-     * Should be used only for calculating download progress
-     * The actual file size may be bigger, and some parts of it may contain garbage
+     *                   Should be used only for calculating download progress
+     *                   The actual file size may be bigger, and some parts of it may contain garbage
      */
     public static class LocalFile extends Object {
 
-        @Nullable
-        public String path;
+        @Nullable public String path;
         public boolean canBeDownloaded;
         public boolean canBeDeleted;
         public boolean isDownloadingActive;
@@ -793,8 +712,7 @@ public class TdApi {
         public int downloadedPrefixSize;
         public int downloadedSize;
 
-        public LocalFile() {
-        }
+        public LocalFile() {}
 
         public LocalFile(@Nullable String path, boolean canBeDownloaded, boolean canBeDeleted, boolean isDownloadingActive, boolean isDownloadingCompleted, int downloadOffset, int downloadedPrefixSize, int downloadedSize) {
 
@@ -810,9 +728,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1166400317;
-        }
+        public int getConstructor() { return -1166400317; }
 
     }
 
@@ -821,31 +737,29 @@ public class TdApi {
      * Represents a remote file
      *
      * @id - Remote file identifier
-     * Can be used by the current user across application restarts or even from other devices
-     * Uniquely identifies a file, but a file can have a lot of different valid identifiers
-     * If the ID starts with "http://" or "https://", it represents the HTTP URL of the file
-     * TDLib is currently unable to download files if only their URL is known
-     * If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the original_path and "#url#" as the conversion string
-     * Application should generate the file by downloading it to the specified location
+     *       Can be used by the current user across application restarts or even from other devices
+     *       Uniquely identifies a file, but a file can have a lot of different valid identifiers
+     *       If the ID starts with "http://" or "https://", it represents the HTTP URL of the file
+     *       TDLib is currently unable to download files if only their URL is known
+     *       If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the original_path and "#url#" as the conversion string
+     *       Application should generate the file by downloading it to the specified location
      * @uniqueId - Unique file identifier
-     * May be empty if unknown
-     * The unique file identifier which is the same for the same file even for different users and is persistent over time
+     *             May be empty if unknown
+     *             The unique file identifier which is the same for the same file even for different users and is persistent over time
      * @isUploadingActive - True, if the file is currently being uploaded (or a remote copy is being generated by some other means)
      * @isUploadingCompleted - True, if a remote copy is fully available
      * @uploadedSize - Size of the remote available part of the file
-     * 0 if unknown
+     *                 0 if unknown
      */
     public static class RemoteFile extends Object {
 
-        @Nullable
-        public String id;
+        @Nullable public String id;
         public String uniqueId;
         public boolean isUploadingActive;
         public boolean isUploadingCompleted;
         public int uploadedSize;
 
-        public RemoteFile() {
-        }
+        public RemoteFile() {}
 
         public RemoteFile(@Nullable String id, String uniqueId, boolean isUploadingActive, boolean isUploadingCompleted, int uploadedSize) {
 
@@ -858,9 +772,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1822143022;
-        }
+        public int getConstructor() { return -1822143022; }
 
     }
 
@@ -870,9 +782,9 @@ public class TdApi {
      *
      * @id - Unique file identifier
      * @size - File size
-     * 0 if unknown
+     *         0 if unknown
      * @expectedSize - Expected file size in case the exact file size is unknown, but an approximate size is known
-     * Can be used to show download/upload progress
+     *                 Can be used to show download/upload progress
      * @local - Information about the local copy of the file
      * @remote - Information about the remote copy of the file
      */
@@ -884,8 +796,7 @@ public class TdApi {
         public LocalFile local;
         public RemoteFile remote;
 
-        public File() {
-        }
+        public File() {}
 
         public File(int id, int size, int expectedSize, LocalFile local, RemoteFile remote) {
 
@@ -898,9 +809,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 766337656;
-        }
+        public int getConstructor() { return 766337656; }
 
     }
 
@@ -908,8 +817,7 @@ public class TdApi {
     /**
      * Points to a file
      */
-    public static abstract class InputFile extends Object {
-    }
+    public static abstract class InputFile extends Object {}
 
     /**
      * A file defined by its unique ID
@@ -920,8 +828,7 @@ public class TdApi {
 
         public int id;
 
-        public InputFileId() {
-        }
+        public InputFileId() {}
 
         public InputFileId(int id) {
 
@@ -930,9 +837,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1788906253;
-        }
+        public int getConstructor() { return 1788906253; }
 
     }
 
@@ -949,8 +854,7 @@ public class TdApi {
 
         public String id;
 
-        public InputFileRemote() {
-        }
+        public InputFileRemote() {}
 
         public InputFileRemote(String id) {
 
@@ -959,9 +863,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -107574466;
-        }
+        public int getConstructor() { return -107574466; }
 
     }
 
@@ -975,8 +877,7 @@ public class TdApi {
 
         public String path;
 
-        public InputFileLocal() {
-        }
+        public InputFileLocal() {}
 
         public InputFileLocal(String path) {
 
@@ -985,9 +886,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2056030919;
-        }
+        public int getConstructor() { return 2056030919; }
 
     }
 
@@ -996,12 +895,12 @@ public class TdApi {
      * A file generated by the application
      *
      * @originalPath - Local path to a file from which the file is generated
-     * May be empty if there is no such file
+     *                 May be empty if there is no such file
      * @conversion - String specifying the conversion applied to the original file
-     * Should be persistent across application restarts
-     * Conversions beginning with '#' are reserved for internal TDLib usage
+     *               Should be persistent across application restarts
+     *               Conversions beginning with '#' are reserved for internal TDLib usage
      * @expectedSize - Expected size of the generated file
-     * 0 if unknown
+     *                 0 if unknown
      */
     public static class InputFileGenerated extends InputFile {
 
@@ -1009,8 +908,7 @@ public class TdApi {
         public String conversion;
         public int expectedSize;
 
-        public InputFileGenerated() {
-        }
+        public InputFileGenerated() {}
 
         public InputFileGenerated(String originalPath, String conversion, int expectedSize) {
 
@@ -1021,9 +919,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1781351885;
-        }
+        public int getConstructor() { return -1781351885; }
 
     }
 
@@ -1043,8 +939,7 @@ public class TdApi {
         public int width;
         public int height;
 
-        public PhotoSize() {
-        }
+        public PhotoSize() {}
 
         public PhotoSize(String type, File photo, int width, int height) {
 
@@ -1056,9 +951,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 421980227;
-        }
+        public int getConstructor() { return 421980227; }
 
     }
 
@@ -1076,8 +969,7 @@ public class TdApi {
         public int height;
         public byte[] data;
 
-        public Minithumbnail() {
-        }
+        public Minithumbnail() {}
 
         public Minithumbnail(int width, int height, byte[] data) {
 
@@ -1088,9 +980,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -328540758;
-        }
+        public int getConstructor() { return -328540758; }
 
     }
 
@@ -1098,8 +988,7 @@ public class TdApi {
     /**
      * Describes format of the thumbnail
      */
-    public static abstract class ThumbnailFormat extends Object {
-    }
+    public static abstract class ThumbnailFormat extends Object {}
 
     /**
      * The thumbnail is in JPEG format
@@ -1107,9 +996,7 @@ public class TdApi {
     public static class ThumbnailFormatJpeg extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return -653503352;
-        }
+        public int getConstructor() { return -653503352; }
 
     }
 
@@ -1121,9 +1008,7 @@ public class TdApi {
     public static class ThumbnailFormatPng extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return 1577490421;
-        }
+        public int getConstructor() { return 1577490421; }
 
     }
 
@@ -1135,9 +1020,7 @@ public class TdApi {
     public static class ThumbnailFormatWebp extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return -53588974;
-        }
+        public int getConstructor() { return -53588974; }
 
     }
 
@@ -1149,9 +1032,7 @@ public class TdApi {
     public static class ThumbnailFormatGif extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return 1252205962;
-        }
+        public int getConstructor() { return 1252205962; }
 
     }
 
@@ -1163,9 +1044,7 @@ public class TdApi {
     public static class ThumbnailFormatTgs extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return 1315522642;
-        }
+        public int getConstructor() { return 1315522642; }
 
     }
 
@@ -1177,9 +1056,7 @@ public class TdApi {
     public static class ThumbnailFormatMpeg4 extends ThumbnailFormat {
 
         @Override
-        public int getConstructor() {
-            return 278616062;
-        }
+        public int getConstructor() { return 278616062; }
 
     }
 
@@ -1199,8 +1076,7 @@ public class TdApi {
         public int height;
         public File file;
 
-        public Thumbnail() {
-        }
+        public Thumbnail() {}
 
         public Thumbnail(ThumbnailFormat format, int width, int height, File file) {
 
@@ -1212,9 +1088,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1243275371;
-        }
+        public int getConstructor() { return 1243275371; }
 
     }
 
@@ -1222,8 +1096,7 @@ public class TdApi {
     /**
      * Part of the face, relative to which a mask should be placed
      */
-    public static abstract class MaskPoint extends Object {
-    }
+    public static abstract class MaskPoint extends Object {}
 
     /**
      * A mask should be placed relatively to the forehead
@@ -1231,9 +1104,7 @@ public class TdApi {
     public static class MaskPointForehead extends MaskPoint {
 
         @Override
-        public int getConstructor() {
-            return 1027512005;
-        }
+        public int getConstructor() { return 1027512005; }
 
     }
 
@@ -1244,9 +1115,7 @@ public class TdApi {
     public static class MaskPointEyes extends MaskPoint {
 
         @Override
-        public int getConstructor() {
-            return 1748310861;
-        }
+        public int getConstructor() { return 1748310861; }
 
     }
 
@@ -1257,9 +1126,7 @@ public class TdApi {
     public static class MaskPointMouth extends MaskPoint {
 
         @Override
-        public int getConstructor() {
-            return 411773406;
-        }
+        public int getConstructor() { return 411773406; }
 
     }
 
@@ -1270,9 +1137,7 @@ public class TdApi {
     public static class MaskPointChin extends MaskPoint {
 
         @Override
-        public int getConstructor() {
-            return 534995335;
-        }
+        public int getConstructor() { return 534995335; }
 
     }
 
@@ -1282,11 +1147,11 @@ public class TdApi {
      *
      * @point - Part of the face, relative to which the mask should be placed
      * @xShift - Shift by X-axis measured in widths of the mask scaled to the face size, from left to right
-     * (For example, -1.0 will place the mask just to the left of the default mask position)
+     *           (For example, -1.0 will place the mask just to the left of the default mask position)
      * @yShift - Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom
-     * (For example, 1.0 will place the mask just below the default mask position)
+     *           (For example, 1.0 will place the mask just below the default mask position)
      * @scale - Mask scaling coefficient
-     * (For example, 2.0 means a doubled size)
+     *          (For example, 2.0 means a doubled size)
      */
     public static class MaskPosition extends Object {
 
@@ -1295,8 +1160,7 @@ public class TdApi {
         public double yShift;
         public double scale;
 
-        public MaskPosition() {
-        }
+        public MaskPosition() {}
 
         public MaskPosition(MaskPoint point, double xShift, double yShift, double scale) {
 
@@ -1308,9 +1172,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2097433026;
-        }
+        public int getConstructor() { return -2097433026; }
 
     }
 
@@ -1332,8 +1194,7 @@ public class TdApi {
         public boolean isChosen;
         public boolean isBeingChosen;
 
-        public PollOption() {
-        }
+        public PollOption() {}
 
         public PollOption(String text, int voterCount, int votePercentage, boolean isChosen, boolean isBeingChosen) {
 
@@ -1346,9 +1207,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1473893797;
-        }
+        public int getConstructor() { return 1473893797; }
 
     }
 
@@ -1356,8 +1215,7 @@ public class TdApi {
     /**
      * Describes the type of a poll
      */
-    public static abstract class PollType extends Object {
-    }
+    public static abstract class PollType extends Object {}
 
     /**
      * A regular poll
@@ -1368,8 +1226,7 @@ public class TdApi {
 
         public boolean allowMultipleAnswers;
 
-        public PollTypeRegular() {
-        }
+        public PollTypeRegular() {}
 
         public PollTypeRegular(boolean allowMultipleAnswers) {
 
@@ -1378,9 +1235,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 641265698;
-        }
+        public int getConstructor() { return 641265698; }
 
     }
 
@@ -1389,17 +1244,16 @@ public class TdApi {
      * A poll in quiz mode, which has exactly one correct answer option and can be answered only once
      *
      * @correctOptionId - 0-based identifier of the correct answer option
-     * -1 for a yet unanswered poll
+     *                    -1 for a yet unanswered poll
      * @explanation - Text that is shown when the user chooses an incorrect answer or taps on the lamp icon, 0-200 characters with at most 2 line feeds
-     * Empty for a yet unanswered poll
+     *                Empty for a yet unanswered poll
      */
     public static class PollTypeQuiz extends PollType {
 
         public int correctOptionId;
         public FormattedText explanation;
 
-        public PollTypeQuiz() {
-        }
+        public PollTypeQuiz() {}
 
         public PollTypeQuiz(int correctOptionId, FormattedText explanation) {
 
@@ -1409,9 +1263,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 657013913;
-        }
+        public int getConstructor() { return 657013913; }
 
     }
 
@@ -1421,14 +1273,14 @@ public class TdApi {
      * The animation must be encoded in GIF or MPEG4 format
      *
      * @duration - Duration of the animation, in seconds
-     * As defined by the sender
+     *             As defined by the sender
      * @width - Width of the animation
      * @height - Height of the animation
      * @fileName - Original name of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @mimeType - MIME type of the file, usually "image/gif" or "video/mp4"
      * @hasStickers - True, if stickers were added to the animation
-     * The list of corresponding sticker set can be received using getAttachedStickerSets
+     *                The list of corresponding sticker set can be received using getAttachedStickerSets
      * @minithumbnail - Animation minithumbnail
      * @thumbnail - Animation thumbnail in JPEG or MPEG4 format
      * @animation - File containing the animation
@@ -1441,14 +1293,11 @@ public class TdApi {
         public String fileName;
         public String mimeType;
         public boolean hasStickers;
-        @Nullable
-        public Minithumbnail minithumbnail;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Minithumbnail minithumbnail;
+        @Nullable public Thumbnail thumbnail;
         public File animation;
 
-        public Animation() {
-        }
+        public Animation() {}
 
         public Animation(int duration, int width, int height, String fileName, String mimeType, boolean hasStickers, @Nullable Minithumbnail minithumbnail, @Nullable Thumbnail thumbnail, File animation) {
 
@@ -1465,9 +1314,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -872359106;
-        }
+        public int getConstructor() { return -872359106; }
 
     }
 
@@ -1477,19 +1324,19 @@ public class TdApi {
      * Audio is usually in MP3 or M4A format
      *
      * @duration - Duration of the audio, in seconds
-     * As defined by the sender
+     *             As defined by the sender
      * @title - Title of the audio
-     * As defined by the sender
+     *          As defined by the sender
      * @performer - Performer of the audio
-     * As defined by the sender
+     *              As defined by the sender
      * @fileName - Original name of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @mimeType - The MIME type of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @albumCoverMinithumbnail - The minithumbnail of the album cover
      * @albumCoverThumbnail - The thumbnail of the album cover in JPEG format
-     * As defined by the sender
-     * The full size thumbnail should be extracted from the downloaded file
+     *                        As defined by the sender
+     *                        The full size thumbnail should be extracted from the downloaded file
      * @audio - File containing the audio
      */
     public static class Audio extends Object {
@@ -1499,14 +1346,11 @@ public class TdApi {
         public String performer;
         public String fileName;
         public String mimeType;
-        @Nullable
-        public Minithumbnail albumCoverMinithumbnail;
-        @Nullable
-        public Thumbnail albumCoverThumbnail;
+        @Nullable public Minithumbnail albumCoverMinithumbnail;
+        @Nullable public Thumbnail albumCoverThumbnail;
         public File audio;
 
-        public Audio() {
-        }
+        public Audio() {}
 
         public Audio(int duration, String title, String performer, String fileName, String mimeType, @Nullable Minithumbnail albumCoverMinithumbnail, @Nullable Thumbnail albumCoverThumbnail, File audio) {
 
@@ -1522,9 +1366,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1179334690;
-        }
+        public int getConstructor() { return -1179334690; }
 
     }
 
@@ -1533,26 +1375,23 @@ public class TdApi {
      * Describes a document of any type
      *
      * @fileName - Original name of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @mimeType - MIME type of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @minithumbnail - Document minithumbnail
      * @thumbnail - Document thumbnail in JPEG or PNG format (PNG will be used only for background patterns)
-     * As defined by the sender
+     *              As defined by the sender
      * @document - File containing the document
      */
     public static class Document extends Object {
 
         public String fileName;
         public String mimeType;
-        @Nullable
-        public Minithumbnail minithumbnail;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Minithumbnail minithumbnail;
+        @Nullable public Thumbnail thumbnail;
         public File document;
 
-        public Document() {
-        }
+        public Document() {}
 
         public Document(String fileName, String mimeType, @Nullable Minithumbnail minithumbnail, @Nullable Thumbnail thumbnail, File document) {
 
@@ -1565,9 +1404,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1357271080;
-        }
+        public int getConstructor() { return -1357271080; }
 
     }
 
@@ -1576,19 +1413,17 @@ public class TdApi {
      * Describes a photo
      *
      * @hasStickers - True, if stickers were added to the photo
-     * The list of corresponding sticker sets can be received using getAttachedStickerSets
+     *                The list of corresponding sticker sets can be received using getAttachedStickerSets
      * @minithumbnail - Photo minithumbnail
      * @sizes - Available variants of the photo, in different sizes
      */
     public static class Photo extends Object {
 
         public boolean hasStickers;
-        @Nullable
-        public Minithumbnail minithumbnail;
+        @Nullable public Minithumbnail minithumbnail;
         public PhotoSize[] sizes;
 
-        public Photo() {
-        }
+        public Photo() {}
 
         public Photo(boolean hasStickers, @Nullable Minithumbnail minithumbnail, PhotoSize[] sizes) {
 
@@ -1599,9 +1434,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2022871583;
-        }
+        public int getConstructor() { return -2022871583; }
 
     }
 
@@ -1610,11 +1443,11 @@ public class TdApi {
      * Describes a sticker
      *
      * @setId - The identifier of the sticker set to which the sticker belongs
-     * 0 if none
+     *          0 if none
      * @width - Sticker width
-     * As defined by the sender
+     *          As defined by the sender
      * @height - Sticker height
-     * As defined by the sender
+     *           As defined by the sender
      * @emoji - Emoji corresponding to the sticker
      * @isAnimated - True, if the sticker is an animated sticker in TGS format
      * @isMask - True, if the sticker is a mask
@@ -1630,14 +1463,11 @@ public class TdApi {
         public String emoji;
         public boolean isAnimated;
         public boolean isMask;
-        @Nullable
-        public MaskPosition maskPosition;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public MaskPosition maskPosition;
+        @Nullable public Thumbnail thumbnail;
         public File sticker;
 
-        public Sticker() {
-        }
+        public Sticker() {}
 
         public Sticker(long setId, int width, int height, String emoji, boolean isAnimated, boolean isMask, @Nullable MaskPosition maskPosition, @Nullable Thumbnail thumbnail, File sticker) {
 
@@ -1654,9 +1484,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -692141937;
-        }
+        public int getConstructor() { return -692141937; }
 
     }
 
@@ -1665,21 +1493,21 @@ public class TdApi {
      * Describes a video file
      *
      * @duration - Duration of the video, in seconds
-     * As defined by the sender
+     *             As defined by the sender
      * @width - Video width
-     * As defined by the sender
+     *          As defined by the sender
      * @height - Video height
-     * As defined by the sender
+     *           As defined by the sender
      * @fileName - Original name of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @mimeType - MIME type of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @hasStickers - True, if stickers were added to the video
-     * The list of corresponding sticker sets can be received using getAttachedStickerSets
+     *                The list of corresponding sticker sets can be received using getAttachedStickerSets
      * @supportsStreaming - True, if the video should be tried to be streamed
      * @minithumbnail - Video minithumbnail
      * @thumbnail - Video thumbnail in JPEG or MPEG4 format
-     * As defined by the sender
+     *              As defined by the sender
      * @video - File containing the video
      */
     public static class Video extends Object {
@@ -1691,14 +1519,11 @@ public class TdApi {
         public String mimeType;
         public boolean hasStickers;
         public boolean supportsStreaming;
-        @Nullable
-        public Minithumbnail minithumbnail;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Minithumbnail minithumbnail;
+        @Nullable public Thumbnail thumbnail;
         public File video;
 
-        public Video() {
-        }
+        public Video() {}
 
         public Video(int duration, int width, int height, String fileName, String mimeType, boolean hasStickers, boolean supportsStreaming, @Nullable Minithumbnail minithumbnail, @Nullable Thumbnail thumbnail, File video) {
 
@@ -1716,9 +1541,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 832856268;
-        }
+        public int getConstructor() { return 832856268; }
 
     }
 
@@ -1728,26 +1551,23 @@ public class TdApi {
      * The video must be equal in width and height, cropped to a circle, and stored in MPEG4 format
      *
      * @duration - Duration of the video, in seconds
-     * As defined by the sender
+     *             As defined by the sender
      * @length - Video width and height
-     * As defined by the sender
+     *           As defined by the sender
      * @minithumbnail - Video minithumbnail
      * @thumbnail - Video thumbnail in JPEG format
-     * As defined by the sender
+     *              As defined by the sender
      * @video - File containing the video
      */
     public static class VideoNote extends Object {
 
         public int duration;
         public int length;
-        @Nullable
-        public Minithumbnail minithumbnail;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Minithumbnail minithumbnail;
+        @Nullable public Thumbnail thumbnail;
         public File video;
 
-        public VideoNote() {
-        }
+        public VideoNote() {}
 
         public VideoNote(int duration, int length, @Nullable Minithumbnail minithumbnail, @Nullable Thumbnail thumbnail, File video) {
 
@@ -1760,9 +1580,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -71734726;
-        }
+        public int getConstructor() { return -71734726; }
 
     }
 
@@ -1773,10 +1591,10 @@ public class TdApi {
      * Voice notes can have only a single audio channel
      *
      * @duration - Duration of the voice note, in seconds
-     * As defined by the sender
+     *             As defined by the sender
      * @waveform - A waveform representation of the voice note in 5-bit format
      * @mimeType - MIME type of the file
-     * As defined by the sender
+     *             As defined by the sender
      * @voice - File containing the voice note
      */
     public static class VoiceNote extends Object {
@@ -1786,8 +1604,7 @@ public class TdApi {
         public String mimeType;
         public File voice;
 
-        public VoiceNote() {
-        }
+        public VoiceNote() {}
 
         public VoiceNote(int duration, byte[] waveform, String mimeType, File voice) {
 
@@ -1799,9 +1616,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2066012058;
-        }
+        public int getConstructor() { return -2066012058; }
 
     }
 
@@ -1814,7 +1629,7 @@ public class TdApi {
      * @lastName - Last name of the user
      * @vcard - Additional data about the user in a form of vCard
      * @userId - Identifier of the user, if known
-     * Otherwise 0
+     *           Otherwise 0
      */
     public static class Contact extends Object {
 
@@ -1824,8 +1639,7 @@ public class TdApi {
         public String vcard;
         public int userId;
 
-        public Contact() {
-        }
+        public Contact() {}
 
         public Contact(String phoneNumber, String firstName, String lastName, String vcard, int userId) {
 
@@ -1838,9 +1652,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1483002540;
-        }
+        public int getConstructor() { return -1483002540; }
 
     }
 
@@ -1849,17 +1661,16 @@ public class TdApi {
      * Describes a location on planet Earth
      *
      * @latitude - Latitude of the location in degrees
-     * As defined by the sender
+     *             As defined by the sender
      * @longitude - Longitude of the location, in degrees
-     * As defined by the sender
+     *              As defined by the sender
      */
     public static class Location extends Object {
 
         public double latitude;
         public double longitude;
 
-        public Location() {
-        }
+        public Location() {}
 
         public Location(double latitude, double longitude) {
 
@@ -1869,9 +1680,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 749028016;
-        }
+        public int getConstructor() { return 749028016; }
 
     }
 
@@ -1880,18 +1689,18 @@ public class TdApi {
      * Describes a venue
      *
      * @location - Venue location
-     * As defined by the sender
+     *             As defined by the sender
      * @title - Venue name
-     * As defined by the sender
+     *          As defined by the sender
      * @address - Venue address
-     * As defined by the sender
+     *            As defined by the sender
      * @provider - Provider of the venue database
-     * As defined by the sender
-     * Currently only "foursquare" and "gplaces" (Google Places) needs to be supported
+     *             As defined by the sender
+     *             Currently only "foursquare" and "gplaces" (Google Places) needs to be supported
      * @id - Identifier of the venue in the provider database
-     * As defined by the sender
+     *       As defined by the sender
      * @type - Type of the venue in the provider database
-     * As defined by the sender
+     *         As defined by the sender
      */
     public static class Venue extends Object {
 
@@ -1902,8 +1711,7 @@ public class TdApi {
         public String id;
         public String type;
 
-        public Venue() {
-        }
+        public Venue() {}
 
         public Venue(Location location, String title, String address, String provider, String id, String type) {
 
@@ -1917,9 +1725,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1070406393;
-        }
+        public int getConstructor() { return 1070406393; }
 
     }
 
@@ -1929,7 +1735,7 @@ public class TdApi {
      *
      * @id - Game ID
      * @shortName - Game short name
-     * To share a game use the URL https://t.me/{bot_username}?game={game_short_name}
+     *              To share a game use the URL https://t.me/{bot_username}?game={game_short_name}
      * @title - Game title
      * @text - Game text, usually containing scoreboards for a game
      * @description - Game description
@@ -1944,11 +1750,9 @@ public class TdApi {
         public FormattedText text;
         public String description;
         public Photo photo;
-        @Nullable
-        public Animation animation;
+        @Nullable public Animation animation;
 
-        public Game() {
-        }
+        public Game() {}
 
         public Game(long id, String shortName, String title, FormattedText text, String description, Photo photo, @Nullable Animation animation) {
 
@@ -1963,9 +1767,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1565597752;
-        }
+        public int getConstructor() { return -1565597752; }
 
     }
 
@@ -1997,8 +1799,7 @@ public class TdApi {
         public int closeDate;
         public boolean isClosed;
 
-        public Poll() {
-        }
+        public Poll() {}
 
         public Poll(long id, String question, PollOption[] options, int totalVoterCount, int[] recentVoterUserIds, boolean isAnonymous, PollType type, int openPeriod, int closeDate, boolean isClosed) {
 
@@ -2016,9 +1817,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 163256789;
-        }
+        public int getConstructor() { return 163256789; }
 
     }
 
@@ -2027,12 +1826,12 @@ public class TdApi {
      * Describes a user profile photo
      *
      * @id - Photo identifier
-     * 0 for an empty photo
-     * Can be used to find a photo in a list of user profile photos
+     *       0 for an empty photo
+     *       Can be used to find a photo in a list of user profile photos
      * @small - A small (160x160) user profile photo
-     * The file can be downloaded only before the photo is changed
+     *          The file can be downloaded only before the photo is changed
      * @big - A big (640x640) user profile photo
-     * The file can be downloaded only before the photo is changed
+     *        The file can be downloaded only before the photo is changed
      * @hasAnimation - True, if the photo has animated variant
      */
     public static class ProfilePhoto extends Object {
@@ -2042,8 +1841,7 @@ public class TdApi {
         public File big;
         public boolean hasAnimation;
 
-        public ProfilePhoto() {
-        }
+        public ProfilePhoto() {}
 
         public ProfilePhoto(long id, File small, File big, boolean hasAnimation) {
 
@@ -2055,9 +1853,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1270562457;
-        }
+        public int getConstructor() { return 1270562457; }
 
     }
 
@@ -2066,9 +1862,9 @@ public class TdApi {
      * Contains basic information about the photo of a chat
      *
      * @small - A small (160x160) chat photo variant in JPEG format
-     * The file can be downloaded only before the photo is changed
+     *          The file can be downloaded only before the photo is changed
      * @big - A big (640x640) chat photo variant in JPEG format
-     * The file can be downloaded only before the photo is changed
+     *        The file can be downloaded only before the photo is changed
      * @hasAnimation - True, if the photo has animated variant
      */
     public static class ChatPhotoInfo extends Object {
@@ -2077,8 +1873,7 @@ public class TdApi {
         public File big;
         public boolean hasAnimation;
 
-        public ChatPhotoInfo() {
-        }
+        public ChatPhotoInfo() {}
 
         public ChatPhotoInfo(File small, File big, boolean hasAnimation) {
 
@@ -2089,9 +1884,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 404510091;
-        }
+        public int getConstructor() { return 404510091; }
 
     }
 
@@ -2100,8 +1893,7 @@ public class TdApi {
      * Represents the type of a user
      * The following types are possible: regular users, deleted users and bots
      */
-    public static abstract class UserType extends Object {
-    }
+    public static abstract class UserType extends Object {}
 
     /**
      * A regular user
@@ -2109,9 +1901,7 @@ public class TdApi {
     public static class UserTypeRegular extends UserType {
 
         @Override
-        public int getConstructor() {
-            return -598644325;
-        }
+        public int getConstructor() { return -598644325; }
 
     }
 
@@ -2124,9 +1914,7 @@ public class TdApi {
     public static class UserTypeDeleted extends UserType {
 
         @Override
-        public int getConstructor() {
-            return -1807729372;
-        }
+        public int getConstructor() { return -1807729372; }
 
     }
 
@@ -2136,7 +1924,7 @@ public class TdApi {
      *
      * @canJoinGroups - True, if the bot can be invited to basic group and supergroup chats
      * @canReadAllGroupMessages - True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot
-     * In private and channel chats a bot can always read all messages
+     *                            In private and channel chats a bot can always read all messages
      * @isInline - True, if the bot supports inline queries
      * @inlineQueryPlaceholder - Placeholder for inline queries (displayed on the application input field)
      * @needLocation - True, if the location of the user should be sent with every inline query to this bot
@@ -2149,8 +1937,7 @@ public class TdApi {
         public String inlineQueryPlaceholder;
         public boolean needLocation;
 
-        public UserTypeBot() {
-        }
+        public UserTypeBot() {}
 
         public UserTypeBot(boolean canJoinGroups, boolean canReadAllGroupMessages, boolean isInline, String inlineQueryPlaceholder, boolean needLocation) {
 
@@ -2163,9 +1950,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1262387765;
-        }
+        public int getConstructor() { return 1262387765; }
 
     }
 
@@ -2178,9 +1963,7 @@ public class TdApi {
     public static class UserTypeUnknown extends UserType {
 
         @Override
-        public int getConstructor() {
-            return -724541123;
-        }
+        public int getConstructor() { return -724541123; }
 
     }
 
@@ -2196,8 +1979,7 @@ public class TdApi {
         public String command;
         public String description;
 
-        public BotCommand() {
-        }
+        public BotCommand() {}
 
         public BotCommand(String command, String description) {
 
@@ -2207,9 +1989,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1032140601;
-        }
+        public int getConstructor() { return -1032140601; }
 
     }
 
@@ -2225,8 +2005,7 @@ public class TdApi {
         public String description;
         public BotCommand[] commands;
 
-        public BotInfo() {
-        }
+        public BotInfo() {}
 
         public BotInfo(String description, BotCommand[] commands) {
 
@@ -2236,9 +2015,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1296528907;
-        }
+        public int getConstructor() { return 1296528907; }
 
     }
 
@@ -2254,8 +2031,7 @@ public class TdApi {
         public Location location;
         public String address;
 
-        public ChatLocation() {
-        }
+        public ChatLocation() {}
 
         public ChatLocation(Location location, String address) {
 
@@ -2265,9 +2041,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1566863583;
-        }
+        public int getConstructor() { return -1566863583; }
 
     }
 
@@ -2285,8 +2059,7 @@ public class TdApi {
         public File file;
         public double mainFrameTimestamp;
 
-        public AnimatedChatPhoto() {
-        }
+        public AnimatedChatPhoto() {}
 
         public AnimatedChatPhoto(int length, File file, double mainFrameTimestamp) {
 
@@ -2297,9 +2070,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 191994926;
-        }
+        public int getConstructor() { return 191994926; }
 
     }
 
@@ -2317,14 +2088,11 @@ public class TdApi {
 
         public long id;
         public int addedDate;
-        @Nullable
-        public Minithumbnail minithumbnail;
+        @Nullable public Minithumbnail minithumbnail;
         public PhotoSize[] sizes;
-        @Nullable
-        public AnimatedChatPhoto animation;
+        @Nullable public AnimatedChatPhoto animation;
 
-        public ChatPhoto() {
-        }
+        public ChatPhoto() {}
 
         public ChatPhoto(long id, int addedDate, @Nullable Minithumbnail minithumbnail, PhotoSize[] sizes, @Nullable AnimatedChatPhoto animation) {
 
@@ -2337,9 +2105,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -113003577;
-        }
+        public int getConstructor() { return -113003577; }
 
     }
 
@@ -2355,8 +2121,7 @@ public class TdApi {
         public int totalCount;
         public ChatPhoto[] photos;
 
-        public ChatPhotos() {
-        }
+        public ChatPhotos() {}
 
         public ChatPhotos(int totalCount, ChatPhoto[] photos) {
 
@@ -2366,9 +2131,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1510699180;
-        }
+        public int getConstructor() { return -1510699180; }
 
     }
 
@@ -2376,8 +2139,7 @@ public class TdApi {
     /**
      * Describes a photo to be set as a user profile or chat photo
      */
-    public static abstract class InputChatPhoto extends Object {
-    }
+    public static abstract class InputChatPhoto extends Object {}
 
     /**
      * A previously used profile photo of the current user
@@ -2388,8 +2150,7 @@ public class TdApi {
 
         public long chatPhotoId;
 
-        public InputChatPhotoPrevious() {
-        }
+        public InputChatPhotoPrevious() {}
 
         public InputChatPhotoPrevious(long chatPhotoId) {
 
@@ -2398,9 +2159,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 23128529;
-        }
+        public int getConstructor() { return 23128529; }
 
     }
 
@@ -2409,14 +2168,13 @@ public class TdApi {
      * A static photo in JPEG format
      *
      * @photo - Photo to be set as profile photo
-     * Only inputFileLocal and inputFileGenerated are allowed
+     *          Only inputFileLocal and inputFileGenerated are allowed
      */
     public static class InputChatPhotoStatic extends InputChatPhoto {
 
         public InputFile photo;
 
-        public InputChatPhotoStatic() {
-        }
+        public InputChatPhotoStatic() {}
 
         public InputChatPhotoStatic(InputFile photo) {
 
@@ -2425,9 +2183,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1979179699;
-        }
+        public int getConstructor() { return 1979179699; }
 
     }
 
@@ -2437,7 +2193,7 @@ public class TdApi {
      * Must be square, shorter than 10 seconds, have width between 160 and 800 and be at most 2MB in size
      *
      * @animation - Animation to be set as profile photo
-     * Only inputFileLocal and inputFileGenerated are allowed
+     *              Only inputFileLocal and inputFileGenerated are allowed
      * @mainFrameTimestamp - Timestamp of the frame, which will be used as static chat photo
      */
     public static class InputChatPhotoAnimation extends InputChatPhoto {
@@ -2445,8 +2201,7 @@ public class TdApi {
         public InputFile animation;
         public double mainFrameTimestamp;
 
-        public InputChatPhotoAnimation() {
-        }
+        public InputChatPhotoAnimation() {}
 
         public InputChatPhotoAnimation(InputFile animation, double mainFrameTimestamp) {
 
@@ -2456,9 +2211,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 90846242;
-        }
+        public int getConstructor() { return 90846242; }
 
     }
 
@@ -2480,10 +2233,10 @@ public class TdApi {
      * @restrictionReason - If non-empty, it contains a human-readable description of the reason why access to this user must be restricted
      * @isScam - True, if many users reported this user as a scam
      * @haveAccess - If false, the user is inaccessible, and the only information known about the user is inside this class
-     * It can't be passed to any method except GetUser
+     *               It can't be passed to any method except GetUser
      * @type - Type of the user
      * @languageCode - IETF language tag of the user's language
-     * Only available to bots
+     *                 Only available to bots
      */
     public static class User extends Object {
 
@@ -2493,8 +2246,7 @@ public class TdApi {
         public String username;
         public String phoneNumber;
         public UserStatus status;
-        @Nullable
-        public ProfilePhoto profilePhoto;
+        @Nullable public ProfilePhoto profilePhoto;
         public boolean isContact;
         public boolean isMutualContact;
         public boolean isVerified;
@@ -2505,8 +2257,7 @@ public class TdApi {
         public UserType type;
         public String languageCode;
 
-        public User() {
-        }
+        public User() {}
 
         public User(int id, String firstName, String lastName, String username, String phoneNumber, UserStatus status, @Nullable ProfilePhoto profilePhoto, boolean isContact, boolean isMutualContact, boolean isVerified, boolean isSupport, String restrictionReason, boolean isScam, boolean haveAccess, UserType type, String languageCode) {
 
@@ -2530,9 +2281,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -824771497;
-        }
+        public int getConstructor() { return -824771497; }
 
     }
 
@@ -2549,13 +2298,12 @@ public class TdApi {
      * @bio - A short user bio
      * @shareText - For bots, the text that is included with the link when users share the bot
      * @groupInCommonCount - Number of group chats where both the other user and the current user are a member
-     * 0 for the current user
+     *                       0 for the current user
      * @botInfo - If the user is a bot, information about the bot
      */
     public static class UserFullInfo extends Object {
 
-        @Nullable
-        public ChatPhoto photo;
+        @Nullable public ChatPhoto photo;
         public boolean isBlocked;
         public boolean canBeCalled;
         public boolean supportsVideoCalls;
@@ -2564,11 +2312,9 @@ public class TdApi {
         public String bio;
         public String shareText;
         public int groupInCommonCount;
-        @Nullable
-        public BotInfo botInfo;
+        @Nullable public BotInfo botInfo;
 
-        public UserFullInfo() {
-        }
+        public UserFullInfo() {}
 
         public UserFullInfo(@Nullable ChatPhoto photo, boolean isBlocked, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean needPhoneNumberPrivacyException, String bio, String shareText, int groupInCommonCount, @Nullable BotInfo botInfo) {
 
@@ -2586,9 +2332,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -710655904;
-        }
+        public int getConstructor() { return -710655904; }
 
     }
 
@@ -2604,8 +2348,7 @@ public class TdApi {
         public int totalCount;
         public int[] userIds;
 
-        public Users() {
-        }
+        public Users() {}
 
         public Users(int totalCount, int[] userIds) {
 
@@ -2615,9 +2358,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 273760088;
-        }
+        public int getConstructor() { return 273760088; }
 
     }
 
@@ -2635,8 +2376,7 @@ public class TdApi {
         public String customTitle;
         public boolean isOwner;
 
-        public ChatAdministrator() {
-        }
+        public ChatAdministrator() {}
 
         public ChatAdministrator(int userId, String customTitle, boolean isOwner) {
 
@@ -2647,9 +2387,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 487220942;
-        }
+        public int getConstructor() { return 487220942; }
 
     }
 
@@ -2663,8 +2401,7 @@ public class TdApi {
 
         public ChatAdministrator[] administrators;
 
-        public ChatAdministrators() {
-        }
+        public ChatAdministrators() {}
 
         public ChatAdministrators(ChatAdministrator[] administrators) {
 
@@ -2673,9 +2410,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2126186435;
-        }
+        public int getConstructor() { return -2126186435; }
 
     }
 
@@ -2685,13 +2420,13 @@ public class TdApi {
      *
      * @canSendMessages - True, if the user can send text messages, contacts, locations, and venues
      * @canSendMediaMessages - True, if the user can send audio files, documents, photos, videos, video notes, and voice notes
-     * Implies can_send_messages permissions
+     *                         Implies can_send_messages permissions
      * @canSendPolls - True, if the user can send polls
-     * Implies can_send_messages permissions
+     *                 Implies can_send_messages permissions
      * @canSendOtherMessages - True, if the user can send animations, games, stickers and dice and use inline bots
-     * Implies can_send_messages permissions
+     *                         Implies can_send_messages permissions
      * @canAddWebPagePreviews - True, if the user may add a web page preview to their messages
-     * Implies can_send_messages permissions
+     *                          Implies can_send_messages permissions
      * @canChangeInfo - True, if the user can change the chat title, photo, and other settings
      * @canInviteUsers - True, if the user can invite new users to the chat
      * @canPinMessages - True, if the user can pin messages
@@ -2707,8 +2442,7 @@ public class TdApi {
         public boolean canInviteUsers;
         public boolean canPinMessages;
 
-        public ChatPermissions() {
-        }
+        public ChatPermissions() {}
 
         public ChatPermissions(boolean canSendMessages, boolean canSendMediaMessages, boolean canSendPolls, boolean canSendOtherMessages, boolean canAddWebPagePreviews, boolean canChangeInfo, boolean canInviteUsers, boolean canPinMessages) {
 
@@ -2724,9 +2458,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1584650463;
-        }
+        public int getConstructor() { return 1584650463; }
 
     }
 
@@ -2734,14 +2466,13 @@ public class TdApi {
     /**
      * Provides information about the status of a member in a chat
      */
-    public static abstract class ChatMemberStatus extends Object {
-    }
+    public static abstract class ChatMemberStatus extends Object {}
 
     /**
      * The user is the owner of a chat and has all the administrator privileges
      *
      * @customTitle - A custom title of the owner
-     * Applicable to supergroups only
+     *                Applicable to supergroups only
      * @isMember - True, if the user is a member of the chat
      */
     public static class ChatMemberStatusCreator extends ChatMemberStatus {
@@ -2749,8 +2480,7 @@ public class TdApi {
         public String customTitle;
         public boolean isMember;
 
-        public ChatMemberStatusCreator() {
-        }
+        public ChatMemberStatusCreator() {}
 
         public ChatMemberStatusCreator(String customTitle, boolean isMember) {
 
@@ -2760,9 +2490,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2038475849;
-        }
+        public int getConstructor() { return 2038475849; }
 
     }
 
@@ -2773,18 +2501,18 @@ public class TdApi {
      * In supergroups and channels, there are more detailed options for administrator privileges
      *
      * @customTitle - A custom title of the administrator
-     * Applicable to supergroups only
+     *                Applicable to supergroups only
      * @canBeEdited - True, if the current user can edit the administrator privileges for the called user
      * @canChangeInfo - True, if the administrator can change the chat title, photo, and other settings
      * @canPostMessages - True, if the administrator can create channel posts
-     * Applicable to channels only
+     *                    Applicable to channels only
      * @canEditMessages - True, if the administrator can edit messages of other users and pin messages
-     * Applicable to channels only
+     *                    Applicable to channels only
      * @canDeleteMessages - True, if the administrator can delete messages of other users
      * @canInviteUsers - True, if the administrator can invite new users to the chat
      * @canRestrictMembers - True, if the administrator can restrict, ban, or unban chat members
      * @canPinMessages - True, if the administrator can pin messages
-     * Applicable to groups only
+     *                   Applicable to groups only
      * @canPromoteMembers - True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them
      */
     public static class ChatMemberStatusAdministrator extends ChatMemberStatus {
@@ -2800,8 +2528,7 @@ public class TdApi {
         public boolean canPinMessages;
         public boolean canPromoteMembers;
 
-        public ChatMemberStatusAdministrator() {
-        }
+        public ChatMemberStatusAdministrator() {}
 
         public ChatMemberStatusAdministrator(String customTitle, boolean canBeEdited, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canPromoteMembers) {
 
@@ -2819,9 +2546,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1800612058;
-        }
+        public int getConstructor() { return 1800612058; }
 
     }
 
@@ -2832,9 +2557,7 @@ public class TdApi {
     public static class ChatMemberStatusMember extends ChatMemberStatus {
 
         @Override
-        public int getConstructor() {
-            return 844723285;
-        }
+        public int getConstructor() { return 844723285; }
 
     }
 
@@ -2845,8 +2568,8 @@ public class TdApi {
      *
      * @isMember - True, if the user is a member of the chat
      * @restrictedUntilDate - Point in time (Unix timestamp) when restrictions will be lifted from the user
-     * 0 if never
-     * If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever
+     *                        0 if never
+     *                        If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever
      * @permissions - User permissions in the chat
      */
     public static class ChatMemberStatusRestricted extends ChatMemberStatus {
@@ -2855,8 +2578,7 @@ public class TdApi {
         public int restrictedUntilDate;
         public ChatPermissions permissions;
 
-        public ChatMemberStatusRestricted() {
-        }
+        public ChatMemberStatusRestricted() {}
 
         public ChatMemberStatusRestricted(boolean isMember, int restrictedUntilDate, ChatPermissions permissions) {
 
@@ -2867,9 +2589,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1661432998;
-        }
+        public int getConstructor() { return 1661432998; }
 
     }
 
@@ -2880,9 +2600,7 @@ public class TdApi {
     public static class ChatMemberStatusLeft extends ChatMemberStatus {
 
         @Override
-        public int getConstructor() {
-            return -5815259;
-        }
+        public int getConstructor() { return -5815259; }
 
     }
 
@@ -2892,15 +2610,14 @@ public class TdApi {
      * Implies the user can't return to the chat or view messages
      *
      * @bannedUntilDate - Point in time (Unix timestamp) when the user will be unbanned
-     * 0 if never
-     * If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
+     *                    0 if never
+     *                    If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
      */
     public static class ChatMemberStatusBanned extends ChatMemberStatus {
 
         public int bannedUntilDate;
 
-        public ChatMemberStatusBanned() {
-        }
+        public ChatMemberStatusBanned() {}
 
         public ChatMemberStatusBanned(int bannedUntilDate) {
 
@@ -2909,9 +2626,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1653518666;
-        }
+        public int getConstructor() { return -1653518666; }
 
     }
 
@@ -2921,11 +2636,11 @@ public class TdApi {
      *
      * @userId - User identifier of the chat member
      * @inviterUserId - Identifier of a user that invited/promoted/banned this member in the chat
-     * 0 if unknown
+     *                  0 if unknown
      * @joinedChatDate - Point in time (Unix timestamp) when the user joined a chat
      * @status - Status of the member in the chat
      * @botInfo - If the user is a bot, information about the bot
-     * Can be null even for a bot if the bot is not a chat member
+     *            Can be null even for a bot if the bot is not a chat member
      */
     public static class ChatMember extends Object {
 
@@ -2933,11 +2648,9 @@ public class TdApi {
         public int inviterUserId;
         public int joinedChatDate;
         public ChatMemberStatus status;
-        @Nullable
-        public BotInfo botInfo;
+        @Nullable public BotInfo botInfo;
 
-        public ChatMember() {
-        }
+        public ChatMember() {}
 
         public ChatMember(int userId, int inviterUserId, int joinedChatDate, ChatMemberStatus status, @Nullable BotInfo botInfo) {
 
@@ -2950,9 +2663,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -806137076;
-        }
+        public int getConstructor() { return -806137076; }
 
     }
 
@@ -2968,8 +2679,7 @@ public class TdApi {
         public int totalCount;
         public ChatMember[] members;
 
-        public ChatMembers() {
-        }
+        public ChatMembers() {}
 
         public ChatMembers(int totalCount, ChatMember[] members) {
 
@@ -2979,9 +2689,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -497558622;
-        }
+        public int getConstructor() { return -497558622; }
 
     }
 
@@ -2989,8 +2697,7 @@ public class TdApi {
     /**
      * Specifies the kind of chat members to return in searchChatMembers
      */
-    public static abstract class ChatMembersFilter extends Object {
-    }
+    public static abstract class ChatMembersFilter extends Object {}
 
     /**
      * Returns contacts of the user
@@ -2998,9 +2705,7 @@ public class TdApi {
     public static class ChatMembersFilterContacts extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return 1774485671;
-        }
+        public int getConstructor() { return 1774485671; }
 
     }
 
@@ -3011,9 +2716,7 @@ public class TdApi {
     public static class ChatMembersFilterAdministrators extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return -1266893796;
-        }
+        public int getConstructor() { return -1266893796; }
 
     }
 
@@ -3024,9 +2727,7 @@ public class TdApi {
     public static class ChatMembersFilterMembers extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return 670504342;
-        }
+        public int getConstructor() { return 670504342; }
 
     }
 
@@ -3038,9 +2739,7 @@ public class TdApi {
     public static class ChatMembersFilterRestricted extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return 1256282813;
-        }
+        public int getConstructor() { return 1256282813; }
 
     }
 
@@ -3052,9 +2751,7 @@ public class TdApi {
     public static class ChatMembersFilterBanned extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return -1863102648;
-        }
+        public int getConstructor() { return -1863102648; }
 
     }
 
@@ -3065,9 +2762,7 @@ public class TdApi {
     public static class ChatMembersFilterBots extends ChatMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return -1422567288;
-        }
+        public int getConstructor() { return -1422567288; }
 
     }
 
@@ -3075,8 +2770,7 @@ public class TdApi {
     /**
      * Specifies the kind of chat members to return in getSupergroupMembers
      */
-    public static abstract class SupergroupMembersFilter extends Object {
-    }
+    public static abstract class SupergroupMembersFilter extends Object {}
 
     /**
      * Returns recently active users in reverse chronological order
@@ -3084,9 +2778,7 @@ public class TdApi {
     public static class SupergroupMembersFilterRecent extends SupergroupMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return 1178199509;
-        }
+        public int getConstructor() { return 1178199509; }
 
     }
 
@@ -3100,8 +2792,7 @@ public class TdApi {
 
         public String query;
 
-        public SupergroupMembersFilterContacts() {
-        }
+        public SupergroupMembersFilterContacts() {}
 
         public SupergroupMembersFilterContacts(String query) {
 
@@ -3110,9 +2801,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1282910856;
-        }
+        public int getConstructor() { return -1282910856; }
 
     }
 
@@ -3123,9 +2812,7 @@ public class TdApi {
     public static class SupergroupMembersFilterAdministrators extends SupergroupMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return -2097380265;
-        }
+        public int getConstructor() { return -2097380265; }
 
     }
 
@@ -3139,8 +2826,7 @@ public class TdApi {
 
         public String query;
 
-        public SupergroupMembersFilterSearch() {
-        }
+        public SupergroupMembersFilterSearch() {}
 
         public SupergroupMembersFilterSearch(String query) {
 
@@ -3149,9 +2835,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1696358469;
-        }
+        public int getConstructor() { return -1696358469; }
 
     }
 
@@ -3166,8 +2850,7 @@ public class TdApi {
 
         public String query;
 
-        public SupergroupMembersFilterRestricted() {
-        }
+        public SupergroupMembersFilterRestricted() {}
 
         public SupergroupMembersFilterRestricted(String query) {
 
@@ -3176,9 +2859,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1107800034;
-        }
+        public int getConstructor() { return -1107800034; }
 
     }
 
@@ -3193,8 +2874,7 @@ public class TdApi {
 
         public String query;
 
-        public SupergroupMembersFilterBanned() {
-        }
+        public SupergroupMembersFilterBanned() {}
 
         public SupergroupMembersFilterBanned(String query) {
 
@@ -3203,9 +2883,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1210621683;
-        }
+        public int getConstructor() { return -1210621683; }
 
     }
 
@@ -3216,9 +2894,7 @@ public class TdApi {
     public static class SupergroupMembersFilterBots extends SupergroupMembersFilter {
 
         @Override
-        public int getConstructor() {
-            return 492138918;
-        }
+        public int getConstructor() { return 492138918; }
 
     }
 
@@ -3231,7 +2907,7 @@ public class TdApi {
      * @status - Status of the current user in the group
      * @isActive - True, if the group is active
      * @upgradedToSupergroupId - Identifier of the supergroup to which this group was upgraded
-     * 0 if none
+     *                           0 if none
      */
     public static class BasicGroup extends Object {
 
@@ -3241,8 +2917,7 @@ public class TdApi {
         public boolean isActive;
         public int upgradedToSupergroupId;
 
-        public BasicGroup() {
-        }
+        public BasicGroup() {}
 
         public BasicGroup(int id, int memberCount, ChatMemberStatus status, boolean isActive, int upgradedToSupergroupId) {
 
@@ -3255,9 +2930,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -317839045;
-        }
+        public int getConstructor() { return -317839045; }
 
     }
 
@@ -3268,22 +2941,20 @@ public class TdApi {
      * @photo - Chat photo
      * @description - Group description
      * @creatorUserId - User identifier of the creator of the group
-     * 0 if unknown
+     *                  0 if unknown
      * @members - Group members
      * @inviteLink - Invite link for this group
-     * Available only after it has been generated at least once and only for the group creator
+     *               Available only after it has been generated at least once and only for the group creator
      */
     public static class BasicGroupFullInfo extends Object {
 
-        @Nullable
-        public ChatPhoto photo;
+        @Nullable public ChatPhoto photo;
         public String description;
         public int creatorUserId;
         public ChatMember[] members;
         public String inviteLink;
 
-        public BasicGroupFullInfo() {
-        }
+        public BasicGroupFullInfo() {}
 
         public BasicGroupFullInfo(@Nullable ChatPhoto photo, String description, int creatorUserId, ChatMember[] members, String inviteLink) {
 
@@ -3296,9 +2967,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -127204719;
-        }
+        public int getConstructor() { return -127204719; }
 
     }
 
@@ -3310,18 +2979,18 @@ public class TdApi {
      *
      * @id - Supergroup or channel identifier
      * @username - Username of the supergroup or channel
-     * Empty for private supergroups or channels
+     *             Empty for private supergroups or channels
      * @date - Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member
      * @status - Status of the current user in the supergroup or channel
-     * Custom title will be always empty
+     *           Custom title will be always empty
      * @memberCount - Number of members in the supergroup or channel
-     * 0 if unknown
-     * Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules
+     *                0 if unknown
+     *                Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules
      * @hasLinkedChat - True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel
      * @hasLocation - True, if the supergroup is connected to a location, i.e
-     * The supergroup is a location-based supergroup
+     *                The supergroup is a location-based supergroup
      * @signMessages - True, if messages sent to the channel should contain information about the sender
-     * This field is only applicable to channels
+     *                 This field is only applicable to channels
      * @isSlowModeEnabled - True, if the slow mode is enabled in the supergroup
      * @isChannel - True, if the supergroup is a channel
      * @isVerified - True, if the supergroup or channel is verified
@@ -3344,8 +3013,7 @@ public class TdApi {
         public String restrictionReason;
         public boolean isScam;
 
-        public Supergroup() {
-        }
+        public Supergroup() {}
 
         public Supergroup(int id, String username, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean isSlowModeEnabled, boolean isChannel, boolean isVerified, String restrictionReason, boolean isScam) {
 
@@ -3366,9 +3034,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -103091;
-        }
+        public int getConstructor() { return -103091; }
 
     }
 
@@ -3379,39 +3045,38 @@ public class TdApi {
      * @photo - Chat photo
      * @description - Supergroup or channel description
      * @memberCount - Number of members in the supergroup or channel
-     * 0 if unknown
+     *                0 if unknown
      * @administratorCount - Number of privileged users in the supergroup or channel
-     * 0 if unknown
+     *                       0 if unknown
      * @restrictedCount - Number of restricted users in the supergroup
-     * 0 if unknown
+     *                    0 if unknown
      * @bannedCount - Number of users banned from chat
-     * 0 if unknown
+     *                0 if unknown
      * @linkedChatId - Chat identifier of a discussion group for the channel, or a channel, for which the supergroup is the designated discussion group
-     * 0 if none or unknown
+     *                 0 if none or unknown
      * @slowModeDelay - Delay between consecutive sent messages for non-administrator supergroup members, in seconds
      * @slowModeDelayExpiresIn - Time left before next message can be sent in the supergroup, in seconds
-     * An updateSupergroupFullInfo update is not triggered when value of this field changes, but both new and old values are non-zero
+     *                           An updateSupergroupFullInfo update is not triggered when value of this field changes, but both new and old values are non-zero
      * @canGetMembers - True, if members of the chat can be retrieved
      * @canSetUsername - True, if the chat username can be changed
      * @canSetStickerSet - True, if the supergroup sticker set can be changed
      * @canSetLocation - True, if the supergroup location can be changed
      * @canViewStatistics - True, if the channel statistics is available
      * @isAllHistoryAvailable - True, if new chat members will have access to old messages
-     * In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat
-     * The value of this field is only available for chat administrators
+     *                          In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat
+     *                          The value of this field is only available for chat administrators
      * @stickerSetId - Identifier of the supergroup sticker set
-     * 0 if none
+     *                 0 if none
      * @location - Location to which the supergroup is connected
      * @inviteLink - Invite link for this chat
      * @upgradedFromBasicGroupId - Identifier of the basic group from which supergroup was upgraded
-     * 0 if none
+     *                             0 if none
      * @upgradedFromMaxMessageId - Identifier of the last message in the basic group from which supergroup was upgraded
-     * 0 if none
+     *                             0 if none
      */
     public static class SupergroupFullInfo extends Object {
 
-        @Nullable
-        public ChatPhoto photo;
+        @Nullable public ChatPhoto photo;
         public String description;
         public int memberCount;
         public int administratorCount;
@@ -3427,14 +3092,12 @@ public class TdApi {
         public boolean canViewStatistics;
         public boolean isAllHistoryAvailable;
         public long stickerSetId;
-        @Nullable
-        public ChatLocation location;
+        @Nullable public ChatLocation location;
         public String inviteLink;
         public int upgradedFromBasicGroupId;
         public long upgradedFromMaxMessageId;
 
-        public SupergroupFullInfo() {
-        }
+        public SupergroupFullInfo() {}
 
         public SupergroupFullInfo(@Nullable ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean canSetUsername, boolean canSetStickerSet, boolean canSetLocation, boolean canViewStatistics, boolean isAllHistoryAvailable, long stickerSetId, @Nullable ChatLocation location, String inviteLink, int upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
 
@@ -3462,9 +3125,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -739402159;
-        }
+        public int getConstructor() { return -739402159; }
 
     }
 
@@ -3472,8 +3133,7 @@ public class TdApi {
     /**
      * Describes the current secret chat state
      */
-    public static abstract class SecretChatState extends Object {
-    }
+    public static abstract class SecretChatState extends Object {}
 
     /**
      * The secret chat is not yet created
@@ -3482,9 +3142,7 @@ public class TdApi {
     public static class SecretChatStatePending extends SecretChatState {
 
         @Override
-        public int getConstructor() {
-            return -1637050756;
-        }
+        public int getConstructor() { return -1637050756; }
 
     }
 
@@ -3495,9 +3153,7 @@ public class TdApi {
     public static class SecretChatStateReady extends SecretChatState {
 
         @Override
-        public int getConstructor() {
-            return -1611352087;
-        }
+        public int getConstructor() { return -1611352087; }
 
     }
 
@@ -3508,9 +3164,7 @@ public class TdApi {
     public static class SecretChatStateClosed extends SecretChatState {
 
         @Override
-        public int getConstructor() {
-            return -1945106707;
-        }
+        public int getConstructor() { return -1945106707; }
 
     }
 
@@ -3522,16 +3176,16 @@ public class TdApi {
      * @userId - Identifier of the chat partner
      * @state - State of the secret chat
      * @isOutbound - True, if the chat was created by the current user
-     * Otherwise false
+     *               Otherwise false
      * @ttl - Current message Time To Live setting (self-destruct timer) for the chat, in seconds
      * @keyHash - Hash of the currently used key for comparison with the hash of the chat partner's key
-     * This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9
-     * The pixels must be used to make a 12x12 square image filled from left to right, top to bottom
-     * Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers
+     *            This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9
+     *            The pixels must be used to make a 12x12 square image filled from left to right, top to bottom
+     *            Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers
      * @layer - Secret chat layer
-     * Determines features supported by the chat partner's application
-     * Video notes are supported if the layer >= 66
-     * Nested text entities and underline and strikethrough entities are supported if the layer >= 101
+     *          Determines features supported by the chat partner's application
+     *          Video notes are supported if the layer >= 66
+     *          Nested text entities and underline and strikethrough entities are supported if the layer >= 101
      */
     public static class SecretChat extends Object {
 
@@ -3543,8 +3197,7 @@ public class TdApi {
         public byte[] keyHash;
         public int layer;
 
-        public SecretChat() {
-        }
+        public SecretChat() {}
 
         public SecretChat(int id, int userId, SecretChatState state, boolean isOutbound, int ttl, byte[] keyHash, int layer) {
 
@@ -3559,9 +3212,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1279231629;
-        }
+        public int getConstructor() { return 1279231629; }
 
     }
 
@@ -3569,8 +3220,7 @@ public class TdApi {
     /**
      * Contains information about the origin of a forwarded message
      */
-    public static abstract class MessageForwardOrigin extends Object {
-    }
+    public static abstract class MessageForwardOrigin extends Object {}
 
     /**
      * The message was originally written by a known user
@@ -3581,8 +3231,7 @@ public class TdApi {
 
         public int senderUserId;
 
-        public MessageForwardOriginUser() {
-        }
+        public MessageForwardOriginUser() {}
 
         public MessageForwardOriginUser(int senderUserId) {
 
@@ -3591,9 +3240,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2781520;
-        }
+        public int getConstructor() { return 2781520; }
 
     }
 
@@ -3607,8 +3254,7 @@ public class TdApi {
 
         public String senderName;
 
-        public MessageForwardOriginHiddenUser() {
-        }
+        public MessageForwardOriginHiddenUser() {}
 
         public MessageForwardOriginHiddenUser(String senderName) {
 
@@ -3617,9 +3263,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -271257885;
-        }
+        public int getConstructor() { return -271257885; }
 
     }
 
@@ -3629,7 +3273,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat from which the message was originally forwarded
      * @messageId - Message identifier of the original message
-     * 0 if unknown
+     *              0 if unknown
      * @authorSignature - Original post author signature
      */
     public static class MessageForwardOriginChannel extends MessageForwardOrigin {
@@ -3638,8 +3282,7 @@ public class TdApi {
         public long messageId;
         public String authorSignature;
 
-        public MessageForwardOriginChannel() {
-        }
+        public MessageForwardOriginChannel() {}
 
         public MessageForwardOriginChannel(long chatId, long messageId, String authorSignature) {
 
@@ -3650,9 +3293,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1490730723;
-        }
+        public int getConstructor() { return 1490730723; }
 
     }
 
@@ -3664,9 +3305,9 @@ public class TdApi {
      * @date - Point in time (Unix timestamp) when the message was originally sent
      * @publicServiceAnnouncementType - The type of a public service announcement for the forwarded message
      * @fromChatId - For messages forwarded to the chat with the current user (Saved Messages) or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time
-     * 0 if unknown
+     *               0 if unknown
      * @fromMessageId - For messages forwarded to the chat with the current user (Saved Messages) or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time
-     * 0 if unknown
+     *                  0 if unknown
      */
     public static class MessageForwardInfo extends Object {
 
@@ -3676,8 +3317,7 @@ public class TdApi {
         public long fromChatId;
         public long fromMessageId;
 
-        public MessageForwardInfo() {
-        }
+        public MessageForwardInfo() {}
 
         public MessageForwardInfo(MessageForwardOrigin origin, int date, String publicServiceAnnouncementType, long fromChatId, long fromMessageId) {
 
@@ -3690,9 +3330,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -327300408;
-        }
+        public int getConstructor() { return -327300408; }
 
     }
 
@@ -3700,8 +3338,7 @@ public class TdApi {
     /**
      * Contains information about the sending state of the message
      */
-    public static abstract class MessageSendingState extends Object {
-    }
+    public static abstract class MessageSendingState extends Object {}
 
     /**
      * The message is being sent now, but has not yet been delivered to the server
@@ -3709,9 +3346,7 @@ public class TdApi {
     public static class MessageSendingStatePending extends MessageSendingState {
 
         @Override
-        public int getConstructor() {
-            return -1381803582;
-        }
+        public int getConstructor() { return -1381803582; }
 
     }
 
@@ -3720,11 +3355,11 @@ public class TdApi {
      * The message failed to be sent
      *
      * @errorCode - An error code
-     * 0 if unknown
+     *              0 if unknown
      * @errorMessage - Error message
      * @canRetry - True, if the message can be re-sent
      * @retryAfter - Time left before the message can be re-sent, in seconds
-     * No update is sent when this field changes
+     *               No update is sent when this field changes
      */
     public static class MessageSendingStateFailed extends MessageSendingState {
 
@@ -3733,8 +3368,7 @@ public class TdApi {
         public boolean canRetry;
         public double retryAfter;
 
-        public MessageSendingStateFailed() {
-        }
+        public MessageSendingStateFailed() {}
 
         public MessageSendingStateFailed(int errorCode, String errorMessage, boolean canRetry, double retryAfter) {
 
@@ -3746,9 +3380,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2054476087;
-        }
+        public int getConstructor() { return 2054476087; }
 
     }
 
@@ -3758,34 +3390,34 @@ public class TdApi {
      *
      * @id - Message identifier, unique for the chat to which the message belongs
      * @senderUserId - Identifier of the user who sent the message
-     * 0 if unknown
-     * Currently, it is unknown for channel posts and for channel posts automatically forwarded to discussion group
+     *                 0 if unknown
+     *                 Currently, it is unknown for channel posts and for channel posts automatically forwarded to discussion group
      * @chatId - Chat identifier
      * @sendingState - Information about the sending state of the message
      * @schedulingState - Information about the scheduling state of the message
      * @isOutgoing - True, if the message is outgoing
      * @canBeEdited - True, if the message can be edited
-     * For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application
+     *                For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application
      * @canBeForwarded - True, if the message can be forwarded
      * @canBeDeletedOnlyForSelf - True, if the message can be deleted only for the current user while other users will continue to see it
      * @canBeDeletedForAllUsers - True, if the message can be deleted for all users
      * @isChannelPost - True, if the message is a channel post
-     * All messages to channels are channel posts, all other messages are not channel posts
+     *                  All messages to channels are channel posts, all other messages are not channel posts
      * @containsUnreadMention - True, if the message contains an unread mention for the current user
      * @date - Point in time (Unix timestamp) when the message was sent
      * @editDate - Point in time (Unix timestamp) when the message was last edited
      * @forwardInfo - Information about the initial message sender
      * @replyToMessageId - If non-zero, the identifier of the message this message is replying to
-     * Can be the identifier of a deleted message
+     *                     Can be the identifier of a deleted message
      * @ttl - For self-destructing messages, the message's TTL (Time To Live), in seconds
-     * 0 if none
-     * TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
+     *        0 if none
+     *        TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
      * @ttlExpiresIn - Time left before the message expires, in seconds
      * @viaBotUserId - If non-zero, the user identifier of the bot through which this message was sent
      * @authorSignature - For channel posts, optional author signature
      * @views - Number of times this message was viewed
      * @mediaAlbumId - Unique identifier of an album this message belongs to
-     * Only photos and videos can be grouped together in albums
+     *                 Only photos and videos can be grouped together in albums
      * @restrictionReason - If non-empty, contains a human-readable description of the reason why access to this message must be restricted
      * @content - Content of the message
      * @replyMarkup - Reply markup for the message
@@ -3795,10 +3427,8 @@ public class TdApi {
         public long id;
         public int senderUserId;
         public long chatId;
-        @Nullable
-        public MessageSendingState sendingState;
-        @Nullable
-        public MessageSchedulingState schedulingState;
+        @Nullable public MessageSendingState sendingState;
+        @Nullable public MessageSchedulingState schedulingState;
         public boolean isOutgoing;
         public boolean canBeEdited;
         public boolean canBeForwarded;
@@ -3808,8 +3438,7 @@ public class TdApi {
         public boolean containsUnreadMention;
         public int date;
         public int editDate;
-        @Nullable
-        public MessageForwardInfo forwardInfo;
+        @Nullable public MessageForwardInfo forwardInfo;
         public long replyToMessageId;
         public int ttl;
         public double ttlExpiresIn;
@@ -3819,11 +3448,9 @@ public class TdApi {
         public long mediaAlbumId;
         public String restrictionReason;
         public MessageContent content;
-        @Nullable
-        public ReplyMarkup replyMarkup;
+        @Nullable public ReplyMarkup replyMarkup;
 
-        public Message() {
-        }
+        public Message() {}
 
         public Message(long id, int senderUserId, long chatId, @Nullable MessageSendingState sendingState, @Nullable MessageSchedulingState schedulingState, boolean isOutgoing, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, @Nullable MessageForwardInfo forwardInfo, long replyToMessageId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, int views, long mediaAlbumId, String restrictionReason, MessageContent content, @Nullable ReplyMarkup replyMarkup) {
 
@@ -3856,9 +3483,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1169109781;
-        }
+        public int getConstructor() { return 1169109781; }
 
     }
 
@@ -3868,15 +3493,14 @@ public class TdApi {
      *
      * @totalCount - Approximate total count of messages found
      * @messages - List of messages
-     * Messages may be null
+     *             Messages may be null
      */
     public static class Messages extends Object {
 
         public int totalCount;
         public Message[] messages;
 
-        public Messages() {
-        }
+        public Messages() {}
 
         public Messages(int totalCount, Message[] messages) {
 
@@ -3886,9 +3510,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -16498159;
-        }
+        public int getConstructor() { return -16498159; }
 
     }
 
@@ -3904,8 +3526,7 @@ public class TdApi {
         public Message[] messages;
         public long nextFromSearchId;
 
-        public FoundMessages() {
-        }
+        public FoundMessages() {}
 
         public FoundMessages(Message[] messages, long nextFromSearchId) {
 
@@ -3915,9 +3536,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2135623881;
-        }
+        public int getConstructor() { return 2135623881; }
 
     }
 
@@ -3925,8 +3544,7 @@ public class TdApi {
     /**
      * Describes the types of chats to which notification settings are applied
      */
-    public static abstract class NotificationSettingsScope extends Object {
-    }
+    public static abstract class NotificationSettingsScope extends Object {}
 
     /**
      * Notification settings applied to all private and secret chats when the corresponding chat setting has a default value
@@ -3934,9 +3552,7 @@ public class TdApi {
     public static class NotificationSettingsScopePrivateChats extends NotificationSettingsScope {
 
         @Override
-        public int getConstructor() {
-            return 937446759;
-        }
+        public int getConstructor() { return 937446759; }
 
     }
 
@@ -3947,9 +3563,7 @@ public class TdApi {
     public static class NotificationSettingsScopeGroupChats extends NotificationSettingsScope {
 
         @Override
-        public int getConstructor() {
-            return 1212142067;
-        }
+        public int getConstructor() { return 1212142067; }
 
     }
 
@@ -3960,9 +3574,7 @@ public class TdApi {
     public static class NotificationSettingsScopeChannelChats extends NotificationSettingsScope {
 
         @Override
-        public int getConstructor() {
-            return 548013448;
-        }
+        public int getConstructor() { return 548013448; }
 
     }
 
@@ -3974,7 +3586,7 @@ public class TdApi {
      * @muteFor - Time left before notifications will be unmuted, in seconds
      * @useDefaultSound - If true, sound is ignored and the value for the relevant type of chat is used instead
      * @sound - The name of an audio file to be used for notification sounds
-     * Only applies to iOS applications
+     *          Only applies to iOS applications
      * @useDefaultShowPreview - If true, show_preview is ignored and the value for the relevant type of chat is used instead
      * @showPreview - True, if message content should be displayed in notifications
      * @useDefaultDisablePinnedMessageNotifications - If true, disable_pinned_message_notifications is ignored and the value for the relevant type of chat is used instead
@@ -3995,8 +3607,7 @@ public class TdApi {
         public boolean useDefaultDisableMentionNotifications;
         public boolean disableMentionNotifications;
 
-        public ChatNotificationSettings() {
-        }
+        public ChatNotificationSettings() {}
 
         public ChatNotificationSettings(boolean useDefaultMuteFor, int muteFor, boolean useDefaultSound, String sound, boolean useDefaultShowPreview, boolean showPreview, boolean useDefaultDisablePinnedMessageNotifications, boolean disablePinnedMessageNotifications, boolean useDefaultDisableMentionNotifications, boolean disableMentionNotifications) {
 
@@ -4014,9 +3625,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1503183218;
-        }
+        public int getConstructor() { return 1503183218; }
 
     }
 
@@ -4026,7 +3635,7 @@ public class TdApi {
      *
      * @muteFor - Time left before notifications will be unmuted, in seconds
      * @sound - The name of an audio file to be used for notification sounds
-     * Only applies to iOS applications
+     *          Only applies to iOS applications
      * @showPreview - True, if message content should be displayed in notifications
      * @disablePinnedMessageNotifications - True, if notifications for incoming pinned messages will be created as for an ordinary unread message
      * @disableMentionNotifications - True, if notifications for messages with mentions will be created as for an ordinary unread message
@@ -4039,8 +3648,7 @@ public class TdApi {
         public boolean disablePinnedMessageNotifications;
         public boolean disableMentionNotifications;
 
-        public ScopeNotificationSettings() {
-        }
+        public ScopeNotificationSettings() {}
 
         public ScopeNotificationSettings(int muteFor, String sound, boolean showPreview, boolean disablePinnedMessageNotifications, boolean disableMentionNotifications) {
 
@@ -4053,9 +3661,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -426103745;
-        }
+        public int getConstructor() { return -426103745; }
 
     }
 
@@ -4064,10 +3670,10 @@ public class TdApi {
      * Contains information about a message draft
      *
      * @replyToMessageId - Identifier of the message to reply to
-     * 0 if none
+     *                     0 if none
      * @date - Point in time (Unix timestamp) when the draft was created
      * @inputMessageText - Content of the message draft
-     * This should always be of type inputMessageText
+     *                     This should always be of type inputMessageText
      */
     public static class DraftMessage extends Object {
 
@@ -4075,8 +3681,7 @@ public class TdApi {
         public int date;
         public InputMessageContent inputMessageText;
 
-        public DraftMessage() {
-        }
+        public DraftMessage() {}
 
         public DraftMessage(long replyToMessageId, int date, InputMessageContent inputMessageText) {
 
@@ -4087,9 +3692,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1373050112;
-        }
+        public int getConstructor() { return 1373050112; }
 
     }
 
@@ -4097,8 +3700,7 @@ public class TdApi {
     /**
      * Describes the type of a chat
      */
-    public static abstract class ChatType extends Object {
-    }
+    public static abstract class ChatType extends Object {}
 
     /**
      * An ordinary chat with a user
@@ -4109,8 +3711,7 @@ public class TdApi {
 
         public int userId;
 
-        public ChatTypePrivate() {
-        }
+        public ChatTypePrivate() {}
 
         public ChatTypePrivate(int userId) {
 
@@ -4119,9 +3720,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1700720838;
-        }
+        public int getConstructor() { return 1700720838; }
 
     }
 
@@ -4135,8 +3734,7 @@ public class TdApi {
 
         public int basicGroupId;
 
-        public ChatTypeBasicGroup() {
-        }
+        public ChatTypeBasicGroup() {}
 
         public ChatTypeBasicGroup(int basicGroupId) {
 
@@ -4145,9 +3743,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 21815278;
-        }
+        public int getConstructor() { return 21815278; }
 
     }
 
@@ -4164,8 +3760,7 @@ public class TdApi {
         public int supergroupId;
         public boolean isChannel;
 
-        public ChatTypeSupergroup() {
-        }
+        public ChatTypeSupergroup() {}
 
         public ChatTypeSupergroup(int supergroupId, boolean isChannel) {
 
@@ -4175,9 +3770,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 955152366;
-        }
+        public int getConstructor() { return 955152366; }
 
     }
 
@@ -4193,8 +3786,7 @@ public class TdApi {
         public int secretChatId;
         public int userId;
 
-        public ChatTypeSecret() {
-        }
+        public ChatTypeSecret() {}
 
         public ChatTypeSecret(int secretChatId, int userId) {
 
@@ -4204,9 +3796,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 136722563;
-        }
+        public int getConstructor() { return 136722563; }
 
     }
 
@@ -4216,8 +3806,8 @@ public class TdApi {
      *
      * @title - The title of the filter
      * @iconName - The icon name for short filter representation
-     * If non-empty, must be one of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work"
-     * If empty, use getChatFilterDefaultIconName to get default icon name for the filter
+     *             If non-empty, must be one of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work"
+     *             If empty, use getChatFilterDefaultIconName to get default icon name for the filter
      * @pinnedChatIds - The chat identifiers of pinned chats in the filtered chat list
      * @includedChatIds - The chat identifiers of always included chats in the filtered chat list
      * @excludedChatIds - The chat identifiers of always excluded chats in the filtered chat list
@@ -4246,8 +3836,7 @@ public class TdApi {
         public boolean includeGroups;
         public boolean includeChannels;
 
-        public ChatFilter() {
-        }
+        public ChatFilter() {}
 
         public ChatFilter(String title, String iconName, long[] pinnedChatIds, long[] includedChatIds, long[] excludedChatIds, boolean excludeMuted, boolean excludeRead, boolean excludeArchived, boolean includeContacts, boolean includeNonContacts, boolean includeBots, boolean includeGroups, boolean includeChannels) {
 
@@ -4268,9 +3857,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -664815123;
-        }
+        public int getConstructor() { return -664815123; }
 
     }
 
@@ -4281,7 +3868,7 @@ public class TdApi {
      * @id - Unique chat filter identifier
      * @title - The title of the filter
      * @iconName - The icon name for short filter representation
-     * One of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work"
+     *             One of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work"
      */
     public static class ChatFilterInfo extends Object {
 
@@ -4289,8 +3876,7 @@ public class TdApi {
         public String title;
         public String iconName;
 
-        public ChatFilterInfo() {
-        }
+        public ChatFilterInfo() {}
 
         public ChatFilterInfo(int id, String title, String iconName) {
 
@@ -4301,9 +3887,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -943721165;
-        }
+        public int getConstructor() { return -943721165; }
 
     }
 
@@ -4319,8 +3903,7 @@ public class TdApi {
         public ChatFilter filter;
         public String description;
 
-        public RecommendedChatFilter() {
-        }
+        public RecommendedChatFilter() {}
 
         public RecommendedChatFilter(ChatFilter filter, String description) {
 
@@ -4330,9 +3913,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 36048610;
-        }
+        public int getConstructor() { return 36048610; }
 
     }
 
@@ -4346,8 +3927,7 @@ public class TdApi {
 
         public RecommendedChatFilter[] chatFilters;
 
-        public RecommendedChatFilters() {
-        }
+        public RecommendedChatFilters() {}
 
         public RecommendedChatFilters(RecommendedChatFilter[] chatFilters) {
 
@@ -4356,9 +3936,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -263416880;
-        }
+        public int getConstructor() { return -263416880; }
 
     }
 
@@ -4366,8 +3944,7 @@ public class TdApi {
     /**
      * Describes a list of chats
      */
-    public static abstract class ChatList extends Object {
-    }
+    public static abstract class ChatList extends Object {}
 
     /**
      * A main list of chats
@@ -4375,9 +3952,7 @@ public class TdApi {
     public static class ChatListMain extends ChatList {
 
         @Override
-        public int getConstructor() {
-            return -400991316;
-        }
+        public int getConstructor() { return -400991316; }
 
     }
 
@@ -4389,9 +3964,7 @@ public class TdApi {
     public static class ChatListArchive extends ChatList {
 
         @Override
-        public int getConstructor() {
-            return 362770115;
-        }
+        public int getConstructor() { return 362770115; }
 
     }
 
@@ -4405,8 +3978,7 @@ public class TdApi {
 
         public int chatFilterId;
 
-        public ChatListFilter() {
-        }
+        public ChatListFilter() {}
 
         public ChatListFilter(int chatFilterId) {
 
@@ -4415,9 +3987,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2022707655;
-        }
+        public int getConstructor() { return -2022707655; }
 
     }
 
@@ -4431,8 +4001,7 @@ public class TdApi {
 
         public ChatList[] chatLists;
 
-        public ChatLists() {
-        }
+        public ChatLists() {}
 
         public ChatLists(ChatList[] chatLists) {
 
@@ -4441,9 +4010,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -258292771;
-        }
+        public int getConstructor() { return -258292771; }
 
     }
 
@@ -4451,8 +4018,7 @@ public class TdApi {
     /**
      * Describes a reason why an external chat is shown in a chat list
      */
-    public static abstract class ChatSource extends Object {
-    }
+    public static abstract class ChatSource extends Object {}
 
     /**
      * The chat is sponsored by the user's MTProxy server
@@ -4460,9 +4026,7 @@ public class TdApi {
     public static class ChatSourceMtprotoProxy extends ChatSource {
 
         @Override
-        public int getConstructor() {
-            return 394074115;
-        }
+        public int getConstructor() { return 394074115; }
 
     }
 
@@ -4478,8 +4042,7 @@ public class TdApi {
         public String type;
         public String text;
 
-        public ChatSourcePublicServiceAnnouncement() {
-        }
+        public ChatSourcePublicServiceAnnouncement() {}
 
         public ChatSourcePublicServiceAnnouncement(String type, String text) {
 
@@ -4489,9 +4052,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -328571244;
-        }
+        public int getConstructor() { return -328571244; }
 
     }
 
@@ -4501,7 +4062,7 @@ public class TdApi {
      *
      * @list - The chat list
      * @order - A parameter used to determine order of the chat in the chat list
-     * Chats must be sorted by the pair (order, chat.id) in descending order
+     *          Chats must be sorted by the pair (order, chat.id) in descending order
      * @isPinned - True, if the chat is pinned in the chat list
      * @source - Source of the chat in the chat list
      */
@@ -4510,11 +4071,9 @@ public class TdApi {
         public ChatList list;
         public long order;
         public boolean isPinned;
-        @Nullable
-        public ChatSource source;
+        @Nullable public ChatSource source;
 
-        public ChatPosition() {
-        }
+        public ChatPosition() {}
 
         public ChatPosition(ChatList list, long order, boolean isPinned, @Nullable ChatSource source) {
 
@@ -4526,9 +4085,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -622557355;
-        }
+        public int getConstructor() { return -622557355; }
 
     }
 
@@ -4557,23 +4114,21 @@ public class TdApi {
      * @notificationSettings - Notification settings for this chat
      * @actionBar - Describes actions which should be possible to do through a chat action bar
      * @pinnedMessageId - Identifier of the pinned message in the chat
-     * 0 if none
+     *                    0 if none
      * @replyMarkupMessageId - Identifier of the message from which reply markup needs to be used
-     * 0 if there is no default custom reply markup in the chat
+     *                         0 if there is no default custom reply markup in the chat
      * @draftMessage - A draft of a message in the chat
      * @clientData - Contains application-specific data associated with the chat
-     * (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used
+     *               (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used
      */
     public static class Chat extends Object {
 
         public long id;
         public ChatType type;
         public String title;
-        @Nullable
-        public ChatPhotoInfo photo;
+        @Nullable public ChatPhotoInfo photo;
         public ChatPermissions permissions;
-        @Nullable
-        public Message lastMessage;
+        @Nullable public Message lastMessage;
         public ChatPosition[] positions;
         public boolean isMarkedAsUnread;
         public boolean hasScheduledMessages;
@@ -4586,16 +4141,13 @@ public class TdApi {
         public long lastReadOutboxMessageId;
         public int unreadMentionCount;
         public ChatNotificationSettings notificationSettings;
-        @Nullable
-        public ChatActionBar actionBar;
+        @Nullable public ChatActionBar actionBar;
         public long pinnedMessageId;
         public long replyMarkupMessageId;
-        @Nullable
-        public DraftMessage draftMessage;
+        @Nullable public DraftMessage draftMessage;
         public String clientData;
 
-        public Chat() {
-        }
+        public Chat() {}
 
         public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, long pinnedMessageId, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
 
@@ -4626,9 +4178,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1318398921;
-        }
+        public int getConstructor() { return 1318398921; }
 
     }
 
@@ -4642,8 +4192,7 @@ public class TdApi {
 
         public long[] chatIds;
 
-        public Chats() {
-        }
+        public Chats() {}
 
         public Chats(long[] chatIds) {
 
@@ -4652,9 +4201,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1687756019;
-        }
+        public int getConstructor() { return -1687756019; }
 
     }
 
@@ -4670,8 +4217,7 @@ public class TdApi {
         public long chatId;
         public int distance;
 
-        public ChatNearby() {
-        }
+        public ChatNearby() {}
 
         public ChatNearby(long chatId, int distance) {
 
@@ -4681,9 +4227,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 48120405;
-        }
+        public int getConstructor() { return 48120405; }
 
     }
 
@@ -4699,8 +4243,7 @@ public class TdApi {
         public ChatNearby[] usersNearby;
         public ChatNearby[] supergroupsNearby;
 
-        public ChatsNearby() {
-        }
+        public ChatsNearby() {}
 
         public ChatsNearby(ChatNearby[] usersNearby, ChatNearby[] supergroupsNearby) {
 
@@ -4710,9 +4253,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 187746081;
-        }
+        public int getConstructor() { return 187746081; }
 
     }
 
@@ -4726,8 +4267,7 @@ public class TdApi {
 
         public String inviteLink;
 
-        public ChatInviteLink() {
-        }
+        public ChatInviteLink() {}
 
         public ChatInviteLink(String inviteLink) {
 
@@ -4736,9 +4276,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -882072492;
-        }
+        public int getConstructor() { return -882072492; }
 
     }
 
@@ -4747,7 +4285,7 @@ public class TdApi {
      * Contains information about a chat invite link
      *
      * @chatId - Chat identifier of the invite link
-     * 0 if the user have no access to the chat before joining
+     *           0 if the user have no access to the chat before joining
      * @accessibleFor - If non-zero, the remaining time for which read access is granted to the chat, in seconds
      * @type - Contains information about the type of the chat
      * @title - Title of the chat
@@ -4755,7 +4293,7 @@ public class TdApi {
      * @memberCount - Number of members in the chat
      * @memberUserIds - User identifiers of some chat members that may be known to the current user
      * @isPublic - True, if the chat is a public supergroup or channel, i.e
-     * It has a username or it is a location-based supergroup
+     *             It has a username or it is a location-based supergroup
      */
     public static class ChatInviteLinkInfo extends Object {
 
@@ -4763,14 +4301,12 @@ public class TdApi {
         public int accessibleFor;
         public ChatType type;
         public String title;
-        @Nullable
-        public ChatPhotoInfo photo;
+        @Nullable public ChatPhotoInfo photo;
         public int memberCount;
         public int[] memberUserIds;
         public boolean isPublic;
 
-        public ChatInviteLinkInfo() {
-        }
+        public ChatInviteLinkInfo() {}
 
         public ChatInviteLinkInfo(long chatId, int accessibleFor, ChatType type, String title, @Nullable ChatPhotoInfo photo, int memberCount, int[] memberUserIds, boolean isPublic) {
 
@@ -4786,9 +4322,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 910695551;
-        }
+        public int getConstructor() { return 910695551; }
 
     }
 
@@ -4796,8 +4330,7 @@ public class TdApi {
     /**
      * Describes a type of public chats
      */
-    public static abstract class PublicChatType extends Object {
-    }
+    public static abstract class PublicChatType extends Object {}
 
     /**
      * The chat is public, because it has username
@@ -4805,9 +4338,7 @@ public class TdApi {
     public static class PublicChatTypeHasUsername extends PublicChatType {
 
         @Override
-        public int getConstructor() {
-            return 350789758;
-        }
+        public int getConstructor() { return 350789758; }
 
     }
 
@@ -4818,9 +4349,7 @@ public class TdApi {
     public static class PublicChatTypeIsLocationBased extends PublicChatType {
 
         @Override
-        public int getConstructor() {
-            return 1183735952;
-        }
+        public int getConstructor() { return 1183735952; }
 
     }
 
@@ -4828,8 +4357,7 @@ public class TdApi {
     /**
      * Describes actions which should be possible to do through a chat action bar
      */
-    public static abstract class ChatActionBar extends Object {
-    }
+    public static abstract class ChatActionBar extends Object {}
 
     /**
      * The chat can be reported as spam using the method reportChat with the reason chatReportReasonSpam
@@ -4840,8 +4368,7 @@ public class TdApi {
 
         public boolean canUnarchive;
 
-        public ChatActionBarReportSpam() {
-        }
+        public ChatActionBarReportSpam() {}
 
         public ChatActionBarReportSpam(boolean canUnarchive) {
 
@@ -4850,9 +4377,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1312758246;
-        }
+        public int getConstructor() { return -1312758246; }
 
     }
 
@@ -4863,9 +4388,7 @@ public class TdApi {
     public static class ChatActionBarReportUnrelatedLocation extends ChatActionBar {
 
         @Override
-        public int getConstructor() {
-            return 758175489;
-        }
+        public int getConstructor() { return 758175489; }
 
     }
 
@@ -4881,8 +4404,7 @@ public class TdApi {
         public boolean canUnarchive;
         public int distance;
 
-        public ChatActionBarReportAddBlock() {
-        }
+        public ChatActionBarReportAddBlock() {}
 
         public ChatActionBarReportAddBlock(boolean canUnarchive, int distance) {
 
@@ -4892,9 +4414,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -914150419;
-        }
+        public int getConstructor() { return -914150419; }
 
     }
 
@@ -4905,9 +4425,7 @@ public class TdApi {
     public static class ChatActionBarAddContact extends ChatActionBar {
 
         @Override
-        public int getConstructor() {
-            return -733325295;
-        }
+        public int getConstructor() { return -733325295; }
 
     }
 
@@ -4918,9 +4436,7 @@ public class TdApi {
     public static class ChatActionBarSharePhoneNumber extends ChatActionBar {
 
         @Override
-        public int getConstructor() {
-            return 35188697;
-        }
+        public int getConstructor() { return 35188697; }
 
     }
 
@@ -4928,8 +4444,7 @@ public class TdApi {
     /**
      * Describes a keyboard button type
      */
-    public static abstract class KeyboardButtonType extends Object {
-    }
+    public static abstract class KeyboardButtonType extends Object {}
 
     /**
      * A simple button, with text that should be sent when the button is pressed
@@ -4937,9 +4452,7 @@ public class TdApi {
     public static class KeyboardButtonTypeText extends KeyboardButtonType {
 
         @Override
-        public int getConstructor() {
-            return -1773037256;
-        }
+        public int getConstructor() { return -1773037256; }
 
     }
 
@@ -4951,9 +4464,7 @@ public class TdApi {
     public static class KeyboardButtonTypeRequestPhoneNumber extends KeyboardButtonType {
 
         @Override
-        public int getConstructor() {
-            return -1529235527;
-        }
+        public int getConstructor() { return -1529235527; }
 
     }
 
@@ -4965,9 +4476,7 @@ public class TdApi {
     public static class KeyboardButtonTypeRequestLocation extends KeyboardButtonType {
 
         @Override
-        public int getConstructor() {
-            return -125661955;
-        }
+        public int getConstructor() { return -125661955; }
 
     }
 
@@ -4984,8 +4493,7 @@ public class TdApi {
         public boolean forceRegular;
         public boolean forceQuiz;
 
-        public KeyboardButtonTypeRequestPoll() {
-        }
+        public KeyboardButtonTypeRequestPoll() {}
 
         public KeyboardButtonTypeRequestPoll(boolean forceRegular, boolean forceQuiz) {
 
@@ -4995,9 +4503,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1902435512;
-        }
+        public int getConstructor() { return 1902435512; }
 
     }
 
@@ -5013,8 +4519,7 @@ public class TdApi {
         public String text;
         public KeyboardButtonType type;
 
-        public KeyboardButton() {
-        }
+        public KeyboardButton() {}
 
         public KeyboardButton(String text, KeyboardButtonType type) {
 
@@ -5024,9 +4529,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2069836172;
-        }
+        public int getConstructor() { return -2069836172; }
 
     }
 
@@ -5034,8 +4537,7 @@ public class TdApi {
     /**
      * Describes the type of an inline keyboard button
      */
-    public static abstract class InlineKeyboardButtonType extends Object {
-    }
+    public static abstract class InlineKeyboardButtonType extends Object {}
 
     /**
      * A button that opens a specified URL
@@ -5046,8 +4548,7 @@ public class TdApi {
 
         public String url;
 
-        public InlineKeyboardButtonTypeUrl() {
-        }
+        public InlineKeyboardButtonTypeUrl() {}
 
         public InlineKeyboardButtonTypeUrl(String url) {
 
@@ -5056,9 +4557,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1130741420;
-        }
+        public int getConstructor() { return 1130741420; }
 
     }
 
@@ -5076,8 +4575,7 @@ public class TdApi {
         public int id;
         public String forwardText;
 
-        public InlineKeyboardButtonTypeLoginUrl() {
-        }
+        public InlineKeyboardButtonTypeLoginUrl() {}
 
         public InlineKeyboardButtonTypeLoginUrl(String url, int id, String forwardText) {
 
@@ -5088,9 +4586,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 281435539;
-        }
+        public int getConstructor() { return 281435539; }
 
     }
 
@@ -5104,8 +4600,7 @@ public class TdApi {
 
         public byte[] data;
 
-        public InlineKeyboardButtonTypeCallback() {
-        }
+        public InlineKeyboardButtonTypeCallback() {}
 
         public InlineKeyboardButtonTypeCallback(byte[] data) {
 
@@ -5114,9 +4609,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1127515139;
-        }
+        public int getConstructor() { return -1127515139; }
 
     }
 
@@ -5128,9 +4621,7 @@ public class TdApi {
     public static class InlineKeyboardButtonTypeCallbackGame extends InlineKeyboardButtonType {
 
         @Override
-        public int getConstructor() {
-            return -383429528;
-        }
+        public int getConstructor() { return -383429528; }
 
     }
 
@@ -5146,8 +4637,7 @@ public class TdApi {
         public String query;
         public boolean inCurrentChat;
 
-        public InlineKeyboardButtonTypeSwitchInline() {
-        }
+        public InlineKeyboardButtonTypeSwitchInline() {}
 
         public InlineKeyboardButtonTypeSwitchInline(String query, boolean inCurrentChat) {
 
@@ -5157,9 +4647,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2035563307;
-        }
+        public int getConstructor() { return -2035563307; }
 
     }
 
@@ -5171,9 +4659,7 @@ public class TdApi {
     public static class InlineKeyboardButtonTypeBuy extends InlineKeyboardButtonType {
 
         @Override
-        public int getConstructor() {
-            return 1360739440;
-        }
+        public int getConstructor() { return 1360739440; }
 
     }
 
@@ -5189,8 +4675,7 @@ public class TdApi {
         public String text;
         public InlineKeyboardButtonType type;
 
-        public InlineKeyboardButton() {
-        }
+        public InlineKeyboardButton() {}
 
         public InlineKeyboardButton(String text, InlineKeyboardButtonType type) {
 
@@ -5200,9 +4685,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -372105704;
-        }
+        public int getConstructor() { return -372105704; }
 
     }
 
@@ -5210,8 +4693,7 @@ public class TdApi {
     /**
      * Contains a description of a custom keyboard and actions that can be done with it to quickly reply to bots
      */
-    public static abstract class ReplyMarkup extends Object {
-    }
+    public static abstract class ReplyMarkup extends Object {}
 
     /**
      * Instructs application to remove the keyboard once this message has been received
@@ -5224,8 +4706,7 @@ public class TdApi {
 
         public boolean isPersonal;
 
-        public ReplyMarkupRemoveKeyboard() {
-        }
+        public ReplyMarkupRemoveKeyboard() {}
 
         public ReplyMarkupRemoveKeyboard(boolean isPersonal) {
 
@@ -5234,9 +4715,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -691252879;
-        }
+        public int getConstructor() { return -691252879; }
 
     }
 
@@ -5245,14 +4724,13 @@ public class TdApi {
      * Instructs application to force a reply to this message
      *
      * @isPersonal - True, if a forced reply must automatically be shown to the current user
-     * For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply
+     *               For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply
      */
     public static class ReplyMarkupForceReply extends ReplyMarkup {
 
         public boolean isPersonal;
 
-        public ReplyMarkupForceReply() {
-        }
+        public ReplyMarkupForceReply() {}
 
         public ReplyMarkupForceReply(boolean isPersonal) {
 
@@ -5261,9 +4739,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1039104593;
-        }
+        public int getConstructor() { return 1039104593; }
 
     }
 
@@ -5275,7 +4751,7 @@ public class TdApi {
      * @resizeKeyboard - True, if the application needs to resize the keyboard vertically
      * @oneTime - True, if the application needs to hide the keyboard after use
      * @isPersonal - True, if the keyboard must automatically be shown to the current user
-     * For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply
+     *               For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply
      */
     public static class ReplyMarkupShowKeyboard extends ReplyMarkup {
 
@@ -5284,8 +4760,7 @@ public class TdApi {
         public boolean oneTime;
         public boolean isPersonal;
 
-        public ReplyMarkupShowKeyboard() {
-        }
+        public ReplyMarkupShowKeyboard() {}
 
         public ReplyMarkupShowKeyboard(KeyboardButton[][] rows, boolean resizeKeyboard, boolean oneTime, boolean isPersonal) {
 
@@ -5297,9 +4772,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -992627133;
-        }
+        public int getConstructor() { return -992627133; }
 
     }
 
@@ -5313,8 +4786,7 @@ public class TdApi {
 
         public InlineKeyboardButton[][] rows;
 
-        public ReplyMarkupInlineKeyboard() {
-        }
+        public ReplyMarkupInlineKeyboard() {}
 
         public ReplyMarkupInlineKeyboard(InlineKeyboardButton[][] rows) {
 
@@ -5323,9 +4795,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -619317658;
-        }
+        public int getConstructor() { return -619317658; }
 
     }
 
@@ -5333,8 +4803,7 @@ public class TdApi {
     /**
      * Contains information about an inline button of type inlineKeyboardButtonTypeLoginUrl
      */
-    public static abstract class LoginUrlInfo extends Object {
-    }
+    public static abstract class LoginUrlInfo extends Object {}
 
     /**
      * An HTTP url needs to be open
@@ -5347,8 +4816,7 @@ public class TdApi {
         public String url;
         public boolean skipConfirm;
 
-        public LoginUrlInfoOpen() {
-        }
+        public LoginUrlInfoOpen() {}
 
         public LoginUrlInfoOpen(String url, boolean skipConfirm) {
 
@@ -5358,9 +4826,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1079045420;
-        }
+        public int getConstructor() { return -1079045420; }
 
     }
 
@@ -5380,8 +4846,7 @@ public class TdApi {
         public int botUserId;
         public boolean requestWriteAccess;
 
-        public LoginUrlInfoRequestConfirmation() {
-        }
+        public LoginUrlInfoRequestConfirmation() {}
 
         public LoginUrlInfoRequestConfirmation(String url, String domain, int botUserId, boolean requestWriteAccess) {
 
@@ -5393,9 +4858,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1761898342;
-        }
+        public int getConstructor() { return -1761898342; }
 
     }
 
@@ -5403,8 +4866,7 @@ public class TdApi {
     /**
      * Describes a text object inside an instant-view web page
      */
-    public static abstract class RichText extends Object {
-    }
+    public static abstract class RichText extends Object {}
 
     /**
      * A plain text
@@ -5415,8 +4877,7 @@ public class TdApi {
 
         public String text;
 
-        public RichTextPlain() {
-        }
+        public RichTextPlain() {}
 
         public RichTextPlain(String text) {
 
@@ -5425,9 +4886,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 482617702;
-        }
+        public int getConstructor() { return 482617702; }
 
     }
 
@@ -5441,8 +4900,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextBold() {
-        }
+        public RichTextBold() {}
 
         public RichTextBold(RichText text) {
 
@@ -5451,9 +4909,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1670844268;
-        }
+        public int getConstructor() { return 1670844268; }
 
     }
 
@@ -5467,8 +4923,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextItalic() {
-        }
+        public RichTextItalic() {}
 
         public RichTextItalic(RichText text) {
 
@@ -5477,9 +4932,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1853354047;
-        }
+        public int getConstructor() { return 1853354047; }
 
     }
 
@@ -5493,8 +4946,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextUnderline() {
-        }
+        public RichTextUnderline() {}
 
         public RichTextUnderline(RichText text) {
 
@@ -5503,9 +4955,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -536019572;
-        }
+        public int getConstructor() { return -536019572; }
 
     }
 
@@ -5519,8 +4969,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextStrikethrough() {
-        }
+        public RichTextStrikethrough() {}
 
         public RichTextStrikethrough(RichText text) {
 
@@ -5529,9 +4978,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 723413585;
-        }
+        public int getConstructor() { return 723413585; }
 
     }
 
@@ -5545,8 +4992,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextFixed() {
-        }
+        public RichTextFixed() {}
 
         public RichTextFixed(RichText text) {
 
@@ -5555,9 +5001,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1271496249;
-        }
+        public int getConstructor() { return -1271496249; }
 
     }
 
@@ -5575,8 +5019,7 @@ public class TdApi {
         public String url;
         public boolean isCached;
 
-        public RichTextUrl() {
-        }
+        public RichTextUrl() {}
 
         public RichTextUrl(RichText text, String url, boolean isCached) {
 
@@ -5587,9 +5030,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 83939092;
-        }
+        public int getConstructor() { return 83939092; }
 
     }
 
@@ -5605,8 +5046,7 @@ public class TdApi {
         public RichText text;
         public String emailAddress;
 
-        public RichTextEmailAddress() {
-        }
+        public RichTextEmailAddress() {}
 
         public RichTextEmailAddress(RichText text, String emailAddress) {
 
@@ -5616,9 +5056,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 40018679;
-        }
+        public int getConstructor() { return 40018679; }
 
     }
 
@@ -5632,8 +5070,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextSubscript() {
-        }
+        public RichTextSubscript() {}
 
         public RichTextSubscript(RichText text) {
 
@@ -5642,9 +5079,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -868197812;
-        }
+        public int getConstructor() { return -868197812; }
 
     }
 
@@ -5658,8 +5093,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextSuperscript() {
-        }
+        public RichTextSuperscript() {}
 
         public RichTextSuperscript(RichText text) {
 
@@ -5668,9 +5102,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -382241437;
-        }
+        public int getConstructor() { return -382241437; }
 
     }
 
@@ -5684,8 +5116,7 @@ public class TdApi {
 
         public RichText text;
 
-        public RichTextMarked() {
-        }
+        public RichTextMarked() {}
 
         public RichTextMarked(RichText text) {
 
@@ -5694,9 +5125,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1271999614;
-        }
+        public int getConstructor() { return -1271999614; }
 
     }
 
@@ -5712,8 +5141,7 @@ public class TdApi {
         public RichText text;
         public String phoneNumber;
 
-        public RichTextPhoneNumber() {
-        }
+        public RichTextPhoneNumber() {}
 
         public RichTextPhoneNumber(RichText text, String phoneNumber) {
 
@@ -5723,9 +5151,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 128521539;
-        }
+        public int getConstructor() { return 128521539; }
 
     }
 
@@ -5734,11 +5160,11 @@ public class TdApi {
      * A small image inside the text
      *
      * @document - The image represented as a document
-     * The image can be in GIF, JPEG or PNG format
+     *             The image can be in GIF, JPEG or PNG format
      * @width - Width of a bounding box in which the image should be shown
-     * 0 if unknown
+     *          0 if unknown
      * @height - Height of a bounding box in which the image should be shown
-     * 0 if unknown
+     *           0 if unknown
      */
     public static class RichTextIcon extends RichText {
 
@@ -5746,8 +5172,7 @@ public class TdApi {
         public int width;
         public int height;
 
-        public RichTextIcon() {
-        }
+        public RichTextIcon() {}
 
         public RichTextIcon(Document document, int width, int height) {
 
@@ -5758,9 +5183,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1480316158;
-        }
+        public int getConstructor() { return -1480316158; }
 
     }
 
@@ -5778,8 +5201,7 @@ public class TdApi {
         public RichText referenceText;
         public String url;
 
-        public RichTextReference() {
-        }
+        public RichTextReference() {}
 
         public RichTextReference(RichText text, RichText referenceText, String url) {
 
@@ -5790,9 +5212,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -144433301;
-        }
+        public int getConstructor() { return -144433301; }
 
     }
 
@@ -5806,8 +5226,7 @@ public class TdApi {
 
         public String name;
 
-        public RichTextAnchor() {
-        }
+        public RichTextAnchor() {}
 
         public RichTextAnchor(String name) {
 
@@ -5816,9 +5235,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1316950068;
-        }
+        public int getConstructor() { return 1316950068; }
 
     }
 
@@ -5828,7 +5245,7 @@ public class TdApi {
      *
      * @text - The link text
      * @name - The anchor name
-     * If the name is empty, the link should bring back to top
+     *         If the name is empty, the link should bring back to top
      * @url - An HTTP URL, opening the anchor
      */
     public static class RichTextAnchorLink extends RichText {
@@ -5837,8 +5254,7 @@ public class TdApi {
         public String name;
         public String url;
 
-        public RichTextAnchorLink() {
-        }
+        public RichTextAnchorLink() {}
 
         public RichTextAnchorLink(RichText text, String name, String url) {
 
@@ -5849,9 +5265,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -367827961;
-        }
+        public int getConstructor() { return -367827961; }
 
     }
 
@@ -5865,8 +5279,7 @@ public class TdApi {
 
         public RichText[] texts;
 
-        public RichTexts() {
-        }
+        public RichTexts() {}
 
         public RichTexts(RichText[] texts) {
 
@@ -5875,9 +5288,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1647457821;
-        }
+        public int getConstructor() { return 1647457821; }
 
     }
 
@@ -5893,8 +5304,7 @@ public class TdApi {
         public RichText text;
         public RichText credit;
 
-        public PageBlockCaption() {
-        }
+        public PageBlockCaption() {}
 
         public PageBlockCaption(RichText text, RichText credit) {
 
@@ -5904,9 +5314,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1180064650;
-        }
+        public int getConstructor() { return -1180064650; }
 
     }
 
@@ -5922,8 +5330,7 @@ public class TdApi {
         public String label;
         public PageBlock[] pageBlocks;
 
-        public PageBlockListItem() {
-        }
+        public PageBlockListItem() {}
 
         public PageBlockListItem(String label, PageBlock[] pageBlocks) {
 
@@ -5933,9 +5340,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 323186259;
-        }
+        public int getConstructor() { return 323186259; }
 
     }
 
@@ -5943,8 +5348,7 @@ public class TdApi {
     /**
      * Describes a horizontal alignment of a table cell content
      */
-    public static abstract class PageBlockHorizontalAlignment extends Object {
-    }
+    public static abstract class PageBlockHorizontalAlignment extends Object {}
 
     /**
      * The content should be left-aligned
@@ -5952,9 +5356,7 @@ public class TdApi {
     public static class PageBlockHorizontalAlignmentLeft extends PageBlockHorizontalAlignment {
 
         @Override
-        public int getConstructor() {
-            return 848701417;
-        }
+        public int getConstructor() { return 848701417; }
 
     }
 
@@ -5965,9 +5367,7 @@ public class TdApi {
     public static class PageBlockHorizontalAlignmentCenter extends PageBlockHorizontalAlignment {
 
         @Override
-        public int getConstructor() {
-            return -1009203990;
-        }
+        public int getConstructor() { return -1009203990; }
 
     }
 
@@ -5978,9 +5378,7 @@ public class TdApi {
     public static class PageBlockHorizontalAlignmentRight extends PageBlockHorizontalAlignment {
 
         @Override
-        public int getConstructor() {
-            return 1371369214;
-        }
+        public int getConstructor() { return 1371369214; }
 
     }
 
@@ -5988,8 +5386,7 @@ public class TdApi {
     /**
      * Describes a Vertical alignment of a table cell content
      */
-    public static abstract class PageBlockVerticalAlignment extends Object {
-    }
+    public static abstract class PageBlockVerticalAlignment extends Object {}
 
     /**
      * The content should be top-aligned
@@ -5997,9 +5394,7 @@ public class TdApi {
     public static class PageBlockVerticalAlignmentTop extends PageBlockVerticalAlignment {
 
         @Override
-        public int getConstructor() {
-            return 195500454;
-        }
+        public int getConstructor() { return 195500454; }
 
     }
 
@@ -6010,9 +5405,7 @@ public class TdApi {
     public static class PageBlockVerticalAlignmentMiddle extends PageBlockVerticalAlignment {
 
         @Override
-        public int getConstructor() {
-            return -2123096587;
-        }
+        public int getConstructor() { return -2123096587; }
 
     }
 
@@ -6023,9 +5416,7 @@ public class TdApi {
     public static class PageBlockVerticalAlignmentBottom extends PageBlockVerticalAlignment {
 
         @Override
-        public int getConstructor() {
-            return 2092531158;
-        }
+        public int getConstructor() { return 2092531158; }
 
     }
 
@@ -6034,7 +5425,7 @@ public class TdApi {
      * Represents a cell of a table
      *
      * @text - Cell text
-     * If the text is null, then the cell should be invisible
+     *         If the text is null, then the cell should be invisible
      * @isHeader - True, if it is a header cell
      * @colspan - The number of columns the cell should span
      * @rowspan - The number of rows the cell should span
@@ -6043,16 +5434,14 @@ public class TdApi {
      */
     public static class PageBlockTableCell extends Object {
 
-        @Nullable
-        public RichText text;
+        @Nullable public RichText text;
         public boolean isHeader;
         public int colspan;
         public int rowspan;
         public PageBlockHorizontalAlignment align;
         public PageBlockVerticalAlignment valign;
 
-        public PageBlockTableCell() {
-        }
+        public PageBlockTableCell() {}
 
         public PageBlockTableCell(@Nullable RichText text, boolean isHeader, int colspan, int rowspan, PageBlockHorizontalAlignment align, PageBlockVerticalAlignment valign) {
 
@@ -6066,9 +5455,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1417658214;
-        }
+        public int getConstructor() { return 1417658214; }
 
     }
 
@@ -6076,29 +5463,24 @@ public class TdApi {
     /**
      * Contains information about a related article
      *
-     * @author - Article author
      * @url - Related article URL
      * @title - Article title
      * @description - Article description
      * @photo - Article photo
+     * @author - Article author
      * @publishDate - Point in time (Unix timestamp) when the article was published
-     * 0 if unknown
+     *                0 if unknown
      */
     public static class PageBlockRelatedArticle extends Object {
 
         public String url;
-        @Nullable
-        public String title;
-        @Nullable
-        public String description;
-        @Nullable
-        public Photo photo;
-        @Nullable
-        public String author;
+        @Nullable public String title;
+        @Nullable public String description;
+        @Nullable public Photo photo;
+        @Nullable public String author;
         public int publishDate;
 
-        public PageBlockRelatedArticle() {
-        }
+        public PageBlockRelatedArticle() {}
 
         public PageBlockRelatedArticle(String url, @Nullable String title, @Nullable String description, @Nullable Photo photo, @Nullable String author, int publishDate) {
 
@@ -6112,9 +5494,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 481199251;
-        }
+        public int getConstructor() { return 481199251; }
 
     }
 
@@ -6122,8 +5502,7 @@ public class TdApi {
     /**
      * Describes a block of an instant view web page
      */
-    public static abstract class PageBlock extends Object {
-    }
+    public static abstract class PageBlock extends Object {}
 
     /**
      * The title of a page
@@ -6134,8 +5513,7 @@ public class TdApi {
 
         public RichText title;
 
-        public PageBlockTitle() {
-        }
+        public PageBlockTitle() {}
 
         public PageBlockTitle(RichText title) {
 
@@ -6144,9 +5522,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1629664784;
-        }
+        public int getConstructor() { return 1629664784; }
 
     }
 
@@ -6160,8 +5536,7 @@ public class TdApi {
 
         public RichText subtitle;
 
-        public PageBlockSubtitle() {
-        }
+        public PageBlockSubtitle() {}
 
         public PageBlockSubtitle(RichText subtitle) {
 
@@ -6170,9 +5545,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 264524263;
-        }
+        public int getConstructor() { return 264524263; }
 
     }
 
@@ -6182,15 +5555,14 @@ public class TdApi {
      *
      * @author - Author
      * @publishDate - Point in time (Unix timestamp) when the article was published
-     * 0 if unknown
+     *                0 if unknown
      */
     public static class PageBlockAuthorDate extends PageBlock {
 
         public RichText author;
         public int publishDate;
 
-        public PageBlockAuthorDate() {
-        }
+        public PageBlockAuthorDate() {}
 
         public PageBlockAuthorDate(RichText author, int publishDate) {
 
@@ -6200,9 +5572,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1300231184;
-        }
+        public int getConstructor() { return 1300231184; }
 
     }
 
@@ -6216,8 +5586,7 @@ public class TdApi {
 
         public RichText header;
 
-        public PageBlockHeader() {
-        }
+        public PageBlockHeader() {}
 
         public PageBlockHeader(RichText header) {
 
@@ -6226,9 +5595,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1402854811;
-        }
+        public int getConstructor() { return 1402854811; }
 
     }
 
@@ -6242,8 +5609,7 @@ public class TdApi {
 
         public RichText subheader;
 
-        public PageBlockSubheader() {
-        }
+        public PageBlockSubheader() {}
 
         public PageBlockSubheader(RichText subheader) {
 
@@ -6252,9 +5618,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1263956774;
-        }
+        public int getConstructor() { return 1263956774; }
 
     }
 
@@ -6268,8 +5632,7 @@ public class TdApi {
 
         public RichText kicker;
 
-        public PageBlockKicker() {
-        }
+        public PageBlockKicker() {}
 
         public PageBlockKicker(RichText kicker) {
 
@@ -6278,9 +5641,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1361282635;
-        }
+        public int getConstructor() { return 1361282635; }
 
     }
 
@@ -6294,8 +5655,7 @@ public class TdApi {
 
         public RichText text;
 
-        public PageBlockParagraph() {
-        }
+        public PageBlockParagraph() {}
 
         public PageBlockParagraph(RichText text) {
 
@@ -6304,9 +5664,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1182402406;
-        }
+        public int getConstructor() { return 1182402406; }
 
     }
 
@@ -6322,8 +5680,7 @@ public class TdApi {
         public RichText text;
         public String language;
 
-        public PageBlockPreformatted() {
-        }
+        public PageBlockPreformatted() {}
 
         public PageBlockPreformatted(RichText text, String language) {
 
@@ -6333,9 +5690,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1066346178;
-        }
+        public int getConstructor() { return -1066346178; }
 
     }
 
@@ -6349,8 +5704,7 @@ public class TdApi {
 
         public RichText footer;
 
-        public PageBlockFooter() {
-        }
+        public PageBlockFooter() {}
 
         public PageBlockFooter(RichText footer) {
 
@@ -6359,9 +5713,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 886429480;
-        }
+        public int getConstructor() { return 886429480; }
 
     }
 
@@ -6372,9 +5724,7 @@ public class TdApi {
     public static class PageBlockDivider extends PageBlock {
 
         @Override
-        public int getConstructor() {
-            return -618614392;
-        }
+        public int getConstructor() { return -618614392; }
 
     }
 
@@ -6388,8 +5738,7 @@ public class TdApi {
 
         public String name;
 
-        public PageBlockAnchor() {
-        }
+        public PageBlockAnchor() {}
 
         public PageBlockAnchor(String name) {
 
@@ -6398,9 +5747,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -837994576;
-        }
+        public int getConstructor() { return -837994576; }
 
     }
 
@@ -6414,8 +5761,7 @@ public class TdApi {
 
         public PageBlockListItem[] items;
 
-        public PageBlockList() {
-        }
+        public PageBlockList() {}
 
         public PageBlockList(PageBlockListItem[] items) {
 
@@ -6424,9 +5770,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1037074852;
-        }
+        public int getConstructor() { return -1037074852; }
 
     }
 
@@ -6442,8 +5786,7 @@ public class TdApi {
         public RichText text;
         public RichText credit;
 
-        public PageBlockBlockQuote() {
-        }
+        public PageBlockBlockQuote() {}
 
         public PageBlockBlockQuote(RichText text, RichText credit) {
 
@@ -6453,9 +5796,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1657834142;
-        }
+        public int getConstructor() { return 1657834142; }
 
     }
 
@@ -6471,8 +5812,7 @@ public class TdApi {
         public RichText text;
         public RichText credit;
 
-        public PageBlockPullQuote() {
-        }
+        public PageBlockPullQuote() {}
 
         public PageBlockPullQuote(RichText text, RichText credit) {
 
@@ -6482,9 +5822,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 490242317;
-        }
+        public int getConstructor() { return 490242317; }
 
     }
 
@@ -6498,13 +5836,11 @@ public class TdApi {
      */
     public static class PageBlockAnimation extends PageBlock {
 
-        @Nullable
-        public Animation animation;
+        @Nullable public Animation animation;
         public PageBlockCaption caption;
         public boolean needAutoplay;
 
-        public PageBlockAnimation() {
-        }
+        public PageBlockAnimation() {}
 
         public PageBlockAnimation(@Nullable Animation animation, PageBlockCaption caption, boolean needAutoplay) {
 
@@ -6515,9 +5851,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1355669513;
-        }
+        public int getConstructor() { return 1355669513; }
 
     }
 
@@ -6530,12 +5864,10 @@ public class TdApi {
      */
     public static class PageBlockAudio extends PageBlock {
 
-        @Nullable
-        public Audio audio;
+        @Nullable public Audio audio;
         public PageBlockCaption caption;
 
-        public PageBlockAudio() {
-        }
+        public PageBlockAudio() {}
 
         public PageBlockAudio(@Nullable Audio audio, PageBlockCaption caption) {
 
@@ -6545,9 +5877,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -63371245;
-        }
+        public int getConstructor() { return -63371245; }
 
     }
 
@@ -6561,13 +5891,11 @@ public class TdApi {
      */
     public static class PageBlockPhoto extends PageBlock {
 
-        @Nullable
-        public Photo photo;
+        @Nullable public Photo photo;
         public PageBlockCaption caption;
         public String url;
 
-        public PageBlockPhoto() {
-        }
+        public PageBlockPhoto() {}
 
         public PageBlockPhoto(@Nullable Photo photo, PageBlockCaption caption, String url) {
 
@@ -6578,9 +5906,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 417601156;
-        }
+        public int getConstructor() { return 417601156; }
 
     }
 
@@ -6595,14 +5921,12 @@ public class TdApi {
      */
     public static class PageBlockVideo extends PageBlock {
 
-        @Nullable
-        public Video video;
+        @Nullable public Video video;
         public PageBlockCaption caption;
         public boolean needAutoplay;
         public boolean isLooped;
 
-        public PageBlockVideo() {
-        }
+        public PageBlockVideo() {}
 
         public PageBlockVideo(@Nullable Video video, PageBlockCaption caption, boolean needAutoplay, boolean isLooped) {
 
@@ -6614,9 +5938,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 510041394;
-        }
+        public int getConstructor() { return 510041394; }
 
     }
 
@@ -6629,12 +5951,10 @@ public class TdApi {
      */
     public static class PageBlockVoiceNote extends PageBlock {
 
-        @Nullable
-        public VoiceNote voiceNote;
+        @Nullable public VoiceNote voiceNote;
         public PageBlockCaption caption;
 
-        public PageBlockVoiceNote() {
-        }
+        public PageBlockVoiceNote() {}
 
         public PageBlockVoiceNote(@Nullable VoiceNote voiceNote, PageBlockCaption caption) {
 
@@ -6644,9 +5964,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1823310463;
-        }
+        public int getConstructor() { return 1823310463; }
 
     }
 
@@ -6660,8 +5978,7 @@ public class TdApi {
 
         public PageBlock cover;
 
-        public PageBlockCover() {
-        }
+        public PageBlockCover() {}
 
         public PageBlockCover(PageBlock cover) {
 
@@ -6670,9 +5987,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 972174080;
-        }
+        public int getConstructor() { return 972174080; }
 
     }
 
@@ -6684,9 +5999,9 @@ public class TdApi {
      * @html - HTML-markup of the embedded page
      * @posterPhoto - Poster photo, if available
      * @width - Block width
-     * 0 if unknown
+     *          0 if unknown
      * @height - Block height
-     * 0 if unknown
+     *           0 if unknown
      * @caption - Block caption
      * @isFullWidth - True, if the block should be full width
      * @allowScrolling - True, if scrolling should be allowed
@@ -6695,16 +6010,14 @@ public class TdApi {
 
         public String url;
         public String html;
-        @Nullable
-        public Photo posterPhoto;
+        @Nullable public Photo posterPhoto;
         public int width;
         public int height;
         public PageBlockCaption caption;
         public boolean isFullWidth;
         public boolean allowScrolling;
 
-        public PageBlockEmbedded() {
-        }
+        public PageBlockEmbedded() {}
 
         public PageBlockEmbedded(String url, String html, @Nullable Photo posterPhoto, int width, int height, PageBlockCaption caption, boolean isFullWidth, boolean allowScrolling) {
 
@@ -6720,9 +6033,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1942577763;
-        }
+        public int getConstructor() { return -1942577763; }
 
     }
 
@@ -6730,11 +6041,11 @@ public class TdApi {
     /**
      * An embedded post
      *
-     * @author - Post author
      * @url - Web page URL
+     * @author - Post author
      * @authorPhoto - Post author photo
      * @date - Point in time (Unix timestamp) when the post was created
-     * 0 if unknown
+     *         0 if unknown
      * @pageBlocks - Post content
      * @caption - Post caption
      */
@@ -6742,14 +6053,12 @@ public class TdApi {
 
         public String url;
         public String author;
-        @Nullable
-        public Photo authorPhoto;
+        @Nullable public Photo authorPhoto;
         public int date;
         public PageBlock[] pageBlocks;
         public PageBlockCaption caption;
 
-        public PageBlockEmbeddedPost() {
-        }
+        public PageBlockEmbeddedPost() {}
 
         public PageBlockEmbeddedPost(String url, String author, @Nullable Photo authorPhoto, int date, PageBlock[] pageBlocks, PageBlockCaption caption) {
 
@@ -6763,9 +6072,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 397600949;
-        }
+        public int getConstructor() { return 397600949; }
 
     }
 
@@ -6781,8 +6088,7 @@ public class TdApi {
         public PageBlock[] pageBlocks;
         public PageBlockCaption caption;
 
-        public PageBlockCollage() {
-        }
+        public PageBlockCollage() {}
 
         public PageBlockCollage(PageBlock[] pageBlocks, PageBlockCaption caption) {
 
@@ -6792,9 +6098,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1163760110;
-        }
+        public int getConstructor() { return 1163760110; }
 
     }
 
@@ -6810,8 +6114,7 @@ public class TdApi {
         public PageBlock[] pageBlocks;
         public PageBlockCaption caption;
 
-        public PageBlockSlideshow() {
-        }
+        public PageBlockSlideshow() {}
 
         public PageBlockSlideshow(PageBlock[] pageBlocks, PageBlockCaption caption) {
 
@@ -6821,9 +6124,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 539217375;
-        }
+        public int getConstructor() { return 539217375; }
 
     }
 
@@ -6838,12 +6139,10 @@ public class TdApi {
     public static class PageBlockChatLink extends PageBlock {
 
         public String title;
-        @Nullable
-        public ChatPhotoInfo photo;
+        @Nullable public ChatPhotoInfo photo;
         public String username;
 
-        public PageBlockChatLink() {
-        }
+        public PageBlockChatLink() {}
 
         public PageBlockChatLink(String title, @Nullable ChatPhotoInfo photo, String username) {
 
@@ -6854,9 +6153,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -202091253;
-        }
+        public int getConstructor() { return -202091253; }
 
     }
 
@@ -6876,8 +6173,7 @@ public class TdApi {
         public boolean isBordered;
         public boolean isStriped;
 
-        public PageBlockTable() {
-        }
+        public PageBlockTable() {}
 
         public PageBlockTable(RichText caption, PageBlockTableCell[][] cells, boolean isBordered, boolean isStriped) {
 
@@ -6889,9 +6185,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -942649288;
-        }
+        public int getConstructor() { return -942649288; }
 
     }
 
@@ -6909,8 +6203,7 @@ public class TdApi {
         public PageBlock[] pageBlocks;
         public boolean isOpen;
 
-        public PageBlockDetails() {
-        }
+        public PageBlockDetails() {}
 
         public PageBlockDetails(RichText header, PageBlock[] pageBlocks, boolean isOpen) {
 
@@ -6921,9 +6214,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1599869809;
-        }
+        public int getConstructor() { return -1599869809; }
 
     }
 
@@ -6939,8 +6230,7 @@ public class TdApi {
         public RichText header;
         public PageBlockRelatedArticle[] articles;
 
-        public PageBlockRelatedArticles() {
-        }
+        public PageBlockRelatedArticles() {}
 
         public PageBlockRelatedArticles(RichText header, PageBlockRelatedArticle[] articles) {
 
@@ -6950,9 +6240,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1807324374;
-        }
+        public int getConstructor() { return -1807324374; }
 
     }
 
@@ -6974,8 +6262,7 @@ public class TdApi {
         public int height;
         public PageBlockCaption caption;
 
-        public PageBlockMap() {
-        }
+        public PageBlockMap() {}
 
         public PageBlockMap(Location location, int zoom, int width, int height, PageBlockCaption caption) {
 
@@ -6988,9 +6275,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1510961171;
-        }
+        public int getConstructor() { return 1510961171; }
 
     }
 
@@ -6998,13 +6283,13 @@ public class TdApi {
     /**
      * Describes an instant view page for a web page
      *
-     * @version - Version of the instant view, currently can be 1 or 2
      * @pageBlocks - Content of the web page
      * @viewCount - Number of the instant view views
-     * 0 if unknown
+     *              0 if unknown
+     * @version - Version of the instant view, currently can be 1 or 2
      * @isRtl - True, if the instant view must be shown from right to left
      * @isFull - True, if the instant view contains the full page
-     * A network request might be needed to get the full web page instant view
+     *           A network request might be needed to get the full web page instant view
      */
     public static class WebPageInstantView extends Object {
 
@@ -7014,8 +6299,7 @@ public class TdApi {
         public boolean isRtl;
         public boolean isFull;
 
-        public WebPageInstantView() {
-        }
+        public WebPageInstantView() {}
 
         public WebPageInstantView(PageBlock[] pageBlocks, int viewCount, int version, boolean isRtl, boolean isFull) {
 
@@ -7028,9 +6312,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1069193541;
-        }
+        public int getConstructor() { return 1069193541; }
 
     }
 
@@ -7038,11 +6320,10 @@ public class TdApi {
     /**
      * Describes a web page preview
      *
-     * @author - Author of the content
      * @url - Original URL of the link
      * @displayUrl - URL to display
      * @type - Type of the web page
-     * Can be: article, photo, audio, video, document, profile, app, or something else
+     *         Can be: article, photo, audio, video, document, profile, app, or something else
      * @siteName - Short name of the site (e.g., Google Docs, App Store)
      * @title - Title of the content
      * @description - Description of the content
@@ -7052,6 +6333,7 @@ public class TdApi {
      * @embedWidth - Width of the embedded preview
      * @embedHeight - Height of the embedded preview
      * @duration - Duration of the content, in seconds
+     * @author - Author of the content
      * @animation - Preview of the content as an animation, if available
      * @audio - Preview of the content as an audio file, if available
      * @document - Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives)
@@ -7069,32 +6351,23 @@ public class TdApi {
         public String siteName;
         public String title;
         public FormattedText description;
-        @Nullable
-        public Photo photo;
+        @Nullable public Photo photo;
         public String embedUrl;
         public String embedType;
         public int embedWidth;
         public int embedHeight;
         public int duration;
         public String author;
-        @Nullable
-        public Animation animation;
-        @Nullable
-        public Audio audio;
-        @Nullable
-        public Document document;
-        @Nullable
-        public Sticker sticker;
-        @Nullable
-        public Video video;
-        @Nullable
-        public VideoNote videoNote;
-        @Nullable
-        public VoiceNote voiceNote;
+        @Nullable public Animation animation;
+        @Nullable public Audio audio;
+        @Nullable public Document document;
+        @Nullable public Sticker sticker;
+        @Nullable public Video video;
+        @Nullable public VideoNote videoNote;
+        @Nullable public VoiceNote voiceNote;
         public int instantViewVersion;
 
-        public WebPage() {
-        }
+        public WebPage() {}
 
         public WebPage(String url, String displayUrl, String type, String siteName, String title, FormattedText description, @Nullable Photo photo, String embedUrl, String embedType, int embedWidth, int embedHeight, int duration, String author, @Nullable Animation animation, @Nullable Audio audio, @Nullable Document document, @Nullable Sticker sticker, @Nullable Video video, @Nullable VideoNote videoNote, @Nullable VoiceNote voiceNote, int instantViewVersion) {
 
@@ -7123,9 +6396,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -577333714;
-        }
+        public int getConstructor() { return -577333714; }
 
     }
 
@@ -7141,8 +6412,7 @@ public class TdApi {
         public String text;
         public String url;
 
-        public BankCardActionOpenUrl() {
-        }
+        public BankCardActionOpenUrl() {}
 
         public BankCardActionOpenUrl(String text, String url) {
 
@@ -7152,9 +6422,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -196454267;
-        }
+        public int getConstructor() { return -196454267; }
 
     }
 
@@ -7170,8 +6438,7 @@ public class TdApi {
         public String title;
         public BankCardActionOpenUrl[] actions;
 
-        public BankCardInfo() {
-        }
+        public BankCardInfo() {}
 
         public BankCardInfo(String title, BankCardActionOpenUrl[] actions) {
 
@@ -7181,9 +6448,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2116647730;
-        }
+        public int getConstructor() { return -2116647730; }
 
     }
 
@@ -7207,8 +6472,7 @@ public class TdApi {
         public String streetLine2;
         public String postalCode;
 
-        public Address() {
-        }
+        public Address() {}
 
         public Address(String countryCode, String state, String city, String streetLine1, String streetLine2, String postalCode) {
 
@@ -7222,9 +6486,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2043654342;
-        }
+        public int getConstructor() { return -2043654342; }
 
     }
 
@@ -7240,8 +6502,7 @@ public class TdApi {
         public String label;
         public long amount;
 
-        public LabeledPricePart() {
-        }
+        public LabeledPricePart() {}
 
         public LabeledPricePart(String label, long amount) {
 
@@ -7251,9 +6512,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 552789798;
-        }
+        public int getConstructor() { return 552789798; }
 
     }
 
@@ -7285,8 +6544,7 @@ public class TdApi {
         public boolean sendEmailAddressToProvider;
         public boolean isFlexible;
 
-        public Invoice() {
-        }
+        public Invoice() {}
 
         public Invoice(String currency, LabeledPricePart[] priceParts, boolean isTest, boolean needName, boolean needPhoneNumber, boolean needEmailAddress, boolean needShippingAddress, boolean sendPhoneNumberToProvider, boolean sendEmailAddressToProvider, boolean isFlexible) {
 
@@ -7304,9 +6562,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -368451690;
-        }
+        public int getConstructor() { return -368451690; }
 
     }
 
@@ -7324,11 +6580,9 @@ public class TdApi {
         public String name;
         public String phoneNumber;
         public String emailAddress;
-        @Nullable
-        public Address shippingAddress;
+        @Nullable public Address shippingAddress;
 
-        public OrderInfo() {
-        }
+        public OrderInfo() {}
 
         public OrderInfo(String name, String phoneNumber, String emailAddress, @Nullable Address shippingAddress) {
 
@@ -7340,9 +6594,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 783997294;
-        }
+        public int getConstructor() { return 783997294; }
 
     }
 
@@ -7360,8 +6612,7 @@ public class TdApi {
         public String title;
         public LabeledPricePart[] priceParts;
 
-        public ShippingOption() {
-        }
+        public ShippingOption() {}
 
         public ShippingOption(String id, String title, LabeledPricePart[] priceParts) {
 
@@ -7372,9 +6623,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1425690001;
-        }
+        public int getConstructor() { return 1425690001; }
 
     }
 
@@ -7390,8 +6639,7 @@ public class TdApi {
         public String id;
         public String title;
 
-        public SavedCredentials() {
-        }
+        public SavedCredentials() {}
 
         public SavedCredentials(String id, String title) {
 
@@ -7401,9 +6649,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -370273060;
-        }
+        public int getConstructor() { return -370273060; }
 
     }
 
@@ -7411,8 +6657,7 @@ public class TdApi {
     /**
      * Contains information about the payment method chosen by the user
      */
-    public static abstract class InputCredentials extends Object {
-    }
+    public static abstract class InputCredentials extends Object {}
 
     /**
      * Applies if a user chooses some previously saved payment credentials
@@ -7424,8 +6669,7 @@ public class TdApi {
 
         public String savedCredentialsId;
 
-        public InputCredentialsSaved() {
-        }
+        public InputCredentialsSaved() {}
 
         public InputCredentialsSaved(String savedCredentialsId) {
 
@@ -7434,9 +6678,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2034385364;
-        }
+        public int getConstructor() { return -2034385364; }
 
     }
 
@@ -7452,8 +6694,7 @@ public class TdApi {
         public String data;
         public boolean allowSave;
 
-        public InputCredentialsNew() {
-        }
+        public InputCredentialsNew() {}
 
         public InputCredentialsNew(String data, boolean allowSave) {
 
@@ -7463,9 +6704,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -829689558;
-        }
+        public int getConstructor() { return -829689558; }
 
     }
 
@@ -7479,8 +6718,7 @@ public class TdApi {
 
         public String data;
 
-        public InputCredentialsAndroidPay() {
-        }
+        public InputCredentialsAndroidPay() {}
 
         public InputCredentialsAndroidPay(String data) {
 
@@ -7489,9 +6727,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1979566832;
-        }
+        public int getConstructor() { return 1979566832; }
 
     }
 
@@ -7505,8 +6741,7 @@ public class TdApi {
 
         public String data;
 
-        public InputCredentialsApplePay() {
-        }
+        public InputCredentialsApplePay() {}
 
         public InputCredentialsApplePay(String data) {
 
@@ -7515,9 +6750,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1246570799;
-        }
+        public int getConstructor() { return -1246570799; }
 
     }
 
@@ -7537,8 +6770,7 @@ public class TdApi {
         public boolean needPostalCode;
         public boolean needCardholderName;
 
-        public PaymentsProviderStripe() {
-        }
+        public PaymentsProviderStripe() {}
 
         public PaymentsProviderStripe(String publishableKey, boolean needCountry, boolean needPostalCode, boolean needCardholderName) {
 
@@ -7550,9 +6782,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1090791032;
-        }
+        public int getConstructor() { return 1090791032; }
 
     }
 
@@ -7572,17 +6802,13 @@ public class TdApi {
 
         public Invoice invoice;
         public String url;
-        @Nullable
-        public PaymentsProviderStripe paymentsProvider;
-        @Nullable
-        public OrderInfo savedOrderInfo;
-        @Nullable
-        public SavedCredentials savedCredentials;
+        @Nullable public PaymentsProviderStripe paymentsProvider;
+        @Nullable public OrderInfo savedOrderInfo;
+        @Nullable public SavedCredentials savedCredentials;
         public boolean canSaveCredentials;
         public boolean needPassword;
 
-        public PaymentForm() {
-        }
+        public PaymentForm() {}
 
         public PaymentForm(Invoice invoice, String url, @Nullable PaymentsProviderStripe paymentsProvider, @Nullable OrderInfo savedOrderInfo, @Nullable SavedCredentials savedCredentials, boolean canSaveCredentials, boolean needPassword) {
 
@@ -7597,9 +6823,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -200418230;
-        }
+        public int getConstructor() { return -200418230; }
 
     }
 
@@ -7616,8 +6840,7 @@ public class TdApi {
         public String orderInfoId;
         public ShippingOption[] shippingOptions;
 
-        public ValidatedOrderInfo() {
-        }
+        public ValidatedOrderInfo() {}
 
         public ValidatedOrderInfo(String orderInfoId, ShippingOption[] shippingOptions) {
 
@@ -7627,9 +6850,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1511451484;
-        }
+        public int getConstructor() { return 1511451484; }
 
     }
 
@@ -7638,7 +6859,7 @@ public class TdApi {
      * Contains the result of a payment request
      *
      * @success - True, if the payment request was successful
-     * Otherwise the verification_url will be not empty
+     *            Otherwise the verification_url will be not empty
      * @verificationUrl - URL for additional payment credentials verification
      */
     public static class PaymentResult extends Object {
@@ -7646,8 +6867,7 @@ public class TdApi {
         public boolean success;
         public String verificationUrl;
 
-        public PaymentResult() {
-        }
+        public PaymentResult() {}
 
         public PaymentResult(boolean success, String verificationUrl) {
 
@@ -7657,9 +6877,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -804263843;
-        }
+        public int getConstructor() { return -804263843; }
 
     }
 
@@ -7679,14 +6897,11 @@ public class TdApi {
         public int date;
         public int paymentsProviderUserId;
         public Invoice invoice;
-        @Nullable
-        public OrderInfo orderInfo;
-        @Nullable
-        public ShippingOption shippingOption;
+        @Nullable public OrderInfo orderInfo;
+        @Nullable public ShippingOption shippingOption;
         public String credentialsTitle;
 
-        public PaymentReceipt() {
-        }
+        public PaymentReceipt() {}
 
         public PaymentReceipt(int date, int paymentsProviderUserId, Invoice invoice, @Nullable OrderInfo orderInfo, @Nullable ShippingOption shippingOption, String credentialsTitle) {
 
@@ -7700,9 +6915,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1171223545;
-        }
+        public int getConstructor() { return -1171223545; }
 
     }
 
@@ -7718,8 +6931,7 @@ public class TdApi {
         public File file;
         public int date;
 
-        public DatedFile() {
-        }
+        public DatedFile() {}
 
         public DatedFile(File file, int date) {
 
@@ -7729,9 +6941,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1840795491;
-        }
+        public int getConstructor() { return -1840795491; }
 
     }
 
@@ -7739,8 +6949,7 @@ public class TdApi {
     /**
      * Contains the type of a Telegram Passport element
      */
-    public static abstract class PassportElementType extends Object {
-    }
+    public static abstract class PassportElementType extends Object {}
 
     /**
      * A Telegram Passport element containing the user's personal details
@@ -7748,9 +6957,7 @@ public class TdApi {
     public static class PassportElementTypePersonalDetails extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -1032136365;
-        }
+        public int getConstructor() { return -1032136365; }
 
     }
 
@@ -7761,9 +6968,7 @@ public class TdApi {
     public static class PassportElementTypePassport extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -436360376;
-        }
+        public int getConstructor() { return -436360376; }
 
     }
 
@@ -7774,9 +6979,7 @@ public class TdApi {
     public static class PassportElementTypeDriverLicense extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return 1827298379;
-        }
+        public int getConstructor() { return 1827298379; }
 
     }
 
@@ -7787,9 +6990,7 @@ public class TdApi {
     public static class PassportElementTypeIdentityCard extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -502356132;
-        }
+        public int getConstructor() { return -502356132; }
 
     }
 
@@ -7800,9 +7001,7 @@ public class TdApi {
     public static class PassportElementTypeInternalPassport extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -793781959;
-        }
+        public int getConstructor() { return -793781959; }
 
     }
 
@@ -7813,9 +7012,7 @@ public class TdApi {
     public static class PassportElementTypeAddress extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return 496327874;
-        }
+        public int getConstructor() { return 496327874; }
 
     }
 
@@ -7826,9 +7023,7 @@ public class TdApi {
     public static class PassportElementTypeUtilityBill extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return 627084906;
-        }
+        public int getConstructor() { return 627084906; }
 
     }
 
@@ -7839,9 +7034,7 @@ public class TdApi {
     public static class PassportElementTypeBankStatement extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return 574095667;
-        }
+        public int getConstructor() { return 574095667; }
 
     }
 
@@ -7852,9 +7045,7 @@ public class TdApi {
     public static class PassportElementTypeRentalAgreement extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -2060583280;
-        }
+        public int getConstructor() { return -2060583280; }
 
     }
 
@@ -7865,9 +7056,7 @@ public class TdApi {
     public static class PassportElementTypePassportRegistration extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -159478209;
-        }
+        public int getConstructor() { return -159478209; }
 
     }
 
@@ -7878,9 +7067,7 @@ public class TdApi {
     public static class PassportElementTypeTemporaryRegistration extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return 1092498527;
-        }
+        public int getConstructor() { return 1092498527; }
 
     }
 
@@ -7891,9 +7078,7 @@ public class TdApi {
     public static class PassportElementTypePhoneNumber extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -995361172;
-        }
+        public int getConstructor() { return -995361172; }
 
     }
 
@@ -7904,9 +7089,7 @@ public class TdApi {
     public static class PassportElementTypeEmailAddress extends PassportElementType {
 
         @Override
-        public int getConstructor() {
-            return -79321405;
-        }
+        public int getConstructor() { return -79321405; }
 
     }
 
@@ -7924,8 +7107,7 @@ public class TdApi {
         public int month;
         public int year;
 
-        public Date() {
-        }
+        public Date() {}
 
         public Date(int day, int month, int year) {
 
@@ -7936,9 +7118,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -277956960;
-        }
+        public int getConstructor() { return -277956960; }
 
     }
 
@@ -7970,8 +7150,7 @@ public class TdApi {
         public String countryCode;
         public String residenceCountryCode;
 
-        public PersonalDetails() {
-        }
+        public PersonalDetails() {}
 
         public PersonalDetails(String firstName, String middleName, String lastName, String nativeFirstName, String nativeMiddleName, String nativeLastName, Date birthdate, String gender, String countryCode, String residenceCountryCode) {
 
@@ -7989,9 +7168,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1061656137;
-        }
+        public int getConstructor() { return -1061656137; }
 
     }
 
@@ -8003,23 +7180,20 @@ public class TdApi {
      * @expiryDate - Document expiry date
      * @frontSide - Front side of the document
      * @reverseSide - Reverse side of the document
-     * Only for driver license and identity card
+     *                Only for driver license and identity card
      * @selfie - Selfie with the document
      * @translation - List of files containing a certified English translation of the document
      */
     public static class IdentityDocument extends Object {
 
         public String number;
-        @Nullable
-        public Date expiryDate;
+        @Nullable public Date expiryDate;
         public DatedFile frontSide;
         public DatedFile reverseSide;
-        @Nullable
-        public DatedFile selfie;
+        @Nullable public DatedFile selfie;
         public DatedFile[] translation;
 
-        public IdentityDocument() {
-        }
+        public IdentityDocument() {}
 
         public IdentityDocument(String number, @Nullable Date expiryDate, DatedFile frontSide, DatedFile reverseSide, @Nullable DatedFile selfie, DatedFile[] translation) {
 
@@ -8033,9 +7207,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 445952972;
-        }
+        public int getConstructor() { return 445952972; }
 
     }
 
@@ -8047,7 +7219,7 @@ public class TdApi {
      * @expiryDate - Document expiry date, if available
      * @frontSide - Front side of the document
      * @reverseSide - Reverse side of the document
-     * Only for driver license and identity card
+     *                Only for driver license and identity card
      * @selfie - Selfie with the document, if available
      * @translation - List of files containing a certified English translation of the document
      */
@@ -8060,8 +7232,7 @@ public class TdApi {
         public InputFile selfie;
         public InputFile[] translation;
 
-        public InputIdentityDocument() {
-        }
+        public InputIdentityDocument() {}
 
         public InputIdentityDocument(String number, Date expiryDate, InputFile frontSide, InputFile reverseSide, InputFile selfie, InputFile[] translation) {
 
@@ -8075,9 +7246,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -381776063;
-        }
+        public int getConstructor() { return -381776063; }
 
     }
 
@@ -8093,8 +7262,7 @@ public class TdApi {
         public DatedFile[] files;
         public DatedFile[] translation;
 
-        public PersonalDocument() {
-        }
+        public PersonalDocument() {}
 
         public PersonalDocument(DatedFile[] files, DatedFile[] translation) {
 
@@ -8104,9 +7272,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1011634661;
-        }
+        public int getConstructor() { return -1011634661; }
 
     }
 
@@ -8122,8 +7288,7 @@ public class TdApi {
         public InputFile[] files;
         public InputFile[] translation;
 
-        public InputPersonalDocument() {
-        }
+        public InputPersonalDocument() {}
 
         public InputPersonalDocument(InputFile[] files, InputFile[] translation) {
 
@@ -8133,9 +7298,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1676966826;
-        }
+        public int getConstructor() { return 1676966826; }
 
     }
 
@@ -8143,8 +7306,7 @@ public class TdApi {
     /**
      * Contains information about a Telegram Passport element
      */
-    public static abstract class PassportElement extends Object {
-    }
+    public static abstract class PassportElement extends Object {}
 
     /**
      * A Telegram Passport element containing the user's personal details
@@ -8155,8 +7317,7 @@ public class TdApi {
 
         public PersonalDetails personalDetails;
 
-        public PassportElementPersonalDetails() {
-        }
+        public PassportElementPersonalDetails() {}
 
         public PassportElementPersonalDetails(PersonalDetails personalDetails) {
 
@@ -8165,9 +7326,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1217724035;
-        }
+        public int getConstructor() { return 1217724035; }
 
     }
 
@@ -8181,8 +7340,7 @@ public class TdApi {
 
         public IdentityDocument passport;
 
-        public PassportElementPassport() {
-        }
+        public PassportElementPassport() {}
 
         public PassportElementPassport(IdentityDocument passport) {
 
@@ -8191,9 +7349,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -263985373;
-        }
+        public int getConstructor() { return -263985373; }
 
     }
 
@@ -8207,8 +7363,7 @@ public class TdApi {
 
         public IdentityDocument driverLicense;
 
-        public PassportElementDriverLicense() {
-        }
+        public PassportElementDriverLicense() {}
 
         public PassportElementDriverLicense(IdentityDocument driverLicense) {
 
@@ -8217,9 +7372,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1643580589;
-        }
+        public int getConstructor() { return 1643580589; }
 
     }
 
@@ -8233,8 +7386,7 @@ public class TdApi {
 
         public IdentityDocument identityCard;
 
-        public PassportElementIdentityCard() {
-        }
+        public PassportElementIdentityCard() {}
 
         public PassportElementIdentityCard(IdentityDocument identityCard) {
 
@@ -8243,9 +7395,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2083775797;
-        }
+        public int getConstructor() { return 2083775797; }
 
     }
 
@@ -8259,8 +7409,7 @@ public class TdApi {
 
         public IdentityDocument internalPassport;
 
-        public PassportElementInternalPassport() {
-        }
+        public PassportElementInternalPassport() {}
 
         public PassportElementInternalPassport(IdentityDocument internalPassport) {
 
@@ -8269,9 +7418,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 36220295;
-        }
+        public int getConstructor() { return 36220295; }
 
     }
 
@@ -8285,8 +7432,7 @@ public class TdApi {
 
         public Address address;
 
-        public PassportElementAddress() {
-        }
+        public PassportElementAddress() {}
 
         public PassportElementAddress(Address address) {
 
@@ -8295,9 +7441,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -782625232;
-        }
+        public int getConstructor() { return -782625232; }
 
     }
 
@@ -8311,8 +7455,7 @@ public class TdApi {
 
         public PersonalDocument utilityBill;
 
-        public PassportElementUtilityBill() {
-        }
+        public PassportElementUtilityBill() {}
 
         public PassportElementUtilityBill(PersonalDocument utilityBill) {
 
@@ -8321,9 +7464,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -234611246;
-        }
+        public int getConstructor() { return -234611246; }
 
     }
 
@@ -8337,8 +7478,7 @@ public class TdApi {
 
         public PersonalDocument bankStatement;
 
-        public PassportElementBankStatement() {
-        }
+        public PassportElementBankStatement() {}
 
         public PassportElementBankStatement(PersonalDocument bankStatement) {
 
@@ -8347,9 +7487,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -366464408;
-        }
+        public int getConstructor() { return -366464408; }
 
     }
 
@@ -8363,8 +7501,7 @@ public class TdApi {
 
         public PersonalDocument rentalAgreement;
 
-        public PassportElementRentalAgreement() {
-        }
+        public PassportElementRentalAgreement() {}
 
         public PassportElementRentalAgreement(PersonalDocument rentalAgreement) {
 
@@ -8373,9 +7510,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -290141400;
-        }
+        public int getConstructor() { return -290141400; }
 
     }
 
@@ -8389,8 +7524,7 @@ public class TdApi {
 
         public PersonalDocument passportRegistration;
 
-        public PassportElementPassportRegistration() {
-        }
+        public PassportElementPassportRegistration() {}
 
         public PassportElementPassportRegistration(PersonalDocument passportRegistration) {
 
@@ -8399,9 +7533,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 618323071;
-        }
+        public int getConstructor() { return 618323071; }
 
     }
 
@@ -8415,8 +7547,7 @@ public class TdApi {
 
         public PersonalDocument temporaryRegistration;
 
-        public PassportElementTemporaryRegistration() {
-        }
+        public PassportElementTemporaryRegistration() {}
 
         public PassportElementTemporaryRegistration(PersonalDocument temporaryRegistration) {
 
@@ -8425,9 +7556,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1237626864;
-        }
+        public int getConstructor() { return 1237626864; }
 
     }
 
@@ -8441,8 +7570,7 @@ public class TdApi {
 
         public String phoneNumber;
 
-        public PassportElementPhoneNumber() {
-        }
+        public PassportElementPhoneNumber() {}
 
         public PassportElementPhoneNumber(String phoneNumber) {
 
@@ -8451,9 +7579,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1320118375;
-        }
+        public int getConstructor() { return -1320118375; }
 
     }
 
@@ -8467,8 +7593,7 @@ public class TdApi {
 
         public String emailAddress;
 
-        public PassportElementEmailAddress() {
-        }
+        public PassportElementEmailAddress() {}
 
         public PassportElementEmailAddress(String emailAddress) {
 
@@ -8477,9 +7602,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1528129531;
-        }
+        public int getConstructor() { return -1528129531; }
 
     }
 
@@ -8487,8 +7610,7 @@ public class TdApi {
     /**
      * Contains information about a Telegram Passport element to be saved
      */
-    public static abstract class InputPassportElement extends Object {
-    }
+    public static abstract class InputPassportElement extends Object {}
 
     /**
      * A Telegram Passport element to be saved containing the user's personal details
@@ -8499,8 +7621,7 @@ public class TdApi {
 
         public PersonalDetails personalDetails;
 
-        public InputPassportElementPersonalDetails() {
-        }
+        public InputPassportElementPersonalDetails() {}
 
         public InputPassportElementPersonalDetails(PersonalDetails personalDetails) {
 
@@ -8509,9 +7630,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 164791359;
-        }
+        public int getConstructor() { return 164791359; }
 
     }
 
@@ -8525,8 +7644,7 @@ public class TdApi {
 
         public InputIdentityDocument passport;
 
-        public InputPassportElementPassport() {
-        }
+        public InputPassportElementPassport() {}
 
         public InputPassportElementPassport(InputIdentityDocument passport) {
 
@@ -8535,9 +7653,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -497011356;
-        }
+        public int getConstructor() { return -497011356; }
 
     }
 
@@ -8551,8 +7667,7 @@ public class TdApi {
 
         public InputIdentityDocument driverLicense;
 
-        public InputPassportElementDriverLicense() {
-        }
+        public InputPassportElementDriverLicense() {}
 
         public InputPassportElementDriverLicense(InputIdentityDocument driverLicense) {
 
@@ -8561,9 +7676,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 304813264;
-        }
+        public int getConstructor() { return 304813264; }
 
     }
 
@@ -8577,8 +7690,7 @@ public class TdApi {
 
         public InputIdentityDocument identityCard;
 
-        public InputPassportElementIdentityCard() {
-        }
+        public InputPassportElementIdentityCard() {}
 
         public InputPassportElementIdentityCard(InputIdentityDocument identityCard) {
 
@@ -8587,9 +7699,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -9963390;
-        }
+        public int getConstructor() { return -9963390; }
 
     }
 
@@ -8603,8 +7713,7 @@ public class TdApi {
 
         public InputIdentityDocument internalPassport;
 
-        public InputPassportElementInternalPassport() {
-        }
+        public InputPassportElementInternalPassport() {}
 
         public InputPassportElementInternalPassport(InputIdentityDocument internalPassport) {
 
@@ -8613,9 +7722,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 715360043;
-        }
+        public int getConstructor() { return 715360043; }
 
     }
 
@@ -8629,8 +7736,7 @@ public class TdApi {
 
         public Address address;
 
-        public InputPassportElementAddress() {
-        }
+        public InputPassportElementAddress() {}
 
         public InputPassportElementAddress(Address address) {
 
@@ -8639,9 +7745,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 461630480;
-        }
+        public int getConstructor() { return 461630480; }
 
     }
 
@@ -8655,8 +7759,7 @@ public class TdApi {
 
         public InputPersonalDocument utilityBill;
 
-        public InputPassportElementUtilityBill() {
-        }
+        public InputPassportElementUtilityBill() {}
 
         public InputPassportElementUtilityBill(InputPersonalDocument utilityBill) {
 
@@ -8665,9 +7768,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1389203841;
-        }
+        public int getConstructor() { return 1389203841; }
 
     }
 
@@ -8681,8 +7782,7 @@ public class TdApi {
 
         public InputPersonalDocument bankStatement;
 
-        public InputPassportElementBankStatement() {
-        }
+        public InputPassportElementBankStatement() {}
 
         public InputPassportElementBankStatement(InputPersonalDocument bankStatement) {
 
@@ -8691,9 +7791,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -26585208;
-        }
+        public int getConstructor() { return -26585208; }
 
     }
 
@@ -8707,8 +7805,7 @@ public class TdApi {
 
         public InputPersonalDocument rentalAgreement;
 
-        public InputPassportElementRentalAgreement() {
-        }
+        public InputPassportElementRentalAgreement() {}
 
         public InputPassportElementRentalAgreement(InputPersonalDocument rentalAgreement) {
 
@@ -8717,9 +7814,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1736154155;
-        }
+        public int getConstructor() { return 1736154155; }
 
     }
 
@@ -8733,8 +7828,7 @@ public class TdApi {
 
         public InputPersonalDocument passportRegistration;
 
-        public InputPassportElementPassportRegistration() {
-        }
+        public InputPassportElementPassportRegistration() {}
 
         public InputPassportElementPassportRegistration(InputPersonalDocument passportRegistration) {
 
@@ -8743,9 +7837,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1314562128;
-        }
+        public int getConstructor() { return 1314562128; }
 
     }
 
@@ -8759,8 +7851,7 @@ public class TdApi {
 
         public InputPersonalDocument temporaryRegistration;
 
-        public InputPassportElementTemporaryRegistration() {
-        }
+        public InputPassportElementTemporaryRegistration() {}
 
         public InputPassportElementTemporaryRegistration(InputPersonalDocument temporaryRegistration) {
 
@@ -8769,9 +7860,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1913238047;
-        }
+        public int getConstructor() { return -1913238047; }
 
     }
 
@@ -8785,8 +7874,7 @@ public class TdApi {
 
         public String phoneNumber;
 
-        public InputPassportElementPhoneNumber() {
-        }
+        public InputPassportElementPhoneNumber() {}
 
         public InputPassportElementPhoneNumber(String phoneNumber) {
 
@@ -8795,9 +7883,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1319357497;
-        }
+        public int getConstructor() { return 1319357497; }
 
     }
 
@@ -8811,8 +7897,7 @@ public class TdApi {
 
         public String emailAddress;
 
-        public InputPassportElementEmailAddress() {
-        }
+        public InputPassportElementEmailAddress() {}
 
         public InputPassportElementEmailAddress(String emailAddress) {
 
@@ -8821,9 +7906,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -248605659;
-        }
+        public int getConstructor() { return -248605659; }
 
     }
 
@@ -8837,8 +7920,7 @@ public class TdApi {
 
         public PassportElement[] elements;
 
-        public PassportElements() {
-        }
+        public PassportElements() {}
 
         public PassportElements(PassportElement[] elements) {
 
@@ -8847,9 +7929,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1264617556;
-        }
+        public int getConstructor() { return 1264617556; }
 
     }
 
@@ -8857,8 +7937,7 @@ public class TdApi {
     /**
      * Contains the description of an error in a Telegram Passport element
      */
-    public static abstract class PassportElementErrorSource extends Object {
-    }
+    public static abstract class PassportElementErrorSource extends Object {}
 
     /**
      * The element contains an error in an unspecified place
@@ -8867,9 +7946,7 @@ public class TdApi {
     public static class PassportElementErrorSourceUnspecified extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return -378320830;
-        }
+        public int getConstructor() { return -378320830; }
 
     }
 
@@ -8884,8 +7961,7 @@ public class TdApi {
 
         public String fieldName;
 
-        public PassportElementErrorSourceDataField() {
-        }
+        public PassportElementErrorSourceDataField() {}
 
         public PassportElementErrorSourceDataField(String fieldName) {
 
@@ -8894,9 +7970,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -308650776;
-        }
+        public int getConstructor() { return -308650776; }
 
     }
 
@@ -8908,9 +7982,7 @@ public class TdApi {
     public static class PassportElementErrorSourceFrontSide extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return 1895658292;
-        }
+        public int getConstructor() { return 1895658292; }
 
     }
 
@@ -8922,9 +7994,7 @@ public class TdApi {
     public static class PassportElementErrorSourceReverseSide extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return 1918630391;
-        }
+        public int getConstructor() { return 1918630391; }
 
     }
 
@@ -8936,9 +8006,7 @@ public class TdApi {
     public static class PassportElementErrorSourceSelfie extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return -797043672;
-        }
+        public int getConstructor() { return -797043672; }
 
     }
 
@@ -8953,8 +8021,7 @@ public class TdApi {
 
         public int fileIndex;
 
-        public PassportElementErrorSourceTranslationFile() {
-        }
+        public PassportElementErrorSourceTranslationFile() {}
 
         public PassportElementErrorSourceTranslationFile(int fileIndex) {
 
@@ -8963,9 +8030,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -689621228;
-        }
+        public int getConstructor() { return -689621228; }
 
     }
 
@@ -8977,9 +8042,7 @@ public class TdApi {
     public static class PassportElementErrorSourceTranslationFiles extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return 581280796;
-        }
+        public int getConstructor() { return 581280796; }
 
     }
 
@@ -8994,8 +8057,7 @@ public class TdApi {
 
         public int fileIndex;
 
-        public PassportElementErrorSourceFile() {
-        }
+        public PassportElementErrorSourceFile() {}
 
         public PassportElementErrorSourceFile(int fileIndex) {
 
@@ -9004,9 +8066,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2020358960;
-        }
+        public int getConstructor() { return 2020358960; }
 
     }
 
@@ -9018,9 +8078,7 @@ public class TdApi {
     public static class PassportElementErrorSourceFiles extends PassportElementErrorSource {
 
         @Override
-        public int getConstructor() {
-            return 1894164178;
-        }
+        public int getConstructor() { return 1894164178; }
 
     }
 
@@ -9038,8 +8096,7 @@ public class TdApi {
         public String message;
         public PassportElementErrorSource source;
 
-        public PassportElementError() {
-        }
+        public PassportElementError() {}
 
         public PassportElementError(PassportElementType type, String message, PassportElementErrorSource source) {
 
@@ -9050,9 +8107,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1861902395;
-        }
+        public int getConstructor() { return -1861902395; }
 
     }
 
@@ -9072,8 +8127,7 @@ public class TdApi {
         public boolean isTranslationRequired;
         public boolean isNativeNameRequired;
 
-        public PassportSuitableElement() {
-        }
+        public PassportSuitableElement() {}
 
         public PassportSuitableElement(PassportElementType type, boolean isSelfieRequired, boolean isTranslationRequired, boolean isNativeNameRequired) {
 
@@ -9085,9 +8139,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -789019876;
-        }
+        public int getConstructor() { return -789019876; }
 
     }
 
@@ -9101,8 +8153,7 @@ public class TdApi {
 
         public PassportSuitableElement[] suitableElements;
 
-        public PassportRequiredElement() {
-        }
+        public PassportRequiredElement() {}
 
         public PassportRequiredElement(PassportSuitableElement[] suitableElements) {
 
@@ -9111,9 +8162,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1983641651;
-        }
+        public int getConstructor() { return -1983641651; }
 
     }
 
@@ -9129,11 +8178,9 @@ public class TdApi {
 
         public int id;
         public PassportRequiredElement[] requiredElements;
-        @Nullable
-        public String privacyPolicyUrl;
+        @Nullable public String privacyPolicyUrl;
 
-        public PassportAuthorizationForm() {
-        }
+        public PassportAuthorizationForm() {}
 
         public PassportAuthorizationForm(int id, PassportRequiredElement[] requiredElements, @Nullable String privacyPolicyUrl) {
 
@@ -9144,9 +8191,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1070673218;
-        }
+        public int getConstructor() { return -1070673218; }
 
     }
 
@@ -9162,8 +8207,7 @@ public class TdApi {
         public PassportElement[] elements;
         public PassportElementError[] errors;
 
-        public PassportElementsWithErrors() {
-        }
+        public PassportElementsWithErrors() {}
 
         public PassportElementsWithErrors(PassportElement[] elements, PassportElementError[] errors) {
 
@@ -9173,9 +8217,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1308923044;
-        }
+        public int getConstructor() { return 1308923044; }
 
     }
 
@@ -9193,8 +8235,7 @@ public class TdApi {
         public byte[] hash;
         public byte[] secret;
 
-        public EncryptedCredentials() {
-        }
+        public EncryptedCredentials() {}
 
         public EncryptedCredentials(byte[] data, byte[] hash, byte[] secret) {
 
@@ -9205,9 +8246,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1331106766;
-        }
+        public int getConstructor() { return 1331106766; }
 
     }
 
@@ -9231,17 +8270,14 @@ public class TdApi {
         public PassportElementType type;
         public byte[] data;
         public DatedFile frontSide;
-        @Nullable
-        public DatedFile reverseSide;
-        @Nullable
-        public DatedFile selfie;
+        @Nullable public DatedFile reverseSide;
+        @Nullable public DatedFile selfie;
         public DatedFile[] translation;
         public DatedFile[] files;
         public String value;
         public String hash;
 
-        public EncryptedPassportElement() {
-        }
+        public EncryptedPassportElement() {}
 
         public EncryptedPassportElement(PassportElementType type, byte[] data, DatedFile frontSide, @Nullable DatedFile reverseSide, @Nullable DatedFile selfie, DatedFile[] translation, DatedFile[] files, String value, String hash) {
 
@@ -9258,9 +8294,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2002386193;
-        }
+        public int getConstructor() { return 2002386193; }
 
     }
 
@@ -9269,8 +8303,7 @@ public class TdApi {
      * Contains the description of an error in a Telegram Passport element
      * For bots only
      */
-    public static abstract class InputPassportElementErrorSource extends Object {
-    }
+    public static abstract class InputPassportElementErrorSource extends Object {}
 
     /**
      * The element contains an error in an unspecified place
@@ -9282,8 +8315,7 @@ public class TdApi {
 
         public byte[] elementHash;
 
-        public InputPassportElementErrorSourceUnspecified() {
-        }
+        public InputPassportElementErrorSourceUnspecified() {}
 
         public InputPassportElementErrorSourceUnspecified(byte[] elementHash) {
 
@@ -9292,9 +8324,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 267230319;
-        }
+        public int getConstructor() { return 267230319; }
 
     }
 
@@ -9311,8 +8341,7 @@ public class TdApi {
         public String fieldName;
         public byte[] dataHash;
 
-        public InputPassportElementErrorSourceDataField() {
-        }
+        public InputPassportElementErrorSourceDataField() {}
 
         public InputPassportElementErrorSourceDataField(String fieldName, byte[] dataHash) {
 
@@ -9322,9 +8351,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -426795002;
-        }
+        public int getConstructor() { return -426795002; }
 
     }
 
@@ -9339,8 +8366,7 @@ public class TdApi {
 
         public byte[] fileHash;
 
-        public InputPassportElementErrorSourceFrontSide() {
-        }
+        public InputPassportElementErrorSourceFrontSide() {}
 
         public InputPassportElementErrorSourceFrontSide(byte[] fileHash) {
 
@@ -9349,9 +8375,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 588023741;
-        }
+        public int getConstructor() { return 588023741; }
 
     }
 
@@ -9366,8 +8390,7 @@ public class TdApi {
 
         public byte[] fileHash;
 
-        public InputPassportElementErrorSourceReverseSide() {
-        }
+        public InputPassportElementErrorSourceReverseSide() {}
 
         public InputPassportElementErrorSourceReverseSide(byte[] fileHash) {
 
@@ -9376,9 +8399,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 413072891;
-        }
+        public int getConstructor() { return 413072891; }
 
     }
 
@@ -9393,8 +8414,7 @@ public class TdApi {
 
         public byte[] fileHash;
 
-        public InputPassportElementErrorSourceSelfie() {
-        }
+        public InputPassportElementErrorSourceSelfie() {}
 
         public InputPassportElementErrorSourceSelfie(byte[] fileHash) {
 
@@ -9403,9 +8423,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -773575528;
-        }
+        public int getConstructor() { return -773575528; }
 
     }
 
@@ -9420,8 +8438,7 @@ public class TdApi {
 
         public byte[] fileHash;
 
-        public InputPassportElementErrorSourceTranslationFile() {
-        }
+        public InputPassportElementErrorSourceTranslationFile() {}
 
         public InputPassportElementErrorSourceTranslationFile(byte[] fileHash) {
 
@@ -9430,9 +8447,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 505842299;
-        }
+        public int getConstructor() { return 505842299; }
 
     }
 
@@ -9447,8 +8462,7 @@ public class TdApi {
 
         public byte[][] fileHashes;
 
-        public InputPassportElementErrorSourceTranslationFiles() {
-        }
+        public InputPassportElementErrorSourceTranslationFiles() {}
 
         public InputPassportElementErrorSourceTranslationFiles(byte[][] fileHashes) {
 
@@ -9457,9 +8471,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -527254048;
-        }
+        public int getConstructor() { return -527254048; }
 
     }
 
@@ -9474,8 +8486,7 @@ public class TdApi {
 
         public byte[] fileHash;
 
-        public InputPassportElementErrorSourceFile() {
-        }
+        public InputPassportElementErrorSourceFile() {}
 
         public InputPassportElementErrorSourceFile(byte[] fileHash) {
 
@@ -9484,9 +8495,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -298492469;
-        }
+        public int getConstructor() { return -298492469; }
 
     }
 
@@ -9501,8 +8510,7 @@ public class TdApi {
 
         public byte[][] fileHashes;
 
-        public InputPassportElementErrorSourceFiles() {
-        }
+        public InputPassportElementErrorSourceFiles() {}
 
         public InputPassportElementErrorSourceFiles(byte[][] fileHashes) {
 
@@ -9511,9 +8519,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2008541640;
-        }
+        public int getConstructor() { return -2008541640; }
 
     }
 
@@ -9532,8 +8538,7 @@ public class TdApi {
         public String message;
         public InputPassportElementErrorSource source;
 
-        public InputPassportElementError() {
-        }
+        public InputPassportElementError() {}
 
         public InputPassportElementError(PassportElementType type, String message, InputPassportElementErrorSource source) {
 
@@ -9544,9 +8549,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 285756898;
-        }
+        public int getConstructor() { return 285756898; }
 
     }
 
@@ -9554,8 +8557,7 @@ public class TdApi {
     /**
      * Contains the content of a message
      */
-    public static abstract class MessageContent extends Object {
-    }
+    public static abstract class MessageContent extends Object {}
 
     /**
      * A text message
@@ -9566,11 +8568,9 @@ public class TdApi {
     public static class MessageText extends MessageContent {
 
         public FormattedText text;
-        @Nullable
-        public WebPage webPage;
+        @Nullable public WebPage webPage;
 
-        public MessageText() {
-        }
+        public MessageText() {}
 
         public MessageText(FormattedText text, @Nullable WebPage webPage) {
 
@@ -9580,9 +8580,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1989037971;
-        }
+        public int getConstructor() { return 1989037971; }
 
     }
 
@@ -9600,8 +8598,7 @@ public class TdApi {
         public FormattedText caption;
         public boolean isSecret;
 
-        public MessageAnimation() {
-        }
+        public MessageAnimation() {}
 
         public MessageAnimation(Animation animation, FormattedText caption, boolean isSecret) {
 
@@ -9612,9 +8609,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1306939396;
-        }
+        public int getConstructor() { return 1306939396; }
 
     }
 
@@ -9630,8 +8625,7 @@ public class TdApi {
         public Audio audio;
         public FormattedText caption;
 
-        public MessageAudio() {
-        }
+        public MessageAudio() {}
 
         public MessageAudio(Audio audio, FormattedText caption) {
 
@@ -9641,9 +8635,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 276722716;
-        }
+        public int getConstructor() { return 276722716; }
 
     }
 
@@ -9659,8 +8651,7 @@ public class TdApi {
         public Document document;
         public FormattedText caption;
 
-        public MessageDocument() {
-        }
+        public MessageDocument() {}
 
         public MessageDocument(Document document, FormattedText caption) {
 
@@ -9670,9 +8661,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 596945783;
-        }
+        public int getConstructor() { return 596945783; }
 
     }
 
@@ -9690,8 +8679,7 @@ public class TdApi {
         public FormattedText caption;
         public boolean isSecret;
 
-        public MessagePhoto() {
-        }
+        public MessagePhoto() {}
 
         public MessagePhoto(Photo photo, FormattedText caption, boolean isSecret) {
 
@@ -9702,9 +8690,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1851395174;
-        }
+        public int getConstructor() { return -1851395174; }
 
     }
 
@@ -9715,9 +8701,7 @@ public class TdApi {
     public static class MessageExpiredPhoto extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1404641801;
-        }
+        public int getConstructor() { return -1404641801; }
 
     }
 
@@ -9731,8 +8715,7 @@ public class TdApi {
 
         public Sticker sticker;
 
-        public MessageSticker() {
-        }
+        public MessageSticker() {}
 
         public MessageSticker(Sticker sticker) {
 
@@ -9741,9 +8724,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1779022878;
-        }
+        public int getConstructor() { return 1779022878; }
 
     }
 
@@ -9761,8 +8742,7 @@ public class TdApi {
         public FormattedText caption;
         public boolean isSecret;
 
-        public MessageVideo() {
-        }
+        public MessageVideo() {}
 
         public MessageVideo(Video video, FormattedText caption, boolean isSecret) {
 
@@ -9773,9 +8753,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2021281344;
-        }
+        public int getConstructor() { return 2021281344; }
 
     }
 
@@ -9786,9 +8764,7 @@ public class TdApi {
     public static class MessageExpiredVideo extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1212209981;
-        }
+        public int getConstructor() { return -1212209981; }
 
     }
 
@@ -9806,8 +8782,7 @@ public class TdApi {
         public boolean isViewed;
         public boolean isSecret;
 
-        public MessageVideoNote() {
-        }
+        public MessageVideoNote() {}
 
         public MessageVideoNote(VideoNote videoNote, boolean isViewed, boolean isSecret) {
 
@@ -9818,9 +8793,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 963323014;
-        }
+        public int getConstructor() { return 963323014; }
 
     }
 
@@ -9838,8 +8811,7 @@ public class TdApi {
         public FormattedText caption;
         public boolean isListened;
 
-        public MessageVoiceNote() {
-        }
+        public MessageVoiceNote() {}
 
         public MessageVoiceNote(VoiceNote voiceNote, FormattedText caption, boolean isListened) {
 
@@ -9850,9 +8822,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 527777781;
-        }
+        public int getConstructor() { return 527777781; }
 
     }
 
@@ -9863,7 +8833,7 @@ public class TdApi {
      * @location - The location description
      * @livePeriod - Time relative to the message sent date until which the location can be updated, in seconds
      * @expiresIn - Left time for which the location can be updated, in seconds
-     * UpdateMessageContent is not sent when this field changes
+     *              UpdateMessageContent is not sent when this field changes
      */
     public static class MessageLocation extends MessageContent {
 
@@ -9871,8 +8841,7 @@ public class TdApi {
         public int livePeriod;
         public int expiresIn;
 
-        public MessageLocation() {
-        }
+        public MessageLocation() {}
 
         public MessageLocation(Location location, int livePeriod, int expiresIn) {
 
@@ -9883,9 +8852,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1301887786;
-        }
+        public int getConstructor() { return -1301887786; }
 
     }
 
@@ -9899,8 +8866,7 @@ public class TdApi {
 
         public Venue venue;
 
-        public MessageVenue() {
-        }
+        public MessageVenue() {}
 
         public MessageVenue(Venue venue) {
 
@@ -9909,9 +8875,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2146492043;
-        }
+        public int getConstructor() { return -2146492043; }
 
     }
 
@@ -9925,8 +8889,7 @@ public class TdApi {
 
         public Contact contact;
 
-        public MessageContact() {
-        }
+        public MessageContact() {}
 
         public MessageContact(Contact contact) {
 
@@ -9935,9 +8898,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -512684966;
-        }
+        public int getConstructor() { return -512684966; }
 
     }
 
@@ -9947,14 +8908,14 @@ public class TdApi {
      * The dice value is randomly generated by the server
      *
      * @initialStateSticker - The animated sticker with the initial dice animation
-     * May be null if unknown
-     * UpdateMessageContent will be sent when the sticker became known
+     *                        May be null if unknown
+     *                        UpdateMessageContent will be sent when the sticker became known
      * @finalStateSticker - The animated sticker with the final dice animation
-     * May be null if unknown
-     * UpdateMessageContent will be sent when the sticker became known
+     *                      May be null if unknown
+     *                      UpdateMessageContent will be sent when the sticker became known
      * @emoji - Emoji on which the dice throw animation is based
      * @value - The dice value
-     * If the value is 0, the dice don't have final state yet
+     *          If the value is 0, the dice don't have final state yet
      * @successAnimationFrameNumber - Number of frame after which a success animation like a shower of confetti needs to be shown on updateMessageSendSucceeded
      */
     public static class MessageDice extends MessageContent {
@@ -9965,8 +8926,7 @@ public class TdApi {
         public int value;
         public int successAnimationFrameNumber;
 
-        public MessageDice() {
-        }
+        public MessageDice() {}
 
         public MessageDice(Sticker initialStateSticker, Sticker finalStateSticker, String emoji, int value, int successAnimationFrameNumber) {
 
@@ -9979,9 +8939,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1350654849;
-        }
+        public int getConstructor() { return -1350654849; }
 
     }
 
@@ -9995,8 +8953,7 @@ public class TdApi {
 
         public Game game;
 
-        public MessageGame() {
-        }
+        public MessageGame() {}
 
         public MessageGame(Game game) {
 
@@ -10005,9 +8962,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -69441162;
-        }
+        public int getConstructor() { return -69441162; }
 
     }
 
@@ -10021,8 +8976,7 @@ public class TdApi {
 
         public Poll poll;
 
-        public MessagePoll() {
-        }
+        public MessagePoll() {}
 
         public MessagePoll(Poll poll) {
 
@@ -10031,9 +8985,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -662130099;
-        }
+        public int getConstructor() { return -662130099; }
 
     }
 
@@ -10047,7 +8999,7 @@ public class TdApi {
      * @currency - Currency for the product price
      * @totalAmount - Product total price in the minimal quantity of the currency
      * @startParameter - Unique invoice bot start_parameter
-     * To share an invoice use the URL https://t.me/{bot_username}?start={start_parameter}
+     *                   To share an invoice use the URL https://t.me/{bot_username}?start={start_parameter}
      * @isTest - True, if the invoice is a test invoice
      * @needShippingAddress - True, if the shipping address should be specified
      * @receiptMessageId - The identifier of the message with the receipt, after the product has been purchased
@@ -10056,8 +9008,7 @@ public class TdApi {
 
         public String title;
         public String description;
-        @Nullable
-        public Photo photo;
+        @Nullable public Photo photo;
         public String currency;
         public long totalAmount;
         public String startParameter;
@@ -10065,8 +9016,7 @@ public class TdApi {
         public boolean needShippingAddress;
         public long receiptMessageId;
 
-        public MessageInvoice() {
-        }
+        public MessageInvoice() {}
 
         public MessageInvoice(String title, String description, @Nullable Photo photo, String currency, long totalAmount, String startParameter, boolean isTest, boolean needShippingAddress, long receiptMessageId) {
 
@@ -10083,9 +9033,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1916671476;
-        }
+        public int getConstructor() { return -1916671476; }
 
     }
 
@@ -10103,8 +9051,7 @@ public class TdApi {
         public CallDiscardReason discardReason;
         public int duration;
 
-        public MessageCall() {
-        }
+        public MessageCall() {}
 
         public MessageCall(boolean isVideo, CallDiscardReason discardReason, int duration) {
 
@@ -10115,9 +9062,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 538893824;
-        }
+        public int getConstructor() { return 538893824; }
 
     }
 
@@ -10133,8 +9078,7 @@ public class TdApi {
         public String title;
         public int[] memberUserIds;
 
-        public MessageBasicGroupChatCreate() {
-        }
+        public MessageBasicGroupChatCreate() {}
 
         public MessageBasicGroupChatCreate(String title, int[] memberUserIds) {
 
@@ -10144,9 +9088,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1575377646;
-        }
+        public int getConstructor() { return 1575377646; }
 
     }
 
@@ -10160,8 +9102,7 @@ public class TdApi {
 
         public String title;
 
-        public MessageSupergroupChatCreate() {
-        }
+        public MessageSupergroupChatCreate() {}
 
         public MessageSupergroupChatCreate(String title) {
 
@@ -10170,9 +9111,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -434325733;
-        }
+        public int getConstructor() { return -434325733; }
 
     }
 
@@ -10186,8 +9125,7 @@ public class TdApi {
 
         public String title;
 
-        public MessageChatChangeTitle() {
-        }
+        public MessageChatChangeTitle() {}
 
         public MessageChatChangeTitle(String title) {
 
@@ -10196,9 +9134,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 748272449;
-        }
+        public int getConstructor() { return 748272449; }
 
     }
 
@@ -10212,8 +9148,7 @@ public class TdApi {
 
         public ChatPhoto photo;
 
-        public MessageChatChangePhoto() {
-        }
+        public MessageChatChangePhoto() {}
 
         public MessageChatChangePhoto(ChatPhoto photo) {
 
@@ -10222,9 +9157,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -813415093;
-        }
+        public int getConstructor() { return -813415093; }
 
     }
 
@@ -10235,9 +9168,7 @@ public class TdApi {
     public static class MessageChatDeletePhoto extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -184374809;
-        }
+        public int getConstructor() { return -184374809; }
 
     }
 
@@ -10251,8 +9182,7 @@ public class TdApi {
 
         public int[] memberUserIds;
 
-        public MessageChatAddMembers() {
-        }
+        public MessageChatAddMembers() {}
 
         public MessageChatAddMembers(int[] memberUserIds) {
 
@@ -10261,9 +9191,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 401228326;
-        }
+        public int getConstructor() { return 401228326; }
 
     }
 
@@ -10274,9 +9202,7 @@ public class TdApi {
     public static class MessageChatJoinByLink extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return 1846493311;
-        }
+        public int getConstructor() { return 1846493311; }
 
     }
 
@@ -10290,8 +9216,7 @@ public class TdApi {
 
         public int userId;
 
-        public MessageChatDeleteMember() {
-        }
+        public MessageChatDeleteMember() {}
 
         public MessageChatDeleteMember(int userId) {
 
@@ -10300,9 +9225,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1164414043;
-        }
+        public int getConstructor() { return 1164414043; }
 
     }
 
@@ -10316,8 +9239,7 @@ public class TdApi {
 
         public int supergroupId;
 
-        public MessageChatUpgradeTo() {
-        }
+        public MessageChatUpgradeTo() {}
 
         public MessageChatUpgradeTo(int supergroupId) {
 
@@ -10326,9 +9248,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1957816681;
-        }
+        public int getConstructor() { return 1957816681; }
 
     }
 
@@ -10344,8 +9264,7 @@ public class TdApi {
         public String title;
         public int basicGroupId;
 
-        public MessageChatUpgradeFrom() {
-        }
+        public MessageChatUpgradeFrom() {}
 
         public MessageChatUpgradeFrom(String title, int basicGroupId) {
 
@@ -10355,9 +9274,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1642272558;
-        }
+        public int getConstructor() { return 1642272558; }
 
     }
 
@@ -10371,8 +9288,7 @@ public class TdApi {
 
         public long messageId;
 
-        public MessagePinMessage() {
-        }
+        public MessagePinMessage() {}
 
         public MessagePinMessage(long messageId) {
 
@@ -10381,9 +9297,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 953503801;
-        }
+        public int getConstructor() { return 953503801; }
 
     }
 
@@ -10394,9 +9308,7 @@ public class TdApi {
     public static class MessageScreenshotTaken extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1564971605;
-        }
+        public int getConstructor() { return -1564971605; }
 
     }
 
@@ -10410,8 +9322,7 @@ public class TdApi {
 
         public int ttl;
 
-        public MessageChatSetTtl() {
-        }
+        public MessageChatSetTtl() {}
 
         public MessageChatSetTtl(int ttl) {
 
@@ -10420,9 +9331,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1810060209;
-        }
+        public int getConstructor() { return 1810060209; }
 
     }
 
@@ -10436,8 +9345,7 @@ public class TdApi {
 
         public String text;
 
-        public MessageCustomServiceAction() {
-        }
+        public MessageCustomServiceAction() {}
 
         public MessageCustomServiceAction(String text) {
 
@@ -10446,9 +9354,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1435879282;
-        }
+        public int getConstructor() { return 1435879282; }
 
     }
 
@@ -10458,7 +9364,7 @@ public class TdApi {
      *
      * @gameMessageId - Identifier of the message with the game, can be an identifier of a deleted message
      * @gameId - Identifier of the game
-     * May be different from the games presented in the message with the game
+     *           May be different from the games presented in the message with the game
      * @score - New score
      */
     public static class MessageGameScore extends MessageContent {
@@ -10467,8 +9373,7 @@ public class TdApi {
         public long gameId;
         public int score;
 
-        public MessageGameScore() {
-        }
+        public MessageGameScore() {}
 
         public MessageGameScore(long gameMessageId, long gameId, int score) {
 
@@ -10479,9 +9384,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1344904575;
-        }
+        public int getConstructor() { return 1344904575; }
 
     }
 
@@ -10490,7 +9393,7 @@ public class TdApi {
      * A payment has been completed
      *
      * @invoiceMessageId - Identifier of the message with the corresponding invoice
-     * Can be an identifier of a deleted message
+     *                     Can be an identifier of a deleted message
      * @currency - Currency for the price of the product
      * @totalAmount - Total price for the product, in the minimal quantity of the currency
      */
@@ -10500,8 +9403,7 @@ public class TdApi {
         public String currency;
         public long totalAmount;
 
-        public MessagePaymentSuccessful() {
-        }
+        public MessagePaymentSuccessful() {}
 
         public MessagePaymentSuccessful(long invoiceMessageId, String currency, long totalAmount) {
 
@@ -10512,9 +9414,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -595962993;
-        }
+        public int getConstructor() { return -595962993; }
 
     }
 
@@ -10524,12 +9424,12 @@ public class TdApi {
      * For bots only
      *
      * @invoiceMessageId - Identifier of the message with the corresponding invoice
-     * Can be an identifier of a deleted message
+     *                     Can be an identifier of a deleted message
      * @currency - Currency for price of the product
      * @totalAmount - Total price for the product, in the minimal quantity of the currency
      * @invoicePayload - Invoice payload
      * @shippingOptionId - Identifier of the shipping option chosen by the user
-     * May be empty if not applicable
+     *                     May be empty if not applicable
      * @orderInfo - Information about the order
      * @telegramPaymentChargeId - Telegram payment identifier
      * @providerPaymentChargeId - Provider payment identifier
@@ -10540,15 +9440,12 @@ public class TdApi {
         public String currency;
         public long totalAmount;
         public byte[] invoicePayload;
-        @Nullable
-        public String shippingOptionId;
-        @Nullable
-        public OrderInfo orderInfo;
+        @Nullable public String shippingOptionId;
+        @Nullable public OrderInfo orderInfo;
         public String telegramPaymentChargeId;
         public String providerPaymentChargeId;
 
-        public MessagePaymentSuccessfulBot() {
-        }
+        public MessagePaymentSuccessfulBot() {}
 
         public MessagePaymentSuccessfulBot(long invoiceMessageId, String currency, long totalAmount, byte[] invoicePayload, @Nullable String shippingOptionId, @Nullable OrderInfo orderInfo, String telegramPaymentChargeId, String providerPaymentChargeId) {
 
@@ -10564,9 +9461,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -412310696;
-        }
+        public int getConstructor() { return -412310696; }
 
     }
 
@@ -10577,9 +9472,7 @@ public class TdApi {
     public static class MessageContactRegistered extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1502020353;
-        }
+        public int getConstructor() { return -1502020353; }
 
     }
 
@@ -10593,8 +9486,7 @@ public class TdApi {
 
         public String domainName;
 
-        public MessageWebsiteConnected() {
-        }
+        public MessageWebsiteConnected() {}
 
         public MessageWebsiteConnected(String domainName) {
 
@@ -10603,9 +9495,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1074551800;
-        }
+        public int getConstructor() { return -1074551800; }
 
     }
 
@@ -10619,8 +9509,7 @@ public class TdApi {
 
         public PassportElementType[] types;
 
-        public MessagePassportDataSent() {
-        }
+        public MessagePassportDataSent() {}
 
         public MessagePassportDataSent(PassportElementType[] types) {
 
@@ -10629,9 +9518,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1017405171;
-        }
+        public int getConstructor() { return 1017405171; }
 
     }
 
@@ -10648,8 +9535,7 @@ public class TdApi {
         public EncryptedPassportElement[] elements;
         public EncryptedCredentials credentials;
 
-        public MessagePassportDataReceived() {
-        }
+        public MessagePassportDataReceived() {}
 
         public MessagePassportDataReceived(EncryptedPassportElement[] elements, EncryptedCredentials credentials) {
 
@@ -10659,9 +9545,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1367863624;
-        }
+        public int getConstructor() { return -1367863624; }
 
     }
 
@@ -10672,9 +9556,7 @@ public class TdApi {
     public static class MessageUnsupported extends MessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1816726139;
-        }
+        public int getConstructor() { return -1816726139; }
 
     }
 
@@ -10682,8 +9564,7 @@ public class TdApi {
     /**
      * Represents a part of the text which must be formatted differently
      */
-    public static abstract class TextEntityType extends Object {
-    }
+    public static abstract class TextEntityType extends Object {}
 
     /**
      * A mention of a user by their username
@@ -10691,9 +9572,7 @@ public class TdApi {
     public static class TextEntityTypeMention extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 934535013;
-        }
+        public int getConstructor() { return 934535013; }
 
     }
 
@@ -10704,9 +9583,7 @@ public class TdApi {
     public static class TextEntityTypeHashtag extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -1023958307;
-        }
+        public int getConstructor() { return -1023958307; }
 
     }
 
@@ -10718,9 +9595,7 @@ public class TdApi {
     public static class TextEntityTypeCashtag extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 1222915915;
-        }
+        public int getConstructor() { return 1222915915; }
 
     }
 
@@ -10732,9 +9607,7 @@ public class TdApi {
     public static class TextEntityTypeBotCommand extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -1150997581;
-        }
+        public int getConstructor() { return -1150997581; }
 
     }
 
@@ -10745,9 +9618,7 @@ public class TdApi {
     public static class TextEntityTypeUrl extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -1312762756;
-        }
+        public int getConstructor() { return -1312762756; }
 
     }
 
@@ -10758,9 +9629,7 @@ public class TdApi {
     public static class TextEntityTypeEmailAddress extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 1425545249;
-        }
+        public int getConstructor() { return 1425545249; }
 
     }
 
@@ -10771,9 +9640,7 @@ public class TdApi {
     public static class TextEntityTypePhoneNumber extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -1160140246;
-        }
+        public int getConstructor() { return -1160140246; }
 
     }
 
@@ -10785,9 +9652,7 @@ public class TdApi {
     public static class TextEntityTypeBankCardNumber extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 105986320;
-        }
+        public int getConstructor() { return 105986320; }
 
     }
 
@@ -10798,9 +9663,7 @@ public class TdApi {
     public static class TextEntityTypeBold extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -1128210000;
-        }
+        public int getConstructor() { return -1128210000; }
 
     }
 
@@ -10811,9 +9674,7 @@ public class TdApi {
     public static class TextEntityTypeItalic extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -118253987;
-        }
+        public int getConstructor() { return -118253987; }
 
     }
 
@@ -10824,9 +9685,7 @@ public class TdApi {
     public static class TextEntityTypeUnderline extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 792317842;
-        }
+        public int getConstructor() { return 792317842; }
 
     }
 
@@ -10837,9 +9696,7 @@ public class TdApi {
     public static class TextEntityTypeStrikethrough extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 961529082;
-        }
+        public int getConstructor() { return 961529082; }
 
     }
 
@@ -10850,9 +9707,7 @@ public class TdApi {
     public static class TextEntityTypeCode extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return -974534326;
-        }
+        public int getConstructor() { return -974534326; }
 
     }
 
@@ -10863,9 +9718,7 @@ public class TdApi {
     public static class TextEntityTypePre extends TextEntityType {
 
         @Override
-        public int getConstructor() {
-            return 1648958606;
-        }
+        public int getConstructor() { return 1648958606; }
 
     }
 
@@ -10874,14 +9727,13 @@ public class TdApi {
      * Text that must be formatted as if inside pre, and code HTML tags
      *
      * @language - Programming language of the code
-     * As defined by the sender
+     *             As defined by the sender
      */
     public static class TextEntityTypePreCode extends TextEntityType {
 
         public String language;
 
-        public TextEntityTypePreCode() {
-        }
+        public TextEntityTypePreCode() {}
 
         public TextEntityTypePreCode(String language) {
 
@@ -10890,9 +9742,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -945325397;
-        }
+        public int getConstructor() { return -945325397; }
 
     }
 
@@ -10906,8 +9756,7 @@ public class TdApi {
 
         public String url;
 
-        public TextEntityTypeTextUrl() {
-        }
+        public TextEntityTypeTextUrl() {}
 
         public TextEntityTypeTextUrl(String url) {
 
@@ -10916,9 +9765,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 445719651;
-        }
+        public int getConstructor() { return 445719651; }
 
     }
 
@@ -10932,8 +9779,7 @@ public class TdApi {
 
         public int userId;
 
-        public TextEntityTypeMentionName() {
-        }
+        public TextEntityTypeMentionName() {}
 
         public TextEntityTypeMentionName(int userId) {
 
@@ -10942,9 +9788,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -791517091;
-        }
+        public int getConstructor() { return -791517091; }
 
     }
 
@@ -10954,11 +9798,11 @@ public class TdApi {
      * Must be in JPEG or WEBP format for stickers, and less than 200 KB in size
      *
      * @thumbnail - Thumbnail file to send
-     * Sending thumbnails by file_id is currently not supported
+     *              Sending thumbnails by file_id is currently not supported
      * @width - Thumbnail width, usually shouldn't exceed 320
-     * Use 0 if unknown
+     *          Use 0 if unknown
      * @height - Thumbnail height, usually shouldn't exceed 320
-     * Use 0 if unknown
+     *           Use 0 if unknown
      */
     public static class InputThumbnail extends Object {
 
@@ -10966,8 +9810,7 @@ public class TdApi {
         public int width;
         public int height;
 
-        public InputThumbnail() {
-        }
+        public InputThumbnail() {}
 
         public InputThumbnail(InputFile thumbnail, int width, int height) {
 
@@ -10978,9 +9821,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1582387236;
-        }
+        public int getConstructor() { return 1582387236; }
 
     }
 
@@ -10988,21 +9829,19 @@ public class TdApi {
     /**
      * Contains information about the time when a scheduled message will be sent
      */
-    public static abstract class MessageSchedulingState extends Object {
-    }
+    public static abstract class MessageSchedulingState extends Object {}
 
     /**
      * The message will be sent at the specified date
      *
      * @sendDate - Date the message will be sent
-     * The date must be within 367 days in the future
+     *             The date must be within 367 days in the future
      */
     public static class MessageSchedulingStateSendAtDate extends MessageSchedulingState {
 
         public int sendDate;
 
-        public MessageSchedulingStateSendAtDate() {
-        }
+        public MessageSchedulingStateSendAtDate() {}
 
         public MessageSchedulingStateSendAtDate(int sendDate) {
 
@@ -11011,9 +9850,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1485570073;
-        }
+        public int getConstructor() { return -1485570073; }
 
     }
 
@@ -11025,9 +9862,7 @@ public class TdApi {
     public static class MessageSchedulingStateSendWhenOnline extends MessageSchedulingState {
 
         @Override
-        public int getConstructor() {
-            return 2092947464;
-        }
+        public int getConstructor() { return 2092947464; }
 
     }
 
@@ -11036,10 +9871,10 @@ public class TdApi {
      * Options to be used when a message is sent
      *
      * @disableNotification - Pass true to disable notification for the message
-     * Must be false if the message is sent to a secret chat
+     *                        Must be false if the message is sent to a secret chat
      * @fromBackground - Pass true if the message is sent from the background
      * @schedulingState - Message scheduling state
-     * Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled
+     *                    Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled
      */
     public static class MessageSendOptions extends Object {
 
@@ -11047,8 +9882,7 @@ public class TdApi {
         public boolean fromBackground;
         public MessageSchedulingState schedulingState;
 
-        public MessageSendOptions() {
-        }
+        public MessageSendOptions() {}
 
         public MessageSendOptions(boolean disableNotification, boolean fromBackground, MessageSchedulingState schedulingState) {
 
@@ -11059,9 +9893,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 914544314;
-        }
+        public int getConstructor() { return 914544314; }
 
     }
 
@@ -11070,11 +9902,11 @@ public class TdApi {
      * Options to be used when a message content is copied without a link to the original message
      *
      * @sendCopy - True, if content of the message needs to be copied without a link to the original message
-     * Always true if the message is forwarded to a secret chat
+     *             Always true if the message is forwarded to a secret chat
      * @replaceCaption - True, if media caption of the message copy needs to be replaced
-     * Ignored if send_copy is false
+     *                   Ignored if send_copy is false
      * @newCaption - New message caption
-     * Ignored if replace_caption is false
+     *               Ignored if replace_caption is false
      */
     public static class MessageCopyOptions extends Object {
 
@@ -11082,8 +9914,7 @@ public class TdApi {
         public boolean replaceCaption;
         public FormattedText newCaption;
 
-        public MessageCopyOptions() {
-        }
+        public MessageCopyOptions() {}
 
         public MessageCopyOptions(boolean sendCopy, boolean replaceCaption, FormattedText newCaption) {
 
@@ -11094,9 +9925,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1208442937;
-        }
+        public int getConstructor() { return 1208442937; }
 
     }
 
@@ -11104,15 +9933,14 @@ public class TdApi {
     /**
      * The content of a message to send
      */
-    public static abstract class InputMessageContent extends Object {
-    }
+    public static abstract class InputMessageContent extends Object {}
 
     /**
      * A text message
      *
      * @text - Formatted text to be sent
-     * 1-GetOption("message_text_length_max") characters
-     * Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually
+     *         1-GetOption("message_text_length_max") characters
+     *         Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually
      * @disableWebPagePreview - True, if rich web page previews for URLs in the message text should be disabled
      * @clearDraft - True, if a chat message draft should be deleted
      */
@@ -11122,8 +9950,7 @@ public class TdApi {
         public boolean disableWebPagePreview;
         public boolean clearDraft;
 
-        public InputMessageText() {
-        }
+        public InputMessageText() {}
 
         public InputMessageText(FormattedText text, boolean disableWebPagePreview, boolean clearDraft) {
 
@@ -11134,9 +9961,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 247050392;
-        }
+        public int getConstructor() { return 247050392; }
 
     }
 
@@ -11149,11 +9974,11 @@ public class TdApi {
      * @addedStickerFileIds - File identifiers of the stickers added to the animation, if applicable
      * @duration - Duration of the animation, in seconds
      * @width - Width of the animation
-     * May be replaced by the server
+     *          May be replaced by the server
      * @height - Height of the animation
-     * May be replaced by the server
+     *           May be replaced by the server
      * @caption - Animation caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class InputMessageAnimation extends InputMessageContent {
 
@@ -11165,8 +9990,7 @@ public class TdApi {
         public int height;
         public FormattedText caption;
 
-        public InputMessageAnimation() {
-        }
+        public InputMessageAnimation() {}
 
         public InputMessageAnimation(InputFile animation, InputThumbnail thumbnail, int[] addedStickerFileIds, int duration, int width, int height, FormattedText caption) {
 
@@ -11181,9 +10005,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1208433535;
-        }
+        public int getConstructor() { return 1208433535; }
 
     }
 
@@ -11194,12 +10016,12 @@ public class TdApi {
      * @audio - Audio file to be sent
      * @albumCoverThumbnail - Thumbnail of the cover for the album, if available
      * @duration - Duration of the audio, in seconds
-     * May be replaced by the server
+     *             May be replaced by the server
      * @title - Title of the audio
-     * May be replaced by the server
+     *          May be replaced by the server
      * @performer - Performer of the audio
      * @caption - Audio caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class InputMessageAudio extends InputMessageContent {
 
@@ -11210,8 +10032,7 @@ public class TdApi {
         public String performer;
         public FormattedText caption;
 
-        public InputMessageAudio() {
-        }
+        public InputMessageAudio() {}
 
         public InputMessageAudio(InputFile audio, InputThumbnail albumCoverThumbnail, int duration, String title, String performer, FormattedText caption) {
 
@@ -11225,9 +10046,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -626786126;
-        }
+        public int getConstructor() { return -626786126; }
 
     }
 
@@ -11238,9 +10057,9 @@ public class TdApi {
      * @document - Document to be sent
      * @thumbnail - Document thumbnail, if available
      * @forceFile - If true, automatic file type detection will be disabled and the document will be always sent as file
-     * Always true for files sent to secret chats
+     *              Always true for files sent to secret chats
      * @caption - Document caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class InputMessageDocument extends InputMessageContent {
 
@@ -11249,8 +10068,7 @@ public class TdApi {
         public boolean forceFile;
         public FormattedText caption;
 
-        public InputMessageDocument() {
-        }
+        public InputMessageDocument() {}
 
         public InputMessageDocument(InputFile document, InputThumbnail thumbnail, boolean forceFile, FormattedText caption) {
 
@@ -11262,9 +10080,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1960124119;
-        }
+        public int getConstructor() { return 1960124119; }
 
     }
 
@@ -11278,9 +10094,9 @@ public class TdApi {
      * @width - Photo width
      * @height - Photo height
      * @caption - Photo caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      * @ttl - Photo TTL (Time To Live), in seconds (0-60)
-     * A non-zero TTL can be specified only in private chats
+     *        A non-zero TTL can be specified only in private chats
      */
     public static class InputMessagePhoto extends InputMessageContent {
 
@@ -11292,8 +10108,7 @@ public class TdApi {
         public FormattedText caption;
         public int ttl;
 
-        public InputMessagePhoto() {
-        }
+        public InputMessagePhoto() {}
 
         public InputMessagePhoto(InputFile photo, InputThumbnail thumbnail, int[] addedStickerFileIds, int width, int height, FormattedText caption, int ttl) {
 
@@ -11308,9 +10123,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1648801584;
-        }
+        public int getConstructor() { return 1648801584; }
 
     }
 
@@ -11330,8 +10143,7 @@ public class TdApi {
         public int width;
         public int height;
 
-        public InputMessageSticker() {
-        }
+        public InputMessageSticker() {}
 
         public InputMessageSticker(InputFile sticker, InputThumbnail thumbnail, int width, int height) {
 
@@ -11343,9 +10155,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 740776325;
-        }
+        public int getConstructor() { return 740776325; }
 
     }
 
@@ -11361,9 +10171,9 @@ public class TdApi {
      * @height - Video height
      * @supportsStreaming - True, if the video should be tried to be streamed
      * @caption - Video caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      * @ttl - Video TTL (Time To Live), in seconds (0-60)
-     * A non-zero TTL can be specified only in private chats
+     *        A non-zero TTL can be specified only in private chats
      */
     public static class InputMessageVideo extends InputMessageContent {
 
@@ -11377,8 +10187,7 @@ public class TdApi {
         public FormattedText caption;
         public int ttl;
 
-        public InputMessageVideo() {
-        }
+        public InputMessageVideo() {}
 
         public InputMessageVideo(InputFile video, InputThumbnail thumbnail, int[] addedStickerFileIds, int duration, int width, int height, boolean supportsStreaming, FormattedText caption, int ttl) {
 
@@ -11395,9 +10204,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2108486755;
-        }
+        public int getConstructor() { return -2108486755; }
 
     }
 
@@ -11409,7 +10216,7 @@ public class TdApi {
      * @thumbnail - Video thumbnail, if available
      * @duration - Duration of the video, in seconds
      * @length - Video width and height
-     * Must be positive and not greater than 640
+     *           Must be positive and not greater than 640
      */
     public static class InputMessageVideoNote extends InputMessageContent {
 
@@ -11418,8 +10225,7 @@ public class TdApi {
         public int duration;
         public int length;
 
-        public InputMessageVideoNote() {
-        }
+        public InputMessageVideoNote() {}
 
         public InputMessageVideoNote(InputFile videoNote, InputThumbnail thumbnail, int duration, int length) {
 
@@ -11431,9 +10237,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 279108859;
-        }
+        public int getConstructor() { return 279108859; }
 
     }
 
@@ -11445,7 +10249,7 @@ public class TdApi {
      * @duration - Duration of the voice note, in seconds
      * @waveform - Waveform representation of the voice note, in 5-bit format
      * @caption - Voice note caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class InputMessageVoiceNote extends InputMessageContent {
 
@@ -11454,8 +10258,7 @@ public class TdApi {
         public byte[] waveform;
         public FormattedText caption;
 
-        public InputMessageVoiceNote() {
-        }
+        public InputMessageVoiceNote() {}
 
         public InputMessageVoiceNote(InputFile voiceNote, int duration, byte[] waveform, FormattedText caption) {
 
@@ -11467,9 +10270,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2136519657;
-        }
+        public int getConstructor() { return 2136519657; }
 
     }
 
@@ -11479,15 +10280,14 @@ public class TdApi {
      *
      * @location - Location to be sent
      * @livePeriod - Period for which the location can be updated, in seconds
-     * Should be between 60 and 86400 for a live location and 0 otherwise
+     *               Should be between 60 and 86400 for a live location and 0 otherwise
      */
     public static class InputMessageLocation extends InputMessageContent {
 
         public Location location;
         public int livePeriod;
 
-        public InputMessageLocation() {
-        }
+        public InputMessageLocation() {}
 
         public InputMessageLocation(Location location, int livePeriod) {
 
@@ -11497,9 +10297,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1624179655;
-        }
+        public int getConstructor() { return -1624179655; }
 
     }
 
@@ -11513,8 +10311,7 @@ public class TdApi {
 
         public Venue venue;
 
-        public InputMessageVenue() {
-        }
+        public InputMessageVenue() {}
 
         public InputMessageVenue(Venue venue) {
 
@@ -11523,9 +10320,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1447926269;
-        }
+        public int getConstructor() { return 1447926269; }
 
     }
 
@@ -11539,8 +10334,7 @@ public class TdApi {
 
         public Contact contact;
 
-        public InputMessageContact() {
-        }
+        public InputMessageContact() {}
 
         public InputMessageContact(Contact contact) {
 
@@ -11549,9 +10343,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -982446849;
-        }
+        public int getConstructor() { return -982446849; }
 
     }
 
@@ -11567,8 +10359,7 @@ public class TdApi {
         public String emoji;
         public boolean clearDraft;
 
-        public InputMessageDice() {
-        }
+        public InputMessageDice() {}
 
         public InputMessageDice(String emoji, boolean clearDraft) {
 
@@ -11578,9 +10369,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 841574313;
-        }
+        public int getConstructor() { return 841574313; }
 
     }
 
@@ -11597,8 +10386,7 @@ public class TdApi {
         public int botUserId;
         public String gameShortName;
 
-        public InputMessageGame() {
-        }
+        public InputMessageGame() {}
 
         public InputMessageGame(int botUserId, String gameShortName) {
 
@@ -11608,9 +10396,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1728000914;
-        }
+        public int getConstructor() { return -1728000914; }
 
     }
 
@@ -11636,8 +10422,7 @@ public class TdApi {
         public Invoice invoice;
         public String title;
         public String description;
-        @Nullable
-        public String photoUrl;
+        @Nullable public String photoUrl;
         public int photoSize;
         public int photoWidth;
         public int photoHeight;
@@ -11646,8 +10431,7 @@ public class TdApi {
         public String providerData;
         public String startParameter;
 
-        public InputMessageInvoice() {
-        }
+        public InputMessageInvoice() {}
 
         public InputMessageInvoice(Invoice invoice, String title, String description, @Nullable String photoUrl, int photoSize, int photoWidth, int photoHeight, byte[] payload, String providerToken, String providerData, String startParameter) {
 
@@ -11666,9 +10450,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1038812175;
-        }
+        public int getConstructor() { return 1038812175; }
 
     }
 
@@ -11681,14 +10463,14 @@ public class TdApi {
      * @question - Poll question, 1-255 characters (up to 300 characters for bots)
      * @options - List of poll answer options, 2-10 strings 1-100 characters each
      * @isAnonymous - True, if the poll voters are anonymous
-     * Non-anonymous polls can't be sent or forwarded to channels
+     *                Non-anonymous polls can't be sent or forwarded to channels
      * @type - Type of the poll
      * @openPeriod - Amount of time the poll will be active after creation, in seconds
-     * For bots only
+     *               For bots only
      * @closeDate - Point in time (Unix timestamp) when the poll will be automatically closed
-     * For bots only
+     *              For bots only
      * @isClosed - True, if the poll needs to be sent already closed
-     * For bots only
+     *             For bots only
      */
     public static class InputMessagePoll extends InputMessageContent {
 
@@ -11700,8 +10482,7 @@ public class TdApi {
         public int closeDate;
         public boolean isClosed;
 
-        public InputMessagePoll() {
-        }
+        public InputMessagePoll() {}
 
         public InputMessagePoll(String question, String[] options, boolean isAnonymous, PollType type, int openPeriod, int closeDate, boolean isClosed) {
 
@@ -11716,9 +10497,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2054629900;
-        }
+        public int getConstructor() { return 2054629900; }
 
     }
 
@@ -11729,7 +10508,7 @@ public class TdApi {
      * @fromChatId - Identifier for the chat this forwarded message came from
      * @messageId - Identifier of the message to forward
      * @inGameShare - True, if a game message should be shared within a launched game
-     * Applies only to game messages
+     *                Applies only to game messages
      * @copyOptions - Options to be used to copy content of the message without a link to the original message
      */
     public static class InputMessageForwarded extends InputMessageContent {
@@ -11739,8 +10518,7 @@ public class TdApi {
         public boolean inGameShare;
         public MessageCopyOptions copyOptions;
 
-        public InputMessageForwarded() {
-        }
+        public InputMessageForwarded() {}
 
         public InputMessageForwarded(long fromChatId, long messageId, boolean inGameShare, MessageCopyOptions copyOptions) {
 
@@ -11752,9 +10530,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1696232440;
-        }
+        public int getConstructor() { return 1696232440; }
 
     }
 
@@ -11762,8 +10538,7 @@ public class TdApi {
     /**
      * Represents a filter for message search results
      */
-    public static abstract class SearchMessagesFilter extends Object {
-    }
+    public static abstract class SearchMessagesFilter extends Object {}
 
     /**
      * Returns all found messages, no filter is applied
@@ -11771,9 +10546,7 @@ public class TdApi {
     public static class SearchMessagesFilterEmpty extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -869395657;
-        }
+        public int getConstructor() { return -869395657; }
 
     }
 
@@ -11784,9 +10557,7 @@ public class TdApi {
     public static class SearchMessagesFilterAnimation extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -155713339;
-        }
+        public int getConstructor() { return -155713339; }
 
     }
 
@@ -11797,9 +10568,7 @@ public class TdApi {
     public static class SearchMessagesFilterAudio extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 867505275;
-        }
+        public int getConstructor() { return 867505275; }
 
     }
 
@@ -11810,9 +10579,7 @@ public class TdApi {
     public static class SearchMessagesFilterDocument extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 1526331215;
-        }
+        public int getConstructor() { return 1526331215; }
 
     }
 
@@ -11823,9 +10590,7 @@ public class TdApi {
     public static class SearchMessagesFilterPhoto extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 925932293;
-        }
+        public int getConstructor() { return 925932293; }
 
     }
 
@@ -11836,9 +10601,7 @@ public class TdApi {
     public static class SearchMessagesFilterVideo extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 115538222;
-        }
+        public int getConstructor() { return 115538222; }
 
     }
 
@@ -11849,9 +10612,7 @@ public class TdApi {
     public static class SearchMessagesFilterVoiceNote extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 1841439357;
-        }
+        public int getConstructor() { return 1841439357; }
 
     }
 
@@ -11862,9 +10623,7 @@ public class TdApi {
     public static class SearchMessagesFilterPhotoAndVideo extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 1352130963;
-        }
+        public int getConstructor() { return 1352130963; }
 
     }
 
@@ -11875,9 +10634,7 @@ public class TdApi {
     public static class SearchMessagesFilterUrl extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -1828724341;
-        }
+        public int getConstructor() { return -1828724341; }
 
     }
 
@@ -11888,9 +10645,7 @@ public class TdApi {
     public static class SearchMessagesFilterChatPhoto extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -1247751329;
-        }
+        public int getConstructor() { return -1247751329; }
 
     }
 
@@ -11901,9 +10656,7 @@ public class TdApi {
     public static class SearchMessagesFilterCall extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 1305231012;
-        }
+        public int getConstructor() { return 1305231012; }
 
     }
 
@@ -11914,9 +10667,7 @@ public class TdApi {
     public static class SearchMessagesFilterMissedCall extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 970663098;
-        }
+        public int getConstructor() { return 970663098; }
 
     }
 
@@ -11927,9 +10678,7 @@ public class TdApi {
     public static class SearchMessagesFilterVideoNote extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 564323321;
-        }
+        public int getConstructor() { return 564323321; }
 
     }
 
@@ -11940,9 +10689,7 @@ public class TdApi {
     public static class SearchMessagesFilterVoiceAndVideoNote extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 664174819;
-        }
+        public int getConstructor() { return 664174819; }
 
     }
 
@@ -11953,9 +10700,7 @@ public class TdApi {
     public static class SearchMessagesFilterMention extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return 2001258652;
-        }
+        public int getConstructor() { return 2001258652; }
 
     }
 
@@ -11967,9 +10712,7 @@ public class TdApi {
     public static class SearchMessagesFilterUnreadMention extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -95769149;
-        }
+        public int getConstructor() { return -95769149; }
 
     }
 
@@ -11981,9 +10724,7 @@ public class TdApi {
     public static class SearchMessagesFilterFailedToSend extends SearchMessagesFilter {
 
         @Override
-        public int getConstructor() {
-            return -596322564;
-        }
+        public int getConstructor() { return -596322564; }
 
     }
 
@@ -11991,8 +10732,7 @@ public class TdApi {
     /**
      * Describes the different types of activity in a chat
      */
-    public static abstract class ChatAction extends Object {
-    }
+    public static abstract class ChatAction extends Object {}
 
     /**
      * The user is typing a message
@@ -12000,9 +10740,7 @@ public class TdApi {
     public static class ChatActionTyping extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return 380122167;
-        }
+        public int getConstructor() { return 380122167; }
 
     }
 
@@ -12013,9 +10751,7 @@ public class TdApi {
     public static class ChatActionRecordingVideo extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return 216553362;
-        }
+        public int getConstructor() { return 216553362; }
 
     }
 
@@ -12029,8 +10765,7 @@ public class TdApi {
 
         public int progress;
 
-        public ChatActionUploadingVideo() {
-        }
+        public ChatActionUploadingVideo() {}
 
         public ChatActionUploadingVideo(int progress) {
 
@@ -12039,9 +10774,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1234185270;
-        }
+        public int getConstructor() { return 1234185270; }
 
     }
 
@@ -12052,9 +10785,7 @@ public class TdApi {
     public static class ChatActionRecordingVoiceNote extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return -808850058;
-        }
+        public int getConstructor() { return -808850058; }
 
     }
 
@@ -12068,8 +10799,7 @@ public class TdApi {
 
         public int progress;
 
-        public ChatActionUploadingVoiceNote() {
-        }
+        public ChatActionUploadingVoiceNote() {}
 
         public ChatActionUploadingVoiceNote(int progress) {
 
@@ -12078,9 +10808,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -613643666;
-        }
+        public int getConstructor() { return -613643666; }
 
     }
 
@@ -12094,8 +10822,7 @@ public class TdApi {
 
         public int progress;
 
-        public ChatActionUploadingPhoto() {
-        }
+        public ChatActionUploadingPhoto() {}
 
         public ChatActionUploadingPhoto(int progress) {
 
@@ -12104,9 +10831,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 654240583;
-        }
+        public int getConstructor() { return 654240583; }
 
     }
 
@@ -12120,8 +10845,7 @@ public class TdApi {
 
         public int progress;
 
-        public ChatActionUploadingDocument() {
-        }
+        public ChatActionUploadingDocument() {}
 
         public ChatActionUploadingDocument(int progress) {
 
@@ -12130,9 +10854,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 167884362;
-        }
+        public int getConstructor() { return 167884362; }
 
     }
 
@@ -12143,9 +10865,7 @@ public class TdApi {
     public static class ChatActionChoosingLocation extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return -2017893596;
-        }
+        public int getConstructor() { return -2017893596; }
 
     }
 
@@ -12156,9 +10876,7 @@ public class TdApi {
     public static class ChatActionChoosingContact extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return -1222507496;
-        }
+        public int getConstructor() { return -1222507496; }
 
     }
 
@@ -12169,9 +10887,7 @@ public class TdApi {
     public static class ChatActionStartPlayingGame extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return -865884164;
-        }
+        public int getConstructor() { return -865884164; }
 
     }
 
@@ -12182,9 +10898,7 @@ public class TdApi {
     public static class ChatActionRecordingVideoNote extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return 16523393;
-        }
+        public int getConstructor() { return 16523393; }
 
     }
 
@@ -12198,8 +10912,7 @@ public class TdApi {
 
         public int progress;
 
-        public ChatActionUploadingVideoNote() {
-        }
+        public ChatActionUploadingVideoNote() {}
 
         public ChatActionUploadingVideoNote(int progress) {
 
@@ -12208,9 +10921,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1172364918;
-        }
+        public int getConstructor() { return 1172364918; }
 
     }
 
@@ -12221,9 +10932,7 @@ public class TdApi {
     public static class ChatActionCancel extends ChatAction {
 
         @Override
-        public int getConstructor() {
-            return 1160523958;
-        }
+        public int getConstructor() { return 1160523958; }
 
     }
 
@@ -12231,8 +10940,7 @@ public class TdApi {
     /**
      * Describes the last time the user was online
      */
-    public static abstract class UserStatus extends Object {
-    }
+    public static abstract class UserStatus extends Object {}
 
     /**
      * The user status was never changed
@@ -12240,9 +10948,7 @@ public class TdApi {
     public static class UserStatusEmpty extends UserStatus {
 
         @Override
-        public int getConstructor() {
-            return 164646985;
-        }
+        public int getConstructor() { return 164646985; }
 
     }
 
@@ -12256,8 +10962,7 @@ public class TdApi {
 
         public int expires;
 
-        public UserStatusOnline() {
-        }
+        public UserStatusOnline() {}
 
         public UserStatusOnline(int expires) {
 
@@ -12266,9 +10971,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1529460876;
-        }
+        public int getConstructor() { return -1529460876; }
 
     }
 
@@ -12282,8 +10985,7 @@ public class TdApi {
 
         public int wasOnline;
 
-        public UserStatusOffline() {
-        }
+        public UserStatusOffline() {}
 
         public UserStatusOffline(int wasOnline) {
 
@@ -12292,9 +10994,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -759984891;
-        }
+        public int getConstructor() { return -759984891; }
 
     }
 
@@ -12305,9 +11005,7 @@ public class TdApi {
     public static class UserStatusRecently extends UserStatus {
 
         @Override
-        public int getConstructor() {
-            return -496024847;
-        }
+        public int getConstructor() { return -496024847; }
 
     }
 
@@ -12318,9 +11016,7 @@ public class TdApi {
     public static class UserStatusLastWeek extends UserStatus {
 
         @Override
-        public int getConstructor() {
-            return 129960444;
-        }
+        public int getConstructor() { return 129960444; }
 
     }
 
@@ -12331,9 +11027,7 @@ public class TdApi {
     public static class UserStatusLastMonth extends UserStatus {
 
         @Override
-        public int getConstructor() {
-            return 2011940674;
-        }
+        public int getConstructor() { return 2011940674; }
 
     }
 
@@ -12347,8 +11041,7 @@ public class TdApi {
 
         public Sticker[] stickers;
 
-        public Stickers() {
-        }
+        public Stickers() {}
 
         public Stickers(Sticker[] stickers) {
 
@@ -12357,9 +11050,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1974859260;
-        }
+        public int getConstructor() { return 1974859260; }
 
     }
 
@@ -12373,8 +11064,7 @@ public class TdApi {
 
         public String[] emojis;
 
-        public Emojis() {
-        }
+        public Emojis() {}
 
         public Emojis(String[] emojis) {
 
@@ -12383,9 +11073,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 950339552;
-        }
+        public int getConstructor() { return 950339552; }
 
     }
 
@@ -12397,25 +11085,24 @@ public class TdApi {
      * @title - Title of the sticker set
      * @name - Name of the sticker set
      * @thumbnail - Sticker set thumbnail in WEBP or TGS format with width and height 100
-     * The file can be downloaded only before the thumbnail is changed
+     *              The file can be downloaded only before the thumbnail is changed
      * @isInstalled - True, if the sticker set has been installed by the current user
      * @isArchived - True, if the sticker set has been archived
-     * A sticker set can't be installed and archived simultaneously
+     *               A sticker set can't be installed and archived simultaneously
      * @isOfficial - True, if the sticker set is official
      * @isAnimated - True, is the stickers in the set are animated
      * @isMasks - True, if the stickers in the set are masks
      * @isViewed - True for already viewed trending sticker sets
      * @stickers - List of stickers in this set
      * @emojis - A list of emoji corresponding to the stickers in the same order
-     * The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object
+     *           The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object
      */
     public static class StickerSet extends Object {
 
         public long id;
         public String title;
         public String name;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
         public boolean isInstalled;
         public boolean isArchived;
         public boolean isOfficial;
@@ -12425,8 +11112,7 @@ public class TdApi {
         public Sticker[] stickers;
         public Emojis[] emojis;
 
-        public StickerSet() {
-        }
+        public StickerSet() {}
 
         public StickerSet(long id, String title, String name, @Nullable Thumbnail thumbnail, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isAnimated, boolean isMasks, boolean isViewed, Sticker[] stickers, Emojis[] emojis) {
 
@@ -12446,9 +11132,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 853438190;
-        }
+        public int getConstructor() { return 853438190; }
 
     }
 
@@ -12462,22 +11146,21 @@ public class TdApi {
      * @thumbnail - Sticker set thumbnail in WEBP or TGS format with width and height 100
      * @isInstalled - True, if the sticker set has been installed by current user
      * @isArchived - True, if the sticker set has been archived
-     * A sticker set can't be installed and archived simultaneously
+     *               A sticker set can't be installed and archived simultaneously
      * @isOfficial - True, if the sticker set is official
      * @isAnimated - True, is the stickers in the set are animated
      * @isMasks - True, if the stickers in the set are masks
      * @isViewed - True for already viewed trending sticker sets
      * @size - Total number of stickers in the set
      * @covers - Contains up to the first 5 stickers from the set, depending on the context
-     * If the application needs more stickers the full set should be requested
+     *           If the application needs more stickers the full set should be requested
      */
     public static class StickerSetInfo extends Object {
 
         public long id;
         public String title;
         public String name;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
         public boolean isInstalled;
         public boolean isArchived;
         public boolean isOfficial;
@@ -12487,8 +11170,7 @@ public class TdApi {
         public int size;
         public Sticker[] covers;
 
-        public StickerSetInfo() {
-        }
+        public StickerSetInfo() {}
 
         public StickerSetInfo(long id, String title, String name, @Nullable Thumbnail thumbnail, boolean isInstalled, boolean isArchived, boolean isOfficial, boolean isAnimated, boolean isMasks, boolean isViewed, int size, Sticker[] covers) {
 
@@ -12508,9 +11190,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 703844215;
-        }
+        public int getConstructor() { return 703844215; }
 
     }
 
@@ -12526,8 +11206,7 @@ public class TdApi {
         public int totalCount;
         public StickerSetInfo[] sets;
 
-        public StickerSets() {
-        }
+        public StickerSets() {}
 
         public StickerSets(int totalCount, StickerSetInfo[] sets) {
 
@@ -12537,9 +11216,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1883828812;
-        }
+        public int getConstructor() { return -1883828812; }
 
     }
 
@@ -12547,8 +11224,7 @@ public class TdApi {
     /**
      * Describes the reason why a call was discarded
      */
-    public static abstract class CallDiscardReason extends Object {
-    }
+    public static abstract class CallDiscardReason extends Object {}
 
     /**
      * The call wasn't discarded, or the reason is unknown
@@ -12556,9 +11232,7 @@ public class TdApi {
     public static class CallDiscardReasonEmpty extends CallDiscardReason {
 
         @Override
-        public int getConstructor() {
-            return -1258917949;
-        }
+        public int getConstructor() { return -1258917949; }
 
     }
 
@@ -12570,9 +11244,7 @@ public class TdApi {
     public static class CallDiscardReasonMissed extends CallDiscardReason {
 
         @Override
-        public int getConstructor() {
-            return 1680358012;
-        }
+        public int getConstructor() { return 1680358012; }
 
     }
 
@@ -12584,9 +11256,7 @@ public class TdApi {
     public static class CallDiscardReasonDeclined extends CallDiscardReason {
 
         @Override
-        public int getConstructor() {
-            return -1729926094;
-        }
+        public int getConstructor() { return -1729926094; }
 
     }
 
@@ -12597,9 +11267,7 @@ public class TdApi {
     public static class CallDiscardReasonDisconnected extends CallDiscardReason {
 
         @Override
-        public int getConstructor() {
-            return -1342872670;
-        }
+        public int getConstructor() { return -1342872670; }
 
     }
 
@@ -12610,9 +11278,7 @@ public class TdApi {
     public static class CallDiscardReasonHungUp extends CallDiscardReason {
 
         @Override
-        public int getConstructor() {
-            return 438216166;
-        }
+        public int getConstructor() { return 438216166; }
 
     }
 
@@ -12634,8 +11300,7 @@ public class TdApi {
         public int maxLayer;
         public String[] libraryVersions;
 
-        public CallProtocol() {
-        }
+        public CallProtocol() {}
 
         public CallProtocol(boolean udpP2p, boolean udpReflector, int minLayer, int maxLayer, String[] libraryVersions) {
 
@@ -12648,9 +11313,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1075562897;
-        }
+        public int getConstructor() { return -1075562897; }
 
     }
 
@@ -12658,8 +11321,7 @@ public class TdApi {
     /**
      * Describes the type of a call server
      */
-    public static abstract class CallServerType extends Object {
-    }
+    public static abstract class CallServerType extends Object {}
 
     /**
      * A Telegram call reflector
@@ -12670,8 +11332,7 @@ public class TdApi {
 
         public byte[] peerTag;
 
-        public CallServerTypeTelegramReflector() {
-        }
+        public CallServerTypeTelegramReflector() {}
 
         public CallServerTypeTelegramReflector(byte[] peerTag) {
 
@@ -12680,9 +11341,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1507850700;
-        }
+        public int getConstructor() { return -1507850700; }
 
     }
 
@@ -12702,8 +11361,7 @@ public class TdApi {
         public boolean supportsTurn;
         public boolean supportsStun;
 
-        public CallServerTypeWebrtc() {
-        }
+        public CallServerTypeWebrtc() {}
 
         public CallServerTypeWebrtc(String username, String password, boolean supportsTurn, boolean supportsStun) {
 
@@ -12715,9 +11373,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1250622821;
-        }
+        public int getConstructor() { return 1250622821; }
 
     }
 
@@ -12739,8 +11395,7 @@ public class TdApi {
         public int port;
         public CallServerType type;
 
-        public CallServer() {
-        }
+        public CallServer() {}
 
         public CallServer(long id, String ipAddress, String ipv6Address, int port, CallServerType type) {
 
@@ -12753,9 +11408,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1865932695;
-        }
+        public int getConstructor() { return 1865932695; }
 
     }
 
@@ -12769,8 +11422,7 @@ public class TdApi {
 
         public int id;
 
-        public CallId() {
-        }
+        public CallId() {}
 
         public CallId(int id) {
 
@@ -12779,9 +11431,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 65717769;
-        }
+        public int getConstructor() { return 65717769; }
 
     }
 
@@ -12789,8 +11439,7 @@ public class TdApi {
     /**
      * Describes the current call state
      */
-    public static abstract class CallState extends Object {
-    }
+    public static abstract class CallState extends Object {}
 
     /**
      * The call is pending, waiting to be accepted by a user
@@ -12803,8 +11452,7 @@ public class TdApi {
         public boolean isCreated;
         public boolean isReceived;
 
-        public CallStatePending() {
-        }
+        public CallStatePending() {}
 
         public CallStatePending(boolean isCreated, boolean isReceived) {
 
@@ -12814,9 +11462,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1073048620;
-        }
+        public int getConstructor() { return 1073048620; }
 
     }
 
@@ -12827,9 +11473,7 @@ public class TdApi {
     public static class CallStateExchangingKeys extends CallState {
 
         @Override
-        public int getConstructor() {
-            return -1848149403;
-        }
+        public int getConstructor() { return -1848149403; }
 
     }
 
@@ -12853,8 +11497,7 @@ public class TdApi {
         public String[] emojis;
         public boolean allowP2p;
 
-        public CallStateReady() {
-        }
+        public CallStateReady() {}
 
         public CallStateReady(CallProtocol protocol, CallServer[] servers, String config, byte[] encryptionKey, String[] emojis, boolean allowP2p) {
 
@@ -12868,9 +11511,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2000107571;
-        }
+        public int getConstructor() { return -2000107571; }
 
     }
 
@@ -12881,9 +11522,7 @@ public class TdApi {
     public static class CallStateHangingUp extends CallState {
 
         @Override
-        public int getConstructor() {
-            return -2133790038;
-        }
+        public int getConstructor() { return -2133790038; }
 
     }
 
@@ -12901,8 +11540,7 @@ public class TdApi {
         public boolean needRating;
         public boolean needDebugInformation;
 
-        public CallStateDiscarded() {
-        }
+        public CallStateDiscarded() {}
 
         public CallStateDiscarded(CallDiscardReason reason, boolean needRating, boolean needDebugInformation) {
 
@@ -12913,9 +11551,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -190853167;
-        }
+        public int getConstructor() { return -190853167; }
 
     }
 
@@ -12924,14 +11560,13 @@ public class TdApi {
      * The call has ended with an error
      *
      * @error - Error
-     * An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout
+     *          An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout
      */
     public static class CallStateError extends CallState {
 
         public Error error;
 
-        public CallStateError() {
-        }
+        public CallStateError() {}
 
         public CallStateError(Error error) {
 
@@ -12940,9 +11575,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -975215467;
-        }
+        public int getConstructor() { return -975215467; }
 
     }
 
@@ -12950,8 +11583,7 @@ public class TdApi {
     /**
      * Describes the exact type of a problem with a call
      */
-    public static abstract class CallProblem extends Object {
-    }
+    public static abstract class CallProblem extends Object {}
 
     /**
      * The user heard their own voice
@@ -12959,9 +11591,7 @@ public class TdApi {
     public static class CallProblemEcho extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 801116548;
-        }
+        public int getConstructor() { return 801116548; }
 
     }
 
@@ -12972,9 +11602,7 @@ public class TdApi {
     public static class CallProblemNoise extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 1053065359;
-        }
+        public int getConstructor() { return 1053065359; }
 
     }
 
@@ -12985,9 +11613,7 @@ public class TdApi {
     public static class CallProblemInterruptions extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 1119493218;
-        }
+        public int getConstructor() { return 1119493218; }
 
     }
 
@@ -12998,9 +11624,7 @@ public class TdApi {
     public static class CallProblemDistortedSpeech extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 379960581;
-        }
+        public int getConstructor() { return 379960581; }
 
     }
 
@@ -13011,9 +11635,7 @@ public class TdApi {
     public static class CallProblemSilentLocal extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 253652790;
-        }
+        public int getConstructor() { return 253652790; }
 
     }
 
@@ -13024,9 +11646,7 @@ public class TdApi {
     public static class CallProblemSilentRemote extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 573634714;
-        }
+        public int getConstructor() { return 573634714; }
 
     }
 
@@ -13037,9 +11657,7 @@ public class TdApi {
     public static class CallProblemDropped extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return -1207311487;
-        }
+        public int getConstructor() { return -1207311487; }
 
     }
 
@@ -13061,8 +11679,7 @@ public class TdApi {
         public boolean isVideo;
         public CallState state;
 
-        public Call() {
-        }
+        public Call() {}
 
         public Call(int id, int userId, boolean isOutgoing, boolean isVideo, CallState state) {
 
@@ -13075,9 +11692,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1504070790;
-        }
+        public int getConstructor() { return 1504070790; }
 
     }
 
@@ -13088,8 +11703,8 @@ public class TdApi {
      * @allowFlashCall - Pass true if the authentication code may be sent via flash call to the specified phone number
      * @isCurrentPhoneNumber - Pass true if the authenticated phone number is used on the current device
      * @allowSmsRetrieverApi - For official applications only
-     * True, if the app can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS
-     * See https://developers.google.com/identity/sms-retriever/ for more details
+     *                         True, if the app can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS
+     *                         See https://developers.google.com/identity/sms-retriever/ for more details
      */
     public static class PhoneNumberAuthenticationSettings extends Object {
 
@@ -13097,8 +11712,7 @@ public class TdApi {
         public boolean isCurrentPhoneNumber;
         public boolean allowSmsRetrieverApi;
 
-        public PhoneNumberAuthenticationSettings() {
-        }
+        public PhoneNumberAuthenticationSettings() {}
 
         public PhoneNumberAuthenticationSettings(boolean allowFlashCall, boolean isCurrentPhoneNumber, boolean allowSmsRetrieverApi) {
 
@@ -13109,9 +11723,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -859198743;
-        }
+        public int getConstructor() { return -859198743; }
 
     }
 
@@ -13125,8 +11737,7 @@ public class TdApi {
 
         public Animation[] animations;
 
-        public Animations() {
-        }
+        public Animations() {}
 
         public Animations(Animation[] animations) {
 
@@ -13135,9 +11746,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 344216945;
-        }
+        public int getConstructor() { return 344216945; }
 
     }
 
@@ -13146,17 +11755,16 @@ public class TdApi {
      * Represents the result of an ImportContacts request
      *
      * @userIds - User identifiers of the imported contacts in the same order as they were specified in the request
-     * 0 if the contact is not yet a registered user
+     *            0 if the contact is not yet a registered user
      * @importerCount - The number of users that imported the corresponding contact
-     * 0 for already registered users or if unavailable
+     *                  0 for already registered users or if unavailable
      */
     public static class ImportedContacts extends Object {
 
         public int[] userIds;
         public int[] importerCount;
 
-        public ImportedContacts() {
-        }
+        public ImportedContacts() {}
 
         public ImportedContacts(int[] userIds, int[] importerCount) {
 
@@ -13166,9 +11774,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -741685354;
-        }
+        public int getConstructor() { return -741685354; }
 
     }
 
@@ -13182,8 +11788,7 @@ public class TdApi {
 
         public String url;
 
-        public HttpUrl() {
-        }
+        public HttpUrl() {}
 
         public HttpUrl(String url) {
 
@@ -13192,9 +11797,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2018019930;
-        }
+        public int getConstructor() { return -2018019930; }
 
     }
 
@@ -13203,8 +11806,7 @@ public class TdApi {
      * Represents a single result of an inline query
      * For bots only
      */
-    public static abstract class InputInlineQueryResult extends Object {
-    }
+    public static abstract class InputInlineQueryResult extends Object {}
 
     /**
      * Represents a link to an animated GIF or an animated (i.e
@@ -13214,17 +11816,17 @@ public class TdApi {
      * @title - Title of the query result
      * @thumbnailUrl - URL of the result thumbnail (JPEG, GIF, or MPEG4), if it exists
      * @thumbnailMimeType - MIME type of the video thumbnail
-     * If non-empty, must be one of "image/jpeg", "image/gif" and "video/mp4"
+     *                      If non-empty, must be one of "image/jpeg", "image/gif" and "video/mp4"
      * @videoUrl - The URL of the video file (file size must not exceed 1MB)
      * @videoMimeType - MIME type of the video file
-     * Must be one of "image/gif" and "video/mp4"
+     *                  Must be one of "image/gif" and "video/mp4"
      * @videoDuration - Duration of the video, in seconds
      * @videoWidth - Width of the video
      * @videoHeight - Height of the video
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultAnimation extends InputInlineQueryResult {
 
@@ -13240,8 +11842,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultAnimation() {
-        }
+        public InputInlineQueryResultAnimation() {}
 
         public InputInlineQueryResultAnimation(String id, String title, String thumbnailUrl, String thumbnailMimeType, String videoUrl, String videoMimeType, int videoDuration, int videoWidth, int videoHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13260,9 +11861,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1489808874;
-        }
+        public int getConstructor() { return -1489808874; }
 
     }
 
@@ -13279,9 +11878,9 @@ public class TdApi {
      * @thumbnailWidth - Thumbnail width, if known
      * @thumbnailHeight - Thumbnail height, if known
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultArticle extends InputInlineQueryResult {
 
@@ -13296,8 +11895,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultArticle() {
-        }
+        public InputInlineQueryResultArticle() {}
 
         public InputInlineQueryResultArticle(String id, String url, boolean hideUrl, String title, String description, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13315,9 +11913,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1973670156;
-        }
+        public int getConstructor() { return 1973670156; }
 
     }
 
@@ -13331,9 +11927,9 @@ public class TdApi {
      * @audioUrl - The URL of the audio file
      * @audioDuration - Audio file duration, in seconds
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageAudio, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageAudio, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultAudio extends InputInlineQueryResult {
 
@@ -13345,8 +11941,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultAudio() {
-        }
+        public InputInlineQueryResultAudio() {}
 
         public InputInlineQueryResultAudio(String id, String title, String performer, String audioUrl, int audioDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13361,9 +11956,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1260139988;
-        }
+        public int getConstructor() { return 1260139988; }
 
     }
 
@@ -13377,9 +11970,9 @@ public class TdApi {
      * @thumbnailWidth - Thumbnail width, if known
      * @thumbnailHeight - Thumbnail height, if known
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultContact extends InputInlineQueryResult {
 
@@ -13391,8 +11984,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultContact() {
-        }
+        public InputInlineQueryResultContact() {}
 
         public InputInlineQueryResultContact(String id, Contact contact, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13407,9 +11999,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1846064594;
-        }
+        public int getConstructor() { return 1846064594; }
 
     }
 
@@ -13422,14 +12012,14 @@ public class TdApi {
      * @description - Short description of the result, if known
      * @documentUrl - URL of the file
      * @mimeType - MIME type of the file content
-     * Only "application/pdf" and "application/zip" are currently allowed
+     *             Only "application/pdf" and "application/zip" are currently allowed
      * @thumbnailUrl - The URL of the file thumbnail, if it exists
      * @thumbnailWidth - Width of the thumbnail
      * @thumbnailHeight - Height of the thumbnail
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageDocument, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageDocument, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultDocument extends InputInlineQueryResult {
 
@@ -13444,8 +12034,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultDocument() {
-        }
+        public InputInlineQueryResultDocument() {}
 
         public InputInlineQueryResultDocument(String id, String title, String description, String documentUrl, String mimeType, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13463,9 +12052,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 578801869;
-        }
+        public int getConstructor() { return 578801869; }
 
     }
 
@@ -13476,7 +12063,7 @@ public class TdApi {
      * @id - Unique identifier of the query result
      * @gameShortName - Short name of the game
      * @replyMarkup - Message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      */
     public static class InputInlineQueryResultGame extends InputInlineQueryResult {
 
@@ -13484,8 +12071,7 @@ public class TdApi {
         public String gameShortName;
         public ReplyMarkup replyMarkup;
 
-        public InputInlineQueryResultGame() {
-        }
+        public InputInlineQueryResultGame() {}
 
         public InputInlineQueryResultGame(String id, String gameShortName, ReplyMarkup replyMarkup) {
 
@@ -13496,9 +12082,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 966074327;
-        }
+        public int getConstructor() { return 966074327; }
 
     }
 
@@ -13514,9 +12098,9 @@ public class TdApi {
      * @thumbnailWidth - Thumbnail width, if known
      * @thumbnailHeight - Thumbnail height, if known
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultLocation extends InputInlineQueryResult {
 
@@ -13530,8 +12114,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultLocation() {
-        }
+        public InputInlineQueryResultLocation() {}
 
         public InputInlineQueryResultLocation(String id, Location location, int livePeriod, String title, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13548,9 +12131,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1887650218;
-        }
+        public int getConstructor() { return -1887650218; }
 
     }
 
@@ -13566,9 +12147,9 @@ public class TdApi {
      * @photoWidth - Width of the photo
      * @photoHeight - Height of the photo
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessagePhoto, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessagePhoto, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultPhoto extends InputInlineQueryResult {
 
@@ -13582,8 +12163,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultPhoto() {
-        }
+        public InputInlineQueryResultPhoto() {}
 
         public InputInlineQueryResultPhoto(String id, String title, String description, String thumbnailUrl, String photoUrl, int photoWidth, int photoHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13600,9 +12180,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1123338721;
-        }
+        public int getConstructor() { return -1123338721; }
 
     }
 
@@ -13616,9 +12194,9 @@ public class TdApi {
      * @stickerWidth - Width of the sticker
      * @stickerHeight - Height of the sticker
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, inputMessageSticker, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, inputMessageSticker, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultSticker extends InputInlineQueryResult {
 
@@ -13630,8 +12208,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultSticker() {
-        }
+        public InputInlineQueryResultSticker() {}
 
         public InputInlineQueryResultSticker(String id, String thumbnailUrl, String stickerUrl, int stickerWidth, int stickerHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13646,9 +12223,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 274007129;
-        }
+        public int getConstructor() { return 274007129; }
 
     }
 
@@ -13662,9 +12237,9 @@ public class TdApi {
      * @thumbnailWidth - Thumbnail width, if known
      * @thumbnailHeight - Thumbnail height, if known
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultVenue extends InputInlineQueryResult {
 
@@ -13676,8 +12251,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultVenue() {
-        }
+        public InputInlineQueryResultVenue() {}
 
         public InputInlineQueryResultVenue(String id, Venue venue, String thumbnailUrl, int thumbnailWidth, int thumbnailHeight, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13692,9 +12266,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 541704509;
-        }
+        public int getConstructor() { return 541704509; }
 
     }
 
@@ -13712,9 +12284,9 @@ public class TdApi {
      * @videoHeight - Height of the video
      * @videoDuration - Video duration, in seconds
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageVideo, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageVideo, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultVideo extends InputInlineQueryResult {
 
@@ -13730,8 +12302,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultVideo() {
-        }
+        public InputInlineQueryResultVideo() {}
 
         public InputInlineQueryResultVideo(String id, String title, String description, String thumbnailUrl, String videoUrl, String mimeType, int videoWidth, int videoHeight, int videoDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13750,9 +12321,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1724073191;
-        }
+        public int getConstructor() { return 1724073191; }
 
     }
 
@@ -13765,9 +12334,9 @@ public class TdApi {
      * @voiceNoteUrl - The URL of the voice note file
      * @voiceNoteDuration - Duration of the voice note, in seconds
      * @replyMarkup - The message reply markup
-     * Must be of type replyMarkupInlineKeyboard or null
+     *                Must be of type replyMarkupInlineKeyboard or null
      * @inputMessageContent - The content of the message to be sent
-     * Must be one of the following types: InputMessageText, InputMessageVoiceNote, InputMessageLocation, InputMessageVenue or InputMessageContact
+     *                        Must be one of the following types: InputMessageText, InputMessageVoiceNote, InputMessageLocation, InputMessageVenue or InputMessageContact
      */
     public static class InputInlineQueryResultVoiceNote extends InputInlineQueryResult {
 
@@ -13778,8 +12347,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public InputInlineQueryResultVoiceNote() {
-        }
+        public InputInlineQueryResultVoiceNote() {}
 
         public InputInlineQueryResultVoiceNote(String id, String title, String voiceNoteUrl, int voiceNoteDuration, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -13793,9 +12361,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1790072503;
-        }
+        public int getConstructor() { return -1790072503; }
 
     }
 
@@ -13803,8 +12369,7 @@ public class TdApi {
     /**
      * Represents a single result of an inline query
      */
-    public static abstract class InlineQueryResult extends Object {
-    }
+    public static abstract class InlineQueryResult extends Object {}
 
     /**
      * Represents a link to an article or web page
@@ -13823,11 +12388,9 @@ public class TdApi {
         public boolean hideUrl;
         public String title;
         public String description;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
 
-        public InlineQueryResultArticle() {
-        }
+        public InlineQueryResultArticle() {}
 
         public InlineQueryResultArticle(String id, String url, boolean hideUrl, String title, String description, @Nullable Thumbnail thumbnail) {
 
@@ -13841,9 +12404,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 206340825;
-        }
+        public int getConstructor() { return 206340825; }
 
     }
 
@@ -13859,11 +12420,9 @@ public class TdApi {
 
         public String id;
         public Contact contact;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
 
-        public InlineQueryResultContact() {
-        }
+        public InlineQueryResultContact() {}
 
         public InlineQueryResultContact(String id, Contact contact, @Nullable Thumbnail thumbnail) {
 
@@ -13874,9 +12433,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -181960174;
-        }
+        public int getConstructor() { return -181960174; }
 
     }
 
@@ -13894,11 +12451,9 @@ public class TdApi {
         public String id;
         public Location location;
         public String title;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
 
-        public InlineQueryResultLocation() {
-        }
+        public InlineQueryResultLocation() {}
 
         public InlineQueryResultLocation(String id, Location location, String title, @Nullable Thumbnail thumbnail) {
 
@@ -13910,9 +12465,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 466004752;
-        }
+        public int getConstructor() { return 466004752; }
 
     }
 
@@ -13928,11 +12481,9 @@ public class TdApi {
 
         public String id;
         public Venue venue;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public Thumbnail thumbnail;
 
-        public InlineQueryResultVenue() {
-        }
+        public InlineQueryResultVenue() {}
 
         public InlineQueryResultVenue(String id, Venue venue, @Nullable Thumbnail thumbnail) {
 
@@ -13943,9 +12494,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1281036382;
-        }
+        public int getConstructor() { return 1281036382; }
 
     }
 
@@ -13961,8 +12510,7 @@ public class TdApi {
         public String id;
         public Game game;
 
-        public InlineQueryResultGame() {
-        }
+        public InlineQueryResultGame() {}
 
         public InlineQueryResultGame(String id, Game game) {
 
@@ -13972,9 +12520,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1706916987;
-        }
+        public int getConstructor() { return 1706916987; }
 
     }
 
@@ -13992,8 +12538,7 @@ public class TdApi {
         public Animation animation;
         public String title;
 
-        public InlineQueryResultAnimation() {
-        }
+        public InlineQueryResultAnimation() {}
 
         public InlineQueryResultAnimation(String id, Animation animation, String title) {
 
@@ -14004,9 +12549,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2009984267;
-        }
+        public int getConstructor() { return 2009984267; }
 
     }
 
@@ -14022,8 +12565,7 @@ public class TdApi {
         public String id;
         public Audio audio;
 
-        public InlineQueryResultAudio() {
-        }
+        public InlineQueryResultAudio() {}
 
         public InlineQueryResultAudio(String id, Audio audio) {
 
@@ -14033,9 +12575,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 842650360;
-        }
+        public int getConstructor() { return 842650360; }
 
     }
 
@@ -14055,8 +12595,7 @@ public class TdApi {
         public String title;
         public String description;
 
-        public InlineQueryResultDocument() {
-        }
+        public InlineQueryResultDocument() {}
 
         public InlineQueryResultDocument(String id, Document document, String title, String description) {
 
@@ -14068,9 +12607,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1491268539;
-        }
+        public int getConstructor() { return -1491268539; }
 
     }
 
@@ -14090,8 +12627,7 @@ public class TdApi {
         public String title;
         public String description;
 
-        public InlineQueryResultPhoto() {
-        }
+        public InlineQueryResultPhoto() {}
 
         public InlineQueryResultPhoto(String id, Photo photo, String title, String description) {
 
@@ -14103,9 +12639,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1848319440;
-        }
+        public int getConstructor() { return 1848319440; }
 
     }
 
@@ -14121,8 +12655,7 @@ public class TdApi {
         public String id;
         public Sticker sticker;
 
-        public InlineQueryResultSticker() {
-        }
+        public InlineQueryResultSticker() {}
 
         public InlineQueryResultSticker(String id, Sticker sticker) {
 
@@ -14132,9 +12665,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1848224245;
-        }
+        public int getConstructor() { return -1848224245; }
 
     }
 
@@ -14154,8 +12685,7 @@ public class TdApi {
         public String title;
         public String description;
 
-        public InlineQueryResultVideo() {
-        }
+        public InlineQueryResultVideo() {}
 
         public InlineQueryResultVideo(String id, Video video, String title, String description) {
 
@@ -14167,9 +12697,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1373158683;
-        }
+        public int getConstructor() { return -1373158683; }
 
     }
 
@@ -14187,8 +12715,7 @@ public class TdApi {
         public VoiceNote voiceNote;
         public String title;
 
-        public InlineQueryResultVoiceNote() {
-        }
+        public InlineQueryResultVoiceNote() {}
 
         public InlineQueryResultVoiceNote(String id, VoiceNote voiceNote, String title) {
 
@@ -14199,9 +12726,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1897393105;
-        }
+        public int getConstructor() { return -1897393105; }
 
     }
 
@@ -14212,7 +12737,7 @@ public class TdApi {
      *
      * @inlineQueryId - Unique identifier of the inline query
      * @nextOffset - The offset for the next request
-     * If empty, there are no more results
+     *               If empty, there are no more results
      * @results - Results of the query
      * @switchPmText - If non-empty, this text should be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switch_pm_parameter
      * @switchPmParameter - Parameter for the bot start message
@@ -14225,8 +12750,7 @@ public class TdApi {
         public String switchPmText;
         public String switchPmParameter;
 
-        public InlineQueryResults() {
-        }
+        public InlineQueryResults() {}
 
         public InlineQueryResults(long inlineQueryId, String nextOffset, InlineQueryResult[] results, String switchPmText, String switchPmParameter) {
 
@@ -14239,9 +12763,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1000709656;
-        }
+        public int getConstructor() { return 1000709656; }
 
     }
 
@@ -14249,8 +12771,7 @@ public class TdApi {
     /**
      * Represents a payload of a callback query
      */
-    public static abstract class CallbackQueryPayload extends Object {
-    }
+    public static abstract class CallbackQueryPayload extends Object {}
 
     /**
      * The payload from a general callback button
@@ -14261,8 +12782,7 @@ public class TdApi {
 
         public byte[] data;
 
-        public CallbackQueryPayloadData() {
-        }
+        public CallbackQueryPayloadData() {}
 
         public CallbackQueryPayloadData(byte[] data) {
 
@@ -14271,9 +12791,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1977729946;
-        }
+        public int getConstructor() { return -1977729946; }
 
     }
 
@@ -14287,8 +12805,7 @@ public class TdApi {
 
         public String gameShortName;
 
-        public CallbackQueryPayloadGame() {
-        }
+        public CallbackQueryPayloadGame() {}
 
         public CallbackQueryPayloadGame(String gameShortName) {
 
@@ -14297,9 +12814,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1303571512;
-        }
+        public int getConstructor() { return 1303571512; }
 
     }
 
@@ -14317,8 +12832,7 @@ public class TdApi {
         public boolean showAlert;
         public String url;
 
-        public CallbackQueryAnswer() {
-        }
+        public CallbackQueryAnswer() {}
 
         public CallbackQueryAnswer(String text, boolean showAlert, String url) {
 
@@ -14329,9 +12843,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 360867933;
-        }
+        public int getConstructor() { return 360867933; }
 
     }
 
@@ -14345,8 +12857,7 @@ public class TdApi {
 
         public String result;
 
-        public CustomRequestResult() {
-        }
+        public CustomRequestResult() {}
 
         public CustomRequestResult(String result) {
 
@@ -14355,9 +12866,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2009960452;
-        }
+        public int getConstructor() { return -2009960452; }
 
     }
 
@@ -14375,8 +12884,7 @@ public class TdApi {
         public int userId;
         public int score;
 
-        public GameHighScore() {
-        }
+        public GameHighScore() {}
 
         public GameHighScore(int position, int userId, int score) {
 
@@ -14387,9 +12895,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -30778358;
-        }
+        public int getConstructor() { return -30778358; }
 
     }
 
@@ -14403,8 +12909,7 @@ public class TdApi {
 
         public GameHighScore[] scores;
 
-        public GameHighScores() {
-        }
+        public GameHighScores() {}
 
         public GameHighScores(GameHighScore[] scores) {
 
@@ -14413,9 +12918,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -725770727;
-        }
+        public int getConstructor() { return -725770727; }
 
     }
 
@@ -14423,8 +12926,7 @@ public class TdApi {
     /**
      * Represents a chat event
      */
-    public static abstract class ChatEventAction extends Object {
-    }
+    public static abstract class ChatEventAction extends Object {}
 
     /**
      * A message was edited
@@ -14437,8 +12939,7 @@ public class TdApi {
         public Message oldMessage;
         public Message newMessage;
 
-        public ChatEventMessageEdited() {
-        }
+        public ChatEventMessageEdited() {}
 
         public ChatEventMessageEdited(Message oldMessage, Message newMessage) {
 
@@ -14448,9 +12949,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -430967304;
-        }
+        public int getConstructor() { return -430967304; }
 
     }
 
@@ -14464,8 +12963,7 @@ public class TdApi {
 
         public Message message;
 
-        public ChatEventMessageDeleted() {
-        }
+        public ChatEventMessageDeleted() {}
 
         public ChatEventMessageDeleted(Message message) {
 
@@ -14474,9 +12972,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -892974601;
-        }
+        public int getConstructor() { return -892974601; }
 
     }
 
@@ -14490,8 +12986,7 @@ public class TdApi {
 
         public Message message;
 
-        public ChatEventPollStopped() {
-        }
+        public ChatEventPollStopped() {}
 
         public ChatEventPollStopped(Message message) {
 
@@ -14500,9 +12995,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2009893861;
-        }
+        public int getConstructor() { return 2009893861; }
 
     }
 
@@ -14516,8 +13009,7 @@ public class TdApi {
 
         public Message message;
 
-        public ChatEventMessagePinned() {
-        }
+        public ChatEventMessagePinned() {}
 
         public ChatEventMessagePinned(Message message) {
 
@@ -14526,9 +13018,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 438742298;
-        }
+        public int getConstructor() { return 438742298; }
 
     }
 
@@ -14539,9 +13029,7 @@ public class TdApi {
     public static class ChatEventMessageUnpinned extends ChatEventAction {
 
         @Override
-        public int getConstructor() {
-            return 2002594849;
-        }
+        public int getConstructor() { return 2002594849; }
 
     }
 
@@ -14552,9 +13040,7 @@ public class TdApi {
     public static class ChatEventMemberJoined extends ChatEventAction {
 
         @Override
-        public int getConstructor() {
-            return -235468508;
-        }
+        public int getConstructor() { return -235468508; }
 
     }
 
@@ -14565,9 +13051,7 @@ public class TdApi {
     public static class ChatEventMemberLeft extends ChatEventAction {
 
         @Override
-        public int getConstructor() {
-            return -948420593;
-        }
+        public int getConstructor() { return -948420593; }
 
     }
 
@@ -14583,8 +13067,7 @@ public class TdApi {
         public int userId;
         public ChatMemberStatus status;
 
-        public ChatEventMemberInvited() {
-        }
+        public ChatEventMemberInvited() {}
 
         public ChatEventMemberInvited(int userId, ChatMemberStatus status) {
 
@@ -14594,9 +13077,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2093688706;
-        }
+        public int getConstructor() { return -2093688706; }
 
     }
 
@@ -14614,8 +13095,7 @@ public class TdApi {
         public ChatMemberStatus oldStatus;
         public ChatMemberStatus newStatus;
 
-        public ChatEventMemberPromoted() {
-        }
+        public ChatEventMemberPromoted() {}
 
         public ChatEventMemberPromoted(int userId, ChatMemberStatus oldStatus, ChatMemberStatus newStatus) {
 
@@ -14626,9 +13106,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1887176186;
-        }
+        public int getConstructor() { return 1887176186; }
 
     }
 
@@ -14646,8 +13124,7 @@ public class TdApi {
         public ChatMemberStatus oldStatus;
         public ChatMemberStatus newStatus;
 
-        public ChatEventMemberRestricted() {
-        }
+        public ChatEventMemberRestricted() {}
 
         public ChatEventMemberRestricted(int userId, ChatMemberStatus oldStatus, ChatMemberStatus newStatus) {
 
@@ -14658,9 +13135,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 584946294;
-        }
+        public int getConstructor() { return 584946294; }
 
     }
 
@@ -14676,8 +13151,7 @@ public class TdApi {
         public String oldTitle;
         public String newTitle;
 
-        public ChatEventTitleChanged() {
-        }
+        public ChatEventTitleChanged() {}
 
         public ChatEventTitleChanged(String oldTitle, String newTitle) {
 
@@ -14687,9 +13161,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1134103250;
-        }
+        public int getConstructor() { return 1134103250; }
 
     }
 
@@ -14705,8 +13177,7 @@ public class TdApi {
         public ChatPermissions oldPermissions;
         public ChatPermissions newPermissions;
 
-        public ChatEventPermissionsChanged() {
-        }
+        public ChatEventPermissionsChanged() {}
 
         public ChatEventPermissionsChanged(ChatPermissions oldPermissions, ChatPermissions newPermissions) {
 
@@ -14716,9 +13187,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1311557720;
-        }
+        public int getConstructor() { return -1311557720; }
 
     }
 
@@ -14734,8 +13203,7 @@ public class TdApi {
         public String oldDescription;
         public String newDescription;
 
-        public ChatEventDescriptionChanged() {
-        }
+        public ChatEventDescriptionChanged() {}
 
         public ChatEventDescriptionChanged(String oldDescription, String newDescription) {
 
@@ -14745,9 +13213,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 39112478;
-        }
+        public int getConstructor() { return 39112478; }
 
     }
 
@@ -14763,8 +13229,7 @@ public class TdApi {
         public String oldUsername;
         public String newUsername;
 
-        public ChatEventUsernameChanged() {
-        }
+        public ChatEventUsernameChanged() {}
 
         public ChatEventUsernameChanged(String oldUsername, String newUsername) {
 
@@ -14774,9 +13239,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1728558443;
-        }
+        public int getConstructor() { return 1728558443; }
 
     }
 
@@ -14789,13 +13252,10 @@ public class TdApi {
      */
     public static class ChatEventPhotoChanged extends ChatEventAction {
 
-        @Nullable
-        public ChatPhoto oldPhoto;
-        @Nullable
-        public ChatPhoto newPhoto;
+        @Nullable public ChatPhoto oldPhoto;
+        @Nullable public ChatPhoto newPhoto;
 
-        public ChatEventPhotoChanged() {
-        }
+        public ChatEventPhotoChanged() {}
 
         public ChatEventPhotoChanged(@Nullable ChatPhoto oldPhoto, @Nullable ChatPhoto newPhoto) {
 
@@ -14805,9 +13265,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -811572541;
-        }
+        public int getConstructor() { return -811572541; }
 
     }
 
@@ -14821,8 +13279,7 @@ public class TdApi {
 
         public boolean canInviteUsers;
 
-        public ChatEventInvitesToggled() {
-        }
+        public ChatEventInvitesToggled() {}
 
         public ChatEventInvitesToggled(boolean canInviteUsers) {
 
@@ -14831,9 +13288,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -62548373;
-        }
+        public int getConstructor() { return -62548373; }
 
     }
 
@@ -14849,8 +13304,7 @@ public class TdApi {
         public long oldLinkedChatId;
         public long newLinkedChatId;
 
-        public ChatEventLinkedChatChanged() {
-        }
+        public ChatEventLinkedChatChanged() {}
 
         public ChatEventLinkedChatChanged(long oldLinkedChatId, long newLinkedChatId) {
 
@@ -14860,9 +13314,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1797419439;
-        }
+        public int getConstructor() { return 1797419439; }
 
     }
 
@@ -14878,8 +13330,7 @@ public class TdApi {
         public int oldSlowModeDelay;
         public int newSlowModeDelay;
 
-        public ChatEventSlowModeDelayChanged() {
-        }
+        public ChatEventSlowModeDelayChanged() {}
 
         public ChatEventSlowModeDelayChanged(int oldSlowModeDelay, int newSlowModeDelay) {
 
@@ -14889,9 +13340,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1653195765;
-        }
+        public int getConstructor() { return -1653195765; }
 
     }
 
@@ -14905,8 +13354,7 @@ public class TdApi {
 
         public boolean signMessages;
 
-        public ChatEventSignMessagesToggled() {
-        }
+        public ChatEventSignMessagesToggled() {}
 
         public ChatEventSignMessagesToggled(boolean signMessages) {
 
@@ -14915,9 +13363,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1313265634;
-        }
+        public int getConstructor() { return -1313265634; }
 
     }
 
@@ -14926,17 +13372,16 @@ public class TdApi {
      * The supergroup sticker set was changed
      *
      * @oldStickerSetId - Previous identifier of the chat sticker set
-     * 0 if none
+     *                    0 if none
      * @newStickerSetId - New identifier of the chat sticker set
-     * 0 if none
+     *                    0 if none
      */
     public static class ChatEventStickerSetChanged extends ChatEventAction {
 
         public long oldStickerSetId;
         public long newStickerSetId;
 
-        public ChatEventStickerSetChanged() {
-        }
+        public ChatEventStickerSetChanged() {}
 
         public ChatEventStickerSetChanged(long oldStickerSetId, long newStickerSetId) {
 
@@ -14946,9 +13391,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1243130481;
-        }
+        public int getConstructor() { return -1243130481; }
 
     }
 
@@ -14961,13 +13404,10 @@ public class TdApi {
      */
     public static class ChatEventLocationChanged extends ChatEventAction {
 
-        @Nullable
-        public ChatLocation oldLocation;
-        @Nullable
-        public ChatLocation newLocation;
+        @Nullable public ChatLocation oldLocation;
+        @Nullable public ChatLocation newLocation;
 
-        public ChatEventLocationChanged() {
-        }
+        public ChatEventLocationChanged() {}
 
         public ChatEventLocationChanged(@Nullable ChatLocation oldLocation, @Nullable ChatLocation newLocation) {
 
@@ -14977,9 +13417,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -405930674;
-        }
+        public int getConstructor() { return -405930674; }
 
     }
 
@@ -14993,8 +13431,7 @@ public class TdApi {
 
         public boolean isAllHistoryAvailable;
 
-        public ChatEventIsAllHistoryAvailableToggled() {
-        }
+        public ChatEventIsAllHistoryAvailableToggled() {}
 
         public ChatEventIsAllHistoryAvailableToggled(boolean isAllHistoryAvailable) {
 
@@ -15003,9 +13440,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1599063019;
-        }
+        public int getConstructor() { return -1599063019; }
 
     }
 
@@ -15025,8 +13460,7 @@ public class TdApi {
         public int userId;
         public ChatEventAction action;
 
-        public ChatEvent() {
-        }
+        public ChatEvent() {}
 
         public ChatEvent(long id, int date, int userId, ChatEventAction action) {
 
@@ -15038,9 +13472,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -609912404;
-        }
+        public int getConstructor() { return -609912404; }
 
     }
 
@@ -15054,8 +13486,7 @@ public class TdApi {
 
         public ChatEvent[] events;
 
-        public ChatEvents() {
-        }
+        public ChatEvents() {}
 
         public ChatEvents(ChatEvent[] events) {
 
@@ -15064,9 +13495,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -585329664;
-        }
+        public int getConstructor() { return -585329664; }
 
     }
 
@@ -15098,8 +13527,7 @@ public class TdApi {
         public boolean infoChanges;
         public boolean settingChanges;
 
-        public ChatEventLogFilters() {
-        }
+        public ChatEventLogFilters() {}
 
         public ChatEventLogFilters(boolean messageEdits, boolean messageDeletions, boolean messagePins, boolean memberJoins, boolean memberLeaves, boolean memberInvites, boolean memberPromotions, boolean memberRestrictions, boolean infoChanges, boolean settingChanges) {
 
@@ -15117,9 +13545,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 941939684;
-        }
+        public int getConstructor() { return 941939684; }
 
     }
 
@@ -15127,8 +13553,7 @@ public class TdApi {
     /**
      * Represents the value of a string in a language pack
      */
-    public static abstract class LanguagePackStringValue extends Object {
-    }
+    public static abstract class LanguagePackStringValue extends Object {}
 
     /**
      * An ordinary language pack string
@@ -15139,8 +13564,7 @@ public class TdApi {
 
         public String value;
 
-        public LanguagePackStringValueOrdinary() {
-        }
+        public LanguagePackStringValueOrdinary() {}
 
         public LanguagePackStringValueOrdinary(String value) {
 
@@ -15149,9 +13573,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -249256352;
-        }
+        public int getConstructor() { return -249256352; }
 
     }
 
@@ -15176,8 +13598,7 @@ public class TdApi {
         public String manyValue;
         public String otherValue;
 
-        public LanguagePackStringValuePluralized() {
-        }
+        public LanguagePackStringValuePluralized() {}
 
         public LanguagePackStringValuePluralized(String zeroValue, String oneValue, String twoValue, String fewValue, String manyValue, String otherValue) {
 
@@ -15191,9 +13612,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1906840261;
-        }
+        public int getConstructor() { return 1906840261; }
 
     }
 
@@ -15204,9 +13623,7 @@ public class TdApi {
     public static class LanguagePackStringValueDeleted extends LanguagePackStringValue {
 
         @Override
-        public int getConstructor() {
-            return 1834792698;
-        }
+        public int getConstructor() { return 1834792698; }
 
     }
 
@@ -15222,8 +13639,7 @@ public class TdApi {
         public String key;
         public LanguagePackStringValue value;
 
-        public LanguagePackString() {
-        }
+        public LanguagePackString() {}
 
         public LanguagePackString(String key, LanguagePackStringValue value) {
 
@@ -15233,9 +13649,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1307632736;
-        }
+        public int getConstructor() { return 1307632736; }
 
     }
 
@@ -15249,8 +13663,7 @@ public class TdApi {
 
         public LanguagePackString[] strings;
 
-        public LanguagePackStrings() {
-        }
+        public LanguagePackStrings() {}
 
         public LanguagePackStrings(LanguagePackString[] strings) {
 
@@ -15259,9 +13672,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1172082922;
-        }
+        public int getConstructor() { return 1172082922; }
 
     }
 
@@ -15271,12 +13682,12 @@ public class TdApi {
      *
      * @id - Unique language pack identifier
      * @baseLanguagePackId - Identifier of a base language pack
-     * If a string is missed in the language pack, then it should be fetched from base language pack
-     * Unsupported in custom language packs
+     *                       If a string is missed in the language pack, then it should be fetched from base language pack
+     *                       Unsupported in custom language packs
      * @name - Language name
      * @nativeName - Name of the language in that language
      * @pluralCode - A language code to be used to apply plural forms
-     * See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
+     *               See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info
      * @isOfficial - True, if the language pack is official
      * @isRtl - True, if the language pack strings are RTL
      * @isBeta - True, if the language pack is a beta language pack
@@ -15285,13 +13696,12 @@ public class TdApi {
      * @translatedStringCount - Total number of translated strings from the language pack
      * @localStringCount - Total number of non-deleted strings from the language pack available locally
      * @translationUrl - Link to language translation interface
-     * Empty for custom local language packs
+     *                   Empty for custom local language packs
      */
     public static class LanguagePackInfo extends Object {
 
         public String id;
-        @Nullable
-        public String baseLanguagePackId;
+        @Nullable public String baseLanguagePackId;
         public String name;
         public String nativeName;
         public String pluralCode;
@@ -15304,8 +13714,7 @@ public class TdApi {
         public int localStringCount;
         public String translationUrl;
 
-        public LanguagePackInfo() {
-        }
+        public LanguagePackInfo() {}
 
         public LanguagePackInfo(String id, @Nullable String baseLanguagePackId, String name, String nativeName, String pluralCode, boolean isOfficial, boolean isRtl, boolean isBeta, boolean isInstalled, int totalStringCount, int translatedStringCount, int localStringCount, String translationUrl) {
 
@@ -15326,9 +13735,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 542199642;
-        }
+        public int getConstructor() { return 542199642; }
 
     }
 
@@ -15342,8 +13749,7 @@ public class TdApi {
 
         public LanguagePackInfo[] languagePacks;
 
-        public LocalizationTargetInfo() {
-        }
+        public LocalizationTargetInfo() {}
 
         public LocalizationTargetInfo(LanguagePackInfo[] languagePacks) {
 
@@ -15352,9 +13758,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2048670809;
-        }
+        public int getConstructor() { return -2048670809; }
 
     }
 
@@ -15363,24 +13767,21 @@ public class TdApi {
      * Represents a data needed to subscribe for push notifications through registerDevice method
      * To use specific push notification service, you must specify the correct application platform and upload valid server authentication data at https://my.telegram.org
      */
-    public static abstract class DeviceToken extends Object {
-    }
+    public static abstract class DeviceToken extends Object {}
 
     /**
      * A token for Firebase Cloud Messaging
      *
      * @token - Device registration token
-     * May be empty to de-register a device
+     *          May be empty to de-register a device
      * @encrypt - True, if push notifications should be additionally encrypted
      */
     public static class DeviceTokenFirebaseCloudMessaging extends DeviceToken {
 
-        @Nullable
-        public String token;
+        @Nullable public String token;
         public boolean encrypt;
 
-        public DeviceTokenFirebaseCloudMessaging() {
-        }
+        public DeviceTokenFirebaseCloudMessaging() {}
 
         public DeviceTokenFirebaseCloudMessaging(@Nullable String token, boolean encrypt) {
 
@@ -15390,9 +13791,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -797881849;
-        }
+        public int getConstructor() { return -797881849; }
 
     }
 
@@ -15401,17 +13800,15 @@ public class TdApi {
      * A token for Apple Push Notification service
      *
      * @deviceToken - Device token
-     * May be empty to de-register a device
+     *                May be empty to de-register a device
      * @isAppSandbox - True, if App Sandbox is enabled
      */
     public static class DeviceTokenApplePush extends DeviceToken {
 
-        @Nullable
-        public String deviceToken;
+        @Nullable public String deviceToken;
         public boolean isAppSandbox;
 
-        public DeviceTokenApplePush() {
-        }
+        public DeviceTokenApplePush() {}
 
         public DeviceTokenApplePush(@Nullable String deviceToken, boolean isAppSandbox) {
 
@@ -15421,9 +13818,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 387541955;
-        }
+        public int getConstructor() { return 387541955; }
 
     }
 
@@ -15432,19 +13827,17 @@ public class TdApi {
      * A token for Apple Push Notification service VoIP notifications
      *
      * @deviceToken - Device token
-     * May be empty to de-register a device
+     *                May be empty to de-register a device
      * @isAppSandbox - True, if App Sandbox is enabled
      * @encrypt - True, if push notifications should be additionally encrypted
      */
     public static class DeviceTokenApplePushVoIP extends DeviceToken {
 
-        @Nullable
-        public String deviceToken;
+        @Nullable public String deviceToken;
         public boolean isAppSandbox;
         public boolean encrypt;
 
-        public DeviceTokenApplePushVoIP() {
-        }
+        public DeviceTokenApplePushVoIP() {}
 
         public DeviceTokenApplePushVoIP(@Nullable String deviceToken, boolean isAppSandbox, boolean encrypt) {
 
@@ -15455,9 +13848,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 804275689;
-        }
+        public int getConstructor() { return 804275689; }
 
     }
 
@@ -15466,15 +13857,13 @@ public class TdApi {
      * A token for Windows Push Notification Services
      *
      * @accessToken - The access token that will be used to send notifications
-     * May be empty to de-register a device
+     *                May be empty to de-register a device
      */
     public static class DeviceTokenWindowsPush extends DeviceToken {
 
-        @Nullable
-        public String accessToken;
+        @Nullable public String accessToken;
 
-        public DeviceTokenWindowsPush() {
-        }
+        public DeviceTokenWindowsPush() {}
 
         public DeviceTokenWindowsPush(@Nullable String accessToken) {
 
@@ -15483,9 +13872,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1410514289;
-        }
+        public int getConstructor() { return -1410514289; }
 
     }
 
@@ -15494,15 +13881,13 @@ public class TdApi {
      * A token for Microsoft Push Notification Service
      *
      * @channelUri - Push notification channel URI
-     * May be empty to de-register a device
+     *               May be empty to de-register a device
      */
     public static class DeviceTokenMicrosoftPush extends DeviceToken {
 
-        @Nullable
-        public String channelUri;
+        @Nullable public String channelUri;
 
-        public DeviceTokenMicrosoftPush() {
-        }
+        public DeviceTokenMicrosoftPush() {}
 
         public DeviceTokenMicrosoftPush(@Nullable String channelUri) {
 
@@ -15511,9 +13896,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1224269900;
-        }
+        public int getConstructor() { return 1224269900; }
 
     }
 
@@ -15522,15 +13905,13 @@ public class TdApi {
      * A token for Microsoft Push Notification Service VoIP channel
      *
      * @channelUri - Push notification channel URI
-     * May be empty to de-register a device
+     *               May be empty to de-register a device
      */
     public static class DeviceTokenMicrosoftPushVoIP extends DeviceToken {
 
-        @Nullable
-        public String channelUri;
+        @Nullable public String channelUri;
 
-        public DeviceTokenMicrosoftPushVoIP() {
-        }
+        public DeviceTokenMicrosoftPushVoIP() {}
 
         public DeviceTokenMicrosoftPushVoIP(@Nullable String channelUri) {
 
@@ -15539,9 +13920,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -785603759;
-        }
+        public int getConstructor() { return -785603759; }
 
     }
 
@@ -15550,19 +13929,17 @@ public class TdApi {
      * A token for web Push API
      *
      * @endpoint - Absolute URL exposed by the push service where the application server can send push messages
-     * May be empty to de-register a device
+     *             May be empty to de-register a device
      * @p256dhBase64url - Base64url-encoded P-256 elliptic curve Diffie-Hellman public key
      * @authBase64url - Base64url-encoded authentication secret
      */
     public static class DeviceTokenWebPush extends DeviceToken {
 
-        @Nullable
-        public String endpoint;
+        @Nullable public String endpoint;
         public String p256dhBase64url;
         public String authBase64url;
 
-        public DeviceTokenWebPush() {
-        }
+        public DeviceTokenWebPush() {}
 
         public DeviceTokenWebPush(@Nullable String endpoint, String p256dhBase64url, String authBase64url) {
 
@@ -15573,9 +13950,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1694507273;
-        }
+        public int getConstructor() { return -1694507273; }
 
     }
 
@@ -15584,15 +13959,13 @@ public class TdApi {
      * A token for Simple Push API for Firefox OS
      *
      * @endpoint - Absolute URL exposed by the push service where the application server can send push messages
-     * May be empty to de-register a device
+     *             May be empty to de-register a device
      */
     public static class DeviceTokenSimplePush extends DeviceToken {
 
-        @Nullable
-        public String endpoint;
+        @Nullable public String endpoint;
 
-        public DeviceTokenSimplePush() {
-        }
+        public DeviceTokenSimplePush() {}
 
         public DeviceTokenSimplePush(@Nullable String endpoint) {
 
@@ -15601,9 +13974,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 49584736;
-        }
+        public int getConstructor() { return 49584736; }
 
     }
 
@@ -15612,15 +13983,13 @@ public class TdApi {
      * A token for Ubuntu Push Client service
      *
      * @token - Token
-     * May be empty to de-register a device
+     *          May be empty to de-register a device
      */
     public static class DeviceTokenUbuntuPush extends DeviceToken {
 
-        @Nullable
-        public String token;
+        @Nullable public String token;
 
-        public DeviceTokenUbuntuPush() {
-        }
+        public DeviceTokenUbuntuPush() {}
 
         public DeviceTokenUbuntuPush(@Nullable String token) {
 
@@ -15629,9 +13998,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1782320422;
-        }
+        public int getConstructor() { return 1782320422; }
 
     }
 
@@ -15640,15 +14007,13 @@ public class TdApi {
      * A token for BlackBerry Push Service
      *
      * @token - Token
-     * May be empty to de-register a device
+     *          May be empty to de-register a device
      */
     public static class DeviceTokenBlackBerryPush extends DeviceToken {
 
-        @Nullable
-        public String token;
+        @Nullable public String token;
 
-        public DeviceTokenBlackBerryPush() {
-        }
+        public DeviceTokenBlackBerryPush() {}
 
         public DeviceTokenBlackBerryPush(@Nullable String token) {
 
@@ -15657,9 +14022,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1559167234;
-        }
+        public int getConstructor() { return 1559167234; }
 
     }
 
@@ -15668,15 +14031,13 @@ public class TdApi {
      * A token for Tizen Push Service
      *
      * @regId - Push service registration identifier
-     * May be empty to de-register a device
+     *          May be empty to de-register a device
      */
     public static class DeviceTokenTizenPush extends DeviceToken {
 
-        @Nullable
-        public String regId;
+        @Nullable public String regId;
 
-        public DeviceTokenTizenPush() {
-        }
+        public DeviceTokenTizenPush() {}
 
         public DeviceTokenTizenPush(@Nullable String regId) {
 
@@ -15685,9 +14046,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1359947213;
-        }
+        public int getConstructor() { return -1359947213; }
 
     }
 
@@ -15701,8 +14060,7 @@ public class TdApi {
 
         public long id;
 
-        public PushReceiverId() {
-        }
+        public PushReceiverId() {}
 
         public PushReceiverId(long id) {
 
@@ -15711,9 +14069,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 371056428;
-        }
+        public int getConstructor() { return 371056428; }
 
     }
 
@@ -15721,8 +14077,7 @@ public class TdApi {
     /**
      * Describes a fill of a background
      */
-    public static abstract class BackgroundFill extends Object {
-    }
+    public static abstract class BackgroundFill extends Object {}
 
     /**
      * Describes a solid fill of a background
@@ -15733,8 +14088,7 @@ public class TdApi {
 
         public int color;
 
-        public BackgroundFillSolid() {
-        }
+        public BackgroundFillSolid() {}
 
         public BackgroundFillSolid(int color) {
 
@@ -15743,9 +14097,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1010678813;
-        }
+        public int getConstructor() { return 1010678813; }
 
     }
 
@@ -15756,7 +14108,7 @@ public class TdApi {
      * @topColor - A top color of the background in the RGB24 format
      * @bottomColor - A bottom color of the background in the RGB24 format
      * @rotationAngle - Clockwise rotation angle of the gradient, in degrees
-     * Should be always divisible by 45
+     *                  Should be always divisible by 45
      */
     public static class BackgroundFillGradient extends BackgroundFill {
 
@@ -15764,8 +14116,7 @@ public class TdApi {
         public int bottomColor;
         public int rotationAngle;
 
-        public BackgroundFillGradient() {
-        }
+        public BackgroundFillGradient() {}
 
         public BackgroundFillGradient(int topColor, int bottomColor, int rotationAngle) {
 
@@ -15776,9 +14127,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1839206017;
-        }
+        public int getConstructor() { return -1839206017; }
 
     }
 
@@ -15786,8 +14135,7 @@ public class TdApi {
     /**
      * Describes the type of a background
      */
-    public static abstract class BackgroundType extends Object {
-    }
+    public static abstract class BackgroundType extends Object {}
 
     /**
      * A wallpaper in JPEG format
@@ -15800,8 +14148,7 @@ public class TdApi {
         public boolean isBlurred;
         public boolean isMoving;
 
-        public BackgroundTypeWallpaper() {
-        }
+        public BackgroundTypeWallpaper() {}
 
         public BackgroundTypeWallpaper(boolean isBlurred, boolean isMoving) {
 
@@ -15811,9 +14158,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1972128891;
-        }
+        public int getConstructor() { return 1972128891; }
 
     }
 
@@ -15831,8 +14176,7 @@ public class TdApi {
         public int intensity;
         public boolean isMoving;
 
-        public BackgroundTypePattern() {
-        }
+        public BackgroundTypePattern() {}
 
         public BackgroundTypePattern(BackgroundFill fill, int intensity, boolean isMoving) {
 
@@ -15843,9 +14187,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 649993914;
-        }
+        public int getConstructor() { return 649993914; }
 
     }
 
@@ -15859,8 +14201,7 @@ public class TdApi {
 
         public BackgroundFill fill;
 
-        public BackgroundTypeFill() {
-        }
+        public BackgroundTypeFill() {}
 
         public BackgroundTypeFill(BackgroundFill fill) {
 
@@ -15869,9 +14210,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 993008684;
-        }
+        public int getConstructor() { return 993008684; }
 
     }
 
@@ -15884,7 +14223,7 @@ public class TdApi {
      * @isDark - True, if the background is dark and is recommended to be used with dark theme
      * @name - Unique background name
      * @document - Document with the background
-     * Null only for filled backgrounds
+     *             Null only for filled backgrounds
      * @type - Type of the background
      */
     public static class Background extends Object {
@@ -15893,12 +14232,10 @@ public class TdApi {
         public boolean isDefault;
         public boolean isDark;
         public String name;
-        @Nullable
-        public Document document;
+        @Nullable public Document document;
         public BackgroundType type;
 
-        public Background() {
-        }
+        public Background() {}
 
         public Background(long id, boolean isDefault, boolean isDark, String name, @Nullable Document document, BackgroundType type) {
 
@@ -15912,9 +14249,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -429971172;
-        }
+        public int getConstructor() { return -429971172; }
 
     }
 
@@ -15928,8 +14263,7 @@ public class TdApi {
 
         public Background[] backgrounds;
 
-        public Backgrounds() {
-        }
+        public Backgrounds() {}
 
         public Backgrounds(Background[] backgrounds) {
 
@@ -15938,9 +14272,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 724728704;
-        }
+        public int getConstructor() { return 724728704; }
 
     }
 
@@ -15948,22 +14280,20 @@ public class TdApi {
     /**
      * Contains information about background to set
      */
-    public static abstract class InputBackground extends Object {
-    }
+    public static abstract class InputBackground extends Object {}
 
     /**
      * A background from a local file
      *
      * @background - Background file to use
-     * Only inputFileLocal and inputFileGenerated are supported
-     * The file must be in JPEG format for wallpapers and in PNG format for patterns
+     *               Only inputFileLocal and inputFileGenerated are supported
+     *               The file must be in JPEG format for wallpapers and in PNG format for patterns
      */
     public static class InputBackgroundLocal extends InputBackground {
 
         public InputFile background;
 
-        public InputBackgroundLocal() {
-        }
+        public InputBackgroundLocal() {}
 
         public InputBackgroundLocal(InputFile background) {
 
@@ -15972,9 +14302,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1747094364;
-        }
+        public int getConstructor() { return -1747094364; }
 
     }
 
@@ -15988,8 +14316,7 @@ public class TdApi {
 
         public long backgroundId;
 
-        public InputBackgroundRemote() {
-        }
+        public InputBackgroundRemote() {}
 
         public InputBackgroundRemote(long backgroundId) {
 
@@ -15998,9 +14325,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -274976231;
-        }
+        public int getConstructor() { return -274976231; }
 
     }
 
@@ -16014,8 +14339,7 @@ public class TdApi {
 
         public String[] hashtags;
 
-        public Hashtags() {
-        }
+        public Hashtags() {}
 
         public Hashtags(String[] hashtags) {
 
@@ -16024,9 +14348,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 676798885;
-        }
+        public int getConstructor() { return 676798885; }
 
     }
 
@@ -16034,8 +14356,7 @@ public class TdApi {
     /**
      * Represents result of checking whether the current session can be used to transfer a chat ownership to another user
      */
-    public static abstract class CanTransferOwnershipResult extends Object {
-    }
+    public static abstract class CanTransferOwnershipResult extends Object {}
 
     /**
      * The session can be used
@@ -16043,9 +14364,7 @@ public class TdApi {
     public static class CanTransferOwnershipResultOk extends CanTransferOwnershipResult {
 
         @Override
-        public int getConstructor() {
-            return -89881021;
-        }
+        public int getConstructor() { return -89881021; }
 
     }
 
@@ -16056,9 +14375,7 @@ public class TdApi {
     public static class CanTransferOwnershipResultPasswordNeeded extends CanTransferOwnershipResult {
 
         @Override
-        public int getConstructor() {
-            return 1548372703;
-        }
+        public int getConstructor() { return 1548372703; }
 
     }
 
@@ -16072,8 +14389,7 @@ public class TdApi {
 
         public int retryAfter;
 
-        public CanTransferOwnershipResultPasswordTooFresh() {
-        }
+        public CanTransferOwnershipResultPasswordTooFresh() {}
 
         public CanTransferOwnershipResultPasswordTooFresh(int retryAfter) {
 
@@ -16082,9 +14398,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 811440913;
-        }
+        public int getConstructor() { return 811440913; }
 
     }
 
@@ -16098,8 +14412,7 @@ public class TdApi {
 
         public int retryAfter;
 
-        public CanTransferOwnershipResultSessionTooFresh() {
-        }
+        public CanTransferOwnershipResultSessionTooFresh() {}
 
         public CanTransferOwnershipResultSessionTooFresh(int retryAfter) {
 
@@ -16108,9 +14421,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 984664289;
-        }
+        public int getConstructor() { return 984664289; }
 
     }
 
@@ -16118,8 +14429,7 @@ public class TdApi {
     /**
      * Represents result of checking whether a username can be set for a chat
      */
-    public static abstract class CheckChatUsernameResult extends Object {
-    }
+    public static abstract class CheckChatUsernameResult extends Object {}
 
     /**
      * The username can be set
@@ -16127,9 +14437,7 @@ public class TdApi {
     public static class CheckChatUsernameResultOk extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() {
-            return -1498956964;
-        }
+        public int getConstructor() { return -1498956964; }
 
     }
 
@@ -16140,9 +14448,7 @@ public class TdApi {
     public static class CheckChatUsernameResultUsernameInvalid extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() {
-            return -636979370;
-        }
+        public int getConstructor() { return -636979370; }
 
     }
 
@@ -16153,9 +14459,7 @@ public class TdApi {
     public static class CheckChatUsernameResultUsernameOccupied extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() {
-            return 1320892201;
-        }
+        public int getConstructor() { return 1320892201; }
 
     }
 
@@ -16166,9 +14470,7 @@ public class TdApi {
     public static class CheckChatUsernameResultPublicChatsTooMuch extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() {
-            return 858247741;
-        }
+        public int getConstructor() { return 858247741; }
 
     }
 
@@ -16179,9 +14481,7 @@ public class TdApi {
     public static class CheckChatUsernameResultPublicGroupsUnavailable extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() {
-            return -51833641;
-        }
+        public int getConstructor() { return -51833641; }
 
     }
 
@@ -16189,8 +14489,7 @@ public class TdApi {
     /**
      * Contains content of a push message notification
      */
-    public static abstract class PushMessageContent extends Object {
-    }
+    public static abstract class PushMessageContent extends Object {}
 
     /**
      * A general message with hidden content
@@ -16201,8 +14500,7 @@ public class TdApi {
 
         public boolean isPinned;
 
-        public PushMessageContentHidden() {
-        }
+        public PushMessageContentHidden() {}
 
         public PushMessageContentHidden(boolean isPinned) {
 
@@ -16211,9 +14509,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -316950436;
-        }
+        public int getConstructor() { return -316950436; }
 
     }
 
@@ -16227,13 +14523,11 @@ public class TdApi {
      */
     public static class PushMessageContentAnimation extends PushMessageContent {
 
-        @Nullable
-        public Animation animation;
+        @Nullable public Animation animation;
         public String caption;
         public boolean isPinned;
 
-        public PushMessageContentAnimation() {
-        }
+        public PushMessageContentAnimation() {}
 
         public PushMessageContentAnimation(@Nullable Animation animation, String caption, boolean isPinned) {
 
@@ -16244,9 +14538,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1034215396;
-        }
+        public int getConstructor() { return 1034215396; }
 
     }
 
@@ -16259,12 +14551,10 @@ public class TdApi {
      */
     public static class PushMessageContentAudio extends PushMessageContent {
 
-        @Nullable
-        public Audio audio;
+        @Nullable public Audio audio;
         public boolean isPinned;
 
-        public PushMessageContentAudio() {
-        }
+        public PushMessageContentAudio() {}
 
         public PushMessageContentAudio(@Nullable Audio audio, boolean isPinned) {
 
@@ -16274,9 +14564,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 381581426;
-        }
+        public int getConstructor() { return 381581426; }
 
     }
 
@@ -16292,8 +14580,7 @@ public class TdApi {
         public String name;
         public boolean isPinned;
 
-        public PushMessageContentContact() {
-        }
+        public PushMessageContentContact() {}
 
         public PushMessageContentContact(String name, boolean isPinned) {
 
@@ -16303,9 +14590,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -12219820;
-        }
+        public int getConstructor() { return -12219820; }
 
     }
 
@@ -16316,9 +14601,7 @@ public class TdApi {
     public static class PushMessageContentContactRegistered extends PushMessageContent {
 
         @Override
-        public int getConstructor() {
-            return -303962720;
-        }
+        public int getConstructor() { return -303962720; }
 
     }
 
@@ -16331,12 +14614,10 @@ public class TdApi {
      */
     public static class PushMessageContentDocument extends PushMessageContent {
 
-        @Nullable
-        public Document document;
+        @Nullable public Document document;
         public boolean isPinned;
 
-        public PushMessageContentDocument() {
-        }
+        public PushMessageContentDocument() {}
 
         public PushMessageContentDocument(@Nullable Document document, boolean isPinned) {
 
@@ -16346,9 +14627,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -458379775;
-        }
+        public int getConstructor() { return -458379775; }
 
     }
 
@@ -16364,8 +14643,7 @@ public class TdApi {
         public String title;
         public boolean isPinned;
 
-        public PushMessageContentGame() {
-        }
+        public PushMessageContentGame() {}
 
         public PushMessageContentGame(String title, boolean isPinned) {
 
@@ -16375,9 +14653,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -515131109;
-        }
+        public int getConstructor() { return -515131109; }
 
     }
 
@@ -16395,8 +14671,7 @@ public class TdApi {
         public int score;
         public boolean isPinned;
 
-        public PushMessageContentGameScore() {
-        }
+        public PushMessageContentGameScore() {}
 
         public PushMessageContentGameScore(String title, int score, boolean isPinned) {
 
@@ -16407,9 +14682,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 901303688;
-        }
+        public int getConstructor() { return 901303688; }
 
     }
 
@@ -16425,8 +14698,7 @@ public class TdApi {
         public String price;
         public boolean isPinned;
 
-        public PushMessageContentInvoice() {
-        }
+        public PushMessageContentInvoice() {}
 
         public PushMessageContentInvoice(String price, boolean isPinned) {
 
@@ -16436,9 +14708,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1731687492;
-        }
+        public int getConstructor() { return -1731687492; }
 
     }
 
@@ -16454,8 +14724,7 @@ public class TdApi {
         public boolean isLive;
         public boolean isPinned;
 
-        public PushMessageContentLocation() {
-        }
+        public PushMessageContentLocation() {}
 
         public PushMessageContentLocation(boolean isLive, boolean isPinned) {
 
@@ -16465,9 +14734,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1288005709;
-        }
+        public int getConstructor() { return -1288005709; }
 
     }
 
@@ -16482,14 +14749,12 @@ public class TdApi {
      */
     public static class PushMessageContentPhoto extends PushMessageContent {
 
-        @Nullable
-        public Photo photo;
+        @Nullable public Photo photo;
         public String caption;
         public boolean isSecret;
         public boolean isPinned;
 
-        public PushMessageContentPhoto() {
-        }
+        public PushMessageContentPhoto() {}
 
         public PushMessageContentPhoto(@Nullable Photo photo, String caption, boolean isSecret, boolean isPinned) {
 
@@ -16501,9 +14766,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 140631122;
-        }
+        public int getConstructor() { return 140631122; }
 
     }
 
@@ -16521,8 +14784,7 @@ public class TdApi {
         public boolean isRegular;
         public boolean isPinned;
 
-        public PushMessageContentPoll() {
-        }
+        public PushMessageContentPoll() {}
 
         public PushMessageContentPoll(String question, boolean isRegular, boolean isPinned) {
 
@@ -16533,9 +14795,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -44403654;
-        }
+        public int getConstructor() { return -44403654; }
 
     }
 
@@ -16546,9 +14806,7 @@ public class TdApi {
     public static class PushMessageContentScreenshotTaken extends PushMessageContent {
 
         @Override
-        public int getConstructor() {
-            return 214245369;
-        }
+        public int getConstructor() { return 214245369; }
 
     }
 
@@ -16562,14 +14820,11 @@ public class TdApi {
      */
     public static class PushMessageContentSticker extends PushMessageContent {
 
-        @Nullable
-        public Sticker sticker;
-        @Nullable
-        public String emoji;
+        @Nullable public Sticker sticker;
+        @Nullable public String emoji;
         public boolean isPinned;
 
-        public PushMessageContentSticker() {
-        }
+        public PushMessageContentSticker() {}
 
         public PushMessageContentSticker(@Nullable Sticker sticker, @Nullable String emoji, boolean isPinned) {
 
@@ -16580,9 +14835,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1553513939;
-        }
+        public int getConstructor() { return 1553513939; }
 
     }
 
@@ -16598,8 +14851,7 @@ public class TdApi {
         public String text;
         public boolean isPinned;
 
-        public PushMessageContentText() {
-        }
+        public PushMessageContentText() {}
 
         public PushMessageContentText(String text, boolean isPinned) {
 
@@ -16609,9 +14861,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 274587305;
-        }
+        public int getConstructor() { return 274587305; }
 
     }
 
@@ -16626,14 +14876,12 @@ public class TdApi {
      */
     public static class PushMessageContentVideo extends PushMessageContent {
 
-        @Nullable
-        public Video video;
+        @Nullable public Video video;
         public String caption;
         public boolean isSecret;
         public boolean isPinned;
 
-        public PushMessageContentVideo() {
-        }
+        public PushMessageContentVideo() {}
 
         public PushMessageContentVideo(@Nullable Video video, String caption, boolean isSecret, boolean isPinned) {
 
@@ -16645,9 +14893,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 310038831;
-        }
+        public int getConstructor() { return 310038831; }
 
     }
 
@@ -16660,12 +14906,10 @@ public class TdApi {
      */
     public static class PushMessageContentVideoNote extends PushMessageContent {
 
-        @Nullable
-        public VideoNote videoNote;
+        @Nullable public VideoNote videoNote;
         public boolean isPinned;
 
-        public PushMessageContentVideoNote() {
-        }
+        public PushMessageContentVideoNote() {}
 
         public PushMessageContentVideoNote(@Nullable VideoNote videoNote, boolean isPinned) {
 
@@ -16675,9 +14919,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1122764417;
-        }
+        public int getConstructor() { return -1122764417; }
 
     }
 
@@ -16690,12 +14932,10 @@ public class TdApi {
      */
     public static class PushMessageContentVoiceNote extends PushMessageContent {
 
-        @Nullable
-        public VoiceNote voiceNote;
+        @Nullable public VoiceNote voiceNote;
         public boolean isPinned;
 
-        public PushMessageContentVoiceNote() {
-        }
+        public PushMessageContentVoiceNote() {}
 
         public PushMessageContentVoiceNote(@Nullable VoiceNote voiceNote, boolean isPinned) {
 
@@ -16705,9 +14945,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 88910987;
-        }
+        public int getConstructor() { return 88910987; }
 
     }
 
@@ -16718,9 +14956,7 @@ public class TdApi {
     public static class PushMessageContentBasicGroupChatCreate extends PushMessageContent {
 
         @Override
-        public int getConstructor() {
-            return -2114855172;
-        }
+        public int getConstructor() { return -2114855172; }
 
     }
 
@@ -16738,8 +14974,7 @@ public class TdApi {
         public boolean isCurrentUser;
         public boolean isReturned;
 
-        public PushMessageContentChatAddMembers() {
-        }
+        public PushMessageContentChatAddMembers() {}
 
         public PushMessageContentChatAddMembers(String memberName, boolean isCurrentUser, boolean isReturned) {
 
@@ -16750,9 +14985,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1087145158;
-        }
+        public int getConstructor() { return -1087145158; }
 
     }
 
@@ -16763,9 +14996,7 @@ public class TdApi {
     public static class PushMessageContentChatChangePhoto extends PushMessageContent {
 
         @Override
-        public int getConstructor() {
-            return -1114222051;
-        }
+        public int getConstructor() { return -1114222051; }
 
     }
 
@@ -16779,8 +15010,7 @@ public class TdApi {
 
         public String title;
 
-        public PushMessageContentChatChangeTitle() {
-        }
+        public PushMessageContentChatChangeTitle() {}
 
         public PushMessageContentChatChangeTitle(String title) {
 
@@ -16789,9 +15019,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1964902749;
-        }
+        public int getConstructor() { return -1964902749; }
 
     }
 
@@ -16809,8 +15037,7 @@ public class TdApi {
         public boolean isCurrentUser;
         public boolean isLeft;
 
-        public PushMessageContentChatDeleteMember() {
-        }
+        public PushMessageContentChatDeleteMember() {}
 
         public PushMessageContentChatDeleteMember(String memberName, boolean isCurrentUser, boolean isLeft) {
 
@@ -16821,9 +15048,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 598714783;
-        }
+        public int getConstructor() { return 598714783; }
 
     }
 
@@ -16834,9 +15059,7 @@ public class TdApi {
     public static class PushMessageContentChatJoinByLink extends PushMessageContent {
 
         @Override
-        public int getConstructor() {
-            return 1553719113;
-        }
+        public int getConstructor() { return 1553719113; }
 
     }
 
@@ -16850,8 +15073,7 @@ public class TdApi {
 
         public int totalCount;
 
-        public PushMessageContentMessageForwards() {
-        }
+        public PushMessageContentMessageForwards() {}
 
         public PushMessageContentMessageForwards(int totalCount) {
 
@@ -16860,9 +15082,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1913083876;
-        }
+        public int getConstructor() { return -1913083876; }
 
     }
 
@@ -16880,8 +15100,7 @@ public class TdApi {
         public boolean hasPhotos;
         public boolean hasVideos;
 
-        public PushMessageContentMediaAlbum() {
-        }
+        public PushMessageContentMediaAlbum() {}
 
         public PushMessageContentMediaAlbum(int totalCount, boolean hasPhotos, boolean hasVideos) {
 
@@ -16892,9 +15111,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -874278109;
-        }
+        public int getConstructor() { return -874278109; }
 
     }
 
@@ -16902,8 +15119,7 @@ public class TdApi {
     /**
      * Contains detailed information about a notification
      */
-    public static abstract class NotificationType extends Object {
-    }
+    public static abstract class NotificationType extends Object {}
 
     /**
      * New message was received
@@ -16914,8 +15130,7 @@ public class TdApi {
 
         public Message message;
 
-        public NotificationTypeNewMessage() {
-        }
+        public NotificationTypeNewMessage() {}
 
         public NotificationTypeNewMessage(Message message) {
 
@@ -16924,9 +15139,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1885935159;
-        }
+        public int getConstructor() { return 1885935159; }
 
     }
 
@@ -16937,9 +15150,7 @@ public class TdApi {
     public static class NotificationTypeNewSecretChat extends NotificationType {
 
         @Override
-        public int getConstructor() {
-            return 1198638768;
-        }
+        public int getConstructor() { return 1198638768; }
 
     }
 
@@ -16953,8 +15164,7 @@ public class TdApi {
 
         public int callId;
 
-        public NotificationTypeNewCall() {
-        }
+        public NotificationTypeNewCall() {}
 
         public NotificationTypeNewCall(int callId) {
 
@@ -16963,9 +15173,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1712734585;
-        }
+        public int getConstructor() { return 1712734585; }
 
     }
 
@@ -16974,12 +15182,12 @@ public class TdApi {
      * New message was received through a push notification
      *
      * @messageId - The message identifier
-     * The message will not be available in the chat history, but the ID can be used in viewMessages and as reply_to_message_id
+     *              The message will not be available in the chat history, but the ID can be used in viewMessages and as reply_to_message_id
      * @senderUserId - Sender of the message
-     * 0 if unknown
-     * Corresponding user may be inaccessible
+     *                 0 if unknown
+     *                 Corresponding user may be inaccessible
      * @senderName - Name of the sender
-     * Can be different from the name of the sender user
+     *               Can be different from the name of the sender user
      * @isOutgoing - True, if the message is outgoing
      * @content - Push message content
      */
@@ -16991,8 +15199,7 @@ public class TdApi {
         public boolean isOutgoing;
         public PushMessageContent content;
 
-        public NotificationTypeNewPushMessage() {
-        }
+        public NotificationTypeNewPushMessage() {}
 
         public NotificationTypeNewPushMessage(long messageId, int senderUserId, String senderName, boolean isOutgoing, PushMessageContent content) {
 
@@ -17005,9 +15212,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 999250657;
-        }
+        public int getConstructor() { return 999250657; }
 
     }
 
@@ -17015,8 +15220,7 @@ public class TdApi {
     /**
      * Describes the type of notifications in a notification group
      */
-    public static abstract class NotificationGroupType extends Object {
-    }
+    public static abstract class NotificationGroupType extends Object {}
 
     /**
      * A group containing notifications of type notificationTypeNewMessage and notificationTypeNewPushMessage with ordinary unread messages
@@ -17024,9 +15228,7 @@ public class TdApi {
     public static class NotificationGroupTypeMessages extends NotificationGroupType {
 
         @Override
-        public int getConstructor() {
-            return -1702481123;
-        }
+        public int getConstructor() { return -1702481123; }
 
     }
 
@@ -17037,9 +15239,7 @@ public class TdApi {
     public static class NotificationGroupTypeMentions extends NotificationGroupType {
 
         @Override
-        public int getConstructor() {
-            return -2050324051;
-        }
+        public int getConstructor() { return -2050324051; }
 
     }
 
@@ -17050,9 +15250,7 @@ public class TdApi {
     public static class NotificationGroupTypeSecretChat extends NotificationGroupType {
 
         @Override
-        public int getConstructor() {
-            return 1390759476;
-        }
+        public int getConstructor() { return 1390759476; }
 
     }
 
@@ -17063,9 +15261,7 @@ public class TdApi {
     public static class NotificationGroupTypeCalls extends NotificationGroupType {
 
         @Override
-        public int getConstructor() {
-            return 1379123538;
-        }
+        public int getConstructor() { return 1379123538; }
 
     }
 
@@ -17085,8 +15281,7 @@ public class TdApi {
         public boolean isSilent;
         public NotificationType type;
 
-        public Notification() {
-        }
+        public Notification() {}
 
         public Notification(int id, int date, boolean isSilent, NotificationType type) {
 
@@ -17098,9 +15293,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 788743120;
-        }
+        public int getConstructor() { return 788743120; }
 
     }
 
@@ -17122,8 +15315,7 @@ public class TdApi {
         public int totalCount;
         public Notification[] notifications;
 
-        public NotificationGroup() {
-        }
+        public NotificationGroup() {}
 
         public NotificationGroup(int id, NotificationGroupType type, long chatId, int totalCount, Notification[] notifications) {
 
@@ -17136,9 +15328,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 780691541;
-        }
+        public int getConstructor() { return 780691541; }
 
     }
 
@@ -17146,8 +15336,7 @@ public class TdApi {
     /**
      * Represents the value of an option
      */
-    public static abstract class OptionValue extends Object {
-    }
+    public static abstract class OptionValue extends Object {}
 
     /**
      * Represents a boolean option
@@ -17158,8 +15347,7 @@ public class TdApi {
 
         public boolean value;
 
-        public OptionValueBoolean() {
-        }
+        public OptionValueBoolean() {}
 
         public OptionValueBoolean(boolean value) {
 
@@ -17168,9 +15356,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 63135518;
-        }
+        public int getConstructor() { return 63135518; }
 
     }
 
@@ -17181,9 +15367,7 @@ public class TdApi {
     public static class OptionValueEmpty extends OptionValue {
 
         @Override
-        public int getConstructor() {
-            return 918955155;
-        }
+        public int getConstructor() { return 918955155; }
 
     }
 
@@ -17197,8 +15381,7 @@ public class TdApi {
 
         public int value;
 
-        public OptionValueInteger() {
-        }
+        public OptionValueInteger() {}
 
         public OptionValueInteger(int value) {
 
@@ -17207,9 +15390,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1400911104;
-        }
+        public int getConstructor() { return -1400911104; }
 
     }
 
@@ -17223,8 +15404,7 @@ public class TdApi {
 
         public String value;
 
-        public OptionValueString() {
-        }
+        public OptionValueString() {}
 
         public OptionValueString(String value) {
 
@@ -17233,9 +15413,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 756248212;
-        }
+        public int getConstructor() { return 756248212; }
 
     }
 
@@ -17251,8 +15429,7 @@ public class TdApi {
         public String key;
         public JsonValue value;
 
-        public JsonObjectMember() {
-        }
+        public JsonObjectMember() {}
 
         public JsonObjectMember(String key, JsonValue value) {
 
@@ -17262,9 +15439,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1803309418;
-        }
+        public int getConstructor() { return -1803309418; }
 
     }
 
@@ -17272,8 +15447,7 @@ public class TdApi {
     /**
      * Represents a JSON value
      */
-    public static abstract class JsonValue extends Object {
-    }
+    public static abstract class JsonValue extends Object {}
 
     /**
      * Represents a null JSON value
@@ -17281,9 +15455,7 @@ public class TdApi {
     public static class JsonValueNull extends JsonValue {
 
         @Override
-        public int getConstructor() {
-            return -92872499;
-        }
+        public int getConstructor() { return -92872499; }
 
     }
 
@@ -17297,8 +15469,7 @@ public class TdApi {
 
         public boolean value;
 
-        public JsonValueBoolean() {
-        }
+        public JsonValueBoolean() {}
 
         public JsonValueBoolean(boolean value) {
 
@@ -17307,9 +15478,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2142186576;
-        }
+        public int getConstructor() { return -2142186576; }
 
     }
 
@@ -17323,8 +15492,7 @@ public class TdApi {
 
         public double value;
 
-        public JsonValueNumber() {
-        }
+        public JsonValueNumber() {}
 
         public JsonValueNumber(double value) {
 
@@ -17333,9 +15501,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1010822033;
-        }
+        public int getConstructor() { return -1010822033; }
 
     }
 
@@ -17349,8 +15515,7 @@ public class TdApi {
 
         public String value;
 
-        public JsonValueString() {
-        }
+        public JsonValueString() {}
 
         public JsonValueString(String value) {
 
@@ -17359,9 +15524,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1597947313;
-        }
+        public int getConstructor() { return 1597947313; }
 
     }
 
@@ -17375,8 +15538,7 @@ public class TdApi {
 
         public JsonValue[] values;
 
-        public JsonValueArray() {
-        }
+        public JsonValueArray() {}
 
         public JsonValueArray(JsonValue[] values) {
 
@@ -17385,9 +15547,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -183913546;
-        }
+        public int getConstructor() { return -183913546; }
 
     }
 
@@ -17401,8 +15561,7 @@ public class TdApi {
 
         public JsonObjectMember[] members;
 
-        public JsonValueObject() {
-        }
+        public JsonValueObject() {}
 
         public JsonValueObject(JsonObjectMember[] members) {
 
@@ -17411,9 +15570,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 520252026;
-        }
+        public int getConstructor() { return 520252026; }
 
     }
 
@@ -17421,8 +15578,7 @@ public class TdApi {
     /**
      * Represents a single rule for managing privacy settings
      */
-    public static abstract class UserPrivacySettingRule extends Object {
-    }
+    public static abstract class UserPrivacySettingRule extends Object {}
 
     /**
      * A rule to allow all users to do something
@@ -17430,9 +15586,7 @@ public class TdApi {
     public static class UserPrivacySettingRuleAllowAll extends UserPrivacySettingRule {
 
         @Override
-        public int getConstructor() {
-            return -1967186881;
-        }
+        public int getConstructor() { return -1967186881; }
 
     }
 
@@ -17443,9 +15597,7 @@ public class TdApi {
     public static class UserPrivacySettingRuleAllowContacts extends UserPrivacySettingRule {
 
         @Override
-        public int getConstructor() {
-            return -1892733680;
-        }
+        public int getConstructor() { return -1892733680; }
 
     }
 
@@ -17459,8 +15611,7 @@ public class TdApi {
 
         public int[] userIds;
 
-        public UserPrivacySettingRuleAllowUsers() {
-        }
+        public UserPrivacySettingRuleAllowUsers() {}
 
         public UserPrivacySettingRuleAllowUsers(int[] userIds) {
 
@@ -17469,9 +15620,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 427601278;
-        }
+        public int getConstructor() { return 427601278; }
 
     }
 
@@ -17485,8 +15634,7 @@ public class TdApi {
 
         public long[] chatIds;
 
-        public UserPrivacySettingRuleAllowChatMembers() {
-        }
+        public UserPrivacySettingRuleAllowChatMembers() {}
 
         public UserPrivacySettingRuleAllowChatMembers(long[] chatIds) {
 
@@ -17495,9 +15643,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2048749863;
-        }
+        public int getConstructor() { return -2048749863; }
 
     }
 
@@ -17508,9 +15654,7 @@ public class TdApi {
     public static class UserPrivacySettingRuleRestrictAll extends UserPrivacySettingRule {
 
         @Override
-        public int getConstructor() {
-            return -1406495408;
-        }
+        public int getConstructor() { return -1406495408; }
 
     }
 
@@ -17521,9 +15665,7 @@ public class TdApi {
     public static class UserPrivacySettingRuleRestrictContacts extends UserPrivacySettingRule {
 
         @Override
-        public int getConstructor() {
-            return 1008389378;
-        }
+        public int getConstructor() { return 1008389378; }
 
     }
 
@@ -17537,8 +15679,7 @@ public class TdApi {
 
         public int[] userIds;
 
-        public UserPrivacySettingRuleRestrictUsers() {
-        }
+        public UserPrivacySettingRuleRestrictUsers() {}
 
         public UserPrivacySettingRuleRestrictUsers(int[] userIds) {
 
@@ -17547,9 +15688,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2119951802;
-        }
+        public int getConstructor() { return 2119951802; }
 
     }
 
@@ -17563,8 +15702,7 @@ public class TdApi {
 
         public long[] chatIds;
 
-        public UserPrivacySettingRuleRestrictChatMembers() {
-        }
+        public UserPrivacySettingRuleRestrictChatMembers() {}
 
         public UserPrivacySettingRuleRestrictChatMembers(long[] chatIds) {
 
@@ -17573,9 +15711,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 392530897;
-        }
+        public int getConstructor() { return 392530897; }
 
     }
 
@@ -17592,8 +15728,7 @@ public class TdApi {
 
         public UserPrivacySettingRule[] rules;
 
-        public UserPrivacySettingRules() {
-        }
+        public UserPrivacySettingRules() {}
 
         public UserPrivacySettingRules(UserPrivacySettingRule[] rules) {
 
@@ -17602,9 +15737,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 322477541;
-        }
+        public int getConstructor() { return 322477541; }
 
     }
 
@@ -17612,8 +15745,7 @@ public class TdApi {
     /**
      * Describes available user privacy settings
      */
-    public static abstract class UserPrivacySetting extends Object {
-    }
+    public static abstract class UserPrivacySetting extends Object {}
 
     /**
      * A privacy setting for managing whether the user's online status is visible
@@ -17621,9 +15753,7 @@ public class TdApi {
     public static class UserPrivacySettingShowStatus extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return 1862829310;
-        }
+        public int getConstructor() { return 1862829310; }
 
     }
 
@@ -17634,9 +15764,7 @@ public class TdApi {
     public static class UserPrivacySettingShowProfilePhoto extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return 1408485877;
-        }
+        public int getConstructor() { return 1408485877; }
 
     }
 
@@ -17647,9 +15775,7 @@ public class TdApi {
     public static class UserPrivacySettingShowLinkInForwardedMessages extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return 592688870;
-        }
+        public int getConstructor() { return 592688870; }
 
     }
 
@@ -17660,9 +15786,7 @@ public class TdApi {
     public static class UserPrivacySettingShowPhoneNumber extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return -791567831;
-        }
+        public int getConstructor() { return -791567831; }
 
     }
 
@@ -17673,9 +15797,7 @@ public class TdApi {
     public static class UserPrivacySettingAllowChatInvites extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return 1271668007;
-        }
+        public int getConstructor() { return 1271668007; }
 
     }
 
@@ -17686,9 +15808,7 @@ public class TdApi {
     public static class UserPrivacySettingAllowCalls extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return -906967291;
-        }
+        public int getConstructor() { return -906967291; }
 
     }
 
@@ -17699,9 +15819,7 @@ public class TdApi {
     public static class UserPrivacySettingAllowPeerToPeerCalls extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return 352500032;
-        }
+        public int getConstructor() { return 352500032; }
 
     }
 
@@ -17714,9 +15832,7 @@ public class TdApi {
     public static class UserPrivacySettingAllowFindingByPhoneNumber extends UserPrivacySetting {
 
         @Override
-        public int getConstructor() {
-            return -1846645423;
-        }
+        public int getConstructor() { return -1846645423; }
 
     }
 
@@ -17725,14 +15841,13 @@ public class TdApi {
      * Contains information about the period of inactivity after which the current user's account will automatically be deleted
      *
      * @days - Number of days of inactivity before the account will be flagged for deletion
-     * Should range from 30-366 days
+     *         Should range from 30-366 days
      */
     public static class AccountTtl extends Object {
 
         public int days;
 
-        public AccountTtl() {
-        }
+        public AccountTtl() {}
 
         public AccountTtl(int days) {
 
@@ -17741,9 +15856,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1324495492;
-        }
+        public int getConstructor() { return 1324495492; }
 
     }
 
@@ -17786,8 +15899,7 @@ public class TdApi {
         public String country;
         public String region;
 
-        public Session() {
-        }
+        public Session() {}
 
         public Session(long id, boolean isCurrent, boolean isPasswordPending, int apiId, String applicationName, String applicationVersion, boolean isOfficialApplication, String deviceModel, String platform, String systemVersion, int logInDate, int lastActiveDate, String ip, String country, String region) {
 
@@ -17810,9 +15922,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1920553176;
-        }
+        public int getConstructor() { return 1920553176; }
 
     }
 
@@ -17826,8 +15936,7 @@ public class TdApi {
 
         public Session[] sessions;
 
-        public Sessions() {
-        }
+        public Sessions() {}
 
         public Sessions(Session[] sessions) {
 
@@ -17836,9 +15945,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -463118121;
-        }
+        public int getConstructor() { return -463118121; }
 
     }
 
@@ -17868,8 +15975,7 @@ public class TdApi {
         public String ip;
         public String location;
 
-        public ConnectedWebsite() {
-        }
+        public ConnectedWebsite() {}
 
         public ConnectedWebsite(long id, String domainName, int botUserId, String browser, String platform, int logInDate, int lastActiveDate, String ip, String location) {
 
@@ -17886,9 +15992,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1538986855;
-        }
+        public int getConstructor() { return -1538986855; }
 
     }
 
@@ -17902,8 +16006,7 @@ public class TdApi {
 
         public ConnectedWebsite[] websites;
 
-        public ConnectedWebsites() {
-        }
+        public ConnectedWebsites() {}
 
         public ConnectedWebsites(ConnectedWebsite[] websites) {
 
@@ -17912,9 +16015,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1727949694;
-        }
+        public int getConstructor() { return -1727949694; }
 
     }
 
@@ -17922,8 +16023,7 @@ public class TdApi {
     /**
      * Describes the reason why a chat is reported
      */
-    public static abstract class ChatReportReason extends Object {
-    }
+    public static abstract class ChatReportReason extends Object {}
 
     /**
      * The chat contains spam messages
@@ -17931,9 +16031,7 @@ public class TdApi {
     public static class ChatReportReasonSpam extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return -510848863;
-        }
+        public int getConstructor() { return -510848863; }
 
     }
 
@@ -17944,9 +16042,7 @@ public class TdApi {
     public static class ChatReportReasonViolence extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return -1330235395;
-        }
+        public int getConstructor() { return -1330235395; }
 
     }
 
@@ -17957,9 +16053,7 @@ public class TdApi {
     public static class ChatReportReasonPornography extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return 722614385;
-        }
+        public int getConstructor() { return 722614385; }
 
     }
 
@@ -17970,9 +16064,7 @@ public class TdApi {
     public static class ChatReportReasonChildAbuse extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return -1070686531;
-        }
+        public int getConstructor() { return -1070686531; }
 
     }
 
@@ -17983,9 +16075,7 @@ public class TdApi {
     public static class ChatReportReasonCopyright extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return 986898080;
-        }
+        public int getConstructor() { return 986898080; }
 
     }
 
@@ -17996,9 +16086,7 @@ public class TdApi {
     public static class ChatReportReasonUnrelatedLocation extends ChatReportReason {
 
         @Override
-        public int getConstructor() {
-            return 2632403;
-        }
+        public int getConstructor() { return 2632403; }
 
     }
 
@@ -18012,8 +16100,7 @@ public class TdApi {
 
         public String text;
 
-        public ChatReportReasonCustom() {
-        }
+        public ChatReportReasonCustom() {}
 
         public ChatReportReasonCustom(String text) {
 
@@ -18022,9 +16109,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 544575454;
-        }
+        public int getConstructor() { return 544575454; }
 
     }
 
@@ -18040,8 +16125,7 @@ public class TdApi {
         public String link;
         public String html;
 
-        public PublicMessageLink() {
-        }
+        public PublicMessageLink() {}
 
         public PublicMessageLink(String link, String html) {
 
@@ -18051,9 +16135,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -679603433;
-        }
+        public int getConstructor() { return -679603433; }
 
     }
 
@@ -18070,12 +16152,10 @@ public class TdApi {
 
         public boolean isPublic;
         public long chatId;
-        @Nullable
-        public Message message;
+        @Nullable public Message message;
         public boolean forAlbum;
 
-        public MessageLinkInfo() {
-        }
+        public MessageLinkInfo() {}
 
         public MessageLinkInfo(boolean isPublic, long chatId, @Nullable Message message, boolean forAlbum) {
 
@@ -18087,9 +16167,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 657372995;
-        }
+        public int getConstructor() { return 657372995; }
 
     }
 
@@ -18103,8 +16181,7 @@ public class TdApi {
 
         public byte[] data;
 
-        public FilePart() {
-        }
+        public FilePart() {}
 
         public FilePart(byte[] data) {
 
@@ -18113,9 +16190,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 911821878;
-        }
+        public int getConstructor() { return 911821878; }
 
     }
 
@@ -18123,8 +16198,7 @@ public class TdApi {
     /**
      * Represents the type of a file
      */
-    public static abstract class FileType extends Object {
-    }
+    public static abstract class FileType extends Object {}
 
     /**
      * The data is not a file
@@ -18132,9 +16206,7 @@ public class TdApi {
     public static class FileTypeNone extends FileType {
 
         @Override
-        public int getConstructor() {
-            return 2003009189;
-        }
+        public int getConstructor() { return 2003009189; }
 
     }
 
@@ -18145,9 +16217,7 @@ public class TdApi {
     public static class FileTypeAnimation extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -290816582;
-        }
+        public int getConstructor() { return -290816582; }
 
     }
 
@@ -18158,9 +16228,7 @@ public class TdApi {
     public static class FileTypeAudio extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -709112160;
-        }
+        public int getConstructor() { return -709112160; }
 
     }
 
@@ -18171,9 +16239,7 @@ public class TdApi {
     public static class FileTypeDocument extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -564722929;
-        }
+        public int getConstructor() { return -564722929; }
 
     }
 
@@ -18184,9 +16250,7 @@ public class TdApi {
     public static class FileTypePhoto extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -1718914651;
-        }
+        public int getConstructor() { return -1718914651; }
 
     }
 
@@ -18197,9 +16261,7 @@ public class TdApi {
     public static class FileTypeProfilePhoto extends FileType {
 
         @Override
-        public int getConstructor() {
-            return 1795089315;
-        }
+        public int getConstructor() { return 1795089315; }
 
     }
 
@@ -18210,9 +16272,7 @@ public class TdApi {
     public static class FileTypeSecret extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -1871899401;
-        }
+        public int getConstructor() { return -1871899401; }
 
     }
 
@@ -18223,9 +16283,7 @@ public class TdApi {
     public static class FileTypeSecretThumbnail extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -1401326026;
-        }
+        public int getConstructor() { return -1401326026; }
 
     }
 
@@ -18236,9 +16294,7 @@ public class TdApi {
     public static class FileTypeSecure extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -1419133146;
-        }
+        public int getConstructor() { return -1419133146; }
 
     }
 
@@ -18249,9 +16305,7 @@ public class TdApi {
     public static class FileTypeSticker extends FileType {
 
         @Override
-        public int getConstructor() {
-            return 475233385;
-        }
+        public int getConstructor() { return 475233385; }
 
     }
 
@@ -18262,9 +16316,7 @@ public class TdApi {
     public static class FileTypeThumbnail extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -12443298;
-        }
+        public int getConstructor() { return -12443298; }
 
     }
 
@@ -18275,9 +16327,7 @@ public class TdApi {
     public static class FileTypeUnknown extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -2011566768;
-        }
+        public int getConstructor() { return -2011566768; }
 
     }
 
@@ -18288,9 +16338,7 @@ public class TdApi {
     public static class FileTypeVideo extends FileType {
 
         @Override
-        public int getConstructor() {
-            return 1430816539;
-        }
+        public int getConstructor() { return 1430816539; }
 
     }
 
@@ -18301,9 +16349,7 @@ public class TdApi {
     public static class FileTypeVideoNote extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -518412385;
-        }
+        public int getConstructor() { return -518412385; }
 
     }
 
@@ -18314,9 +16360,7 @@ public class TdApi {
     public static class FileTypeVoiceNote extends FileType {
 
         @Override
-        public int getConstructor() {
-            return -588681661;
-        }
+        public int getConstructor() { return -588681661; }
 
     }
 
@@ -18327,9 +16371,7 @@ public class TdApi {
     public static class FileTypeWallpaper extends FileType {
 
         @Override
-        public int getConstructor() {
-            return 1854930076;
-        }
+        public int getConstructor() { return 1854930076; }
 
     }
 
@@ -18347,8 +16389,7 @@ public class TdApi {
         public long size;
         public int count;
 
-        public StorageStatisticsByFileType() {
-        }
+        public StorageStatisticsByFileType() {}
 
         public StorageStatisticsByFileType(FileType fileType, long size, int count) {
 
@@ -18359,9 +16400,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 714012840;
-        }
+        public int getConstructor() { return 714012840; }
 
     }
 
@@ -18370,7 +16409,7 @@ public class TdApi {
      * Contains the storage usage statistics for a specific chat
      *
      * @chatId - Chat identifier
-     * 0 if none
+     *           0 if none
      * @size - Total size of the files in the chat
      * @count - Total number of files in the chat
      * @byFileType - Statistics split by file types
@@ -18382,8 +16421,7 @@ public class TdApi {
         public int count;
         public StorageStatisticsByFileType[] byFileType;
 
-        public StorageStatisticsByChat() {
-        }
+        public StorageStatisticsByChat() {}
 
         public StorageStatisticsByChat(long chatId, long size, int count, StorageStatisticsByFileType[] byFileType) {
 
@@ -18395,9 +16433,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 635434531;
-        }
+        public int getConstructor() { return 635434531; }
 
     }
 
@@ -18415,8 +16451,7 @@ public class TdApi {
         public int count;
         public StorageStatisticsByChat[] byChat;
 
-        public StorageStatistics() {
-        }
+        public StorageStatistics() {}
 
         public StorageStatistics(long size, int count, StorageStatisticsByChat[] byChat) {
 
@@ -18427,9 +16462,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 217237013;
-        }
+        public int getConstructor() { return 217237013; }
 
     }
 
@@ -18451,8 +16484,7 @@ public class TdApi {
         public long languagePackDatabaseSize;
         public long logSize;
 
-        public StorageStatisticsFast() {
-        }
+        public StorageStatisticsFast() {}
 
         public StorageStatisticsFast(long filesSize, int fileCount, long databaseSize, long languagePackDatabaseSize, long logSize) {
 
@@ -18465,9 +16497,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -884922271;
-        }
+        public int getConstructor() { return -884922271; }
 
     }
 
@@ -18481,8 +16511,7 @@ public class TdApi {
 
         public String statistics;
 
-        public DatabaseStatistics() {
-        }
+        public DatabaseStatistics() {}
 
         public DatabaseStatistics(String statistics) {
 
@@ -18491,9 +16520,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1123912880;
-        }
+        public int getConstructor() { return -1123912880; }
 
     }
 
@@ -18501,8 +16528,7 @@ public class TdApi {
     /**
      * Represents the type of a network
      */
-    public static abstract class NetworkType extends Object {
-    }
+    public static abstract class NetworkType extends Object {}
 
     /**
      * The network is not available
@@ -18510,9 +16536,7 @@ public class TdApi {
     public static class NetworkTypeNone extends NetworkType {
 
         @Override
-        public int getConstructor() {
-            return -1971691759;
-        }
+        public int getConstructor() { return -1971691759; }
 
     }
 
@@ -18523,9 +16547,7 @@ public class TdApi {
     public static class NetworkTypeMobile extends NetworkType {
 
         @Override
-        public int getConstructor() {
-            return 819228239;
-        }
+        public int getConstructor() { return 819228239; }
 
     }
 
@@ -18536,9 +16558,7 @@ public class TdApi {
     public static class NetworkTypeMobileRoaming extends NetworkType {
 
         @Override
-        public int getConstructor() {
-            return -1435199760;
-        }
+        public int getConstructor() { return -1435199760; }
 
     }
 
@@ -18549,9 +16569,7 @@ public class TdApi {
     public static class NetworkTypeWiFi extends NetworkType {
 
         @Override
-        public int getConstructor() {
-            return -633872070;
-        }
+        public int getConstructor() { return -633872070; }
 
     }
 
@@ -18562,9 +16580,7 @@ public class TdApi {
     public static class NetworkTypeOther extends NetworkType {
 
         @Override
-        public int getConstructor() {
-            return 1942128539;
-        }
+        public int getConstructor() { return 1942128539; }
 
     }
 
@@ -18572,15 +16588,14 @@ public class TdApi {
     /**
      * Contains statistics about network usage
      */
-    public static abstract class NetworkStatisticsEntry extends Object {
-    }
+    public static abstract class NetworkStatisticsEntry extends Object {}
 
     /**
      * Contains information about the total amount of data that was used to send and receive files
      *
      * @fileType - Type of the file the data is part of
      * @networkType - Type of the network the data was sent through
-     * Call setNetworkType to maintain the actual network type
+     *                Call setNetworkType to maintain the actual network type
      * @sentBytes - Total number of bytes sent
      * @receivedBytes - Total number of bytes received
      */
@@ -18591,8 +16606,7 @@ public class TdApi {
         public long sentBytes;
         public long receivedBytes;
 
-        public NetworkStatisticsEntryFile() {
-        }
+        public NetworkStatisticsEntryFile() {}
 
         public NetworkStatisticsEntryFile(FileType fileType, NetworkType networkType, long sentBytes, long receivedBytes) {
 
@@ -18604,9 +16618,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 188452706;
-        }
+        public int getConstructor() { return 188452706; }
 
     }
 
@@ -18615,7 +16627,7 @@ public class TdApi {
      * Contains information about the total amount of data that was used for calls
      *
      * @networkType - Type of the network the data was sent through
-     * Call setNetworkType to maintain the actual network type
+     *                Call setNetworkType to maintain the actual network type
      * @sentBytes - Total number of bytes sent
      * @receivedBytes - Total number of bytes received
      * @duration - Total call duration, in seconds
@@ -18627,8 +16639,7 @@ public class TdApi {
         public long receivedBytes;
         public double duration;
 
-        public NetworkStatisticsEntryCall() {
-        }
+        public NetworkStatisticsEntryCall() {}
 
         public NetworkStatisticsEntryCall(NetworkType networkType, long sentBytes, long receivedBytes, double duration) {
 
@@ -18640,9 +16651,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 737000365;
-        }
+        public int getConstructor() { return 737000365; }
 
     }
 
@@ -18658,8 +16667,7 @@ public class TdApi {
         public int sinceDate;
         public NetworkStatisticsEntry[] entries;
 
-        public NetworkStatistics() {
-        }
+        public NetworkStatistics() {}
 
         public NetworkStatistics(int sinceDate, NetworkStatisticsEntry[] entries) {
 
@@ -18669,9 +16677,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1615554212;
-        }
+        public int getConstructor() { return 1615554212; }
 
     }
 
@@ -18699,8 +16705,7 @@ public class TdApi {
         public boolean preloadNextAudio;
         public boolean useLessDataForCalls;
 
-        public AutoDownloadSettings() {
-        }
+        public AutoDownloadSettings() {}
 
         public AutoDownloadSettings(boolean isAutoDownloadEnabled, int maxPhotoFileSize, int maxVideoFileSize, int maxOtherFileSize, int videoUploadBitrate, boolean preloadLargeVideos, boolean preloadNextAudio, boolean useLessDataForCalls) {
 
@@ -18716,9 +16721,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2144418333;
-        }
+        public int getConstructor() { return -2144418333; }
 
     }
 
@@ -18727,11 +16730,11 @@ public class TdApi {
      * Contains auto-download settings presets for the user
      *
      * @low - Preset with lowest settings
-     * Supposed to be used by default when roaming
+     *        Supposed to be used by default when roaming
      * @medium - Preset with medium settings
-     * Supposed to be used by default when using mobile data
+     *           Supposed to be used by default when using mobile data
      * @high - Preset with highest settings
-     * Supposed to be used by default when connected on Wi-Fi
+     *         Supposed to be used by default when connected on Wi-Fi
      */
     public static class AutoDownloadSettingsPresets extends Object {
 
@@ -18739,8 +16742,7 @@ public class TdApi {
         public AutoDownloadSettings medium;
         public AutoDownloadSettings high;
 
-        public AutoDownloadSettingsPresets() {
-        }
+        public AutoDownloadSettingsPresets() {}
 
         public AutoDownloadSettingsPresets(AutoDownloadSettings low, AutoDownloadSettings medium, AutoDownloadSettings high) {
 
@@ -18751,9 +16753,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -782099166;
-        }
+        public int getConstructor() { return -782099166; }
 
     }
 
@@ -18761,8 +16761,7 @@ public class TdApi {
     /**
      * Describes the current state of the connection to Telegram servers
      */
-    public static abstract class ConnectionState extends Object {
-    }
+    public static abstract class ConnectionState extends Object {}
 
     /**
      * Currently waiting for the network to become available
@@ -18771,9 +16770,7 @@ public class TdApi {
     public static class ConnectionStateWaitingForNetwork extends ConnectionState {
 
         @Override
-        public int getConstructor() {
-            return 1695405912;
-        }
+        public int getConstructor() { return 1695405912; }
 
     }
 
@@ -18784,9 +16781,7 @@ public class TdApi {
     public static class ConnectionStateConnectingToProxy extends ConnectionState {
 
         @Override
-        public int getConstructor() {
-            return -93187239;
-        }
+        public int getConstructor() { return -93187239; }
 
     }
 
@@ -18797,9 +16792,7 @@ public class TdApi {
     public static class ConnectionStateConnecting extends ConnectionState {
 
         @Override
-        public int getConstructor() {
-            return -1298400670;
-        }
+        public int getConstructor() { return -1298400670; }
 
     }
 
@@ -18810,9 +16803,7 @@ public class TdApi {
     public static class ConnectionStateUpdating extends ConnectionState {
 
         @Override
-        public int getConstructor() {
-            return -188104009;
-        }
+        public int getConstructor() { return -188104009; }
 
     }
 
@@ -18823,9 +16814,7 @@ public class TdApi {
     public static class ConnectionStateReady extends ConnectionState {
 
         @Override
-        public int getConstructor() {
-            return 48608492;
-        }
+        public int getConstructor() { return 48608492; }
 
     }
 
@@ -18833,8 +16822,7 @@ public class TdApi {
     /**
      * Represents the categories of chats for which a list of frequently used chats can be retrieved
      */
-    public static abstract class TopChatCategory extends Object {
-    }
+    public static abstract class TopChatCategory extends Object {}
 
     /**
      * A category containing frequently used private chats with non-bot users
@@ -18842,9 +16830,7 @@ public class TdApi {
     public static class TopChatCategoryUsers extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return 1026706816;
-        }
+        public int getConstructor() { return 1026706816; }
 
     }
 
@@ -18855,9 +16841,7 @@ public class TdApi {
     public static class TopChatCategoryBots extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return -1577129195;
-        }
+        public int getConstructor() { return -1577129195; }
 
     }
 
@@ -18868,9 +16852,7 @@ public class TdApi {
     public static class TopChatCategoryGroups extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return 1530056846;
-        }
+        public int getConstructor() { return 1530056846; }
 
     }
 
@@ -18881,9 +16863,7 @@ public class TdApi {
     public static class TopChatCategoryChannels extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return -500825885;
-        }
+        public int getConstructor() { return -500825885; }
 
     }
 
@@ -18894,9 +16874,7 @@ public class TdApi {
     public static class TopChatCategoryInlineBots extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return 377023356;
-        }
+        public int getConstructor() { return 377023356; }
 
     }
 
@@ -18907,9 +16885,7 @@ public class TdApi {
     public static class TopChatCategoryCalls extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return 356208861;
-        }
+        public int getConstructor() { return 356208861; }
 
     }
 
@@ -18920,9 +16896,7 @@ public class TdApi {
     public static class TopChatCategoryForwardChats extends TopChatCategory {
 
         @Override
-        public int getConstructor() {
-            return 1695922133;
-        }
+        public int getConstructor() { return 1695922133; }
 
     }
 
@@ -18930,8 +16904,7 @@ public class TdApi {
     /**
      * Describes the type of a URL linking to an internal Telegram entity
      */
-    public static abstract class TMeUrlType extends Object {
-    }
+    public static abstract class TMeUrlType extends Object {}
 
     /**
      * A URL linking to a user
@@ -18942,8 +16915,7 @@ public class TdApi {
 
         public int userId;
 
-        public TMeUrlTypeUser() {
-        }
+        public TMeUrlTypeUser() {}
 
         public TMeUrlTypeUser(int userId) {
 
@@ -18952,9 +16924,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1198700130;
-        }
+        public int getConstructor() { return -1198700130; }
 
     }
 
@@ -18968,8 +16938,7 @@ public class TdApi {
 
         public long supergroupId;
 
-        public TMeUrlTypeSupergroup() {
-        }
+        public TMeUrlTypeSupergroup() {}
 
         public TMeUrlTypeSupergroup(long supergroupId) {
 
@@ -18978,9 +16947,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1353369944;
-        }
+        public int getConstructor() { return -1353369944; }
 
     }
 
@@ -18994,8 +16961,7 @@ public class TdApi {
 
         public ChatInviteLinkInfo info;
 
-        public TMeUrlTypeChatInvite() {
-        }
+        public TMeUrlTypeChatInvite() {}
 
         public TMeUrlTypeChatInvite(ChatInviteLinkInfo info) {
 
@@ -19004,9 +16970,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 313907785;
-        }
+        public int getConstructor() { return 313907785; }
 
     }
 
@@ -19020,8 +16984,7 @@ public class TdApi {
 
         public long stickerSetId;
 
-        public TMeUrlTypeStickerSet() {
-        }
+        public TMeUrlTypeStickerSet() {}
 
         public TMeUrlTypeStickerSet(long stickerSetId) {
 
@@ -19030,9 +16993,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1602473196;
-        }
+        public int getConstructor() { return 1602473196; }
 
     }
 
@@ -19048,8 +17009,7 @@ public class TdApi {
         public String url;
         public TMeUrlType type;
 
-        public TMeUrl() {
-        }
+        public TMeUrl() {}
 
         public TMeUrl(String url, TMeUrlType type) {
 
@@ -19059,9 +17019,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1140786622;
-        }
+        public int getConstructor() { return -1140786622; }
 
     }
 
@@ -19075,8 +17033,7 @@ public class TdApi {
 
         public TMeUrl[] urls;
 
-        public TMeUrls() {
-        }
+        public TMeUrls() {}
 
         public TMeUrls(TMeUrl[] urls) {
 
@@ -19085,9 +17042,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1130595098;
-        }
+        public int getConstructor() { return -1130595098; }
 
     }
 
@@ -19095,8 +17050,7 @@ public class TdApi {
     /**
      * Describes an action suggested to the current user
      */
-    public static abstract class SuggestedAction extends Object {
-    }
+    public static abstract class SuggestedAction extends Object {}
 
     /**
      * Suggests the user to enable "archive_and_mute_new_chats_from_unknown_users" option
@@ -19104,9 +17058,7 @@ public class TdApi {
     public static class SuggestedActionEnableArchiveAndMuteNewChats extends SuggestedAction {
 
         @Override
-        public int getConstructor() {
-            return 2017586255;
-        }
+        public int getConstructor() { return 2017586255; }
 
     }
 
@@ -19117,9 +17069,7 @@ public class TdApi {
     public static class SuggestedActionCheckPhoneNumber extends SuggestedAction {
 
         @Override
-        public int getConstructor() {
-            return 648771563;
-        }
+        public int getConstructor() { return 648771563; }
 
     }
 
@@ -19133,8 +17083,7 @@ public class TdApi {
 
         public int count;
 
-        public Count() {
-        }
+        public Count() {}
 
         public Count(int count) {
 
@@ -19143,9 +17092,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1295577348;
-        }
+        public int getConstructor() { return 1295577348; }
 
     }
 
@@ -19159,8 +17106,7 @@ public class TdApi {
 
         public String text;
 
-        public Text() {
-        }
+        public Text() {}
 
         public Text(String text) {
 
@@ -19169,9 +17115,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 578181272;
-        }
+        public int getConstructor() { return 578181272; }
 
     }
 
@@ -19185,8 +17129,7 @@ public class TdApi {
 
         public double seconds;
 
-        public Seconds() {
-        }
+        public Seconds() {}
 
         public Seconds(double seconds) {
 
@@ -19195,9 +17138,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 959899022;
-        }
+        public int getConstructor() { return 959899022; }
 
     }
 
@@ -19213,8 +17154,7 @@ public class TdApi {
         public FormattedText text;
         public boolean needUpdateApplication;
 
-        public DeepLinkInfo() {
-        }
+        public DeepLinkInfo() {}
 
         public DeepLinkInfo(FormattedText text, boolean needUpdateApplication) {
 
@@ -19224,9 +17164,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1864081662;
-        }
+        public int getConstructor() { return 1864081662; }
 
     }
 
@@ -19234,8 +17172,7 @@ public class TdApi {
     /**
      * Describes the way the text should be parsed for TextEntities
      */
-    public static abstract class TextParseMode extends Object {
-    }
+    public static abstract class TextParseMode extends Object {}
 
     /**
      * The text uses Markdown-style formatting
@@ -19246,8 +17183,7 @@ public class TdApi {
 
         public int version;
 
-        public TextParseModeMarkdown() {
-        }
+        public TextParseModeMarkdown() {}
 
         public TextParseModeMarkdown(int version) {
 
@@ -19256,9 +17192,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 360073407;
-        }
+        public int getConstructor() { return 360073407; }
 
     }
 
@@ -19270,9 +17204,7 @@ public class TdApi {
     public static class TextParseModeHTML extends TextParseMode {
 
         @Override
-        public int getConstructor() {
-            return 1660208627;
-        }
+        public int getConstructor() { return 1660208627; }
 
     }
 
@@ -19280,8 +17212,7 @@ public class TdApi {
     /**
      * Describes the type of a proxy server
      */
-    public static abstract class ProxyType extends Object {
-    }
+    public static abstract class ProxyType extends Object {}
 
     /**
      * A SOCKS5 proxy server
@@ -19291,13 +17222,10 @@ public class TdApi {
      */
     public static class ProxyTypeSocks5 extends ProxyType {
 
-        @Nullable
-        public String username;
-        @Nullable
-        public String password;
+        @Nullable public String username;
+        @Nullable public String password;
 
-        public ProxyTypeSocks5() {
-        }
+        public ProxyTypeSocks5() {}
 
         public ProxyTypeSocks5(@Nullable String username, @Nullable String password) {
 
@@ -19307,9 +17235,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -890027341;
-        }
+        public int getConstructor() { return -890027341; }
 
     }
 
@@ -19323,14 +17249,11 @@ public class TdApi {
      */
     public static class ProxyTypeHttp extends ProxyType {
 
-        @Nullable
-        public String username;
-        @Nullable
-        public String password;
+        @Nullable public String username;
+        @Nullable public String password;
         public boolean httpOnly;
 
-        public ProxyTypeHttp() {
-        }
+        public ProxyTypeHttp() {}
 
         public ProxyTypeHttp(@Nullable String username, @Nullable String password, boolean httpOnly) {
 
@@ -19341,9 +17264,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1547188361;
-        }
+        public int getConstructor() { return -1547188361; }
 
     }
 
@@ -19357,8 +17278,7 @@ public class TdApi {
 
         public String secret;
 
-        public ProxyTypeMtproto() {
-        }
+        public ProxyTypeMtproto() {}
 
         public ProxyTypeMtproto(String secret) {
 
@@ -19367,9 +17287,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1964826627;
-        }
+        public int getConstructor() { return -1964826627; }
 
     }
 
@@ -19381,7 +17299,7 @@ public class TdApi {
      * @server - Proxy server IP address
      * @port - Proxy server port
      * @lastUsedDate - Point in time (Unix timestamp) when the proxy was last used
-     * 0 if never
+     *                 0 if never
      * @isEnabled - True, if the proxy is enabled now
      * @type - Type of the proxy
      */
@@ -19394,8 +17312,7 @@ public class TdApi {
         public boolean isEnabled;
         public ProxyType type;
 
-        public Proxy() {
-        }
+        public Proxy() {}
 
         public Proxy(int id, String server, int port, int lastUsedDate, boolean isEnabled, ProxyType type) {
 
@@ -19409,9 +17326,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 196049779;
-        }
+        public int getConstructor() { return 196049779; }
 
     }
 
@@ -19425,8 +17340,7 @@ public class TdApi {
 
         public Proxy[] proxies;
 
-        public Proxies() {
-        }
+        public Proxies() {}
 
         public Proxies(Proxy[] proxies) {
 
@@ -19435,9 +17349,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1200447205;
-        }
+        public int getConstructor() { return 1200447205; }
 
     }
 
@@ -19445,14 +17357,13 @@ public class TdApi {
     /**
      * Describes a sticker that needs to be added to a sticker set
      */
-    public static abstract class InputSticker extends Object {
-    }
+    public static abstract class InputSticker extends Object {}
 
     /**
      * A static sticker in PNG format, which will be converted to WEBP server-side
      *
      * @sticker - PNG image with the sticker
-     * Must be up to 512 KB in size and fit in a 512x512 square
+     *            Must be up to 512 KB in size and fit in a 512x512 square
      * @emojis - Emojis corresponding to the sticker
      * @maskPosition - For masks, position where the mask should be placed
      */
@@ -19460,11 +17371,9 @@ public class TdApi {
 
         public InputFile sticker;
         public String emojis;
-        @Nullable
-        public MaskPosition maskPosition;
+        @Nullable public MaskPosition maskPosition;
 
-        public InputStickerStatic() {
-        }
+        public InputStickerStatic() {}
 
         public InputStickerStatic(InputFile sticker, String emojis, @Nullable MaskPosition maskPosition) {
 
@@ -19475,9 +17384,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1409680603;
-        }
+        public int getConstructor() { return 1409680603; }
 
     }
 
@@ -19486,8 +17393,8 @@ public class TdApi {
      * An animated sticker in TGS format
      *
      * @sticker - File with the animated sticker
-     * Only local or uploaded within a week files are supported
-     * See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements
+     *            Only local or uploaded within a week files are supported
+     *            See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements
      * @emojis - Emojis corresponding to the sticker
      */
     public static class InputStickerAnimated extends InputSticker {
@@ -19495,8 +17402,7 @@ public class TdApi {
         public InputFile sticker;
         public String emojis;
 
-        public InputStickerAnimated() {
-        }
+        public InputStickerAnimated() {}
 
         public InputStickerAnimated(InputFile sticker, String emojis) {
 
@@ -19506,9 +17412,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1127265952;
-        }
+        public int getConstructor() { return -1127265952; }
 
     }
 
@@ -19524,8 +17428,7 @@ public class TdApi {
         public int startDate;
         public int endDate;
 
-        public DateRange() {
-        }
+        public DateRange() {}
 
         public DateRange(int startDate, int endDate) {
 
@@ -19535,9 +17438,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1360333926;
-        }
+        public int getConstructor() { return 1360333926; }
 
     }
 
@@ -19555,8 +17456,7 @@ public class TdApi {
         public double previousValue;
         public double growthRatePercentage;
 
-        public StatisticsValue() {
-        }
+        public StatisticsValue() {}
 
         public StatisticsValue(double value, double previousValue, double growthRatePercentage) {
 
@@ -19567,9 +17467,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1147508964;
-        }
+        public int getConstructor() { return 1147508964; }
 
     }
 
@@ -19577,8 +17475,7 @@ public class TdApi {
     /**
      * Describes a statistics graph
      */
-    public static abstract class StatisticsGraph extends Object {
-    }
+    public static abstract class StatisticsGraph extends Object {}
 
     /**
      * A graph data
@@ -19591,8 +17488,7 @@ public class TdApi {
         public String jsonData;
         public String zoomToken;
 
-        public StatisticsGraphData() {
-        }
+        public StatisticsGraphData() {}
 
         public StatisticsGraphData(String jsonData, String zoomToken) {
 
@@ -19602,9 +17498,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1756117226;
-        }
+        public int getConstructor() { return -1756117226; }
 
     }
 
@@ -19618,8 +17512,7 @@ public class TdApi {
 
         public String token;
 
-        public StatisticsGraphAsync() {
-        }
+        public StatisticsGraphAsync() {}
 
         public StatisticsGraphAsync(String token) {
 
@@ -19628,9 +17521,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1064479337;
-        }
+        public int getConstructor() { return 1064479337; }
 
     }
 
@@ -19644,8 +17535,7 @@ public class TdApi {
 
         public String errorMessage;
 
-        public StatisticsGraphError() {
-        }
+        public StatisticsGraphError() {}
 
         public StatisticsGraphError(String errorMessage) {
 
@@ -19654,9 +17544,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -61804431;
-        }
+        public int getConstructor() { return -61804431; }
 
     }
 
@@ -19674,8 +17562,7 @@ public class TdApi {
         public int viewCount;
         public int forwardCount;
 
-        public ChatStatisticsMessageInteractionInfo() {
-        }
+        public ChatStatisticsMessageInteractionInfo() {}
 
         public ChatStatisticsMessageInteractionInfo(long messageId, int viewCount, int forwardCount) {
 
@@ -19686,9 +17573,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -765580756;
-        }
+        public int getConstructor() { return -765580756; }
 
     }
 
@@ -19706,8 +17591,7 @@ public class TdApi {
         public int sentMessageCount;
         public int averageCharacterCount;
 
-        public ChatStatisticsMessageSenderInfo() {
-        }
+        public ChatStatisticsMessageSenderInfo() {}
 
         public ChatStatisticsMessageSenderInfo(int userId, int sentMessageCount, int averageCharacterCount) {
 
@@ -19718,9 +17602,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1716075179;
-        }
+        public int getConstructor() { return 1716075179; }
 
     }
 
@@ -19740,8 +17622,7 @@ public class TdApi {
         public int bannedUserCount;
         public int restrictedUserCount;
 
-        public ChatStatisticsAdministratorActionsInfo() {
-        }
+        public ChatStatisticsAdministratorActionsInfo() {}
 
         public ChatStatisticsAdministratorActionsInfo(int userId, int deletedMessageCount, int bannedUserCount, int restrictedUserCount) {
 
@@ -19753,9 +17634,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1988384904;
-        }
+        public int getConstructor() { return 1988384904; }
 
     }
 
@@ -19771,8 +17650,7 @@ public class TdApi {
         public int userId;
         public int addedMemberCount;
 
-        public ChatStatisticsInviterInfo() {
-        }
+        public ChatStatisticsInviterInfo() {}
 
         public ChatStatisticsInviterInfo(int userId, int addedMemberCount) {
 
@@ -19782,9 +17660,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -399517859;
-        }
+        public int getConstructor() { return -399517859; }
 
     }
 
@@ -19792,8 +17668,7 @@ public class TdApi {
     /**
      * Contains a detailed statistics about a chat
      */
-    public static abstract class ChatStatistics extends Object {
-    }
+    public static abstract class ChatStatistics extends Object {}
 
     /**
      * A detailed statistics about a supergroup chat
@@ -19834,8 +17709,7 @@ public class TdApi {
         public ChatStatisticsAdministratorActionsInfo[] topAdministrators;
         public ChatStatisticsInviterInfo[] topInviters;
 
-        public ChatStatisticsSupergroup() {
-        }
+        public ChatStatisticsSupergroup() {}
 
         public ChatStatisticsSupergroup(DateRange period, StatisticsValue memberCount, StatisticsValue messageCount, StatisticsValue viewerCount, StatisticsValue senderCount, StatisticsGraph memberCountGraph, StatisticsGraph joinGraph, StatisticsGraph joinBySourceGraph, StatisticsGraph languageGraph, StatisticsGraph messageContentGraph, StatisticsGraph actionGraph, StatisticsGraph dayGraph, StatisticsGraph weekGraph, ChatStatisticsMessageSenderInfo[] topSenders, ChatStatisticsAdministratorActionsInfo[] topAdministrators, ChatStatisticsInviterInfo[] topInviters) {
 
@@ -19859,9 +17733,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1234327223;
-        }
+        public int getConstructor() { return 1234327223; }
 
     }
 
@@ -19903,8 +17775,7 @@ public class TdApi {
         public StatisticsGraph instantViewInteractionGraph;
         public ChatStatisticsMessageInteractionInfo[] recentMessageInteractions;
 
-        public ChatStatisticsChannel() {
-        }
+        public ChatStatisticsChannel() {}
 
         public ChatStatisticsChannel(DateRange period, StatisticsValue memberCount, StatisticsValue meanViewCount, StatisticsValue meanShareCount, double enabledNotificationsPercentage, StatisticsGraph memberCountGraph, StatisticsGraph joinGraph, StatisticsGraph muteGraph, StatisticsGraph viewCountByHourGraph, StatisticsGraph viewCountBySourceGraph, StatisticsGraph joinBySourceGraph, StatisticsGraph languageGraph, StatisticsGraph messageInteractionGraph, StatisticsGraph instantViewInteractionGraph, ChatStatisticsMessageInteractionInfo[] recentMessageInteractions) {
 
@@ -19927,9 +17798,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -326982581;
-        }
+        public int getConstructor() { return -326982581; }
 
     }
 
@@ -19937,8 +17806,7 @@ public class TdApi {
     /**
      * Contains notifications about data changes
      */
-    public static abstract class Update extends Object {
-    }
+    public static abstract class Update extends Object {}
 
     /**
      * The user authorization state has changed
@@ -19949,8 +17817,7 @@ public class TdApi {
 
         public AuthorizationState authorizationState;
 
-        public UpdateAuthorizationState() {
-        }
+        public UpdateAuthorizationState() {}
 
         public UpdateAuthorizationState(AuthorizationState authorizationState) {
 
@@ -19959,9 +17826,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1622347490;
-        }
+        public int getConstructor() { return 1622347490; }
 
     }
 
@@ -19976,8 +17841,7 @@ public class TdApi {
 
         public Message message;
 
-        public UpdateNewMessage() {
-        }
+        public UpdateNewMessage() {}
 
         public UpdateNewMessage(Message message) {
 
@@ -19986,9 +17850,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -563105266;
-        }
+        public int getConstructor() { return -563105266; }
 
     }
 
@@ -20007,8 +17869,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public UpdateMessageSendAcknowledged() {
-        }
+        public UpdateMessageSendAcknowledged() {}
 
         public UpdateMessageSendAcknowledged(long chatId, long messageId) {
 
@@ -20018,9 +17879,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1302843961;
-        }
+        public int getConstructor() { return 1302843961; }
 
     }
 
@@ -20029,7 +17888,7 @@ public class TdApi {
      * A message has been successfully sent
      *
      * @message - Information about the sent message
-     * Usually only the message identifier, date, and content are changed, but almost all other fields can also change
+     *            Usually only the message identifier, date, and content are changed, but almost all other fields can also change
      * @oldMessageId - The previous temporary message identifier
      */
     public static class UpdateMessageSendSucceeded extends Update {
@@ -20037,8 +17896,7 @@ public class TdApi {
         public Message message;
         public long oldMessageId;
 
-        public UpdateMessageSendSucceeded() {
-        }
+        public UpdateMessageSendSucceeded() {}
 
         public UpdateMessageSendSucceeded(Message message, long oldMessageId) {
 
@@ -20048,9 +17906,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1815715197;
-        }
+        public int getConstructor() { return 1815715197; }
 
     }
 
@@ -20071,8 +17927,7 @@ public class TdApi {
         public int errorCode;
         public String errorMessage;
 
-        public UpdateMessageSendFailed() {
-        }
+        public UpdateMessageSendFailed() {}
 
         public UpdateMessageSendFailed(Message message, long oldMessageId, int errorCode, String errorMessage) {
 
@@ -20084,9 +17939,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1032335779;
-        }
+        public int getConstructor() { return -1032335779; }
 
     }
 
@@ -20104,8 +17957,7 @@ public class TdApi {
         public long messageId;
         public MessageContent newContent;
 
-        public UpdateMessageContent() {
-        }
+        public UpdateMessageContent() {}
 
         public UpdateMessageContent(long chatId, long messageId, MessageContent newContent) {
 
@@ -20116,9 +17968,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 506903332;
-        }
+        public int getConstructor() { return 506903332; }
 
     }
 
@@ -20137,11 +17987,9 @@ public class TdApi {
         public long chatId;
         public long messageId;
         public int editDate;
-        @Nullable
-        public ReplyMarkup replyMarkup;
+        @Nullable public ReplyMarkup replyMarkup;
 
-        public UpdateMessageEdited() {
-        }
+        public UpdateMessageEdited() {}
 
         public UpdateMessageEdited(long chatId, long messageId, int editDate, @Nullable ReplyMarkup replyMarkup) {
 
@@ -20153,9 +18001,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -559545626;
-        }
+        public int getConstructor() { return -559545626; }
 
     }
 
@@ -20173,8 +18019,7 @@ public class TdApi {
         public long messageId;
         public int views;
 
-        public UpdateMessageViews() {
-        }
+        public UpdateMessageViews() {}
 
         public UpdateMessageViews(long chatId, long messageId, int views) {
 
@@ -20185,9 +18030,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1854131125;
-        }
+        public int getConstructor() { return -1854131125; }
 
     }
 
@@ -20204,8 +18047,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public UpdateMessageContentOpened() {
-        }
+        public UpdateMessageContentOpened() {}
 
         public UpdateMessageContentOpened(long chatId, long messageId) {
 
@@ -20215,9 +18057,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1520523131;
-        }
+        public int getConstructor() { return -1520523131; }
 
     }
 
@@ -20235,8 +18075,7 @@ public class TdApi {
         public long messageId;
         public int unreadMentionCount;
 
-        public UpdateMessageMentionRead() {
-        }
+        public UpdateMessageMentionRead() {}
 
         public UpdateMessageMentionRead(long chatId, long messageId, int unreadMentionCount) {
 
@@ -20247,9 +18086,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -252228282;
-        }
+        public int getConstructor() { return -252228282; }
 
     }
 
@@ -20266,8 +18103,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public UpdateMessageLiveLocationViewed() {
-        }
+        public UpdateMessageLiveLocationViewed() {}
 
         public UpdateMessageLiveLocationViewed(long chatId, long messageId) {
 
@@ -20277,9 +18113,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1308260971;
-        }
+        public int getConstructor() { return -1308260971; }
 
     }
 
@@ -20295,8 +18129,7 @@ public class TdApi {
 
         public Chat chat;
 
-        public UpdateNewChat() {
-        }
+        public UpdateNewChat() {}
 
         public UpdateNewChat(Chat chat) {
 
@@ -20305,9 +18138,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2075757773;
-        }
+        public int getConstructor() { return 2075757773; }
 
     }
 
@@ -20323,8 +18154,7 @@ public class TdApi {
         public long chatId;
         public String title;
 
-        public UpdateChatTitle() {
-        }
+        public UpdateChatTitle() {}
 
         public UpdateChatTitle(long chatId, String title) {
 
@@ -20334,9 +18164,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -175405660;
-        }
+        public int getConstructor() { return -175405660; }
 
     }
 
@@ -20350,11 +18178,9 @@ public class TdApi {
     public static class UpdateChatPhoto extends Update {
 
         public long chatId;
-        @Nullable
-        public ChatPhotoInfo photo;
+        @Nullable public ChatPhotoInfo photo;
 
-        public UpdateChatPhoto() {
-        }
+        public UpdateChatPhoto() {}
 
         public UpdateChatPhoto(long chatId, @Nullable ChatPhotoInfo photo) {
 
@@ -20364,9 +18190,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -324713921;
-        }
+        public int getConstructor() { return -324713921; }
 
     }
 
@@ -20382,8 +18206,7 @@ public class TdApi {
         public long chatId;
         public ChatPermissions permissions;
 
-        public UpdateChatPermissions() {
-        }
+        public UpdateChatPermissions() {}
 
         public UpdateChatPermissions(long chatId, ChatPermissions permissions) {
 
@@ -20393,9 +18216,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1622010003;
-        }
+        public int getConstructor() { return -1622010003; }
 
     }
 
@@ -20412,12 +18233,10 @@ public class TdApi {
     public static class UpdateChatLastMessage extends Update {
 
         public long chatId;
-        @Nullable
-        public Message lastMessage;
+        @Nullable public Message lastMessage;
         public ChatPosition[] positions;
 
-        public UpdateChatLastMessage() {
-        }
+        public UpdateChatLastMessage() {}
 
         public UpdateChatLastMessage(long chatId, @Nullable Message lastMessage, ChatPosition[] positions) {
 
@@ -20428,9 +18247,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -923244537;
-        }
+        public int getConstructor() { return -923244537; }
 
     }
 
@@ -20441,15 +18258,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @position - New chat position
-     * If new order is 0, then the chat needs to be removed from the list
+     *             If new order is 0, then the chat needs to be removed from the list
      */
     public static class UpdateChatPosition extends Update {
 
         public long chatId;
         public ChatPosition position;
 
-        public UpdateChatPosition() {
-        }
+        public UpdateChatPosition() {}
 
         public UpdateChatPosition(long chatId, ChatPosition position) {
 
@@ -20459,9 +18275,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -8979849;
-        }
+        public int getConstructor() { return -8979849; }
 
     }
 
@@ -20477,8 +18291,7 @@ public class TdApi {
         public long chatId;
         public boolean isMarkedAsUnread;
 
-        public UpdateChatIsMarkedAsUnread() {
-        }
+        public UpdateChatIsMarkedAsUnread() {}
 
         public UpdateChatIsMarkedAsUnread(long chatId, boolean isMarkedAsUnread) {
 
@@ -20488,9 +18301,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1468347188;
-        }
+        public int getConstructor() { return 1468347188; }
 
     }
 
@@ -20506,8 +18317,7 @@ public class TdApi {
         public long chatId;
         public boolean hasScheduledMessages;
 
-        public UpdateChatHasScheduledMessages() {
-        }
+        public UpdateChatHasScheduledMessages() {}
 
         public UpdateChatHasScheduledMessages(long chatId, boolean hasScheduledMessages) {
 
@@ -20517,9 +18327,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2064958167;
-        }
+        public int getConstructor() { return 2064958167; }
 
     }
 
@@ -20535,8 +18343,7 @@ public class TdApi {
         public long chatId;
         public boolean defaultDisableNotification;
 
-        public UpdateChatDefaultDisableNotification() {
-        }
+        public UpdateChatDefaultDisableNotification() {}
 
         public UpdateChatDefaultDisableNotification(long chatId, boolean defaultDisableNotification) {
 
@@ -20546,9 +18353,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 464087707;
-        }
+        public int getConstructor() { return 464087707; }
 
     }
 
@@ -20566,8 +18371,7 @@ public class TdApi {
         public long lastReadInboxMessageId;
         public int unreadCount;
 
-        public UpdateChatReadInbox() {
-        }
+        public UpdateChatReadInbox() {}
 
         public UpdateChatReadInbox(long chatId, long lastReadInboxMessageId, int unreadCount) {
 
@@ -20578,9 +18382,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -797952281;
-        }
+        public int getConstructor() { return -797952281; }
 
     }
 
@@ -20596,8 +18398,7 @@ public class TdApi {
         public long chatId;
         public long lastReadOutboxMessageId;
 
-        public UpdateChatReadOutbox() {
-        }
+        public UpdateChatReadOutbox() {}
 
         public UpdateChatReadOutbox(long chatId, long lastReadOutboxMessageId) {
 
@@ -20607,9 +18408,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 708334213;
-        }
+        public int getConstructor() { return 708334213; }
 
     }
 
@@ -20625,8 +18424,7 @@ public class TdApi {
         public long chatId;
         public int unreadMentionCount;
 
-        public UpdateChatUnreadMentionCount() {
-        }
+        public UpdateChatUnreadMentionCount() {}
 
         public UpdateChatUnreadMentionCount(long chatId, int unreadMentionCount) {
 
@@ -20636,9 +18434,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2131461348;
-        }
+        public int getConstructor() { return -2131461348; }
 
     }
 
@@ -20654,8 +18450,7 @@ public class TdApi {
         public long chatId;
         public ChatNotificationSettings notificationSettings;
 
-        public UpdateChatNotificationSettings() {
-        }
+        public UpdateChatNotificationSettings() {}
 
         public UpdateChatNotificationSettings(long chatId, ChatNotificationSettings notificationSettings) {
 
@@ -20665,9 +18460,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -803163050;
-        }
+        public int getConstructor() { return -803163050; }
 
     }
 
@@ -20683,8 +18476,7 @@ public class TdApi {
         public NotificationSettingsScope scope;
         public ScopeNotificationSettings notificationSettings;
 
-        public UpdateScopeNotificationSettings() {
-        }
+        public UpdateScopeNotificationSettings() {}
 
         public UpdateScopeNotificationSettings(NotificationSettingsScope scope, ScopeNotificationSettings notificationSettings) {
 
@@ -20694,9 +18486,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1203975309;
-        }
+        public int getConstructor() { return -1203975309; }
 
     }
 
@@ -20710,11 +18500,9 @@ public class TdApi {
     public static class UpdateChatActionBar extends Update {
 
         public long chatId;
-        @Nullable
-        public ChatActionBar actionBar;
+        @Nullable public ChatActionBar actionBar;
 
-        public UpdateChatActionBar() {
-        }
+        public UpdateChatActionBar() {}
 
         public UpdateChatActionBar(long chatId, @Nullable ChatActionBar actionBar) {
 
@@ -20724,9 +18512,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -643671870;
-        }
+        public int getConstructor() { return -643671870; }
 
     }
 
@@ -20736,15 +18522,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @pinnedMessageId - The new identifier of the pinned message
-     * 0 if there is no pinned message in the chat
+     *                    0 if there is no pinned message in the chat
      */
     public static class UpdateChatPinnedMessage extends Update {
 
         public long chatId;
         public long pinnedMessageId;
 
-        public UpdateChatPinnedMessage() {
-        }
+        public UpdateChatPinnedMessage() {}
 
         public UpdateChatPinnedMessage(long chatId, long pinnedMessageId) {
 
@@ -20754,9 +18539,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 802160507;
-        }
+        public int getConstructor() { return 802160507; }
 
     }
 
@@ -20767,15 +18550,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @replyMarkupMessageId - Identifier of the message from which reply markup needs to be used
-     * 0 if there is no default custom reply markup in the chat
+     *                         0 if there is no default custom reply markup in the chat
      */
     public static class UpdateChatReplyMarkup extends Update {
 
         public long chatId;
         public long replyMarkupMessageId;
 
-        public UpdateChatReplyMarkup() {
-        }
+        public UpdateChatReplyMarkup() {}
 
         public UpdateChatReplyMarkup(long chatId, long replyMarkupMessageId) {
 
@@ -20785,9 +18567,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1309386144;
-        }
+        public int getConstructor() { return 1309386144; }
 
     }
 
@@ -20804,12 +18584,10 @@ public class TdApi {
     public static class UpdateChatDraftMessage extends Update {
 
         public long chatId;
-        @Nullable
-        public DraftMessage draftMessage;
+        @Nullable public DraftMessage draftMessage;
         public ChatPosition[] positions;
 
-        public UpdateChatDraftMessage() {
-        }
+        public UpdateChatDraftMessage() {}
 
         public UpdateChatDraftMessage(long chatId, @Nullable DraftMessage draftMessage, ChatPosition[] positions) {
 
@@ -20820,9 +18598,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1455190380;
-        }
+        public int getConstructor() { return 1455190380; }
 
     }
 
@@ -20836,8 +18612,7 @@ public class TdApi {
 
         public ChatFilterInfo[] chatFilters;
 
-        public UpdateChatFilters() {
-        }
+        public UpdateChatFilters() {}
 
         public UpdateChatFilters(ChatFilterInfo[] chatFilters) {
 
@@ -20846,9 +18621,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -961518713;
-        }
+        public int getConstructor() { return -961518713; }
 
     }
 
@@ -20866,8 +18639,7 @@ public class TdApi {
         public long chatId;
         public int onlineMemberCount;
 
-        public UpdateChatOnlineMemberCount() {
-        }
+        public UpdateChatOnlineMemberCount() {}
 
         public UpdateChatOnlineMemberCount(long chatId, int onlineMemberCount) {
 
@@ -20877,9 +18649,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 487369373;
-        }
+        public int getConstructor() { return 487369373; }
 
     }
 
@@ -20895,8 +18665,7 @@ public class TdApi {
         public int notificationGroupId;
         public Notification notification;
 
-        public UpdateNotification() {
-        }
+        public UpdateNotification() {}
 
         public UpdateNotification(int notificationGroupId, Notification notification) {
 
@@ -20906,9 +18675,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1897496876;
-        }
+        public int getConstructor() { return -1897496876; }
 
     }
 
@@ -20936,8 +18703,7 @@ public class TdApi {
         public Notification[] addedNotifications;
         public int[] removedNotificationIds;
 
-        public UpdateNotificationGroup() {
-        }
+        public UpdateNotificationGroup() {}
 
         public UpdateNotificationGroup(int notificationGroupId, NotificationGroupType type, long chatId, long notificationSettingsChatId, boolean isSilent, int totalCount, Notification[] addedNotifications, int[] removedNotificationIds) {
 
@@ -20953,9 +18719,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2049005665;
-        }
+        public int getConstructor() { return -2049005665; }
 
     }
 
@@ -20971,8 +18735,7 @@ public class TdApi {
 
         public NotificationGroup[] groups;
 
-        public UpdateActiveNotifications() {
-        }
+        public UpdateActiveNotifications() {}
 
         public UpdateActiveNotifications(NotificationGroup[] groups) {
 
@@ -20981,9 +18744,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1306672221;
-        }
+        public int getConstructor() { return -1306672221; }
 
     }
 
@@ -21000,8 +18761,7 @@ public class TdApi {
         public boolean haveDelayedNotifications;
         public boolean haveUnreceivedNotifications;
 
-        public UpdateHavePendingNotifications() {
-        }
+        public UpdateHavePendingNotifications() {}
 
         public UpdateHavePendingNotifications(boolean haveDelayedNotifications, boolean haveUnreceivedNotifications) {
 
@@ -21011,9 +18771,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 179233243;
-        }
+        public int getConstructor() { return 179233243; }
 
     }
 
@@ -21033,8 +18791,7 @@ public class TdApi {
         public boolean isPermanent;
         public boolean fromCache;
 
-        public UpdateDeleteMessages() {
-        }
+        public UpdateDeleteMessages() {}
 
         public UpdateDeleteMessages(long chatId, long[] messageIds, boolean isPermanent, boolean fromCache) {
 
@@ -21046,9 +18803,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1669252686;
-        }
+        public int getConstructor() { return 1669252686; }
 
     }
 
@@ -21066,8 +18821,7 @@ public class TdApi {
         public int userId;
         public ChatAction action;
 
-        public UpdateUserChatAction() {
-        }
+        public UpdateUserChatAction() {}
 
         public UpdateUserChatAction(long chatId, int userId, ChatAction action) {
 
@@ -21078,9 +18832,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1444133514;
-        }
+        public int getConstructor() { return 1444133514; }
 
     }
 
@@ -21096,8 +18848,7 @@ public class TdApi {
         public int userId;
         public UserStatus status;
 
-        public UpdateUserStatus() {
-        }
+        public UpdateUserStatus() {}
 
         public UpdateUserStatus(int userId, UserStatus status) {
 
@@ -21107,9 +18858,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1443545195;
-        }
+        public int getConstructor() { return -1443545195; }
 
     }
 
@@ -21124,8 +18873,7 @@ public class TdApi {
 
         public User user;
 
-        public UpdateUser() {
-        }
+        public UpdateUser() {}
 
         public UpdateUser(User user) {
 
@@ -21134,9 +18882,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1183394041;
-        }
+        public int getConstructor() { return 1183394041; }
 
     }
 
@@ -21151,8 +18897,7 @@ public class TdApi {
 
         public BasicGroup basicGroup;
 
-        public UpdateBasicGroup() {
-        }
+        public UpdateBasicGroup() {}
 
         public UpdateBasicGroup(BasicGroup basicGroup) {
 
@@ -21161,9 +18906,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1003239581;
-        }
+        public int getConstructor() { return -1003239581; }
 
     }
 
@@ -21178,8 +18921,7 @@ public class TdApi {
 
         public Supergroup supergroup;
 
-        public UpdateSupergroup() {
-        }
+        public UpdateSupergroup() {}
 
         public UpdateSupergroup(Supergroup supergroup) {
 
@@ -21188,9 +18930,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -76782300;
-        }
+        public int getConstructor() { return -76782300; }
 
     }
 
@@ -21205,8 +18945,7 @@ public class TdApi {
 
         public SecretChat secretChat;
 
-        public UpdateSecretChat() {
-        }
+        public UpdateSecretChat() {}
 
         public UpdateSecretChat(SecretChat secretChat) {
 
@@ -21215,9 +18954,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1666903253;
-        }
+        public int getConstructor() { return -1666903253; }
 
     }
 
@@ -21233,8 +18970,7 @@ public class TdApi {
         public int userId;
         public UserFullInfo userFullInfo;
 
-        public UpdateUserFullInfo() {
-        }
+        public UpdateUserFullInfo() {}
 
         public UpdateUserFullInfo(int userId, UserFullInfo userFullInfo) {
 
@@ -21244,9 +18980,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 222103874;
-        }
+        public int getConstructor() { return 222103874; }
 
     }
 
@@ -21262,8 +18996,7 @@ public class TdApi {
         public int basicGroupId;
         public BasicGroupFullInfo basicGroupFullInfo;
 
-        public UpdateBasicGroupFullInfo() {
-        }
+        public UpdateBasicGroupFullInfo() {}
 
         public UpdateBasicGroupFullInfo(int basicGroupId, BasicGroupFullInfo basicGroupFullInfo) {
 
@@ -21273,9 +19006,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 924030531;
-        }
+        public int getConstructor() { return 924030531; }
 
     }
 
@@ -21291,8 +19022,7 @@ public class TdApi {
         public int supergroupId;
         public SupergroupFullInfo supergroupFullInfo;
 
-        public UpdateSupergroupFullInfo() {
-        }
+        public UpdateSupergroupFullInfo() {}
 
         public UpdateSupergroupFullInfo(int supergroupId, SupergroupFullInfo supergroupFullInfo) {
 
@@ -21302,9 +19032,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1288828758;
-        }
+        public int getConstructor() { return 1288828758; }
 
     }
 
@@ -21314,8 +19042,8 @@ public class TdApi {
      * Upon receiving this the application must show a popup with the content of the notification
      *
      * @type - Notification type
-     * If type begins with "AUTH_KEY_DROP_", then two buttons "Cancel" and "Log out" should be shown under notification
-     * If user presses the second, all local data should be destroyed using Destroy method
+     *         If type begins with "AUTH_KEY_DROP_", then two buttons "Cancel" and "Log out" should be shown under notification
+     *         If user presses the second, all local data should be destroyed using Destroy method
      * @content - Notification content
      */
     public static class UpdateServiceNotification extends Update {
@@ -21323,8 +19051,7 @@ public class TdApi {
         public String type;
         public MessageContent content;
 
-        public UpdateServiceNotification() {
-        }
+        public UpdateServiceNotification() {}
 
         public UpdateServiceNotification(String type, MessageContent content) {
 
@@ -21334,9 +19061,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1318622637;
-        }
+        public int getConstructor() { return 1318622637; }
 
     }
 
@@ -21350,8 +19075,7 @@ public class TdApi {
 
         public File file;
 
-        public UpdateFile() {
-        }
+        public UpdateFile() {}
 
         public UpdateFile(File file) {
 
@@ -21360,9 +19084,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 114132831;
-        }
+        public int getConstructor() { return 114132831; }
 
     }
 
@@ -21374,18 +19096,16 @@ public class TdApi {
      * @originalPath - The path to a file from which a new file is generated
      * @destinationPath - The path to a file that should be created and where the new file should be generated
      * @conversion - String specifying the conversion applied to the original file
-     * If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which should be downloaded by the application
+     *               If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which should be downloaded by the application
      */
     public static class UpdateFileGenerationStart extends Update {
 
         public long generationId;
-        @Nullable
-        public String originalPath;
+        @Nullable public String originalPath;
         public String destinationPath;
         public String conversion;
 
-        public UpdateFileGenerationStart() {
-        }
+        public UpdateFileGenerationStart() {}
 
         public UpdateFileGenerationStart(long generationId, @Nullable String originalPath, String destinationPath, String conversion) {
 
@@ -21397,9 +19117,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 216817388;
-        }
+        public int getConstructor() { return 216817388; }
 
     }
 
@@ -21413,8 +19131,7 @@ public class TdApi {
 
         public long generationId;
 
-        public UpdateFileGenerationStop() {
-        }
+        public UpdateFileGenerationStop() {}
 
         public UpdateFileGenerationStop(long generationId) {
 
@@ -21423,9 +19140,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1894449685;
-        }
+        public int getConstructor() { return -1894449685; }
 
     }
 
@@ -21439,8 +19154,7 @@ public class TdApi {
 
         public Call call;
 
-        public UpdateCall() {
-        }
+        public UpdateCall() {}
 
         public UpdateCall(Call call) {
 
@@ -21449,9 +19163,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1337184477;
-        }
+        public int getConstructor() { return 1337184477; }
 
     }
 
@@ -21467,8 +19179,7 @@ public class TdApi {
         public int callId;
         public byte[] data;
 
-        public UpdateNewCallSignalingData() {
-        }
+        public UpdateNewCallSignalingData() {}
 
         public UpdateNewCallSignalingData(int callId, byte[] data) {
 
@@ -21478,9 +19189,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 583634317;
-        }
+        public int getConstructor() { return 583634317; }
 
     }
 
@@ -21496,8 +19205,7 @@ public class TdApi {
         public UserPrivacySetting setting;
         public UserPrivacySettingRules rules;
 
-        public UpdateUserPrivacySettingRules() {
-        }
+        public UpdateUserPrivacySettingRules() {}
 
         public UpdateUserPrivacySettingRules(UserPrivacySetting setting, UserPrivacySettingRules rules) {
 
@@ -21507,9 +19215,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -912960778;
-        }
+        public int getConstructor() { return -912960778; }
 
     }
 
@@ -21528,8 +19234,7 @@ public class TdApi {
         public int unreadCount;
         public int unreadUnmutedCount;
 
-        public UpdateUnreadMessageCount() {
-        }
+        public UpdateUnreadMessageCount() {}
 
         public UpdateUnreadMessageCount(ChatList chatList, int unreadCount, int unreadUnmutedCount) {
 
@@ -21540,9 +19245,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 78987721;
-        }
+        public int getConstructor() { return 78987721; }
 
     }
 
@@ -21568,8 +19271,7 @@ public class TdApi {
         public int markedAsUnreadCount;
         public int markedAsUnreadUnmutedCount;
 
-        public UpdateUnreadChatCount() {
-        }
+        public UpdateUnreadChatCount() {}
 
         public UpdateUnreadChatCount(ChatList chatList, int totalCount, int unreadCount, int unreadUnmutedCount, int markedAsUnreadCount, int markedAsUnreadUnmutedCount) {
 
@@ -21583,9 +19285,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1994494530;
-        }
+        public int getConstructor() { return 1994494530; }
 
     }
 
@@ -21601,8 +19301,7 @@ public class TdApi {
         public String name;
         public OptionValue value;
 
-        public UpdateOption() {
-        }
+        public UpdateOption() {}
 
         public UpdateOption(String name, OptionValue value) {
 
@@ -21612,9 +19311,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 900822020;
-        }
+        public int getConstructor() { return 900822020; }
 
     }
 
@@ -21628,8 +19325,7 @@ public class TdApi {
 
         public StickerSet stickerSet;
 
-        public UpdateStickerSet() {
-        }
+        public UpdateStickerSet() {}
 
         public UpdateStickerSet(StickerSet stickerSet) {
 
@@ -21638,9 +19334,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1879268812;
-        }
+        public int getConstructor() { return 1879268812; }
 
     }
 
@@ -21656,8 +19350,7 @@ public class TdApi {
         public boolean isMasks;
         public long[] stickerSetIds;
 
-        public UpdateInstalledStickerSets() {
-        }
+        public UpdateInstalledStickerSets() {}
 
         public UpdateInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
 
@@ -21667,9 +19360,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1125575977;
-        }
+        public int getConstructor() { return 1125575977; }
 
     }
 
@@ -21683,8 +19374,7 @@ public class TdApi {
 
         public StickerSets stickerSets;
 
-        public UpdateTrendingStickerSets() {
-        }
+        public UpdateTrendingStickerSets() {}
 
         public UpdateTrendingStickerSets(StickerSets stickerSets) {
 
@@ -21693,9 +19383,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 450714593;
-        }
+        public int getConstructor() { return 450714593; }
 
     }
 
@@ -21711,8 +19399,7 @@ public class TdApi {
         public boolean isAttached;
         public int[] stickerIds;
 
-        public UpdateRecentStickers() {
-        }
+        public UpdateRecentStickers() {}
 
         public UpdateRecentStickers(boolean isAttached, int[] stickerIds) {
 
@@ -21722,9 +19409,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1906403540;
-        }
+        public int getConstructor() { return 1906403540; }
 
     }
 
@@ -21738,8 +19423,7 @@ public class TdApi {
 
         public int[] stickerIds;
 
-        public UpdateFavoriteStickers() {
-        }
+        public UpdateFavoriteStickers() {}
 
         public UpdateFavoriteStickers(int[] stickerIds) {
 
@@ -21748,9 +19432,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1662240999;
-        }
+        public int getConstructor() { return 1662240999; }
 
     }
 
@@ -21764,8 +19446,7 @@ public class TdApi {
 
         public int[] animationIds;
 
-        public UpdateSavedAnimations() {
-        }
+        public UpdateSavedAnimations() {}
 
         public UpdateSavedAnimations(int[] animationIds) {
 
@@ -21774,9 +19455,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 65563814;
-        }
+        public int getConstructor() { return 65563814; }
 
     }
 
@@ -21790,11 +19469,9 @@ public class TdApi {
     public static class UpdateSelectedBackground extends Update {
 
         public boolean forDarkTheme;
-        @Nullable
-        public Background background;
+        @Nullable public Background background;
 
-        public UpdateSelectedBackground() {
-        }
+        public UpdateSelectedBackground() {}
 
         public UpdateSelectedBackground(boolean forDarkTheme, @Nullable Background background) {
 
@@ -21804,9 +19481,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1715658659;
-        }
+        public int getConstructor() { return -1715658659; }
 
     }
 
@@ -21824,8 +19499,7 @@ public class TdApi {
         public String languagePackId;
         public LanguagePackString[] strings;
 
-        public UpdateLanguagePackStrings() {
-        }
+        public UpdateLanguagePackStrings() {}
 
         public UpdateLanguagePackStrings(String localizationTarget, String languagePackId, LanguagePackString[] strings) {
 
@@ -21836,9 +19510,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1056319886;
-        }
+        public int getConstructor() { return -1056319886; }
 
     }
 
@@ -21853,8 +19525,7 @@ public class TdApi {
 
         public ConnectionState state;
 
-        public UpdateConnectionState() {
-        }
+        public UpdateConnectionState() {}
 
         public UpdateConnectionState(ConnectionState state) {
 
@@ -21863,9 +19534,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1469292078;
-        }
+        public int getConstructor() { return 1469292078; }
 
     }
 
@@ -21882,8 +19551,7 @@ public class TdApi {
         public String termsOfServiceId;
         public TermsOfService termsOfService;
 
-        public UpdateTermsOfService() {
-        }
+        public UpdateTermsOfService() {}
 
         public UpdateTermsOfService(String termsOfServiceId, TermsOfService termsOfService) {
 
@@ -21893,9 +19561,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1304640162;
-        }
+        public int getConstructor() { return -1304640162; }
 
     }
 
@@ -21910,8 +19576,7 @@ public class TdApi {
 
         public ChatNearby[] usersNearby;
 
-        public UpdateUsersNearby() {
-        }
+        public UpdateUsersNearby() {}
 
         public UpdateUsersNearby(ChatNearby[] usersNearby) {
 
@@ -21920,9 +19585,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1517109163;
-        }
+        public int getConstructor() { return -1517109163; }
 
     }
 
@@ -21936,8 +19599,7 @@ public class TdApi {
 
         public String[] emojis;
 
-        public UpdateDiceEmojis() {
-        }
+        public UpdateDiceEmojis() {}
 
         public UpdateDiceEmojis(String[] emojis) {
 
@@ -21946,9 +19608,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1069066940;
-        }
+        public int getConstructor() { return -1069066940; }
 
     }
 
@@ -21964,8 +19624,7 @@ public class TdApi {
         public String provider;
         public String[] emojis;
 
-        public UpdateAnimationSearchParameters() {
-        }
+        public UpdateAnimationSearchParameters() {}
 
         public UpdateAnimationSearchParameters(String provider, String[] emojis) {
 
@@ -21975,9 +19634,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1144983202;
-        }
+        public int getConstructor() { return -1144983202; }
 
     }
 
@@ -21993,8 +19650,7 @@ public class TdApi {
         public SuggestedAction[] addedActions;
         public SuggestedAction[] removedActions;
 
-        public UpdateSuggestedActions() {
-        }
+        public UpdateSuggestedActions() {}
 
         public UpdateSuggestedActions(SuggestedAction[] addedActions, SuggestedAction[] removedActions) {
 
@@ -22004,9 +19660,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1459452346;
-        }
+        public int getConstructor() { return 1459452346; }
 
     }
 
@@ -22025,13 +19679,11 @@ public class TdApi {
 
         public long id;
         public int senderUserId;
-        @Nullable
-        public Location userLocation;
+        @Nullable public Location userLocation;
         public String query;
         public String offset;
 
-        public UpdateNewInlineQuery() {
-        }
+        public UpdateNewInlineQuery() {}
 
         public UpdateNewInlineQuery(long id, int senderUserId, @Nullable Location userLocation, String query, String offset) {
 
@@ -22044,9 +19696,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2064730634;
-        }
+        public int getConstructor() { return 2064730634; }
 
     }
 
@@ -22064,14 +19714,12 @@ public class TdApi {
     public static class UpdateNewChosenInlineResult extends Update {
 
         public int senderUserId;
-        @Nullable
-        public Location userLocation;
+        @Nullable public Location userLocation;
         public String query;
         public String resultId;
         public String inlineMessageId;
 
-        public UpdateNewChosenInlineResult() {
-        }
+        public UpdateNewChosenInlineResult() {}
 
         public UpdateNewChosenInlineResult(int senderUserId, @Nullable Location userLocation, String query, String resultId, String inlineMessageId) {
 
@@ -22084,9 +19732,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 527526965;
-        }
+        public int getConstructor() { return 527526965; }
 
     }
 
@@ -22111,8 +19757,7 @@ public class TdApi {
         public long chatInstance;
         public CallbackQueryPayload payload;
 
-        public UpdateNewCallbackQuery() {
-        }
+        public UpdateNewCallbackQuery() {}
 
         public UpdateNewCallbackQuery(long id, int senderUserId, long chatId, long messageId, long chatInstance, CallbackQueryPayload payload) {
 
@@ -22126,9 +19771,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2044226370;
-        }
+        public int getConstructor() { return -2044226370; }
 
     }
 
@@ -22151,8 +19794,7 @@ public class TdApi {
         public long chatInstance;
         public CallbackQueryPayload payload;
 
-        public UpdateNewInlineCallbackQuery() {
-        }
+        public UpdateNewInlineCallbackQuery() {}
 
         public UpdateNewInlineCallbackQuery(long id, int senderUserId, String inlineMessageId, long chatInstance, CallbackQueryPayload payload) {
 
@@ -22165,9 +19807,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1879154829;
-        }
+        public int getConstructor() { return -1879154829; }
 
     }
 
@@ -22189,8 +19829,7 @@ public class TdApi {
         public String invoicePayload;
         public Address shippingAddress;
 
-        public UpdateNewShippingQuery() {
-        }
+        public UpdateNewShippingQuery() {}
 
         public UpdateNewShippingQuery(long id, int senderUserId, String invoicePayload, Address shippingAddress) {
 
@@ -22202,9 +19841,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -817474682;
-        }
+        public int getConstructor() { return -817474682; }
 
     }
 
@@ -22220,7 +19857,7 @@ public class TdApi {
      * @totalAmount - Total price for the product, in the minimal quantity of the currency
      * @invoicePayload - Invoice payload
      * @shippingOptionId - Identifier of a shipping option chosen by the user
-     * May be empty if not applicable
+     *                     May be empty if not applicable
      * @orderInfo - Information about the order
      */
     public static class UpdateNewPreCheckoutQuery extends Update {
@@ -22230,13 +19867,10 @@ public class TdApi {
         public String currency;
         public long totalAmount;
         public byte[] invoicePayload;
-        @Nullable
-        public String shippingOptionId;
-        @Nullable
-        public OrderInfo orderInfo;
+        @Nullable public String shippingOptionId;
+        @Nullable public OrderInfo orderInfo;
 
-        public UpdateNewPreCheckoutQuery() {
-        }
+        public UpdateNewPreCheckoutQuery() {}
 
         public UpdateNewPreCheckoutQuery(long id, int senderUserId, String currency, long totalAmount, byte[] invoicePayload, @Nullable String shippingOptionId, @Nullable OrderInfo orderInfo) {
 
@@ -22251,9 +19885,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 87964006;
-        }
+        public int getConstructor() { return 87964006; }
 
     }
 
@@ -22268,8 +19900,7 @@ public class TdApi {
 
         public String event;
 
-        public UpdateNewCustomEvent() {
-        }
+        public UpdateNewCustomEvent() {}
 
         public UpdateNewCustomEvent(String event) {
 
@@ -22278,9 +19909,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1994222092;
-        }
+        public int getConstructor() { return 1994222092; }
 
     }
 
@@ -22299,8 +19928,7 @@ public class TdApi {
         public String data;
         public int timeout;
 
-        public UpdateNewCustomQuery() {
-        }
+        public UpdateNewCustomQuery() {}
 
         public UpdateNewCustomQuery(long id, String data, int timeout) {
 
@@ -22311,9 +19939,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -687670874;
-        }
+        public int getConstructor() { return -687670874; }
 
     }
 
@@ -22328,8 +19954,7 @@ public class TdApi {
 
         public Poll poll;
 
-        public UpdatePoll() {
-        }
+        public UpdatePoll() {}
 
         public UpdatePoll(Poll poll) {
 
@@ -22338,9 +19963,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1771342902;
-        }
+        public int getConstructor() { return -1771342902; }
 
     }
 
@@ -22359,8 +19982,7 @@ public class TdApi {
         public int userId;
         public int[] optionIds;
 
-        public UpdatePollAnswer() {
-        }
+        public UpdatePollAnswer() {}
 
         public UpdatePollAnswer(long pollId, int userId, int[] optionIds) {
 
@@ -22371,9 +19993,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1606139344;
-        }
+        public int getConstructor() { return 1606139344; }
 
     }
 
@@ -22387,8 +20007,7 @@ public class TdApi {
 
         public Update[] updates;
 
-        public Updates() {
-        }
+        public Updates() {}
 
         public Updates(Update[] updates) {
 
@@ -22397,9 +20016,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 475842347;
-        }
+        public int getConstructor() { return 475842347; }
 
     }
 
@@ -22407,8 +20024,7 @@ public class TdApi {
     /**
      * Describes a stream to which TDLib internal log is written
      */
-    public static abstract class LogStream extends Object {
-    }
+    public static abstract class LogStream extends Object {}
 
     /**
      * The log is written to stderr or an OS specific log
@@ -22416,9 +20032,7 @@ public class TdApi {
     public static class LogStreamDefault extends LogStream {
 
         @Override
-        public int getConstructor() {
-            return 1390581436;
-        }
+        public int getConstructor() { return 1390581436; }
 
     }
 
@@ -22434,8 +20048,7 @@ public class TdApi {
         public String path;
         public long maxFileSize;
 
-        public LogStreamFile() {
-        }
+        public LogStreamFile() {}
 
         public LogStreamFile(String path, long maxFileSize) {
 
@@ -22445,9 +20058,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1880085930;
-        }
+        public int getConstructor() { return -1880085930; }
 
     }
 
@@ -22458,9 +20069,7 @@ public class TdApi {
     public static class LogStreamEmpty extends LogStream {
 
         @Override
-        public int getConstructor() {
-            return -499912244;
-        }
+        public int getConstructor() { return -499912244; }
 
     }
 
@@ -22474,8 +20083,7 @@ public class TdApi {
 
         public int verbosityLevel;
 
-        public LogVerbosityLevel() {
-        }
+        public LogVerbosityLevel() {}
 
         public LogVerbosityLevel(int verbosityLevel) {
 
@@ -22484,9 +20092,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1734624234;
-        }
+        public int getConstructor() { return 1734624234; }
 
     }
 
@@ -22500,8 +20106,7 @@ public class TdApi {
 
         public String[] tags;
 
-        public LogTags() {
-        }
+        public LogTags() {}
 
         public LogTags(String[] tags) {
 
@@ -22510,9 +20115,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1604930601;
-        }
+        public int getConstructor() { return -1604930601; }
 
     }
 
@@ -22527,8 +20130,7 @@ public class TdApi {
 
         public int value;
 
-        public TestInt() {
-        }
+        public TestInt() {}
 
         public TestInt(int value) {
 
@@ -22537,9 +20139,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -574804983;
-        }
+        public int getConstructor() { return -574804983; }
 
     }
 
@@ -22554,8 +20154,7 @@ public class TdApi {
 
         public String value;
 
-        public TestString() {
-        }
+        public TestString() {}
 
         public TestString(String value) {
 
@@ -22564,9 +20163,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -27891572;
-        }
+        public int getConstructor() { return -27891572; }
 
     }
 
@@ -22581,8 +20178,7 @@ public class TdApi {
 
         public byte[] value;
 
-        public TestBytes() {
-        }
+        public TestBytes() {}
 
         public TestBytes(byte[] value) {
 
@@ -22591,9 +20187,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1541225250;
-        }
+        public int getConstructor() { return -1541225250; }
 
     }
 
@@ -22608,8 +20202,7 @@ public class TdApi {
 
         public int[] value;
 
-        public TestVectorInt() {
-        }
+        public TestVectorInt() {}
 
         public TestVectorInt(int[] value) {
 
@@ -22618,9 +20211,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 593682027;
-        }
+        public int getConstructor() { return 593682027; }
 
     }
 
@@ -22635,8 +20226,7 @@ public class TdApi {
 
         public TestInt[] value;
 
-        public TestVectorIntObject() {
-        }
+        public TestVectorIntObject() {}
 
         public TestVectorIntObject(TestInt[] value) {
 
@@ -22645,9 +20235,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 125891546;
-        }
+        public int getConstructor() { return 125891546; }
 
     }
 
@@ -22662,8 +20250,7 @@ public class TdApi {
 
         public String[] value;
 
-        public TestVectorString() {
-        }
+        public TestVectorString() {}
 
         public TestVectorString(String[] value) {
 
@@ -22672,9 +20259,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 79339995;
-        }
+        public int getConstructor() { return 79339995; }
 
     }
 
@@ -22689,8 +20274,7 @@ public class TdApi {
 
         public TestString[] value;
 
-        public TestVectorStringObject() {
-        }
+        public TestVectorStringObject() {}
 
         public TestVectorStringObject(TestString[] value) {
 
@@ -22699,9 +20283,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 80780537;
-        }
+        public int getConstructor() { return 80780537; }
 
     }
 
@@ -22716,9 +20298,7 @@ public class TdApi {
     public static class GetAuthorizationState extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1949154877;
-        }
+        public int getConstructor() { return 1949154877; }
 
     }
 
@@ -22733,8 +20313,7 @@ public class TdApi {
 
         public TdlibParameters parameters;
 
-        public SetTdlibParameters() {
-        }
+        public SetTdlibParameters() {}
 
         public SetTdlibParameters(TdlibParameters parameters) {
 
@@ -22743,9 +20322,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1912557997;
-        }
+        public int getConstructor() { return -1912557997; }
 
     }
 
@@ -22760,8 +20337,7 @@ public class TdApi {
 
         public byte[] encryptionKey;
 
-        public CheckDatabaseEncryptionKey() {
-        }
+        public CheckDatabaseEncryptionKey() {}
 
         public CheckDatabaseEncryptionKey(byte[] encryptionKey) {
 
@@ -22770,9 +20346,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1018769307;
-        }
+        public int getConstructor() { return 1018769307; }
 
     }
 
@@ -22789,8 +20363,7 @@ public class TdApi {
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
 
-        public SetAuthenticationPhoneNumber() {
-        }
+        public SetAuthenticationPhoneNumber() {}
 
         public SetAuthenticationPhoneNumber(String phoneNumber, PhoneNumberAuthenticationSettings settings) {
 
@@ -22800,9 +20373,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 868276259;
-        }
+        public int getConstructor() { return 868276259; }
 
     }
 
@@ -22814,9 +20385,7 @@ public class TdApi {
     public static class ResendAuthenticationCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return -814377191;
-        }
+        public int getConstructor() { return -814377191; }
 
     }
 
@@ -22831,8 +20400,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckAuthenticationCode() {
-        }
+        public CheckAuthenticationCode() {}
 
         public CheckAuthenticationCode(String code) {
 
@@ -22841,9 +20409,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -302103382;
-        }
+        public int getConstructor() { return -302103382; }
 
     }
 
@@ -22858,8 +20424,7 @@ public class TdApi {
 
         public int[] otherUserIds;
 
-        public RequestQrCodeAuthentication() {
-        }
+        public RequestQrCodeAuthentication() {}
 
         public RequestQrCodeAuthentication(int[] otherUserIds) {
 
@@ -22868,9 +20433,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -104224560;
-        }
+        public int getConstructor() { return -104224560; }
 
     }
 
@@ -22887,8 +20450,7 @@ public class TdApi {
         public String firstName;
         public String lastName;
 
-        public RegisterUser() {
-        }
+        public RegisterUser() {}
 
         public RegisterUser(String firstName, String lastName) {
 
@@ -22898,9 +20460,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -109994467;
-        }
+        public int getConstructor() { return -109994467; }
 
     }
 
@@ -22915,8 +20475,7 @@ public class TdApi {
 
         public String password;
 
-        public CheckAuthenticationPassword() {
-        }
+        public CheckAuthenticationPassword() {}
 
         public CheckAuthenticationPassword(String password) {
 
@@ -22925,9 +20484,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2025698400;
-        }
+        public int getConstructor() { return -2025698400; }
 
     }
 
@@ -22939,9 +20496,7 @@ public class TdApi {
     public static class RequestAuthenticationPasswordRecovery extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1393896118;
-        }
+        public int getConstructor() { return 1393896118; }
 
     }
 
@@ -22956,8 +20511,7 @@ public class TdApi {
 
         public String recoveryCode;
 
-        public RecoverAuthenticationPassword() {
-        }
+        public RecoverAuthenticationPassword() {}
 
         public RecoverAuthenticationPassword(String recoveryCode) {
 
@@ -22966,9 +20520,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 787436412;
-        }
+        public int getConstructor() { return 787436412; }
 
     }
 
@@ -22985,8 +20537,7 @@ public class TdApi {
 
         public String token;
 
-        public CheckAuthenticationBotToken() {
-        }
+        public CheckAuthenticationBotToken() {}
 
         public CheckAuthenticationBotToken(String token) {
 
@@ -22995,9 +20546,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 639321206;
-        }
+        public int getConstructor() { return 639321206; }
 
     }
 
@@ -23011,9 +20560,7 @@ public class TdApi {
     public static class LogOut extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1581923301;
-        }
+        public int getConstructor() { return -1581923301; }
 
     }
 
@@ -23027,9 +20574,7 @@ public class TdApi {
     public static class Close extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1187782273;
-        }
+        public int getConstructor() { return -1187782273; }
 
     }
 
@@ -23044,9 +20589,7 @@ public class TdApi {
     public static class Destroy extends Function {
 
         @Override
-        public int getConstructor() {
-            return 685331274;
-        }
+        public int getConstructor() { return 685331274; }
 
     }
 
@@ -23056,14 +20599,13 @@ public class TdApi {
      * Returns created session on success
      *
      * @link - A link from a QR code
-     * The link must be scanned by the in-app camera
+     *         The link must be scanned by the in-app camera
      */
     public static class ConfirmQrCodeAuthentication extends Function {
 
         public String link;
 
-        public ConfirmQrCodeAuthentication() {
-        }
+        public ConfirmQrCodeAuthentication() {}
 
         public ConfirmQrCodeAuthentication(String link) {
 
@@ -23072,9 +20614,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -376199379;
-        }
+        public int getConstructor() { return -376199379; }
 
     }
 
@@ -23088,9 +20628,7 @@ public class TdApi {
     public static class GetCurrentState extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1191417719;
-        }
+        public int getConstructor() { return -1191417719; }
 
     }
 
@@ -23105,8 +20643,7 @@ public class TdApi {
 
         public byte[] newEncryptionKey;
 
-        public SetDatabaseEncryptionKey() {
-        }
+        public SetDatabaseEncryptionKey() {}
 
         public SetDatabaseEncryptionKey(byte[] newEncryptionKey) {
 
@@ -23115,9 +20652,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1204599371;
-        }
+        public int getConstructor() { return -1204599371; }
 
     }
 
@@ -23128,9 +20663,7 @@ public class TdApi {
     public static class GetPasswordState extends Function {
 
         @Override
-        public int getConstructor() {
-            return -174752904;
-        }
+        public int getConstructor() { return -174752904; }
 
     }
 
@@ -23141,7 +20674,7 @@ public class TdApi {
      *
      * @oldPassword - Previous password of the user
      * @newPassword - New password of the user
-     * May be empty to remove the password
+     *                May be empty to remove the password
      * @newHint - New password hint
      * @setRecoveryEmailAddress - Pass true if the recovery email address should be changed
      * @newRecoveryEmailAddress - New recovery email address
@@ -23150,14 +20683,11 @@ public class TdApi {
 
         public String oldPassword;
         public String newPassword;
-        @Nullable
-        public String newHint;
+        @Nullable public String newHint;
         public boolean setRecoveryEmailAddress;
-        @Nullable
-        public String newRecoveryEmailAddress;
+        @Nullable public String newRecoveryEmailAddress;
 
-        public SetPassword() {
-        }
+        public SetPassword() {}
 
         public SetPassword(String oldPassword, String newPassword, @Nullable String newHint, boolean setRecoveryEmailAddress, @Nullable String newRecoveryEmailAddress) {
 
@@ -23170,9 +20700,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1193589027;
-        }
+        public int getConstructor() { return -1193589027; }
 
     }
 
@@ -23187,8 +20715,7 @@ public class TdApi {
 
         public String password;
 
-        public GetRecoveryEmailAddress() {
-        }
+        public GetRecoveryEmailAddress() {}
 
         public GetRecoveryEmailAddress(String password) {
 
@@ -23197,9 +20724,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1594770947;
-        }
+        public int getConstructor() { return -1594770947; }
 
     }
 
@@ -23217,8 +20742,7 @@ public class TdApi {
         public String password;
         public String newRecoveryEmailAddress;
 
-        public SetRecoveryEmailAddress() {
-        }
+        public SetRecoveryEmailAddress() {}
 
         public SetRecoveryEmailAddress(String password, String newRecoveryEmailAddress) {
 
@@ -23228,9 +20752,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1981836385;
-        }
+        public int getConstructor() { return -1981836385; }
 
     }
 
@@ -23244,8 +20766,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckRecoveryEmailAddressCode() {
-        }
+        public CheckRecoveryEmailAddressCode() {}
 
         public CheckRecoveryEmailAddressCode(String code) {
 
@@ -23254,9 +20775,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1997039589;
-        }
+        public int getConstructor() { return -1997039589; }
 
     }
 
@@ -23267,9 +20786,7 @@ public class TdApi {
     public static class ResendRecoveryEmailAddressCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return 433483548;
-        }
+        public int getConstructor() { return 433483548; }
 
     }
 
@@ -23280,9 +20797,7 @@ public class TdApi {
     public static class RequestPasswordRecovery extends Function {
 
         @Override
-        public int getConstructor() {
-            return -13777582;
-        }
+        public int getConstructor() { return -13777582; }
 
     }
 
@@ -23296,8 +20811,7 @@ public class TdApi {
 
         public String recoveryCode;
 
-        public RecoverPassword() {
-        }
+        public RecoverPassword() {}
 
         public RecoverPassword(String recoveryCode) {
 
@@ -23306,9 +20820,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1660185903;
-        }
+        public int getConstructor() { return 1660185903; }
 
     }
 
@@ -23318,15 +20830,14 @@ public class TdApi {
      *
      * @password - Persistent user password
      * @validFor - Time during which the temporary password will be valid, in seconds
-     * Should be between 60 and 86400
+     *             Should be between 60 and 86400
      */
     public static class CreateTemporaryPassword extends Function {
 
         public String password;
         public int validFor;
 
-        public CreateTemporaryPassword() {
-        }
+        public CreateTemporaryPassword() {}
 
         public CreateTemporaryPassword(String password, int validFor) {
 
@@ -23336,9 +20847,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1626509434;
-        }
+        public int getConstructor() { return -1626509434; }
 
     }
 
@@ -23349,9 +20858,7 @@ public class TdApi {
     public static class GetTemporaryPasswordState extends Function {
 
         @Override
-        public int getConstructor() {
-            return -12670830;
-        }
+        public int getConstructor() { return -12670830; }
 
     }
 
@@ -23362,9 +20869,7 @@ public class TdApi {
     public static class GetMe extends Function {
 
         @Override
-        public int getConstructor() {
-            return -191516033;
-        }
+        public int getConstructor() { return -191516033; }
 
     }
 
@@ -23379,8 +20884,7 @@ public class TdApi {
 
         public int userId;
 
-        public GetUser() {
-        }
+        public GetUser() {}
 
         public GetUser(int userId) {
 
@@ -23389,9 +20893,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -47586017;
-        }
+        public int getConstructor() { return -47586017; }
 
     }
 
@@ -23405,8 +20907,7 @@ public class TdApi {
 
         public int userId;
 
-        public GetUserFullInfo() {
-        }
+        public GetUserFullInfo() {}
 
         public GetUserFullInfo(int userId) {
 
@@ -23415,9 +20916,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -655443263;
-        }
+        public int getConstructor() { return -655443263; }
 
     }
 
@@ -23432,8 +20931,7 @@ public class TdApi {
 
         public int basicGroupId;
 
-        public GetBasicGroup() {
-        }
+        public GetBasicGroup() {}
 
         public GetBasicGroup(int basicGroupId) {
 
@@ -23442,9 +20940,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 561775568;
-        }
+        public int getConstructor() { return 561775568; }
 
     }
 
@@ -23458,8 +20954,7 @@ public class TdApi {
 
         public int basicGroupId;
 
-        public GetBasicGroupFullInfo() {
-        }
+        public GetBasicGroupFullInfo() {}
 
         public GetBasicGroupFullInfo(int basicGroupId) {
 
@@ -23468,9 +20963,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1770517905;
-        }
+        public int getConstructor() { return 1770517905; }
 
     }
 
@@ -23485,8 +20978,7 @@ public class TdApi {
 
         public int supergroupId;
 
-        public GetSupergroup() {
-        }
+        public GetSupergroup() {}
 
         public GetSupergroup(int supergroupId) {
 
@@ -23495,9 +20987,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2063063706;
-        }
+        public int getConstructor() { return -2063063706; }
 
     }
 
@@ -23511,8 +21001,7 @@ public class TdApi {
 
         public int supergroupId;
 
-        public GetSupergroupFullInfo() {
-        }
+        public GetSupergroupFullInfo() {}
 
         public GetSupergroupFullInfo(int supergroupId) {
 
@@ -23521,9 +21010,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1150331262;
-        }
+        public int getConstructor() { return -1150331262; }
 
     }
 
@@ -23538,8 +21025,7 @@ public class TdApi {
 
         public int secretChatId;
 
-        public GetSecretChat() {
-        }
+        public GetSecretChat() {}
 
         public GetSecretChat(int secretChatId) {
 
@@ -23548,9 +21034,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 40599169;
-        }
+        public int getConstructor() { return 40599169; }
 
     }
 
@@ -23564,8 +21048,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GetChat() {
-        }
+        public GetChat() {}
 
         public GetChat(long chatId) {
 
@@ -23574,9 +21057,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1866601536;
-        }
+        public int getConstructor() { return 1866601536; }
 
     }
 
@@ -23592,8 +21073,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetMessage() {
-        }
+        public GetMessage() {}
 
         public GetMessage(long chatId, long messageId) {
 
@@ -23603,9 +21083,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1821196160;
-        }
+        public int getConstructor() { return -1821196160; }
 
     }
 
@@ -23622,8 +21100,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetMessageLocally() {
-        }
+        public GetMessageLocally() {}
 
         public GetMessageLocally(long chatId, long messageId) {
 
@@ -23633,9 +21110,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -603575444;
-        }
+        public int getConstructor() { return -603575444; }
 
     }
 
@@ -23651,8 +21126,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetRepliedMessage() {
-        }
+        public GetRepliedMessage() {}
 
         public GetRepliedMessage(long chatId, long messageId) {
 
@@ -23662,9 +21136,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -641918531;
-        }
+        public int getConstructor() { return -641918531; }
 
     }
 
@@ -23678,8 +21150,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GetChatPinnedMessage() {
-        }
+        public GetChatPinnedMessage() {}
 
         public GetChatPinnedMessage(long chatId) {
 
@@ -23688,9 +21159,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 359865008;
-        }
+        public int getConstructor() { return 359865008; }
 
     }
 
@@ -23707,8 +21176,7 @@ public class TdApi {
         public long chatId;
         public long[] messageIds;
 
-        public GetMessages() {
-        }
+        public GetMessages() {}
 
         public GetMessages(long chatId, long[] messageIds) {
 
@@ -23718,9 +21186,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 425299338;
-        }
+        public int getConstructor() { return 425299338; }
 
     }
 
@@ -23735,8 +21201,7 @@ public class TdApi {
 
         public int fileId;
 
-        public GetFile() {
-        }
+        public GetFile() {}
 
         public GetFile(int fileId) {
 
@@ -23745,9 +21210,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1553923406;
-        }
+        public int getConstructor() { return 1553923406; }
 
     }
 
@@ -23768,8 +21231,7 @@ public class TdApi {
         public String remoteFileId;
         public FileType fileType;
 
-        public GetRemoteFile() {
-        }
+        public GetRemoteFile() {}
 
         public GetRemoteFile(String remoteFileId, FileType fileType) {
 
@@ -23779,9 +21241,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2137204530;
-        }
+        public int getConstructor() { return 2137204530; }
 
     }
 
@@ -23796,7 +21256,7 @@ public class TdApi {
      * @offsetOrder - Chat order to return chats from
      * @offsetChatId - Chat identifier to return chats from
      * @limit - The maximum number of chats to be returned
-     * It is possible that fewer chats than the limit are returned even if the end of the list is not reached
+     *          It is possible that fewer chats than the limit are returned even if the end of the list is not reached
      */
     public static class GetChats extends Function {
 
@@ -23805,8 +21265,7 @@ public class TdApi {
         public long offsetChatId;
         public int limit;
 
-        public GetChats() {
-        }
+        public GetChats() {}
 
         public GetChats(ChatList chatList, long offsetOrder, long offsetChatId, int limit) {
 
@@ -23818,9 +21277,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1847129537;
-        }
+        public int getConstructor() { return 1847129537; }
 
     }
 
@@ -23837,8 +21294,7 @@ public class TdApi {
 
         public String username;
 
-        public SearchPublicChat() {
-        }
+        public SearchPublicChat() {}
 
         public SearchPublicChat(String username) {
 
@@ -23847,9 +21303,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 857135533;
-        }
+        public int getConstructor() { return 857135533; }
 
     }
 
@@ -23867,8 +21321,7 @@ public class TdApi {
 
         public String query;
 
-        public SearchPublicChats() {
-        }
+        public SearchPublicChats() {}
 
         public SearchPublicChats(String query) {
 
@@ -23877,9 +21330,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 970385337;
-        }
+        public int getConstructor() { return 970385337; }
 
     }
 
@@ -23889,7 +21340,7 @@ public class TdApi {
      * Returns chats in the order seen in the main chat list
      *
      * @query - Query to search for
-     * If the query is empty, returns up to 20 recently found chats
+     *          If the query is empty, returns up to 20 recently found chats
      * @limit - The maximum number of chats to be returned
      */
     public static class SearchChats extends Function {
@@ -23897,8 +21348,7 @@ public class TdApi {
         public String query;
         public int limit;
 
-        public SearchChats() {
-        }
+        public SearchChats() {}
 
         public SearchChats(String query, int limit) {
 
@@ -23908,9 +21358,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1879787060;
-        }
+        public int getConstructor() { return -1879787060; }
 
     }
 
@@ -23927,8 +21375,7 @@ public class TdApi {
         public String query;
         public int limit;
 
-        public SearchChatsOnServer() {
-        }
+        public SearchChatsOnServer() {}
 
         public SearchChatsOnServer(String query, int limit) {
 
@@ -23938,9 +21385,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1158402188;
-        }
+        public int getConstructor() { return -1158402188; }
 
     }
 
@@ -23956,8 +21401,7 @@ public class TdApi {
 
         public Location location;
 
-        public SearchChatsNearby() {
-        }
+        public SearchChatsNearby() {}
 
         public SearchChatsNearby(Location location) {
 
@@ -23966,9 +21410,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -196753377;
-        }
+        public int getConstructor() { return -196753377; }
 
     }
 
@@ -23979,15 +21421,14 @@ public class TdApi {
      *
      * @category - Category of chats to be returned
      * @limit - The maximum number of chats to be returned
-     * Up to 30
+     *          Up to 30
      */
     public static class GetTopChats extends Function {
 
         public TopChatCategory category;
         public int limit;
 
-        public GetTopChats() {
-        }
+        public GetTopChats() {}
 
         public GetTopChats(TopChatCategory category, int limit) {
 
@@ -23997,9 +21438,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -388410847;
-        }
+        public int getConstructor() { return -388410847; }
 
     }
 
@@ -24016,8 +21455,7 @@ public class TdApi {
         public TopChatCategory category;
         public long chatId;
 
-        public RemoveTopChat() {
-        }
+        public RemoveTopChat() {}
 
         public RemoveTopChat(TopChatCategory category, long chatId) {
 
@@ -24027,9 +21465,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1907876267;
-        }
+        public int getConstructor() { return -1907876267; }
 
     }
 
@@ -24045,8 +21481,7 @@ public class TdApi {
 
         public long chatId;
 
-        public AddRecentlyFoundChat() {
-        }
+        public AddRecentlyFoundChat() {}
 
         public AddRecentlyFoundChat(long chatId) {
 
@@ -24055,9 +21490,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1746396787;
-        }
+        public int getConstructor() { return -1746396787; }
 
     }
 
@@ -24071,8 +21504,7 @@ public class TdApi {
 
         public long chatId;
 
-        public RemoveRecentlyFoundChat() {
-        }
+        public RemoveRecentlyFoundChat() {}
 
         public RemoveRecentlyFoundChat(long chatId) {
 
@@ -24081,9 +21513,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 717340444;
-        }
+        public int getConstructor() { return 717340444; }
 
     }
 
@@ -24094,9 +21524,7 @@ public class TdApi {
     public static class ClearRecentlyFoundChats extends Function {
 
         @Override
-        public int getConstructor() {
-            return -285582542;
-        }
+        public int getConstructor() { return -285582542; }
 
     }
 
@@ -24105,7 +21533,7 @@ public class TdApi {
      * Checks whether a username can be set for a chat
      *
      * @chatId - Chat identifier
-     * Should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created
+     *           Should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created
      * @username - Username to be checked
      */
     public static class CheckChatUsername extends Function {
@@ -24113,8 +21541,7 @@ public class TdApi {
         public long chatId;
         public String username;
 
-        public CheckChatUsername() {
-        }
+        public CheckChatUsername() {}
 
         public CheckChatUsername(long chatId, String username) {
 
@@ -24124,9 +21551,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -119119344;
-        }
+        public int getConstructor() { return -119119344; }
 
     }
 
@@ -24140,8 +21565,7 @@ public class TdApi {
 
         public PublicChatType type;
 
-        public GetCreatedPublicChats() {
-        }
+        public GetCreatedPublicChats() {}
 
         public GetCreatedPublicChats(PublicChatType type) {
 
@@ -24150,9 +21574,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 710354415;
-        }
+        public int getConstructor() { return 710354415; }
 
     }
 
@@ -24167,8 +21589,7 @@ public class TdApi {
 
         public PublicChatType type;
 
-        public CheckCreatedPublicChatsLimit() {
-        }
+        public CheckCreatedPublicChatsLimit() {}
 
         public CheckCreatedPublicChatsLimit(PublicChatType type) {
 
@@ -24177,9 +21598,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -445546591;
-        }
+        public int getConstructor() { return -445546591; }
 
     }
 
@@ -24191,9 +21610,7 @@ public class TdApi {
     public static class GetSuitableDiscussionChats extends Function {
 
         @Override
-        public int getConstructor() {
-            return 49044982;
-        }
+        public int getConstructor() { return 49044982; }
 
     }
 
@@ -24205,9 +21622,7 @@ public class TdApi {
     public static class GetInactiveSupergroupChats extends Function {
 
         @Override
-        public int getConstructor() {
-            return -657720907;
-        }
+        public int getConstructor() { return -657720907; }
 
     }
 
@@ -24218,7 +21633,7 @@ public class TdApi {
      *
      * @userId - User identifier
      * @offsetChatId - Chat identifier starting from which to return chats
-     * Use 0 for the first request
+     *                 Use 0 for the first request
      * @limit - The maximum number of chats to be returned
      */
     public static class GetGroupsInCommon extends Function {
@@ -24227,8 +21642,7 @@ public class TdApi {
         public long offsetChatId;
         public int limit;
 
-        public GetGroupsInCommon() {
-        }
+        public GetGroupsInCommon() {}
 
         public GetGroupsInCommon(int userId, long offsetChatId, int limit) {
 
@@ -24239,9 +21653,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -23238689;
-        }
+        public int getConstructor() { return -23238689; }
 
     }
 
@@ -24254,12 +21666,12 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @fromMessageId - Identifier of the message starting from which history must be fetched
-     * Use 0 to get results from the last message
+     *                  Use 0 to get results from the last message
      * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
      * @limit - The maximum number of messages to be returned
-     * Must be positive and can't be greater than 100
-     * If the offset is negative, the limit must be greater or equal to -offset
-     * Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     *          Must be positive and can't be greater than 100
+     *          If the offset is negative, the limit must be greater or equal to -offset
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @onlyLocal - If true, returns only messages that are available locally without sending network requests
      */
     public static class GetChatHistory extends Function {
@@ -24270,8 +21682,7 @@ public class TdApi {
         public int limit;
         public boolean onlyLocal;
 
-        public GetChatHistory() {
-        }
+        public GetChatHistory() {}
 
         public GetChatHistory(long chatId, long fromMessageId, int offset, int limit, boolean onlyLocal) {
 
@@ -24284,9 +21695,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -799960451;
-        }
+        public int getConstructor() { return -799960451; }
 
     }
 
@@ -24305,8 +21714,7 @@ public class TdApi {
         public boolean removeFromChatList;
         public boolean revoke;
 
-        public DeleteChatHistory() {
-        }
+        public DeleteChatHistory() {}
 
         public DeleteChatHistory(long chatId, boolean removeFromChatList, boolean revoke) {
 
@@ -24317,9 +21725,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1472081761;
-        }
+        public int getConstructor() { return -1472081761; }
 
     }
 
@@ -24334,14 +21740,14 @@ public class TdApi {
      * @chatId - Identifier of the chat in which to search messages
      * @query - Query to search for
      * @senderUserId - If not 0, only messages sent by the specified user will be returned
-     * Not supported in secret chats
+     *                 Not supported in secret chats
      * @fromMessageId - Identifier of the message starting from which history must be fetched
-     * Use 0 to get results from the last message
+     *                  Use 0 to get results from the last message
      * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages
      * @limit - The maximum number of messages to be returned
-     * Must be positive and can't be greater than 100
-     * If the offset is negative, the limit must be greater than -offset
-     * Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     *          Must be positive and can't be greater than 100
+     *          If the offset is negative, the limit must be greater than -offset
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @filter - Filter for message content in the search results
      */
     public static class SearchChatMessages extends Function {
@@ -24354,8 +21760,7 @@ public class TdApi {
         public int limit;
         public SearchMessagesFilter filter;
 
-        public SearchChatMessages() {
-        }
+        public SearchChatMessages() {}
 
         public SearchChatMessages(long chatId, String query, int senderUserId, long fromMessageId, int offset, int limit, SearchMessagesFilter filter) {
 
@@ -24370,9 +21775,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1528846671;
-        }
+        public int getConstructor() { return -1528846671; }
 
     }
 
@@ -24383,14 +21786,14 @@ public class TdApi {
      * For optimal performance the number of returned messages is chosen by the library
      *
      * @chatList - Chat list in which to search messages
-     * Pass null to search in all chats regardless of their chat list
+     *             Pass null to search in all chats regardless of their chat list
      * @query - Query to search for
      * @offsetDate - The date of the message starting from which the results should be fetched
-     * Use 0 or any date in the future to get results from the last message
+     *               Use 0 or any date in the future to get results from the last message
      * @offsetChatId - The chat identifier of the last found message, or 0 for the first request
      * @offsetMessageId - The message identifier of the last found message, or 0 for the first request
      * @limit - The maximum number of messages to be returned, up to 100
-     * Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      */
     public static class SearchMessages extends Function {
 
@@ -24401,8 +21804,7 @@ public class TdApi {
         public long offsetMessageId;
         public int limit;
 
-        public SearchMessages() {
-        }
+        public SearchMessages() {}
 
         public SearchMessages(ChatList chatList, String query, int offsetDate, long offsetChatId, long offsetMessageId, int limit) {
 
@@ -24416,9 +21818,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -455843835;
-        }
+        public int getConstructor() { return -455843835; }
 
     }
 
@@ -24429,12 +21829,12 @@ public class TdApi {
      * For optimal performance the number of returned messages is chosen by the library
      *
      * @chatId - Identifier of the chat in which to search
-     * Specify 0 to search in all secret chats
+     *           Specify 0 to search in all secret chats
      * @query - Query to search for
-     * If empty, searchChatMessages should be used instead
+     *          If empty, searchChatMessages should be used instead
      * @fromSearchId - The identifier from the result of a previous request, use 0 to get results from the last message
      * @limit - The maximum number of messages to be returned
-     * Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @filter - A filter for the content of messages in the search results
      */
     public static class SearchSecretMessages extends Function {
@@ -24445,8 +21845,7 @@ public class TdApi {
         public int limit;
         public SearchMessagesFilter filter;
 
-        public SearchSecretMessages() {
-        }
+        public SearchSecretMessages() {}
 
         public SearchSecretMessages(long chatId, String query, long fromSearchId, int limit, SearchMessagesFilter filter) {
 
@@ -24459,9 +21858,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1670627915;
-        }
+        public int getConstructor() { return -1670627915; }
 
     }
 
@@ -24473,9 +21870,9 @@ public class TdApi {
      * For optimal performance the number of returned messages is chosen by the library
      *
      * @fromMessageId - Identifier of the message from which to search
-     * Use 0 to get results from the last message
+     *                  Use 0 to get results from the last message
      * @limit - The maximum number of messages to be returned
-     * Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @onlyMissed - If true, returns only messages with missed calls
      */
     public static class SearchCallMessages extends Function {
@@ -24484,8 +21881,7 @@ public class TdApi {
         public int limit;
         public boolean onlyMissed;
 
-        public SearchCallMessages() {
-        }
+        public SearchCallMessages() {}
 
         public SearchCallMessages(long fromMessageId, int limit, boolean onlyMissed) {
 
@@ -24496,9 +21892,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1077230820;
-        }
+        public int getConstructor() { return -1077230820; }
 
     }
 
@@ -24515,8 +21909,7 @@ public class TdApi {
         public long chatId;
         public int limit;
 
-        public SearchChatRecentLocationMessages() {
-        }
+        public SearchChatRecentLocationMessages() {}
 
         public SearchChatRecentLocationMessages(long chatId, int limit) {
 
@@ -24526,9 +21919,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 950238950;
-        }
+        public int getConstructor() { return 950238950; }
 
     }
 
@@ -24540,9 +21931,7 @@ public class TdApi {
     public static class GetActiveLiveLocationMessages extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1425459567;
-        }
+        public int getConstructor() { return -1425459567; }
 
     }
 
@@ -24558,8 +21947,7 @@ public class TdApi {
         public long chatId;
         public int date;
 
-        public GetChatMessageByDate() {
-        }
+        public GetChatMessageByDate() {}
 
         public GetChatMessageByDate(long chatId, int date) {
 
@@ -24569,9 +21957,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1062564150;
-        }
+        public int getConstructor() { return 1062564150; }
 
     }
 
@@ -24581,7 +21967,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat in which to count messages
      * @filter - Filter for message content
-     * SearchMessagesFilterEmpty is unsupported in this function
+     *           SearchMessagesFilterEmpty is unsupported in this function
      * @returnLocal - If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown
      */
     public static class GetChatMessageCount extends Function {
@@ -24590,8 +21976,7 @@ public class TdApi {
         public SearchMessagesFilter filter;
         public boolean returnLocal;
 
-        public GetChatMessageCount() {
-        }
+        public GetChatMessageCount() {}
 
         public GetChatMessageCount(long chatId, SearchMessagesFilter filter, boolean returnLocal) {
 
@@ -24602,9 +21987,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 205435308;
-        }
+        public int getConstructor() { return 205435308; }
 
     }
 
@@ -24619,8 +22002,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GetChatScheduledMessages() {
-        }
+        public GetChatScheduledMessages() {}
 
         public GetChatScheduledMessages(long chatId) {
 
@@ -24629,9 +22011,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -549638149;
-        }
+        public int getConstructor() { return -549638149; }
 
     }
 
@@ -24648,8 +22028,7 @@ public class TdApi {
         public int notificationGroupId;
         public int notificationId;
 
-        public RemoveNotification() {
-        }
+        public RemoveNotification() {}
 
         public RemoveNotification(int notificationGroupId, int notificationId) {
 
@@ -24659,9 +22038,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 862630734;
-        }
+        public int getConstructor() { return 862630734; }
 
     }
 
@@ -24678,8 +22055,7 @@ public class TdApi {
         public int notificationGroupId;
         public int maxNotificationId;
 
-        public RemoveNotificationGroup() {
-        }
+        public RemoveNotificationGroup() {}
 
         public RemoveNotificationGroup(int notificationGroupId, int maxNotificationId) {
 
@@ -24689,9 +22065,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1713005454;
-        }
+        public int getConstructor() { return 1713005454; }
 
     }
 
@@ -24710,8 +22084,7 @@ public class TdApi {
         public long messageId;
         public boolean forAlbum;
 
-        public GetPublicMessageLink() {
-        }
+        public GetPublicMessageLink() {}
 
         public GetPublicMessageLink(long chatId, long messageId, boolean forAlbum) {
 
@@ -24722,9 +22095,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -374642839;
-        }
+        public int getConstructor() { return -374642839; }
 
     }
 
@@ -24742,8 +22113,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetMessageLink() {
-        }
+        public GetMessageLink() {}
 
         public GetMessageLink(long chatId, long messageId) {
 
@@ -24753,9 +22123,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1362732326;
-        }
+        public int getConstructor() { return 1362732326; }
 
     }
 
@@ -24769,8 +22137,7 @@ public class TdApi {
 
         public String url;
 
-        public GetMessageLinkInfo() {
-        }
+        public GetMessageLinkInfo() {}
 
         public GetMessageLinkInfo(String url) {
 
@@ -24779,9 +22146,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -700533672;
-        }
+        public int getConstructor() { return -700533672; }
 
     }
 
@@ -24794,7 +22159,7 @@ public class TdApi {
      * @replyToMessageId - Identifier of the message to reply to or 0
      * @options - Options to be used to send the message
      * @replyMarkup - Markup for replying to the message
-     * For bots only
+     *                For bots only
      * @inputMessageContent - The content of the message to be sent
      */
     public static class SendMessage extends Function {
@@ -24805,8 +22170,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public SendMessage() {
-        }
+        public SendMessage() {}
 
         public SendMessage(long chatId, long replyToMessageId, MessageSendOptions options, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -24819,9 +22183,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1693468857;
-        }
+        public int getConstructor() { return -1693468857; }
 
     }
 
@@ -24843,8 +22205,7 @@ public class TdApi {
         public MessageSendOptions options;
         public InputMessageContent[] inputMessageContents;
 
-        public SendMessageAlbum() {
-        }
+        public SendMessageAlbum() {}
 
         public SendMessageAlbum(long chatId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents) {
 
@@ -24856,9 +22217,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1301182434;
-        }
+        public int getConstructor() { return 1301182434; }
 
     }
 
@@ -24879,8 +22238,7 @@ public class TdApi {
         public long chatId;
         public String parameter;
 
-        public SendBotStartMessage() {
-        }
+        public SendBotStartMessage() {}
 
         public SendBotStartMessage(int botUserId, long chatId, String parameter) {
 
@@ -24891,9 +22249,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1112181339;
-        }
+        public int getConstructor() { return 1112181339; }
 
     }
 
@@ -24909,7 +22265,7 @@ public class TdApi {
      * @queryId - Identifier of the inline query
      * @resultId - Identifier of the inline result
      * @hideViaBot - If true, there will be no mention of a bot, via which the message is sent
-     * Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username")
+     *               Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username")
      */
     public static class SendInlineQueryResultMessage extends Function {
 
@@ -24920,8 +22276,7 @@ public class TdApi {
         public String resultId;
         public boolean hideViaBot;
 
-        public SendInlineQueryResultMessage() {
-        }
+        public SendInlineQueryResultMessage() {}
 
         public SendInlineQueryResultMessage(long chatId, long replyToMessageId, MessageSendOptions options, long queryId, String resultId, boolean hideViaBot) {
 
@@ -24935,9 +22290,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1624402875;
-        }
+        public int getConstructor() { return -1624402875; }
 
     }
 
@@ -24952,11 +22305,11 @@ public class TdApi {
      * @messageIds - Identifiers of the messages to forward
      * @options - Options to be used to send the messages
      * @asAlbum - True, if the messages should be grouped into an album after forwarding
-     * For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages
+     *            For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages
      * @sendCopy - True, if content of the messages needs to be copied without links to the original messages
-     * Always true if the messages are forwarded to a secret chat
+     *             Always true if the messages are forwarded to a secret chat
      * @removeCaption - True, if media captions of message copies needs to be removed
-     * Ignored if send_copy is false
+     *                  Ignored if send_copy is false
      */
     public static class ForwardMessages extends Function {
 
@@ -24968,8 +22321,7 @@ public class TdApi {
         public boolean sendCopy;
         public boolean removeCaption;
 
-        public ForwardMessages() {
-        }
+        public ForwardMessages() {}
 
         public ForwardMessages(long chatId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean asAlbum, boolean sendCopy, boolean removeCaption) {
 
@@ -24984,9 +22336,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 705611900;
-        }
+        public int getConstructor() { return 705611900; }
 
     }
 
@@ -25000,15 +22350,14 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat to send messages
      * @messageIds - Identifiers of the messages to resend
-     * Message identifiers must be in a strictly increasing order
+     *               Message identifiers must be in a strictly increasing order
      */
     public static class ResendMessages extends Function {
 
         public long chatId;
         public long[] messageIds;
 
-        public ResendMessages() {
-        }
+        public ResendMessages() {}
 
         public ResendMessages(long chatId, long[] messageIds) {
 
@@ -25018,9 +22367,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -940655817;
-        }
+        public int getConstructor() { return -940655817; }
 
     }
 
@@ -25036,8 +22383,7 @@ public class TdApi {
         public long chatId;
         public int ttl;
 
-        public SendChatSetTtlMessage() {
-        }
+        public SendChatSetTtlMessage() {}
 
         public SendChatSetTtlMessage(long chatId, int ttl) {
 
@@ -25047,9 +22393,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1432535564;
-        }
+        public int getConstructor() { return 1432535564; }
 
     }
 
@@ -25064,8 +22408,7 @@ public class TdApi {
 
         public long chatId;
 
-        public SendChatScreenshotTakenNotification() {
-        }
+        public SendChatScreenshotTakenNotification() {}
 
         public SendChatScreenshotTakenNotification(long chatId) {
 
@@ -25074,9 +22417,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 448399457;
-        }
+        public int getConstructor() { return 448399457; }
 
     }
 
@@ -25088,7 +22429,7 @@ public class TdApi {
      *
      * @chatId - Target chat
      * @senderUserId - Identifier of the user who will be shown as the sender of the message
-     * May be 0 for channel posts
+     *                 May be 0 for channel posts
      * @replyToMessageId - Identifier of the message to reply to or 0
      * @disableNotification - Pass true to disable notification for the message
      * @inputMessageContent - The content of the message to be added
@@ -25101,8 +22442,7 @@ public class TdApi {
         public boolean disableNotification;
         public InputMessageContent inputMessageContent;
 
-        public AddLocalMessage() {
-        }
+        public AddLocalMessage() {}
 
         public AddLocalMessage(long chatId, int senderUserId, long replyToMessageId, boolean disableNotification, InputMessageContent inputMessageContent) {
 
@@ -25115,9 +22455,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -348943149;
-        }
+        public int getConstructor() { return -348943149; }
 
     }
 
@@ -25128,7 +22466,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @messageIds - Identifiers of the messages to be deleted
      * @revoke - Pass true to try to delete messages for all chat members
-     * Always true for supergroups, channels and secret chats
+     *           Always true for supergroups, channels and secret chats
      */
     public static class DeleteMessages extends Function {
 
@@ -25136,8 +22474,7 @@ public class TdApi {
         public long[] messageIds;
         public boolean revoke;
 
-        public DeleteMessages() {
-        }
+        public DeleteMessages() {}
 
         public DeleteMessages(long chatId, long[] messageIds, boolean revoke) {
 
@@ -25148,9 +22485,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1130090173;
-        }
+        public int getConstructor() { return 1130090173; }
 
     }
 
@@ -25168,8 +22503,7 @@ public class TdApi {
         public long chatId;
         public int userId;
 
-        public DeleteChatMessagesFromUser() {
-        }
+        public DeleteChatMessagesFromUser() {}
 
         public DeleteChatMessagesFromUser(long chatId, int userId) {
 
@@ -25179,9 +22513,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1599689199;
-        }
+        public int getConstructor() { return -1599689199; }
 
     }
 
@@ -25193,9 +22525,9 @@ public class TdApi {
      * @chatId - The chat the message belongs to
      * @messageId - Identifier of the message
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      * @inputMessageContent - New text content of the message
-     * Should be of type InputMessageText
+     *                        Should be of type InputMessageText
      */
     public static class EditMessageText extends Function {
 
@@ -25204,8 +22536,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public EditMessageText() {
-        }
+        public EditMessageText() {}
 
         public EditMessageText(long chatId, long messageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -25217,9 +22548,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 196272567;
-        }
+        public int getConstructor() { return 196272567; }
 
     }
 
@@ -25232,20 +22561,18 @@ public class TdApi {
      * @chatId - The chat the message belongs to
      * @messageId - Identifier of the message
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      * @location - New location content of the message
-     * Pass null to stop sharing the live location
+     *             Pass null to stop sharing the live location
      */
     public static class EditMessageLiveLocation extends Function {
 
         public long chatId;
         public long messageId;
         public ReplyMarkup replyMarkup;
-        @Nullable
-        public Location location;
+        @Nullable public Location location;
 
-        public EditMessageLiveLocation() {
-        }
+        public EditMessageLiveLocation() {}
 
         public EditMessageLiveLocation(long chatId, long messageId, ReplyMarkup replyMarkup, @Nullable Location location) {
 
@@ -25257,9 +22584,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1146772745;
-        }
+        public int getConstructor() { return -1146772745; }
 
     }
 
@@ -25274,9 +22599,9 @@ public class TdApi {
      * @chatId - The chat the message belongs to
      * @messageId - Identifier of the message
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      * @inputMessageContent - New content of the message
-     * Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
+     *                        Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
      */
     public static class EditMessageMedia extends Function {
 
@@ -25285,8 +22610,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public EditMessageMedia() {
-        }
+        public EditMessageMedia() {}
 
         public EditMessageMedia(long chatId, long messageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -25298,9 +22622,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1152678125;
-        }
+        public int getConstructor() { return -1152678125; }
 
     }
 
@@ -25312,9 +22634,9 @@ public class TdApi {
      * @chatId - The chat the message belongs to
      * @messageId - Identifier of the message
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      * @caption - New message content caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class EditMessageCaption extends Function {
 
@@ -25323,8 +22645,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public FormattedText caption;
 
-        public EditMessageCaption() {
-        }
+        public EditMessageCaption() {}
 
         public EditMessageCaption(long chatId, long messageId, ReplyMarkup replyMarkup, FormattedText caption) {
 
@@ -25336,9 +22657,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1154677038;
-        }
+        public int getConstructor() { return 1154677038; }
 
     }
 
@@ -25358,8 +22677,7 @@ public class TdApi {
         public long messageId;
         public ReplyMarkup replyMarkup;
 
-        public EditMessageReplyMarkup() {
-        }
+        public EditMessageReplyMarkup() {}
 
         public EditMessageReplyMarkup(long chatId, long messageId, ReplyMarkup replyMarkup) {
 
@@ -25370,9 +22688,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 332127881;
-        }
+        public int getConstructor() { return 332127881; }
 
     }
 
@@ -25384,7 +22700,7 @@ public class TdApi {
      * @inlineMessageId - Inline message identifier
      * @replyMarkup - The new message reply markup
      * @inputMessageContent - New text content of the message
-     * Should be of type InputMessageText
+     *                        Should be of type InputMessageText
      */
     public static class EditInlineMessageText extends Function {
 
@@ -25392,8 +22708,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public EditInlineMessageText() {
-        }
+        public EditInlineMessageText() {}
 
         public EditInlineMessageText(String inlineMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -25404,9 +22719,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -855457307;
-        }
+        public int getConstructor() { return -855457307; }
 
     }
 
@@ -25418,17 +22731,15 @@ public class TdApi {
      * @inlineMessageId - Inline message identifier
      * @replyMarkup - The new message reply markup
      * @location - New location content of the message
-     * Pass null to stop sharing the live location
+     *             Pass null to stop sharing the live location
      */
     public static class EditInlineMessageLiveLocation extends Function {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
-        @Nullable
-        public Location location;
+        @Nullable public Location location;
 
-        public EditInlineMessageLiveLocation() {
-        }
+        public EditInlineMessageLiveLocation() {}
 
         public EditInlineMessageLiveLocation(String inlineMessageId, ReplyMarkup replyMarkup, @Nullable Location location) {
 
@@ -25439,9 +22750,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 655046316;
-        }
+        public int getConstructor() { return 655046316; }
 
     }
 
@@ -25452,9 +22761,9 @@ public class TdApi {
      *
      * @inlineMessageId - Inline message identifier
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      * @inputMessageContent - New content of the message
-     * Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
+     *                        Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
      */
     public static class EditInlineMessageMedia extends Function {
 
@@ -25462,8 +22771,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public InputMessageContent inputMessageContent;
 
-        public EditInlineMessageMedia() {
-        }
+        public EditInlineMessageMedia() {}
 
         public EditInlineMessageMedia(String inlineMessageId, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
@@ -25474,9 +22782,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 23553921;
-        }
+        public int getConstructor() { return 23553921; }
 
     }
 
@@ -25488,7 +22794,7 @@ public class TdApi {
      * @inlineMessageId - Inline message identifier
      * @replyMarkup - The new message reply markup
      * @caption - New message content caption
-     * 0-GetOption("message_caption_length_max") characters
+     *            0-GetOption("message_caption_length_max") characters
      */
     public static class EditInlineMessageCaption extends Function {
 
@@ -25496,8 +22802,7 @@ public class TdApi {
         public ReplyMarkup replyMarkup;
         public FormattedText caption;
 
-        public EditInlineMessageCaption() {
-        }
+        public EditInlineMessageCaption() {}
 
         public EditInlineMessageCaption(String inlineMessageId, ReplyMarkup replyMarkup, FormattedText caption) {
 
@@ -25508,9 +22813,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -760985929;
-        }
+        public int getConstructor() { return -760985929; }
 
     }
 
@@ -25527,8 +22830,7 @@ public class TdApi {
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
 
-        public EditInlineMessageReplyMarkup() {
-        }
+        public EditInlineMessageReplyMarkup() {}
 
         public EditInlineMessageReplyMarkup(String inlineMessageId, ReplyMarkup replyMarkup) {
 
@@ -25538,9 +22840,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -67565858;
-        }
+        public int getConstructor() { return -67565858; }
 
     }
 
@@ -25552,7 +22852,7 @@ public class TdApi {
      * @chatId - The chat the message belongs to
      * @messageId - Identifier of the message
      * @schedulingState - The new message scheduling state
-     * Pass null to send the message immediately
+     *                    Pass null to send the message immediately
      */
     public static class EditMessageSchedulingState extends Function {
 
@@ -25560,8 +22860,7 @@ public class TdApi {
         public long messageId;
         public MessageSchedulingState schedulingState;
 
-        public EditMessageSchedulingState() {
-        }
+        public EditMessageSchedulingState() {}
 
         public EditMessageSchedulingState(long chatId, long messageId, MessageSchedulingState schedulingState) {
 
@@ -25572,9 +22871,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1372976192;
-        }
+        public int getConstructor() { return -1372976192; }
 
     }
 
@@ -25589,8 +22886,7 @@ public class TdApi {
 
         public String text;
 
-        public GetTextEntities() {
-        }
+        public GetTextEntities() {}
 
         public GetTextEntities(String text) {
 
@@ -25599,9 +22895,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -341490693;
-        }
+        public int getConstructor() { return -341490693; }
 
     }
 
@@ -25618,8 +22912,7 @@ public class TdApi {
         public String text;
         public TextParseMode parseMode;
 
-        public ParseTextEntities() {
-        }
+        public ParseTextEntities() {}
 
         public ParseTextEntities(String text, TextParseMode parseMode) {
 
@@ -25629,9 +22922,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1709194593;
-        }
+        public int getConstructor() { return -1709194593; }
 
     }
 
@@ -25641,14 +22932,13 @@ public class TdApi {
      * Can be called synchronously
      *
      * @text - The text to parse
-     * For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
+     *         For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
      */
     public static class ParseMarkdown extends Function {
 
         public FormattedText text;
 
-        public ParseMarkdown() {
-        }
+        public ParseMarkdown() {}
 
         public ParseMarkdown(FormattedText text) {
 
@@ -25657,9 +22947,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 756366063;
-        }
+        public int getConstructor() { return 756366063; }
 
     }
 
@@ -25675,8 +22963,7 @@ public class TdApi {
 
         public FormattedText text;
 
-        public GetMarkdownText() {
-        }
+        public GetMarkdownText() {}
 
         public GetMarkdownText(FormattedText text) {
 
@@ -25685,9 +22972,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 164524584;
-        }
+        public int getConstructor() { return 164524584; }
 
     }
 
@@ -25703,8 +22988,7 @@ public class TdApi {
 
         public String fileName;
 
-        public GetFileMimeType() {
-        }
+        public GetFileMimeType() {}
 
         public GetFileMimeType(String fileName) {
 
@@ -25713,9 +22997,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2073879671;
-        }
+        public int getConstructor() { return -2073879671; }
 
     }
 
@@ -25731,8 +23013,7 @@ public class TdApi {
 
         public String mimeType;
 
-        public GetFileExtension() {
-        }
+        public GetFileExtension() {}
 
         public GetFileExtension(String mimeType) {
 
@@ -25741,9 +23022,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -106055372;
-        }
+        public int getConstructor() { return -106055372; }
 
     }
 
@@ -25760,8 +23039,7 @@ public class TdApi {
 
         public String fileName;
 
-        public CleanFileName() {
-        }
+        public CleanFileName() {}
 
         public CleanFileName(String fileName) {
 
@@ -25770,9 +23048,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 967964667;
-        }
+        public int getConstructor() { return 967964667; }
 
     }
 
@@ -25794,8 +23070,7 @@ public class TdApi {
         public String languagePackId;
         public String key;
 
-        public GetLanguagePackString() {
-        }
+        public GetLanguagePackString() {}
 
         public GetLanguagePackString(String languagePackDatabasePath, String localizationTarget, String languagePackId, String key) {
 
@@ -25807,9 +23082,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 150789747;
-        }
+        public int getConstructor() { return 150789747; }
 
     }
 
@@ -25824,8 +23097,7 @@ public class TdApi {
 
         public String json;
 
-        public GetJsonValue() {
-        }
+        public GetJsonValue() {}
 
         public GetJsonValue(String json) {
 
@@ -25834,9 +23106,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1829086715;
-        }
+        public int getConstructor() { return -1829086715; }
 
     }
 
@@ -25851,8 +23121,7 @@ public class TdApi {
 
         public JsonValue jsonValue;
 
-        public GetJsonString() {
-        }
+        public GetJsonString() {}
 
         public GetJsonString(JsonValue jsonValue) {
 
@@ -25861,9 +23130,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 663458849;
-        }
+        public int getConstructor() { return 663458849; }
 
     }
 
@@ -25875,7 +23142,7 @@ public class TdApi {
      * @chatId - Identifier of the chat to which the poll belongs
      * @messageId - Identifier of the message containing the poll
      * @optionIds - 0-based identifiers of answer options, chosen by the user
-     * User can choose more than 1 answer option only is the poll allows multiple answers
+     *              User can choose more than 1 answer option only is the poll allows multiple answers
      */
     public static class SetPollAnswer extends Function {
 
@@ -25883,8 +23150,7 @@ public class TdApi {
         public long messageId;
         public int[] optionIds;
 
-        public SetPollAnswer() {
-        }
+        public SetPollAnswer() {}
 
         public SetPollAnswer(long chatId, long messageId, int[] optionIds) {
 
@@ -25895,9 +23161,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1399388792;
-        }
+        public int getConstructor() { return -1399388792; }
 
     }
 
@@ -25911,8 +23175,8 @@ public class TdApi {
      * @optionId - 0-based identifier of the answer option
      * @offset - Number of users to skip in the result
      * @limit - The maximum number of users to be returned
-     * Must be positive and can't be greater than 50
-     * Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached
+     *          Must be positive and can't be greater than 50
+     *          Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached
      */
     public static class GetPollVoters extends Function {
 
@@ -25922,8 +23186,7 @@ public class TdApi {
         public int offset;
         public int limit;
 
-        public GetPollVoters() {
-        }
+        public GetPollVoters() {}
 
         public GetPollVoters(long chatId, long messageId, int optionId, int offset, int limit) {
 
@@ -25936,9 +23199,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2075288734;
-        }
+        public int getConstructor() { return 2075288734; }
 
     }
 
@@ -25950,7 +23211,7 @@ public class TdApi {
      * @chatId - Identifier of the chat to which the poll belongs
      * @messageId - Identifier of the message containing the poll
      * @replyMarkup - The new message reply markup
-     * For bots only
+     *                For bots only
      */
     public static class StopPoll extends Function {
 
@@ -25958,8 +23219,7 @@ public class TdApi {
         public long messageId;
         public ReplyMarkup replyMarkup;
 
-        public StopPoll() {
-        }
+        public StopPoll() {}
 
         public StopPoll(long chatId, long messageId, ReplyMarkup replyMarkup) {
 
@@ -25970,9 +23230,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1659374253;
-        }
+        public int getConstructor() { return 1659374253; }
 
     }
 
@@ -25986,8 +23244,7 @@ public class TdApi {
 
         public SuggestedAction action;
 
-        public HideSuggestedAction() {
-        }
+        public HideSuggestedAction() {}
 
         public HideSuggestedAction(SuggestedAction action) {
 
@@ -25996,9 +23253,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1561384065;
-        }
+        public int getConstructor() { return -1561384065; }
 
     }
 
@@ -26017,8 +23272,7 @@ public class TdApi {
         public long messageId;
         public int buttonId;
 
-        public GetLoginUrlInfo() {
-        }
+        public GetLoginUrlInfo() {}
 
         public GetLoginUrlInfo(long chatId, long messageId, int buttonId) {
 
@@ -26029,9 +23283,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -980042966;
-        }
+        public int getConstructor() { return -980042966; }
 
     }
 
@@ -26053,8 +23305,7 @@ public class TdApi {
         public int buttonId;
         public boolean allowWriteAccess;
 
-        public GetLoginUrl() {
-        }
+        public GetLoginUrl() {}
 
         public GetLoginUrl(long chatId, long messageId, int buttonId, boolean allowWriteAccess) {
 
@@ -26066,9 +23317,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 694973925;
-        }
+        public int getConstructor() { return 694973925; }
 
     }
 
@@ -26091,8 +23340,7 @@ public class TdApi {
         public String query;
         public String offset;
 
-        public GetInlineQueryResults() {
-        }
+        public GetInlineQueryResults() {}
 
         public GetInlineQueryResults(int botUserId, long chatId, Location userLocation, String query, String offset) {
 
@@ -26105,9 +23353,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1182511172;
-        }
+        public int getConstructor() { return -1182511172; }
 
     }
 
@@ -26121,7 +23367,7 @@ public class TdApi {
      * @results - The results of the query
      * @cacheTime - Allowed time to cache the results of the query, in seconds
      * @nextOffset - Offset for the next inline query
-     * Pass an empty string if there are no more results
+     *               Pass an empty string if there are no more results
      * @switchPmText - If non-empty, this text should be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switch_pm_parameter
      * @switchPmParameter - The parameter for the bot start message
      */
@@ -26135,8 +23381,7 @@ public class TdApi {
         public String switchPmText;
         public String switchPmParameter;
 
-        public AnswerInlineQuery() {
-        }
+        public AnswerInlineQuery() {}
 
         public AnswerInlineQuery(long inlineQueryId, boolean isPersonal, InputInlineQueryResult[] results, int cacheTime, String nextOffset, String switchPmText, String switchPmParameter) {
 
@@ -26151,9 +23396,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 485879477;
-        }
+        public int getConstructor() { return 485879477; }
 
     }
 
@@ -26172,8 +23415,7 @@ public class TdApi {
         public long messageId;
         public CallbackQueryPayload payload;
 
-        public GetCallbackQueryAnswer() {
-        }
+        public GetCallbackQueryAnswer() {}
 
         public GetCallbackQueryAnswer(long chatId, long messageId, CallbackQueryPayload payload) {
 
@@ -26184,9 +23426,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 116357727;
-        }
+        public int getConstructor() { return 116357727; }
 
     }
 
@@ -26209,8 +23449,7 @@ public class TdApi {
         public String url;
         public int cacheTime;
 
-        public AnswerCallbackQuery() {
-        }
+        public AnswerCallbackQuery() {}
 
         public AnswerCallbackQuery(long callbackQueryId, String text, boolean showAlert, String url, int cacheTime) {
 
@@ -26223,9 +23462,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1153028490;
-        }
+        public int getConstructor() { return -1153028490; }
 
     }
 
@@ -26244,8 +23481,7 @@ public class TdApi {
         public ShippingOption[] shippingOptions;
         public String errorMessage;
 
-        public AnswerShippingQuery() {
-        }
+        public AnswerShippingQuery() {}
 
         public AnswerShippingQuery(long shippingQueryId, ShippingOption[] shippingOptions, String errorMessage) {
 
@@ -26256,9 +23492,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -434601324;
-        }
+        public int getConstructor() { return -434601324; }
 
     }
 
@@ -26275,8 +23509,7 @@ public class TdApi {
         public long preCheckoutQueryId;
         public String errorMessage;
 
-        public AnswerPreCheckoutQuery() {
-        }
+        public AnswerPreCheckoutQuery() {}
 
         public AnswerPreCheckoutQuery(long preCheckoutQueryId, String errorMessage) {
 
@@ -26286,9 +23519,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1486789653;
-        }
+        public int getConstructor() { return -1486789653; }
 
     }
 
@@ -26303,7 +23534,7 @@ public class TdApi {
      * @userId - User identifier
      * @score - The new score
      * @force - Pass true to update the score even if it decreases
-     * If the score is 0, the user will be deleted from the high score table
+     *          If the score is 0, the user will be deleted from the high score table
      */
     public static class SetGameScore extends Function {
 
@@ -26314,8 +23545,7 @@ public class TdApi {
         public int score;
         public boolean force;
 
-        public SetGameScore() {
-        }
+        public SetGameScore() {}
 
         public SetGameScore(long chatId, long messageId, boolean editMessage, int userId, int score, boolean force) {
 
@@ -26329,9 +23559,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1768307069;
-        }
+        public int getConstructor() { return -1768307069; }
 
     }
 
@@ -26345,7 +23573,7 @@ public class TdApi {
      * @userId - User identifier
      * @score - The new score
      * @force - Pass true to update the score even if it decreases
-     * If the score is 0, the user will be deleted from the high score table
+     *          If the score is 0, the user will be deleted from the high score table
      */
     public static class SetInlineGameScore extends Function {
 
@@ -26355,8 +23583,7 @@ public class TdApi {
         public int score;
         public boolean force;
 
-        public SetInlineGameScore() {
-        }
+        public SetInlineGameScore() {}
 
         public SetInlineGameScore(String inlineMessageId, boolean editMessage, int userId, int score, boolean force) {
 
@@ -26369,9 +23596,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 758435487;
-        }
+        public int getConstructor() { return 758435487; }
 
     }
 
@@ -26390,8 +23615,7 @@ public class TdApi {
         public long messageId;
         public int userId;
 
-        public GetGameHighScores() {
-        }
+        public GetGameHighScores() {}
 
         public GetGameHighScores(long chatId, long messageId, int userId) {
 
@@ -26402,9 +23626,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1920923753;
-        }
+        public int getConstructor() { return 1920923753; }
 
     }
 
@@ -26421,8 +23643,7 @@ public class TdApi {
         public String inlineMessageId;
         public int userId;
 
-        public GetInlineGameHighScores() {
-        }
+        public GetInlineGameHighScores() {}
 
         public GetInlineGameHighScores(String inlineMessageId, int userId) {
 
@@ -26432,9 +23653,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1833445800;
-        }
+        public int getConstructor() { return -1833445800; }
 
     }
 
@@ -26452,8 +23671,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public DeleteChatReplyMarkup() {
-        }
+        public DeleteChatReplyMarkup() {}
 
         public DeleteChatReplyMarkup(long chatId, long messageId) {
 
@@ -26463,9 +23681,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 100637531;
-        }
+        public int getConstructor() { return 100637531; }
 
     }
 
@@ -26481,8 +23697,7 @@ public class TdApi {
         public long chatId;
         public ChatAction action;
 
-        public SendChatAction() {
-        }
+        public SendChatAction() {}
 
         public SendChatAction(long chatId, ChatAction action) {
 
@@ -26492,9 +23707,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -841357536;
-        }
+        public int getConstructor() { return -841357536; }
 
     }
 
@@ -26509,8 +23722,7 @@ public class TdApi {
 
         public long chatId;
 
-        public OpenChat() {
-        }
+        public OpenChat() {}
 
         public OpenChat(long chatId) {
 
@@ -26519,9 +23731,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -323371509;
-        }
+        public int getConstructor() { return -323371509; }
 
     }
 
@@ -26536,8 +23746,7 @@ public class TdApi {
 
         public long chatId;
 
-        public CloseChat() {
-        }
+        public CloseChat() {}
 
         public CloseChat(long chatId) {
 
@@ -26546,9 +23755,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 39749353;
-        }
+        public int getConstructor() { return 39749353; }
 
     }
 
@@ -26567,8 +23774,7 @@ public class TdApi {
         public long[] messageIds;
         public boolean forceRead;
 
-        public ViewMessages() {
-        }
+        public ViewMessages() {}
 
         public ViewMessages(long chatId, long[] messageIds, boolean forceRead) {
 
@@ -26579,9 +23785,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1925784915;
-        }
+        public int getConstructor() { return -1925784915; }
 
     }
 
@@ -26598,8 +23802,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public OpenMessageContent() {
-        }
+        public OpenMessageContent() {}
 
         public OpenMessageContent(long chatId, long messageId) {
 
@@ -26609,9 +23812,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -739088005;
-        }
+        public int getConstructor() { return -739088005; }
 
     }
 
@@ -26625,8 +23826,7 @@ public class TdApi {
 
         public long chatId;
 
-        public ReadAllChatMentions() {
-        }
+        public ReadAllChatMentions() {}
 
         public ReadAllChatMentions(long chatId) {
 
@@ -26635,9 +23835,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1357558453;
-        }
+        public int getConstructor() { return 1357558453; }
 
     }
 
@@ -26647,15 +23845,14 @@ public class TdApi {
      *
      * @userId - User identifier
      * @force - If true, the chat will be created without network request
-     * In this case all information about the chat except its type, title and photo can be incorrect
+     *          In this case all information about the chat except its type, title and photo can be incorrect
      */
     public static class CreatePrivateChat extends Function {
 
         public int userId;
         public boolean force;
 
-        public CreatePrivateChat() {
-        }
+        public CreatePrivateChat() {}
 
         public CreatePrivateChat(int userId, boolean force) {
 
@@ -26665,9 +23862,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1807530364;
-        }
+        public int getConstructor() { return -1807530364; }
 
     }
 
@@ -26677,15 +23872,14 @@ public class TdApi {
      *
      * @basicGroupId - Basic group identifier
      * @force - If true, the chat will be created without network request
-     * In this case all information about the chat except its type, title and photo can be incorrect
+     *          In this case all information about the chat except its type, title and photo can be incorrect
      */
     public static class CreateBasicGroupChat extends Function {
 
         public int basicGroupId;
         public boolean force;
 
-        public CreateBasicGroupChat() {
-        }
+        public CreateBasicGroupChat() {}
 
         public CreateBasicGroupChat(int basicGroupId, boolean force) {
 
@@ -26695,9 +23889,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 642492777;
-        }
+        public int getConstructor() { return 642492777; }
 
     }
 
@@ -26707,15 +23899,14 @@ public class TdApi {
      *
      * @supergroupId - Supergroup or channel identifier
      * @force - If true, the chat will be created without network request
-     * In this case all information about the chat except its type, title and photo can be incorrect
+     *          In this case all information about the chat except its type, title and photo can be incorrect
      */
     public static class CreateSupergroupChat extends Function {
 
         public int supergroupId;
         public boolean force;
 
-        public CreateSupergroupChat() {
-        }
+        public CreateSupergroupChat() {}
 
         public CreateSupergroupChat(int supergroupId, boolean force) {
 
@@ -26725,9 +23916,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 352742758;
-        }
+        public int getConstructor() { return 352742758; }
 
     }
 
@@ -26741,8 +23930,7 @@ public class TdApi {
 
         public int secretChatId;
 
-        public CreateSecretChat() {
-        }
+        public CreateSecretChat() {}
 
         public CreateSecretChat(int secretChatId) {
 
@@ -26751,9 +23939,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1930285615;
-        }
+        public int getConstructor() { return 1930285615; }
 
     }
 
@@ -26770,8 +23956,7 @@ public class TdApi {
         public int[] userIds;
         public String title;
 
-        public CreateNewBasicGroupChat() {
-        }
+        public CreateNewBasicGroupChat() {}
 
         public CreateNewBasicGroupChat(int[] userIds, String title) {
 
@@ -26781,9 +23966,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1874532069;
-        }
+        public int getConstructor() { return 1874532069; }
 
     }
 
@@ -26804,8 +23987,7 @@ public class TdApi {
         public String description;
         public ChatLocation location;
 
-        public CreateNewSupergroupChat() {
-        }
+        public CreateNewSupergroupChat() {}
 
         public CreateNewSupergroupChat(String title, boolean isChannel, String description, ChatLocation location) {
 
@@ -26817,9 +23999,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -8999251;
-        }
+        public int getConstructor() { return -8999251; }
 
     }
 
@@ -26834,8 +24014,7 @@ public class TdApi {
 
         public int userId;
 
-        public CreateNewSecretChat() {
-        }
+        public CreateNewSecretChat() {}
 
         public CreateNewSecretChat(int userId) {
 
@@ -26844,9 +24023,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1689344881;
-        }
+        public int getConstructor() { return 1689344881; }
 
     }
 
@@ -26862,8 +24039,7 @@ public class TdApi {
 
         public long chatId;
 
-        public UpgradeBasicGroupChatToSupergroupChat() {
-        }
+        public UpgradeBasicGroupChatToSupergroupChat() {}
 
         public UpgradeBasicGroupChatToSupergroupChat(long chatId) {
 
@@ -26872,9 +24048,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 300488122;
-        }
+        public int getConstructor() { return 300488122; }
 
     }
 
@@ -26889,8 +24063,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GetChatListsToAddChat() {
-        }
+        public GetChatListsToAddChat() {}
 
         public GetChatListsToAddChat(long chatId) {
 
@@ -26899,9 +24072,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 654956193;
-        }
+        public int getConstructor() { return 654956193; }
 
     }
 
@@ -26912,15 +24083,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @chatList - The chat list
-     * Use getChatListsToAddChat to get suitable chat lists
+     *             Use getChatListsToAddChat to get suitable chat lists
      */
     public static class AddChatToList extends Function {
 
         public long chatId;
         public ChatList chatList;
 
-        public AddChatToList() {
-        }
+        public AddChatToList() {}
 
         public AddChatToList(long chatId, ChatList chatList) {
 
@@ -26930,9 +24100,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -80523595;
-        }
+        public int getConstructor() { return -80523595; }
 
     }
 
@@ -26946,8 +24114,7 @@ public class TdApi {
 
         public int chatFilterId;
 
-        public GetChatFilter() {
-        }
+        public GetChatFilter() {}
 
         public GetChatFilter(int chatFilterId) {
 
@@ -26956,9 +24123,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1826317803;
-        }
+        public int getConstructor() { return 1826317803; }
 
     }
 
@@ -26973,8 +24138,7 @@ public class TdApi {
 
         public ChatFilter filter;
 
-        public CreateChatFilter() {
-        }
+        public CreateChatFilter() {}
 
         public CreateChatFilter(ChatFilter filter) {
 
@@ -26983,9 +24147,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 49065126;
-        }
+        public int getConstructor() { return 49065126; }
 
     }
 
@@ -27002,8 +24164,7 @@ public class TdApi {
         public int chatFilterId;
         public ChatFilter filter;
 
-        public EditChatFilter() {
-        }
+        public EditChatFilter() {}
 
         public EditChatFilter(int chatFilterId, ChatFilter filter) {
 
@@ -27013,9 +24174,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1674793086;
-        }
+        public int getConstructor() { return -1674793086; }
 
     }
 
@@ -27029,8 +24188,7 @@ public class TdApi {
 
         public int chatFilterId;
 
-        public DeleteChatFilter() {
-        }
+        public DeleteChatFilter() {}
 
         public DeleteChatFilter(int chatFilterId) {
 
@@ -27039,9 +24197,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -523220877;
-        }
+        public int getConstructor() { return -523220877; }
 
     }
 
@@ -27055,8 +24211,7 @@ public class TdApi {
 
         public int[] chatFilterIds;
 
-        public ReorderChatFilters() {
-        }
+        public ReorderChatFilters() {}
 
         public ReorderChatFilters(int[] chatFilterIds) {
 
@@ -27065,9 +24220,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1258111097;
-        }
+        public int getConstructor() { return -1258111097; }
 
     }
 
@@ -27078,9 +24231,7 @@ public class TdApi {
     public static class GetRecommendedChatFilters extends Function {
 
         @Override
-        public int getConstructor() {
-            return -779390746;
-        }
+        public int getConstructor() { return -779390746; }
 
     }
 
@@ -27095,8 +24246,7 @@ public class TdApi {
 
         public ChatFilter filter;
 
-        public GetChatFilterDefaultIconName() {
-        }
+        public GetChatFilterDefaultIconName() {}
 
         public GetChatFilterDefaultIconName(ChatFilter filter) {
 
@@ -27105,9 +24255,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1339828680;
-        }
+        public int getConstructor() { return -1339828680; }
 
     }
 
@@ -27125,8 +24273,7 @@ public class TdApi {
         public long chatId;
         public String title;
 
-        public SetChatTitle() {
-        }
+        public SetChatTitle() {}
 
         public SetChatTitle(long chatId, String title) {
 
@@ -27136,9 +24283,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 164282047;
-        }
+        public int getConstructor() { return 164282047; }
 
     }
 
@@ -27150,15 +24295,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @photo - New chat photo
-     * You can pass null to delete the chat photo
+     *          You can pass null to delete the chat photo
      */
     public static class SetChatPhoto extends Function {
 
         public long chatId;
         public InputChatPhoto photo;
 
-        public SetChatPhoto() {
-        }
+        public SetChatPhoto() {}
 
         public SetChatPhoto(long chatId, InputChatPhoto photo) {
 
@@ -27168,9 +24312,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -377778941;
-        }
+        public int getConstructor() { return -377778941; }
 
     }
 
@@ -27188,8 +24330,7 @@ public class TdApi {
         public long chatId;
         public ChatPermissions permissions;
 
-        public SetChatPermissions() {
-        }
+        public SetChatPermissions() {}
 
         public SetChatPermissions(long chatId, ChatPermissions permissions) {
 
@@ -27199,9 +24340,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2138507006;
-        }
+        public int getConstructor() { return 2138507006; }
 
     }
 
@@ -27215,11 +24354,9 @@ public class TdApi {
     public static class SetChatDraftMessage extends Function {
 
         public long chatId;
-        @Nullable
-        public DraftMessage draftMessage;
+        @Nullable public DraftMessage draftMessage;
 
-        public SetChatDraftMessage() {
-        }
+        public SetChatDraftMessage() {}
 
         public SetChatDraftMessage(long chatId, @Nullable DraftMessage draftMessage) {
 
@@ -27229,9 +24366,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -588175579;
-        }
+        public int getConstructor() { return -588175579; }
 
     }
 
@@ -27242,15 +24377,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @notificationSettings - New notification settings for the chat
-     * If the chat is muted for more than 1 week, it is considered to be muted forever
+     *                         If the chat is muted for more than 1 week, it is considered to be muted forever
      */
     public static class SetChatNotificationSettings extends Function {
 
         public long chatId;
         public ChatNotificationSettings notificationSettings;
 
-        public SetChatNotificationSettings() {
-        }
+        public SetChatNotificationSettings() {}
 
         public SetChatNotificationSettings(long chatId, ChatNotificationSettings notificationSettings) {
 
@@ -27260,9 +24394,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 777199614;
-        }
+        public int getConstructor() { return 777199614; }
 
     }
 
@@ -27278,8 +24410,7 @@ public class TdApi {
         public long chatId;
         public boolean isMarkedAsUnread;
 
-        public ToggleChatIsMarkedAsUnread() {
-        }
+        public ToggleChatIsMarkedAsUnread() {}
 
         public ToggleChatIsMarkedAsUnread(long chatId, boolean isMarkedAsUnread) {
 
@@ -27289,9 +24420,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -986129697;
-        }
+        public int getConstructor() { return -986129697; }
 
     }
 
@@ -27307,8 +24436,7 @@ public class TdApi {
         public long chatId;
         public boolean defaultDisableNotification;
 
-        public ToggleChatDefaultDisableNotification() {
-        }
+        public ToggleChatDefaultDisableNotification() {}
 
         public ToggleChatDefaultDisableNotification(long chatId, boolean defaultDisableNotification) {
 
@@ -27318,9 +24446,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 314794002;
-        }
+        public int getConstructor() { return 314794002; }
 
     }
 
@@ -27336,8 +24462,7 @@ public class TdApi {
         public long chatId;
         public String clientData;
 
-        public SetChatClientData() {
-        }
+        public SetChatClientData() {}
 
         public SetChatClientData(long chatId, String clientData) {
 
@@ -27347,9 +24472,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -827119811;
-        }
+        public int getConstructor() { return -827119811; }
 
     }
 
@@ -27367,8 +24490,7 @@ public class TdApi {
         public long chatId;
         public String description;
 
-        public SetChatDescription() {
-        }
+        public SetChatDescription() {}
 
         public SetChatDescription(long chatId, String description) {
 
@@ -27378,9 +24500,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1957213277;
-        }
+        public int getConstructor() { return 1957213277; }
 
     }
 
@@ -27390,20 +24510,19 @@ public class TdApi {
      * Requires can_change_info rights in the channel if it is specified
      *
      * @chatId - Identifier of the channel chat
-     * Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup)
+     *           Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup)
      * @discussionChatId - Identifier of a new channel's discussion group
-     * Use 0 to remove the discussion group
-     * Use the method getSuitableDiscussionChats to find all suitable groups
-     * Basic group chats needs to be first upgraded to supergroup chats
-     * If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
+     *                     Use 0 to remove the discussion group
+     *                     Use the method getSuitableDiscussionChats to find all suitable groups
+     *                     Basic group chats needs to be first upgraded to supergroup chats
+     *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
      */
     public static class SetChatDiscussionGroup extends Function {
 
         public long chatId;
         public long discussionChatId;
 
-        public SetChatDiscussionGroup() {
-        }
+        public SetChatDiscussionGroup() {}
 
         public SetChatDiscussionGroup(long chatId, long discussionChatId) {
 
@@ -27413,9 +24532,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -918801736;
-        }
+        public int getConstructor() { return -918801736; }
 
     }
 
@@ -27426,15 +24543,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @location - New location for the chat
-     * Must be valid and not null
+     *             Must be valid and not null
      */
     public static class SetChatLocation extends Function {
 
         public long chatId;
         public ChatLocation location;
 
-        public SetChatLocation() {
-        }
+        public SetChatLocation() {}
 
         public SetChatLocation(long chatId, ChatLocation location) {
 
@@ -27444,9 +24560,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -767091286;
-        }
+        public int getConstructor() { return -767091286; }
 
     }
 
@@ -27458,15 +24572,14 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @slowModeDelay - New slow mode delay for the chat
-     * Must be one of 0, 10, 30, 60, 300, 900, 3600
+     *                  Must be one of 0, 10, 30, 60, 300, 900, 3600
      */
     public static class SetChatSlowModeDelay extends Function {
 
         public long chatId;
         public int slowModeDelay;
 
-        public SetChatSlowModeDelay() {
-        }
+        public SetChatSlowModeDelay() {}
 
         public SetChatSlowModeDelay(long chatId, int slowModeDelay) {
 
@@ -27476,9 +24589,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -540350914;
-        }
+        public int getConstructor() { return -540350914; }
 
     }
 
@@ -27497,8 +24608,7 @@ public class TdApi {
         public long messageId;
         public boolean disableNotification;
 
-        public PinChatMessage() {
-        }
+        public PinChatMessage() {}
 
         public PinChatMessage(long chatId, long messageId, boolean disableNotification) {
 
@@ -27509,9 +24619,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -554712351;
-        }
+        public int getConstructor() { return -554712351; }
 
     }
 
@@ -27526,8 +24634,7 @@ public class TdApi {
 
         public long chatId;
 
-        public UnpinChatMessage() {
-        }
+        public UnpinChatMessage() {}
 
         public UnpinChatMessage(long chatId) {
 
@@ -27536,9 +24643,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 277557690;
-        }
+        public int getConstructor() { return 277557690; }
 
     }
 
@@ -27553,8 +24658,7 @@ public class TdApi {
 
         public long chatId;
 
-        public JoinChat() {
-        }
+        public JoinChat() {}
 
         public JoinChat(long chatId) {
 
@@ -27563,9 +24667,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 326769313;
-        }
+        public int getConstructor() { return 326769313; }
 
     }
 
@@ -27580,8 +24682,7 @@ public class TdApi {
 
         public long chatId;
 
-        public LeaveChat() {
-        }
+        public LeaveChat() {}
 
         public LeaveChat(long chatId) {
 
@@ -27590,9 +24691,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1825080735;
-        }
+        public int getConstructor() { return -1825080735; }
 
     }
 
@@ -27605,7 +24704,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @userId - Identifier of the user
      * @forwardLimit - The number of earlier messages from the chat to be forwarded to the new member
-     * Ignored for supergroups and channels
+     *                 Ignored for supergroups and channels
      */
     public static class AddChatMember extends Function {
 
@@ -27613,8 +24712,7 @@ public class TdApi {
         public int userId;
         public int forwardLimit;
 
-        public AddChatMember() {
-        }
+        public AddChatMember() {}
 
         public AddChatMember(long chatId, int userId, int forwardLimit) {
 
@@ -27625,9 +24723,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1182817962;
-        }
+        public int getConstructor() { return 1182817962; }
 
     }
 
@@ -27647,8 +24743,7 @@ public class TdApi {
         public long chatId;
         public int[] userIds;
 
-        public AddChatMembers() {
-        }
+        public AddChatMembers() {}
 
         public AddChatMembers(long chatId, int[] userIds) {
 
@@ -27658,9 +24753,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1234094617;
-        }
+        public int getConstructor() { return 1234094617; }
 
     }
 
@@ -27681,8 +24774,7 @@ public class TdApi {
         public int userId;
         public ChatMemberStatus status;
 
-        public SetChatMemberStatus() {
-        }
+        public SetChatMemberStatus() {}
 
         public SetChatMemberStatus(long chatId, int userId, ChatMemberStatus status) {
 
@@ -27693,9 +24785,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1754439241;
-        }
+        public int getConstructor() { return -1754439241; }
 
     }
 
@@ -27706,9 +24796,7 @@ public class TdApi {
     public static class CanTransferOwnership extends Function {
 
         @Override
-        public int getConstructor() {
-            return 634602508;
-        }
+        public int getConstructor() { return 634602508; }
 
     }
 
@@ -27721,7 +24809,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @userId - Identifier of the user to which transfer the ownership
-     * The ownership can't be transferred to a bot or to a deleted user
+     *           The ownership can't be transferred to a bot or to a deleted user
      * @password - The password of the current user
      */
     public static class TransferChatOwnership extends Function {
@@ -27730,8 +24818,7 @@ public class TdApi {
         public int userId;
         public String password;
 
-        public TransferChatOwnership() {
-        }
+        public TransferChatOwnership() {}
 
         public TransferChatOwnership(long chatId, int userId, String password) {
 
@@ -27742,9 +24829,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1925047127;
-        }
+        public int getConstructor() { return -1925047127; }
 
     }
 
@@ -27760,8 +24845,7 @@ public class TdApi {
         public long chatId;
         public int userId;
 
-        public GetChatMember() {
-        }
+        public GetChatMember() {}
 
         public GetChatMember(long chatId, int userId) {
 
@@ -27771,9 +24855,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 677085892;
-        }
+        public int getConstructor() { return 677085892; }
 
     }
 
@@ -27786,7 +24868,7 @@ public class TdApi {
      * @query - Query to search for
      * @limit - The maximum number of users to be returned
      * @filter - The type of users to return
-     * By default, chatMembersFilterMembers
+     *           By default, chatMembersFilterMembers
      */
     public static class SearchChatMembers extends Function {
 
@@ -27795,8 +24877,7 @@ public class TdApi {
         public int limit;
         public ChatMembersFilter filter;
 
-        public SearchChatMembers() {
-        }
+        public SearchChatMembers() {}
 
         public SearchChatMembers(long chatId, String query, int limit, ChatMembersFilter filter) {
 
@@ -27808,9 +24889,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -445823291;
-        }
+        public int getConstructor() { return -445823291; }
 
     }
 
@@ -27824,8 +24903,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GetChatAdministrators() {
-        }
+        public GetChatAdministrators() {}
 
         public GetChatAdministrators(long chatId) {
 
@@ -27834,9 +24912,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1544468155;
-        }
+        public int getConstructor() { return 1544468155; }
 
     }
 
@@ -27850,8 +24926,7 @@ public class TdApi {
 
         public boolean excludeSecretChats;
 
-        public ClearAllDraftMessages() {
-        }
+        public ClearAllDraftMessages() {}
 
         public ClearAllDraftMessages(boolean excludeSecretChats) {
 
@@ -27860,9 +24935,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -46369573;
-        }
+        public int getConstructor() { return -46369573; }
 
     }
 
@@ -27878,8 +24951,7 @@ public class TdApi {
         public NotificationSettingsScope scope;
         public boolean compareSound;
 
-        public GetChatNotificationSettingsExceptions() {
-        }
+        public GetChatNotificationSettingsExceptions() {}
 
         public GetChatNotificationSettingsExceptions(NotificationSettingsScope scope, boolean compareSound) {
 
@@ -27889,9 +24961,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 201199121;
-        }
+        public int getConstructor() { return 201199121; }
 
     }
 
@@ -27905,8 +24975,7 @@ public class TdApi {
 
         public NotificationSettingsScope scope;
 
-        public GetScopeNotificationSettings() {
-        }
+        public GetScopeNotificationSettings() {}
 
         public GetScopeNotificationSettings(NotificationSettingsScope scope) {
 
@@ -27915,9 +24984,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -995613361;
-        }
+        public int getConstructor() { return -995613361; }
 
     }
 
@@ -27933,8 +25000,7 @@ public class TdApi {
         public NotificationSettingsScope scope;
         public ScopeNotificationSettings notificationSettings;
 
-        public SetScopeNotificationSettings() {
-        }
+        public SetScopeNotificationSettings() {}
 
         public SetScopeNotificationSettings(NotificationSettingsScope scope, ScopeNotificationSettings notificationSettings) {
 
@@ -27944,9 +25010,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2049984966;
-        }
+        public int getConstructor() { return -2049984966; }
 
     }
 
@@ -27958,9 +25022,7 @@ public class TdApi {
     public static class ResetAllNotificationSettings extends Function {
 
         @Override
-        public int getConstructor() {
-            return -174020359;
-        }
+        public int getConstructor() { return -174020359; }
 
     }
 
@@ -27979,8 +25041,7 @@ public class TdApi {
         public long chatId;
         public boolean isPinned;
 
-        public ToggleChatIsPinned() {
-        }
+        public ToggleChatIsPinned() {}
 
         public ToggleChatIsPinned(ChatList chatList, long chatId, boolean isPinned) {
 
@@ -27991,9 +25052,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1485429186;
-        }
+        public int getConstructor() { return -1485429186; }
 
     }
 
@@ -28009,8 +25068,7 @@ public class TdApi {
         public ChatList chatList;
         public long[] chatIds;
 
-        public SetPinnedChats() {
-        }
+        public SetPinnedChats() {}
 
         public SetPinnedChats(ChatList chatList, long[] chatIds) {
 
@@ -28020,9 +25078,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -695640000;
-        }
+        public int getConstructor() { return -695640000; }
 
     }
 
@@ -28033,13 +25089,13 @@ public class TdApi {
      *
      * @fileId - Identifier of the file to download
      * @priority - Priority of the download (1-32)
-     * The higher the priority, the earlier the file will be downloaded
-     * If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first
+     *             The higher the priority, the earlier the file will be downloaded
+     *             If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first
      * @offset - The starting position from which the file should be downloaded
      * @limit - Number of bytes which should be downloaded starting from the "offset" position before the download will be automatically cancelled
-     * Use 0 to download without a limit
+     *          Use 0 to download without a limit
      * @synchronous - If false, this request returns file state just after the download has been started
-     * If true, this request returns file state only after the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent
+     *                If true, this request returns file state only after the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent
      */
     public static class DownloadFile extends Function {
 
@@ -28049,8 +25105,7 @@ public class TdApi {
         public int limit;
         public boolean synchronous;
 
-        public DownloadFile() {
-        }
+        public DownloadFile() {}
 
         public DownloadFile(int fileId, int priority, int offset, int limit, boolean synchronous) {
 
@@ -28063,9 +25118,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1102026662;
-        }
+        public int getConstructor() { return -1102026662; }
 
     }
 
@@ -28081,8 +25134,7 @@ public class TdApi {
         public int fileId;
         public int offset;
 
-        public GetFileDownloadedPrefixSize() {
-        }
+        public GetFileDownloadedPrefixSize() {}
 
         public GetFileDownloadedPrefixSize(int fileId, int offset) {
 
@@ -28092,9 +25144,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1668864864;
-        }
+        public int getConstructor() { return -1668864864; }
 
     }
 
@@ -28105,15 +25155,14 @@ public class TdApi {
      *
      * @fileId - Identifier of a file to stop downloading
      * @onlyIfPending - Pass true to stop downloading only if it hasn't been started, i.e
-     * Request hasn't been sent to server
+     *                  Request hasn't been sent to server
      */
     public static class CancelDownloadFile extends Function {
 
         public int fileId;
         public boolean onlyIfPending;
 
-        public CancelDownloadFile() {
-        }
+        public CancelDownloadFile() {}
 
         public CancelDownloadFile(int fileId, boolean onlyIfPending) {
 
@@ -28123,9 +25172,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1954524450;
-        }
+        public int getConstructor() { return -1954524450; }
 
     }
 
@@ -28138,8 +25185,8 @@ public class TdApi {
      * @file - File to upload
      * @fileType - File type
      * @priority - Priority of the upload (1-32)
-     * The higher the priority, the earlier the file will be uploaded
-     * If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first
+     *             The higher the priority, the earlier the file will be uploaded
+     *             If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first
      */
     public static class UploadFile extends Function {
 
@@ -28147,8 +25194,7 @@ public class TdApi {
         public FileType fileType;
         public int priority;
 
-        public UploadFile() {
-        }
+        public UploadFile() {}
 
         public UploadFile(InputFile file, FileType fileType, int priority) {
 
@@ -28159,9 +25205,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -745597786;
-        }
+        public int getConstructor() { return -745597786; }
 
     }
 
@@ -28177,8 +25221,7 @@ public class TdApi {
 
         public int fileId;
 
-        public CancelUploadFile() {
-        }
+        public CancelUploadFile() {}
 
         public CancelUploadFile(int fileId) {
 
@@ -28187,9 +25230,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1623539600;
-        }
+        public int getConstructor() { return 1623539600; }
 
     }
 
@@ -28208,8 +25249,7 @@ public class TdApi {
         public int offset;
         public byte[] data;
 
-        public WriteGeneratedFilePart() {
-        }
+        public WriteGeneratedFilePart() {}
 
         public WriteGeneratedFilePart(long generationId, int offset, byte[] data) {
 
@@ -28220,9 +25260,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2062358189;
-        }
+        public int getConstructor() { return -2062358189; }
 
     }
 
@@ -28232,7 +25270,7 @@ public class TdApi {
      *
      * @generationId - The identifier of the generation process
      * @expectedSize - Expected size of the generated file, in bytes
-     * 0 if unknown
+     *                 0 if unknown
      * @localPrefixSize - The number of bytes already generated
      */
     public static class SetFileGenerationProgress extends Function {
@@ -28241,8 +25279,7 @@ public class TdApi {
         public int expectedSize;
         public int localPrefixSize;
 
-        public SetFileGenerationProgress() {
-        }
+        public SetFileGenerationProgress() {}
 
         public SetFileGenerationProgress(long generationId, int expectedSize, int localPrefixSize) {
 
@@ -28253,9 +25290,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -540459953;
-        }
+        public int getConstructor() { return -540459953; }
 
     }
 
@@ -28271,8 +25306,7 @@ public class TdApi {
         public long generationId;
         public Error error;
 
-        public FinishFileGeneration() {
-        }
+        public FinishFileGeneration() {}
 
         public FinishFileGeneration(long generationId, Error error) {
 
@@ -28282,9 +25316,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1055060835;
-        }
+        public int getConstructor() { return -1055060835; }
 
     }
 
@@ -28294,11 +25326,11 @@ public class TdApi {
      * This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct read from the file
      *
      * @fileId - Identifier of the file
-     * The file must be located in the TDLib file cache
+     *           The file must be located in the TDLib file cache
      * @offset - The offset from which to read the file
      * @count - Number of bytes to read
-     * An error will be returned if there are not enough bytes available in the file from the specified position
-     * Pass 0 to read all available data from the specified position
+     *          An error will be returned if there are not enough bytes available in the file from the specified position
+     *          Pass 0 to read all available data from the specified position
      */
     public static class ReadFilePart extends Function {
 
@@ -28306,8 +25338,7 @@ public class TdApi {
         public int offset;
         public int count;
 
-        public ReadFilePart() {
-        }
+        public ReadFilePart() {}
 
         public ReadFilePart(int fileId, int offset, int count) {
 
@@ -28318,9 +25349,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -407749314;
-        }
+        public int getConstructor() { return -407749314; }
 
     }
 
@@ -28334,8 +25363,7 @@ public class TdApi {
 
         public int fileId;
 
-        public DeleteFile() {
-        }
+        public DeleteFile() {}
 
         public DeleteFile(int fileId) {
 
@@ -28344,9 +25372,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1807653676;
-        }
+        public int getConstructor() { return 1807653676; }
 
     }
 
@@ -28363,8 +25389,7 @@ public class TdApi {
 
         public long chatId;
 
-        public GenerateChatInviteLink() {
-        }
+        public GenerateChatInviteLink() {}
 
         public GenerateChatInviteLink(long chatId) {
 
@@ -28373,9 +25398,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1945532500;
-        }
+        public int getConstructor() { return 1945532500; }
 
     }
 
@@ -28389,8 +25412,7 @@ public class TdApi {
 
         public String inviteLink;
 
-        public CheckChatInviteLink() {
-        }
+        public CheckChatInviteLink() {}
 
         public CheckChatInviteLink(String inviteLink) {
 
@@ -28399,9 +25421,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -496940997;
-        }
+        public int getConstructor() { return -496940997; }
 
     }
 
@@ -28416,8 +25436,7 @@ public class TdApi {
 
         public String inviteLink;
 
-        public JoinChatByInviteLink() {
-        }
+        public JoinChatByInviteLink() {}
 
         public JoinChatByInviteLink(String inviteLink) {
 
@@ -28426,9 +25445,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1049973882;
-        }
+        public int getConstructor() { return -1049973882; }
 
     }
 
@@ -28446,8 +25463,7 @@ public class TdApi {
         public CallProtocol protocol;
         public boolean isVideo;
 
-        public CreateCall() {
-        }
+        public CreateCall() {}
 
         public CreateCall(int userId, CallProtocol protocol, boolean isVideo) {
 
@@ -28458,9 +25474,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1837533340;
-        }
+        public int getConstructor() { return 1837533340; }
 
     }
 
@@ -28476,8 +25490,7 @@ public class TdApi {
         public int callId;
         public CallProtocol protocol;
 
-        public AcceptCall() {
-        }
+        public AcceptCall() {}
 
         public AcceptCall(int callId, CallProtocol protocol) {
 
@@ -28487,9 +25500,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -646618416;
-        }
+        public int getConstructor() { return -646618416; }
 
     }
 
@@ -28505,8 +25516,7 @@ public class TdApi {
         public int callId;
         public byte[] data;
 
-        public SendCallSignalingData() {
-        }
+        public SendCallSignalingData() {}
 
         public SendCallSignalingData(int callId, byte[] data) {
 
@@ -28516,9 +25526,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1412280732;
-        }
+        public int getConstructor() { return 1412280732; }
 
     }
 
@@ -28540,8 +25548,7 @@ public class TdApi {
         public boolean isVideo;
         public long connectionId;
 
-        public DiscardCall() {
-        }
+        public DiscardCall() {}
 
         public DiscardCall(int callId, boolean isDisconnected, int duration, boolean isVideo, long connectionId) {
 
@@ -28554,9 +25561,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1784044162;
-        }
+        public int getConstructor() { return -1784044162; }
 
     }
 
@@ -28576,8 +25581,7 @@ public class TdApi {
         public String comment;
         public CallProblem[] problems;
 
-        public SendCallRating() {
-        }
+        public SendCallRating() {}
 
         public SendCallRating(int callId, int rating, String comment, CallProblem[] problems) {
 
@@ -28589,9 +25593,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1402719502;
-        }
+        public int getConstructor() { return -1402719502; }
 
     }
 
@@ -28607,8 +25609,7 @@ public class TdApi {
         public int callId;
         public String debugInformation;
 
-        public SendCallDebugInformation() {
-        }
+        public SendCallDebugInformation() {}
 
         public SendCallDebugInformation(int callId, String debugInformation) {
 
@@ -28618,9 +25619,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2019243839;
-        }
+        public int getConstructor() { return 2019243839; }
 
     }
 
@@ -28634,8 +25633,7 @@ public class TdApi {
 
         public int userId;
 
-        public BlockUser() {
-        }
+        public BlockUser() {}
 
         public BlockUser(int userId) {
 
@@ -28644,9 +25642,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1239315139;
-        }
+        public int getConstructor() { return -1239315139; }
 
     }
 
@@ -28660,8 +25656,7 @@ public class TdApi {
 
         public int userId;
 
-        public UnblockUser() {
-        }
+        public UnblockUser() {}
 
         public UnblockUser(int userId) {
 
@@ -28670,9 +25665,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -307286367;
-        }
+        public int getConstructor() { return -307286367; }
 
     }
 
@@ -28688,8 +25681,7 @@ public class TdApi {
         public int offset;
         public int limit;
 
-        public GetBlockedUsers() {
-        }
+        public GetBlockedUsers() {}
 
         public GetBlockedUsers(int offset, int limit) {
 
@@ -28699,9 +25691,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -742912777;
-        }
+        public int getConstructor() { return -742912777; }
 
     }
 
@@ -28710,18 +25700,17 @@ public class TdApi {
      * Adds a user to the contact list or edits an existing contact by their user identifier
      *
      * @contact - The contact to add or edit
-     * Phone number can be empty and needs to be specified only if known, vCard is ignored
+     *            Phone number can be empty and needs to be specified only if known, vCard is ignored
      * @sharePhoneNumber - True, if the new contact needs to be allowed to see current user's phone number
-     * A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed
-     * Use the field UserFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number
+     *                     A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed
+     *                     Use the field UserFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number
      */
     public static class AddContact extends Function {
 
         public Contact contact;
         public boolean sharePhoneNumber;
 
-        public AddContact() {
-        }
+        public AddContact() {}
 
         public AddContact(Contact contact, boolean sharePhoneNumber) {
 
@@ -28731,9 +25720,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1869640000;
-        }
+        public int getConstructor() { return 1869640000; }
 
     }
 
@@ -28743,14 +25730,13 @@ public class TdApi {
      * Contacts' user identifiers are ignored
      *
      * @contacts - The list of contacts to import or edit
-     * Contacts' vCard are ignored and are not imported
+     *             Contacts' vCard are ignored and are not imported
      */
     public static class ImportContacts extends Function {
 
         public Contact[] contacts;
 
-        public ImportContacts() {
-        }
+        public ImportContacts() {}
 
         public ImportContacts(Contact[] contacts) {
 
@@ -28759,9 +25745,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -215132767;
-        }
+        public int getConstructor() { return -215132767; }
 
     }
 
@@ -28772,9 +25756,7 @@ public class TdApi {
     public static class GetContacts extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1417722768;
-        }
+        public int getConstructor() { return -1417722768; }
 
     }
 
@@ -28783,7 +25765,7 @@ public class TdApi {
      * Searches for the specified query in the first names, last names and usernames of the known user contacts
      *
      * @query - Query to search for
-     * May be empty to return all contacts
+     *          May be empty to return all contacts
      * @limit - The maximum number of users to be returned
      */
     public static class SearchContacts extends Function {
@@ -28791,8 +25773,7 @@ public class TdApi {
         public String query;
         public int limit;
 
-        public SearchContacts() {
-        }
+        public SearchContacts() {}
 
         public SearchContacts(String query, int limit) {
 
@@ -28802,9 +25783,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1794690715;
-        }
+        public int getConstructor() { return -1794690715; }
 
     }
 
@@ -28818,8 +25797,7 @@ public class TdApi {
 
         public int[] userIds;
 
-        public RemoveContacts() {
-        }
+        public RemoveContacts() {}
 
         public RemoveContacts(int[] userIds) {
 
@@ -28828,9 +25806,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -615510759;
-        }
+        public int getConstructor() { return -615510759; }
 
     }
 
@@ -28841,9 +25817,7 @@ public class TdApi {
     public static class GetImportedContactCount extends Function {
 
         @Override
-        public int getConstructor() {
-            return -656336346;
-        }
+        public int getConstructor() { return -656336346; }
 
     }
 
@@ -28859,8 +25833,7 @@ public class TdApi {
 
         public Contact[] contacts;
 
-        public ChangeImportedContacts() {
-        }
+        public ChangeImportedContacts() {}
 
         public ChangeImportedContacts(Contact[] contacts) {
 
@@ -28869,9 +25842,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1968207955;
-        }
+        public int getConstructor() { return 1968207955; }
 
     }
 
@@ -28882,9 +25853,7 @@ public class TdApi {
     public static class ClearImportedContacts extends Function {
 
         @Override
-        public int getConstructor() {
-            return 869503298;
-        }
+        public int getConstructor() { return 869503298; }
 
     }
 
@@ -28894,14 +25863,13 @@ public class TdApi {
      * Supposed to be called when the user clicks on chatActionBarSharePhoneNumber
      *
      * @userId - Identifier of the user with whom to share the phone number
-     * The user must be a mutual contact
+     *           The user must be a mutual contact
      */
     public static class SharePhoneNumber extends Function {
 
         public int userId;
 
-        public SharePhoneNumber() {
-        }
+        public SharePhoneNumber() {}
 
         public SharePhoneNumber(int userId) {
 
@@ -28910,9 +25878,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -370669878;
-        }
+        public int getConstructor() { return -370669878; }
 
     }
 
@@ -28931,8 +25897,7 @@ public class TdApi {
         public int offset;
         public int limit;
 
-        public GetUserProfilePhotos() {
-        }
+        public GetUserProfilePhotos() {}
 
         public GetUserProfilePhotos(int userId, int offset, int limit) {
 
@@ -28943,9 +25908,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -768699141;
-        }
+        public int getConstructor() { return -768699141; }
 
     }
 
@@ -28955,7 +25918,7 @@ public class TdApi {
      * If the emoji is not empty, favorite and recently used stickers may also be returned
      *
      * @emoji - String representation of emoji
-     * If empty, returns all known installed stickers
+     *          If empty, returns all known installed stickers
      * @limit - The maximum number of stickers to be returned
      */
     public static class GetStickers extends Function {
@@ -28963,8 +25926,7 @@ public class TdApi {
         public String emoji;
         public int limit;
 
-        public GetStickers() {
-        }
+        public GetStickers() {}
 
         public GetStickers(String emoji, int limit) {
 
@@ -28974,9 +25936,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1594919556;
-        }
+        public int getConstructor() { return -1594919556; }
 
     }
 
@@ -28992,8 +25952,7 @@ public class TdApi {
         public String emoji;
         public int limit;
 
-        public SearchStickers() {
-        }
+        public SearchStickers() {}
 
         public SearchStickers(String emoji, int limit) {
 
@@ -29003,9 +25962,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1555771203;
-        }
+        public int getConstructor() { return 1555771203; }
 
     }
 
@@ -29014,14 +25971,13 @@ public class TdApi {
      * Returns a list of installed sticker sets
      *
      * @isMasks - Pass true to return mask sticker sets
-     * Pass false to return ordinary sticker sets
+     *            Pass false to return ordinary sticker sets
      */
     public static class GetInstalledStickerSets extends Function {
 
         public boolean isMasks;
 
-        public GetInstalledStickerSets() {
-        }
+        public GetInstalledStickerSets() {}
 
         public GetInstalledStickerSets(boolean isMasks) {
 
@@ -29030,9 +25986,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1214523749;
-        }
+        public int getConstructor() { return 1214523749; }
 
     }
 
@@ -29041,7 +25995,7 @@ public class TdApi {
      * Returns a list of archived sticker sets
      *
      * @isMasks - Pass true to return mask stickers sets
-     * Pass false to return ordinary sticker sets
+     *            Pass false to return ordinary sticker sets
      * @offsetStickerSetId - Identifier of the sticker set from which to return the result
      * @limit - The maximum number of sticker sets to return
      */
@@ -29051,8 +26005,7 @@ public class TdApi {
         public long offsetStickerSetId;
         public int limit;
 
-        public GetArchivedStickerSets() {
-        }
+        public GetArchivedStickerSets() {}
 
         public GetArchivedStickerSets(boolean isMasks, long offsetStickerSetId, int limit) {
 
@@ -29063,9 +26016,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1996943238;
-        }
+        public int getConstructor() { return 1996943238; }
 
     }
 
@@ -29076,15 +26027,14 @@ public class TdApi {
      *
      * @offset - The offset from which to return the sticker sets
      * @limit - The maximum number of sticker sets to be returned
-     * Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached
+     *          Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached
      */
     public static class GetTrendingStickerSets extends Function {
 
         public int offset;
         public int limit;
 
-        public GetTrendingStickerSets() {
-        }
+        public GetTrendingStickerSets() {}
 
         public GetTrendingStickerSets(int offset, int limit) {
 
@@ -29094,9 +26044,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1494581948;
-        }
+        public int getConstructor() { return -1494581948; }
 
     }
 
@@ -29111,8 +26059,7 @@ public class TdApi {
 
         public int fileId;
 
-        public GetAttachedStickerSets() {
-        }
+        public GetAttachedStickerSets() {}
 
         public GetAttachedStickerSets(int fileId) {
 
@@ -29121,9 +26068,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1302172429;
-        }
+        public int getConstructor() { return 1302172429; }
 
     }
 
@@ -29137,8 +26082,7 @@ public class TdApi {
 
         public long setId;
 
-        public GetStickerSet() {
-        }
+        public GetStickerSet() {}
 
         public GetStickerSet(long setId) {
 
@@ -29147,9 +26091,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1052318659;
-        }
+        public int getConstructor() { return 1052318659; }
 
     }
 
@@ -29163,8 +26105,7 @@ public class TdApi {
 
         public String name;
 
-        public SearchStickerSet() {
-        }
+        public SearchStickerSet() {}
 
         public SearchStickerSet(String name) {
 
@@ -29173,9 +26114,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1157930222;
-        }
+        public int getConstructor() { return 1157930222; }
 
     }
 
@@ -29184,7 +26123,7 @@ public class TdApi {
      * Searches for installed sticker sets by looking for specified query in their title and name
      *
      * @isMasks - Pass true to return mask sticker sets
-     * Pass false to return ordinary sticker sets
+     *            Pass false to return ordinary sticker sets
      * @query - Query to search for
      * @limit - The maximum number of sticker sets to return
      */
@@ -29194,8 +26133,7 @@ public class TdApi {
         public String query;
         public int limit;
 
-        public SearchInstalledStickerSets() {
-        }
+        public SearchInstalledStickerSets() {}
 
         public SearchInstalledStickerSets(boolean isMasks, String query, int limit) {
 
@@ -29206,9 +26144,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 681171344;
-        }
+        public int getConstructor() { return 681171344; }
 
     }
 
@@ -29223,8 +26159,7 @@ public class TdApi {
 
         public String query;
 
-        public SearchStickerSets() {
-        }
+        public SearchStickerSets() {}
 
         public SearchStickerSets(String query) {
 
@@ -29233,9 +26168,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1082314629;
-        }
+        public int getConstructor() { return -1082314629; }
 
     }
 
@@ -29246,7 +26179,7 @@ public class TdApi {
      * @setId - Identifier of the sticker set
      * @isInstalled - The new value of is_installed
      * @isArchived - The new value of is_archived
-     * A sticker set can't be installed and archived simultaneously
+     *               A sticker set can't be installed and archived simultaneously
      */
     public static class ChangeStickerSet extends Function {
 
@@ -29254,8 +26187,7 @@ public class TdApi {
         public boolean isInstalled;
         public boolean isArchived;
 
-        public ChangeStickerSet() {
-        }
+        public ChangeStickerSet() {}
 
         public ChangeStickerSet(long setId, boolean isInstalled, boolean isArchived) {
 
@@ -29266,9 +26198,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 449357293;
-        }
+        public int getConstructor() { return 449357293; }
 
     }
 
@@ -29282,8 +26212,7 @@ public class TdApi {
 
         public long[] stickerSetIds;
 
-        public ViewTrendingStickerSets() {
-        }
+        public ViewTrendingStickerSets() {}
 
         public ViewTrendingStickerSets(long[] stickerSetIds) {
 
@@ -29292,9 +26221,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -952416520;
-        }
+        public int getConstructor() { return -952416520; }
 
     }
 
@@ -29303,7 +26230,7 @@ public class TdApi {
      * Changes the order of installed sticker sets
      *
      * @isMasks - Pass true to change the order of mask sticker sets
-     * Pass false to change the order of ordinary sticker sets
+     *            Pass false to change the order of ordinary sticker sets
      * @stickerSetIds - Identifiers of installed sticker sets in the new correct order
      */
     public static class ReorderInstalledStickerSets extends Function {
@@ -29311,8 +26238,7 @@ public class TdApi {
         public boolean isMasks;
         public long[] stickerSetIds;
 
-        public ReorderInstalledStickerSets() {
-        }
+        public ReorderInstalledStickerSets() {}
 
         public ReorderInstalledStickerSets(boolean isMasks, long[] stickerSetIds) {
 
@@ -29322,9 +26248,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1114537563;
-        }
+        public int getConstructor() { return 1114537563; }
 
     }
 
@@ -29333,14 +26257,13 @@ public class TdApi {
      * Returns a list of recently used stickers
      *
      * @isAttached - Pass true to return stickers and masks that were recently attached to photos or video files
-     * Pass false to return recently sent stickers
+     *               Pass false to return recently sent stickers
      */
     public static class GetRecentStickers extends Function {
 
         public boolean isAttached;
 
-        public GetRecentStickers() {
-        }
+        public GetRecentStickers() {}
 
         public GetRecentStickers(boolean isAttached) {
 
@@ -29349,9 +26272,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -579622241;
-        }
+        public int getConstructor() { return -579622241; }
 
     }
 
@@ -29363,7 +26284,7 @@ public class TdApi {
      * Only stickers belonging to a sticker set can be added to this list
      *
      * @isAttached - Pass true to add the sticker to the list of stickers recently attached to photo or video files
-     * Pass false to add the sticker to the list of recently sent stickers
+     *               Pass false to add the sticker to the list of recently sent stickers
      * @sticker - Sticker file to add
      */
     public static class AddRecentSticker extends Function {
@@ -29371,8 +26292,7 @@ public class TdApi {
         public boolean isAttached;
         public InputFile sticker;
 
-        public AddRecentSticker() {
-        }
+        public AddRecentSticker() {}
 
         public AddRecentSticker(boolean isAttached, InputFile sticker) {
 
@@ -29382,9 +26302,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1478109026;
-        }
+        public int getConstructor() { return -1478109026; }
 
     }
 
@@ -29393,7 +26311,7 @@ public class TdApi {
      * Removes a sticker from the list of recently used stickers
      *
      * @isAttached - Pass true to remove the sticker from the list of stickers recently attached to photo or video files
-     * Pass false to remove the sticker from the list of recently sent stickers
+     *               Pass false to remove the sticker from the list of recently sent stickers
      * @sticker - Sticker file to delete
      */
     public static class RemoveRecentSticker extends Function {
@@ -29401,8 +26319,7 @@ public class TdApi {
         public boolean isAttached;
         public InputFile sticker;
 
-        public RemoveRecentSticker() {
-        }
+        public RemoveRecentSticker() {}
 
         public RemoveRecentSticker(boolean isAttached, InputFile sticker) {
 
@@ -29412,9 +26329,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1246577677;
-        }
+        public int getConstructor() { return 1246577677; }
 
     }
 
@@ -29423,14 +26338,13 @@ public class TdApi {
      * Clears the list of recently used stickers
      *
      * @isAttached - Pass true to clear the list of stickers recently attached to photo or video files
-     * Pass false to clear the list of recently sent stickers
+     *               Pass false to clear the list of recently sent stickers
      */
     public static class ClearRecentStickers extends Function {
 
         public boolean isAttached;
 
-        public ClearRecentStickers() {
-        }
+        public ClearRecentStickers() {}
 
         public ClearRecentStickers(boolean isAttached) {
 
@@ -29439,9 +26353,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -321242684;
-        }
+        public int getConstructor() { return -321242684; }
 
     }
 
@@ -29452,9 +26364,7 @@ public class TdApi {
     public static class GetFavoriteStickers extends Function {
 
         @Override
-        public int getConstructor() {
-            return -338964672;
-        }
+        public int getConstructor() { return -338964672; }
 
     }
 
@@ -29471,8 +26381,7 @@ public class TdApi {
 
         public InputFile sticker;
 
-        public AddFavoriteSticker() {
-        }
+        public AddFavoriteSticker() {}
 
         public AddFavoriteSticker(InputFile sticker) {
 
@@ -29481,9 +26390,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 324504799;
-        }
+        public int getConstructor() { return 324504799; }
 
     }
 
@@ -29497,8 +26404,7 @@ public class TdApi {
 
         public InputFile sticker;
 
-        public RemoveFavoriteSticker() {
-        }
+        public RemoveFavoriteSticker() {}
 
         public RemoveFavoriteSticker(InputFile sticker) {
 
@@ -29507,9 +26413,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1152945264;
-        }
+        public int getConstructor() { return 1152945264; }
 
     }
 
@@ -29524,8 +26428,7 @@ public class TdApi {
 
         public InputFile sticker;
 
-        public GetStickerEmojis() {
-        }
+        public GetStickerEmojis() {}
 
         public GetStickerEmojis(InputFile sticker) {
 
@@ -29534,9 +26437,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1895508665;
-        }
+        public int getConstructor() { return -1895508665; }
 
     }
 
@@ -29548,7 +26449,7 @@ public class TdApi {
      * @text - Text to search for
      * @exactMatch - True, if only emojis, which exactly match text needs to be returned
      * @inputLanguageCodes - List of possible IETF language tags of the user's input language
-     * May be empty if unknown
+     *                       May be empty if unknown
      */
     public static class SearchEmojis extends Function {
 
@@ -29556,8 +26457,7 @@ public class TdApi {
         public boolean exactMatch;
         public String[] inputLanguageCodes;
 
-        public SearchEmojis() {
-        }
+        public SearchEmojis() {}
 
         public SearchEmojis(String text, boolean exactMatch, String[] inputLanguageCodes) {
 
@@ -29568,9 +26468,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 398837927;
-        }
+        public int getConstructor() { return 398837927; }
 
     }
 
@@ -29585,8 +26483,7 @@ public class TdApi {
 
         public String languageCode;
 
-        public GetEmojiSuggestionsUrl() {
-        }
+        public GetEmojiSuggestionsUrl() {}
 
         public GetEmojiSuggestionsUrl(String languageCode) {
 
@@ -29595,9 +26492,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1404101841;
-        }
+        public int getConstructor() { return -1404101841; }
 
     }
 
@@ -29608,9 +26503,7 @@ public class TdApi {
     public static class GetSavedAnimations extends Function {
 
         @Override
-        public int getConstructor() {
-            return 7051032;
-        }
+        public int getConstructor() { return 7051032; }
 
     }
 
@@ -29622,15 +26515,14 @@ public class TdApi {
      * Only non-secret video animations with MIME type "video/mp4" can be added to the list
      *
      * @animation - The animation file to be added
-     * Only animations known to the server (i.e
-     * Successfully sent via a message) can be added to the list
+     *              Only animations known to the server (i.e
+     *              Successfully sent via a message) can be added to the list
      */
     public static class AddSavedAnimation extends Function {
 
         public InputFile animation;
 
-        public AddSavedAnimation() {
-        }
+        public AddSavedAnimation() {}
 
         public AddSavedAnimation(InputFile animation) {
 
@@ -29639,9 +26531,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1538525088;
-        }
+        public int getConstructor() { return -1538525088; }
 
     }
 
@@ -29655,8 +26545,7 @@ public class TdApi {
 
         public InputFile animation;
 
-        public RemoveSavedAnimation() {
-        }
+        public RemoveSavedAnimation() {}
 
         public RemoveSavedAnimation(InputFile animation) {
 
@@ -29665,9 +26554,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -495605479;
-        }
+        public int getConstructor() { return -495605479; }
 
     }
 
@@ -29678,9 +26565,7 @@ public class TdApi {
     public static class GetRecentInlineBots extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1437823548;
-        }
+        public int getConstructor() { return 1437823548; }
 
     }
 
@@ -29696,8 +26581,7 @@ public class TdApi {
         public String prefix;
         public int limit;
 
-        public SearchHashtags() {
-        }
+        public SearchHashtags() {}
 
         public SearchHashtags(String prefix, int limit) {
 
@@ -29707,9 +26591,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1043637617;
-        }
+        public int getConstructor() { return 1043637617; }
 
     }
 
@@ -29723,8 +26605,7 @@ public class TdApi {
 
         public String hashtag;
 
-        public RemoveRecentHashtag() {
-        }
+        public RemoveRecentHashtag() {}
 
         public RemoveRecentHashtag(String hashtag) {
 
@@ -29733,9 +26614,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1013735260;
-        }
+        public int getConstructor() { return -1013735260; }
 
     }
 
@@ -29751,8 +26630,7 @@ public class TdApi {
 
         public FormattedText text;
 
-        public GetWebPagePreview() {
-        }
+        public GetWebPagePreview() {}
 
         public GetWebPagePreview(FormattedText text) {
 
@@ -29761,9 +26639,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 573441580;
-        }
+        public int getConstructor() { return 573441580; }
 
     }
 
@@ -29780,8 +26656,7 @@ public class TdApi {
         public String url;
         public boolean forceFull;
 
-        public GetWebPageInstantView() {
-        }
+        public GetWebPageInstantView() {}
 
         public GetWebPageInstantView(String url, boolean forceFull) {
 
@@ -29791,9 +26666,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1962649975;
-        }
+        public int getConstructor() { return -1962649975; }
 
     }
 
@@ -29807,8 +26680,7 @@ public class TdApi {
 
         public InputChatPhoto photo;
 
-        public SetProfilePhoto() {
-        }
+        public SetProfilePhoto() {}
 
         public SetProfilePhoto(InputChatPhoto photo) {
 
@@ -29817,9 +26689,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2069678882;
-        }
+        public int getConstructor() { return -2069678882; }
 
     }
 
@@ -29833,8 +26703,7 @@ public class TdApi {
 
         public long profilePhotoId;
 
-        public DeleteProfilePhoto() {
-        }
+        public DeleteProfilePhoto() {}
 
         public DeleteProfilePhoto(long profilePhotoId) {
 
@@ -29843,9 +26712,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1319794625;
-        }
+        public int getConstructor() { return 1319794625; }
 
     }
 
@@ -29861,8 +26728,7 @@ public class TdApi {
         public String firstName;
         public String lastName;
 
-        public SetName() {
-        }
+        public SetName() {}
 
         public SetName(String firstName, String lastName) {
 
@@ -29872,9 +26738,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1711693584;
-        }
+        public int getConstructor() { return 1711693584; }
 
     }
 
@@ -29888,8 +26752,7 @@ public class TdApi {
 
         public String bio;
 
-        public SetBio() {
-        }
+        public SetBio() {}
 
         public SetBio(String bio) {
 
@@ -29898,9 +26761,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1619582124;
-        }
+        public int getConstructor() { return -1619582124; }
 
     }
 
@@ -29909,14 +26770,13 @@ public class TdApi {
      * Changes the username of the current user
      *
      * @username - The new value of the username
-     * Use an empty string to remove the username
+     *             Use an empty string to remove the username
      */
     public static class SetUsername extends Function {
 
         public String username;
 
-        public SetUsername() {
-        }
+        public SetUsername() {}
 
         public SetUsername(String username) {
 
@@ -29925,9 +26785,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 439901214;
-        }
+        public int getConstructor() { return 439901214; }
 
     }
 
@@ -29942,8 +26800,7 @@ public class TdApi {
 
         public Location location;
 
-        public SetLocation() {
-        }
+        public SetLocation() {}
 
         public SetLocation(Location location) {
 
@@ -29952,9 +26809,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 93926257;
-        }
+        public int getConstructor() { return 93926257; }
 
     }
 
@@ -29971,8 +26826,7 @@ public class TdApi {
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
 
-        public ChangePhoneNumber() {
-        }
+        public ChangePhoneNumber() {}
 
         public ChangePhoneNumber(String phoneNumber, PhoneNumberAuthenticationSettings settings) {
 
@@ -29982,9 +26836,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -124666973;
-        }
+        public int getConstructor() { return -124666973; }
 
     }
 
@@ -29996,9 +26848,7 @@ public class TdApi {
     public static class ResendChangePhoneNumberCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return -786772060;
-        }
+        public int getConstructor() { return -786772060; }
 
     }
 
@@ -30012,8 +26862,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckChangePhoneNumberCode() {
-        }
+        public CheckChangePhoneNumberCode() {}
 
         public CheckChangePhoneNumberCode(String code) {
 
@@ -30022,9 +26871,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1720278429;
-        }
+        public int getConstructor() { return -1720278429; }
 
     }
 
@@ -30039,8 +26886,7 @@ public class TdApi {
 
         public BotCommand[] commands;
 
-        public SetCommands() {
-        }
+        public SetCommands() {}
 
         public SetCommands(BotCommand[] commands) {
 
@@ -30049,9 +26895,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 355010146;
-        }
+        public int getConstructor() { return 355010146; }
 
     }
 
@@ -30062,9 +26906,7 @@ public class TdApi {
     public static class GetActiveSessions extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1119710526;
-        }
+        public int getConstructor() { return 1119710526; }
 
     }
 
@@ -30078,8 +26920,7 @@ public class TdApi {
 
         public long sessionId;
 
-        public TerminateSession() {
-        }
+        public TerminateSession() {}
 
         public TerminateSession(long sessionId) {
 
@@ -30088,9 +26929,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -407385812;
-        }
+        public int getConstructor() { return -407385812; }
 
     }
 
@@ -30101,9 +26940,7 @@ public class TdApi {
     public static class TerminateAllOtherSessions extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1874485523;
-        }
+        public int getConstructor() { return 1874485523; }
 
     }
 
@@ -30114,9 +26951,7 @@ public class TdApi {
     public static class GetConnectedWebsites extends Function {
 
         @Override
-        public int getConstructor() {
-            return -170536110;
-        }
+        public int getConstructor() { return -170536110; }
 
     }
 
@@ -30130,8 +26965,7 @@ public class TdApi {
 
         public long websiteId;
 
-        public DisconnectWebsite() {
-        }
+        public DisconnectWebsite() {}
 
         public DisconnectWebsite(long websiteId) {
 
@@ -30140,9 +26974,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -778767395;
-        }
+        public int getConstructor() { return -778767395; }
 
     }
 
@@ -30153,9 +26985,7 @@ public class TdApi {
     public static class DisconnectAllWebsites extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1082985981;
-        }
+        public int getConstructor() { return -1082985981; }
 
     }
 
@@ -30165,15 +26995,14 @@ public class TdApi {
      *
      * @supergroupId - Identifier of the supergroup or channel
      * @username - New value of the username
-     * Use an empty string to remove the username
+     *             Use an empty string to remove the username
      */
     public static class SetSupergroupUsername extends Function {
 
         public int supergroupId;
         public String username;
 
-        public SetSupergroupUsername() {
-        }
+        public SetSupergroupUsername() {}
 
         public SetSupergroupUsername(int supergroupId, String username) {
 
@@ -30183,9 +27012,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1428333122;
-        }
+        public int getConstructor() { return -1428333122; }
 
     }
 
@@ -30196,15 +27023,14 @@ public class TdApi {
      *
      * @supergroupId - Identifier of the supergroup
      * @stickerSetId - New value of the supergroup sticker set identifier
-     * Use 0 to remove the supergroup sticker set
+     *                 Use 0 to remove the supergroup sticker set
      */
     public static class SetSupergroupStickerSet extends Function {
 
         public int supergroupId;
         public long stickerSetId;
 
-        public SetSupergroupStickerSet() {
-        }
+        public SetSupergroupStickerSet() {}
 
         public SetSupergroupStickerSet(int supergroupId, long stickerSetId) {
 
@@ -30214,9 +27040,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -295782298;
-        }
+        public int getConstructor() { return -295782298; }
 
     }
 
@@ -30233,8 +27057,7 @@ public class TdApi {
         public int supergroupId;
         public boolean signMessages;
 
-        public ToggleSupergroupSignMessages() {
-        }
+        public ToggleSupergroupSignMessages() {}
 
         public ToggleSupergroupSignMessages(int supergroupId, boolean signMessages) {
 
@@ -30244,9 +27067,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -558196581;
-        }
+        public int getConstructor() { return -558196581; }
 
     }
 
@@ -30263,8 +27084,7 @@ public class TdApi {
         public int supergroupId;
         public boolean isAllHistoryAvailable;
 
-        public ToggleSupergroupIsAllHistoryAvailable() {
-        }
+        public ToggleSupergroupIsAllHistoryAvailable() {}
 
         public ToggleSupergroupIsAllHistoryAvailable(int supergroupId, boolean isAllHistoryAvailable) {
 
@@ -30274,9 +27094,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1701526555;
-        }
+        public int getConstructor() { return 1701526555; }
 
     }
 
@@ -30288,7 +27106,7 @@ public class TdApi {
      * @supergroupId - Supergroup identifier
      * @userId - User identifier
      * @messageIds - Identifiers of messages sent in the supergroup by the user
-     * This list must be non-empty
+     *               This list must be non-empty
      */
     public static class ReportSupergroupSpam extends Function {
 
@@ -30296,8 +27114,7 @@ public class TdApi {
         public int userId;
         public long[] messageIds;
 
-        public ReportSupergroupSpam() {
-        }
+        public ReportSupergroupSpam() {}
 
         public ReportSupergroupSpam(int supergroupId, int userId, long[] messageIds) {
 
@@ -30308,9 +27125,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2125451498;
-        }
+        public int getConstructor() { return -2125451498; }
 
     }
 
@@ -30322,10 +27137,10 @@ public class TdApi {
      *
      * @supergroupId - Identifier of the supergroup or channel
      * @filter - The type of users to return
-     * By default, supergroupMembersRecent
+     *           By default, supergroupMembersRecent
      * @offset - Number of users to skip
      * @limit - The maximum number of users be returned
-     * Up to 200
+     *          Up to 200
      */
     public static class GetSupergroupMembers extends Function {
 
@@ -30334,8 +27149,7 @@ public class TdApi {
         public int offset;
         public int limit;
 
-        public GetSupergroupMembers() {
-        }
+        public GetSupergroupMembers() {}
 
         public GetSupergroupMembers(int supergroupId, SupergroupMembersFilter filter, int offset, int limit) {
 
@@ -30347,9 +27161,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1427643098;
-        }
+        public int getConstructor() { return 1427643098; }
 
     }
 
@@ -30366,8 +27178,7 @@ public class TdApi {
 
         public int supergroupId;
 
-        public DeleteSupergroup() {
-        }
+        public DeleteSupergroup() {}
 
         public DeleteSupergroup(int supergroupId) {
 
@@ -30376,9 +27187,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1999855965;
-        }
+        public int getConstructor() { return -1999855965; }
 
     }
 
@@ -30392,8 +27201,7 @@ public class TdApi {
 
         public int secretChatId;
 
-        public CloseSecretChat() {
-        }
+        public CloseSecretChat() {}
 
         public CloseSecretChat(int secretChatId) {
 
@@ -30402,9 +27210,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -471006133;
-        }
+        public int getConstructor() { return -471006133; }
 
     }
 
@@ -30419,12 +27225,12 @@ public class TdApi {
      * @chatId - Chat identifier
      * @query - Search query by which to filter events
      * @fromEventId - Identifier of an event from which to return results
-     * Use 0 to get results from the latest events
+     *                Use 0 to get results from the latest events
      * @limit - The maximum number of events to return
      * @filters - The types of events to return
-     * By default, all types will be returned
+     *            By default, all types will be returned
      * @userIds - User identifiers by which to filter events
-     * By default, events relating to all users will be returned
+     *            By default, events relating to all users will be returned
      */
     public static class GetChatEventLog extends Function {
 
@@ -30435,8 +27241,7 @@ public class TdApi {
         public ChatEventLogFilters filters;
         public int[] userIds;
 
-        public GetChatEventLog() {
-        }
+        public GetChatEventLog() {}
 
         public GetChatEventLog(long chatId, String query, long fromEventId, int limit, ChatEventLogFilters filters, int[] userIds) {
 
@@ -30450,9 +27255,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 206900967;
-        }
+        public int getConstructor() { return 206900967; }
 
     }
 
@@ -30469,8 +27272,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetPaymentForm() {
-        }
+        public GetPaymentForm() {}
 
         public GetPaymentForm(long chatId, long messageId) {
 
@@ -30480,9 +27282,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2146950882;
-        }
+        public int getConstructor() { return -2146950882; }
 
     }
 
@@ -30502,8 +27302,7 @@ public class TdApi {
         public OrderInfo orderInfo;
         public boolean allowSave;
 
-        public ValidateOrderInfo() {
-        }
+        public ValidateOrderInfo() {}
 
         public ValidateOrderInfo(long chatId, long messageId, OrderInfo orderInfo, boolean allowSave) {
 
@@ -30515,9 +27314,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 9480644;
-        }
+        public int getConstructor() { return 9480644; }
 
     }
 
@@ -30539,8 +27336,7 @@ public class TdApi {
         public String shippingOptionId;
         public InputCredentials credentials;
 
-        public SendPaymentForm() {
-        }
+        public SendPaymentForm() {}
 
         public SendPaymentForm(long chatId, long messageId, String orderInfoId, String shippingOptionId, InputCredentials credentials) {
 
@@ -30553,9 +27349,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 591581572;
-        }
+        public int getConstructor() { return 591581572; }
 
     }
 
@@ -30571,8 +27365,7 @@ public class TdApi {
         public long chatId;
         public long messageId;
 
-        public GetPaymentReceipt() {
-        }
+        public GetPaymentReceipt() {}
 
         public GetPaymentReceipt(long chatId, long messageId) {
 
@@ -30582,9 +27375,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1013758294;
-        }
+        public int getConstructor() { return 1013758294; }
 
     }
 
@@ -30595,9 +27386,7 @@ public class TdApi {
     public static class GetSavedOrderInfo extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1152016675;
-        }
+        public int getConstructor() { return -1152016675; }
 
     }
 
@@ -30608,9 +27397,7 @@ public class TdApi {
     public static class DeleteSavedOrderInfo extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1629058164;
-        }
+        public int getConstructor() { return 1629058164; }
 
     }
 
@@ -30621,9 +27408,7 @@ public class TdApi {
     public static class DeleteSavedCredentials extends Function {
 
         @Override
-        public int getConstructor() {
-            return 826300114;
-        }
+        public int getConstructor() { return 826300114; }
 
     }
 
@@ -30634,9 +27419,7 @@ public class TdApi {
     public static class GetSupportUser extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1733497700;
-        }
+        public int getConstructor() { return -1733497700; }
 
     }
 
@@ -30650,8 +27433,7 @@ public class TdApi {
 
         public boolean forDarkTheme;
 
-        public GetBackgrounds() {
-        }
+        public GetBackgrounds() {}
 
         public GetBackgrounds(boolean forDarkTheme) {
 
@@ -30660,9 +27442,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 249072633;
-        }
+        public int getConstructor() { return 249072633; }
 
     }
 
@@ -30678,8 +27458,7 @@ public class TdApi {
         public String name;
         public BackgroundType type;
 
-        public GetBackgroundUrl() {
-        }
+        public GetBackgroundUrl() {}
 
         public GetBackgroundUrl(String name, BackgroundType type) {
 
@@ -30689,9 +27468,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 733769682;
-        }
+        public int getConstructor() { return 733769682; }
 
     }
 
@@ -30705,8 +27482,7 @@ public class TdApi {
 
         public String name;
 
-        public SearchBackground() {
-        }
+        public SearchBackground() {}
 
         public SearchBackground(String name) {
 
@@ -30715,9 +27491,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2130996959;
-        }
+        public int getConstructor() { return -2130996959; }
 
     }
 
@@ -30728,8 +27502,8 @@ public class TdApi {
      *
      * @background - The input background to use, null for filled backgrounds
      * @type - Background type
-     * Null for default background
-     * The method will return error 404 if type is null
+     *         Null for default background
+     *         The method will return error 404 if type is null
      * @forDarkTheme - True, if the background is chosen for dark theme
      */
     public static class SetBackground extends Function {
@@ -30738,8 +27512,7 @@ public class TdApi {
         public BackgroundType type;
         public boolean forDarkTheme;
 
-        public SetBackground() {
-        }
+        public SetBackground() {}
 
         public SetBackground(InputBackground background, BackgroundType type, boolean forDarkTheme) {
 
@@ -30750,9 +27523,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1035439225;
-        }
+        public int getConstructor() { return -1035439225; }
 
     }
 
@@ -30766,8 +27537,7 @@ public class TdApi {
 
         public long backgroundId;
 
-        public RemoveBackground() {
-        }
+        public RemoveBackground() {}
 
         public RemoveBackground(long backgroundId) {
 
@@ -30776,9 +27546,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1484545642;
-        }
+        public int getConstructor() { return -1484545642; }
 
     }
 
@@ -30789,9 +27557,7 @@ public class TdApi {
     public static class ResetBackgrounds extends Function {
 
         @Override
-        public int getConstructor() {
-            return 204852088;
-        }
+        public int getConstructor() { return 204852088; }
 
     }
 
@@ -30807,8 +27573,7 @@ public class TdApi {
 
         public boolean onlyLocal;
 
-        public GetLocalizationTargetInfo() {
-        }
+        public GetLocalizationTargetInfo() {}
 
         public GetLocalizationTargetInfo(boolean onlyLocal) {
 
@@ -30817,9 +27582,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1849499526;
-        }
+        public int getConstructor() { return 1849499526; }
 
     }
 
@@ -30835,8 +27598,7 @@ public class TdApi {
 
         public String languagePackId;
 
-        public GetLanguagePackInfo() {
-        }
+        public GetLanguagePackInfo() {}
 
         public GetLanguagePackInfo(String languagePackId) {
 
@@ -30845,9 +27607,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2077809320;
-        }
+        public int getConstructor() { return 2077809320; }
 
     }
 
@@ -30858,15 +27618,14 @@ public class TdApi {
      *
      * @languagePackId - Language pack identifier of the strings to be returned
      * @keys - Language pack keys of the strings to be returned
-     * Leave empty to request all available strings
+     *         Leave empty to request all available strings
      */
     public static class GetLanguagePackStrings extends Function {
 
         public String languagePackId;
         public String[] keys;
 
-        public GetLanguagePackStrings() {
-        }
+        public GetLanguagePackStrings() {}
 
         public GetLanguagePackStrings(String languagePackId, String[] keys) {
 
@@ -30876,9 +27635,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1246259088;
-        }
+        public int getConstructor() { return 1246259088; }
 
     }
 
@@ -30894,8 +27651,7 @@ public class TdApi {
 
         public String languagePackId;
 
-        public SynchronizeLanguagePack() {
-        }
+        public SynchronizeLanguagePack() {}
 
         public SynchronizeLanguagePack(String languagePackId) {
 
@@ -30904,9 +27660,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2065307858;
-        }
+        public int getConstructor() { return -2065307858; }
 
     }
 
@@ -30916,14 +27670,13 @@ public class TdApi {
      * Can be called before authorization
      *
      * @languagePackId - Identifier of a language pack to be added
-     * May be different from a name that is used in an "https://t.me/setlanguage/" link
+     *                   May be different from a name that is used in an "https://t.me/setlanguage/" link
      */
     public static class AddCustomServerLanguagePack extends Function {
 
         public String languagePackId;
 
-        public AddCustomServerLanguagePack() {
-        }
+        public AddCustomServerLanguagePack() {}
 
         public AddCustomServerLanguagePack(String languagePackId) {
 
@@ -30932,9 +27685,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 4492771;
-        }
+        public int getConstructor() { return 4492771; }
 
     }
 
@@ -30943,8 +27694,8 @@ public class TdApi {
      * Adds or changes a custom local language pack to the current localization target
      *
      * @info - Information about the language pack
-     * Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters
-     * Can be called before authorization
+     *         Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters
+     *         Can be called before authorization
      * @strings - Strings of the new language pack
      */
     public static class SetCustomLanguagePack extends Function {
@@ -30952,8 +27703,7 @@ public class TdApi {
         public LanguagePackInfo info;
         public LanguagePackString[] strings;
 
-        public SetCustomLanguagePack() {
-        }
+        public SetCustomLanguagePack() {}
 
         public SetCustomLanguagePack(LanguagePackInfo info, LanguagePackString[] strings) {
 
@@ -30963,9 +27713,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -296742819;
-        }
+        public int getConstructor() { return -296742819; }
 
     }
 
@@ -30980,8 +27728,7 @@ public class TdApi {
 
         public LanguagePackInfo info;
 
-        public EditCustomLanguagePackInfo() {
-        }
+        public EditCustomLanguagePackInfo() {}
 
         public EditCustomLanguagePackInfo(LanguagePackInfo info) {
 
@@ -30990,9 +27737,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1320751257;
-        }
+        public int getConstructor() { return 1320751257; }
 
     }
 
@@ -31009,8 +27754,7 @@ public class TdApi {
         public String languagePackId;
         public LanguagePackString newString;
 
-        public SetCustomLanguagePackString() {
-        }
+        public SetCustomLanguagePackString() {}
 
         public SetCustomLanguagePackString(String languagePackId, LanguagePackString newString) {
 
@@ -31020,9 +27764,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1316365592;
-        }
+        public int getConstructor() { return 1316365592; }
 
     }
 
@@ -31038,8 +27780,7 @@ public class TdApi {
 
         public String languagePackId;
 
-        public DeleteLanguagePack() {
-        }
+        public DeleteLanguagePack() {}
 
         public DeleteLanguagePack(String languagePackId) {
 
@@ -31048,9 +27789,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2108761026;
-        }
+        public int getConstructor() { return -2108761026; }
 
     }
 
@@ -31067,8 +27806,7 @@ public class TdApi {
         public DeviceToken deviceToken;
         public int[] otherUserIds;
 
-        public RegisterDevice() {
-        }
+        public RegisterDevice() {}
 
         public RegisterDevice(DeviceToken deviceToken, int[] otherUserIds) {
 
@@ -31078,9 +27816,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1734127493;
-        }
+        public int getConstructor() { return 1734127493; }
 
     }
 
@@ -31096,8 +27832,7 @@ public class TdApi {
 
         public String payload;
 
-        public ProcessPushNotification() {
-        }
+        public ProcessPushNotification() {}
 
         public ProcessPushNotification(String payload) {
 
@@ -31106,9 +27841,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 786679952;
-        }
+        public int getConstructor() { return 786679952; }
 
     }
 
@@ -31123,8 +27856,7 @@ public class TdApi {
 
         public String payload;
 
-        public GetPushReceiverId() {
-        }
+        public GetPushReceiverId() {}
 
         public GetPushReceiverId(String payload) {
 
@@ -31133,9 +27865,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -286505294;
-        }
+        public int getConstructor() { return -286505294; }
 
     }
 
@@ -31149,8 +27879,7 @@ public class TdApi {
 
         public String referrer;
 
-        public GetRecentlyVisitedTMeUrls() {
-        }
+        public GetRecentlyVisitedTMeUrls() {}
 
         public GetRecentlyVisitedTMeUrls(String referrer) {
 
@@ -31159,9 +27888,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 806754961;
-        }
+        public int getConstructor() { return 806754961; }
 
     }
 
@@ -31177,8 +27904,7 @@ public class TdApi {
         public UserPrivacySetting setting;
         public UserPrivacySettingRules rules;
 
-        public SetUserPrivacySettingRules() {
-        }
+        public SetUserPrivacySettingRules() {}
 
         public SetUserPrivacySettingRules(UserPrivacySetting setting, UserPrivacySettingRules rules) {
 
@@ -31188,9 +27914,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -473812741;
-        }
+        public int getConstructor() { return -473812741; }
 
     }
 
@@ -31204,8 +27928,7 @@ public class TdApi {
 
         public UserPrivacySetting setting;
 
-        public GetUserPrivacySettingRules() {
-        }
+        public GetUserPrivacySettingRules() {}
 
         public GetUserPrivacySettingRules(UserPrivacySetting setting) {
 
@@ -31214,9 +27937,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2077223311;
-        }
+        public int getConstructor() { return -2077223311; }
 
     }
 
@@ -31231,8 +27952,7 @@ public class TdApi {
 
         public String name;
 
-        public GetOption() {
-        }
+        public GetOption() {}
 
         public GetOption(String name) {
 
@@ -31241,9 +27961,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1572495746;
-        }
+        public int getConstructor() { return -1572495746; }
 
     }
 
@@ -31261,8 +27979,7 @@ public class TdApi {
         public String name;
         public OptionValue value;
 
-        public SetOption() {
-        }
+        public SetOption() {}
 
         public SetOption(String name, OptionValue value) {
 
@@ -31272,9 +27989,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2114670322;
-        }
+        public int getConstructor() { return 2114670322; }
 
     }
 
@@ -31288,8 +28003,7 @@ public class TdApi {
 
         public AccountTtl ttl;
 
-        public SetAccountTtl() {
-        }
+        public SetAccountTtl() {}
 
         public SetAccountTtl(AccountTtl ttl) {
 
@@ -31298,9 +28012,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 701389032;
-        }
+        public int getConstructor() { return 701389032; }
 
     }
 
@@ -31311,9 +28023,7 @@ public class TdApi {
     public static class GetAccountTtl extends Function {
 
         @Override
-        public int getConstructor() {
-            return -443905161;
-        }
+        public int getConstructor() { return -443905161; }
 
     }
 
@@ -31327,11 +28037,9 @@ public class TdApi {
      */
     public static class DeleteAccount extends Function {
 
-        @Nullable
-        public String reason;
+        @Nullable public String reason;
 
-        public DeleteAccount() {
-        }
+        public DeleteAccount() {}
 
         public DeleteAccount(@Nullable String reason) {
 
@@ -31340,9 +28048,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1203056508;
-        }
+        public int getConstructor() { return -1203056508; }
 
     }
 
@@ -31356,8 +28062,7 @@ public class TdApi {
 
         public long chatId;
 
-        public RemoveChatActionBar() {
-        }
+        public RemoveChatActionBar() {}
 
         public RemoveChatActionBar(long chatId) {
 
@@ -31366,9 +28071,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1650968070;
-        }
+        public int getConstructor() { return -1650968070; }
 
     }
 
@@ -31387,8 +28090,7 @@ public class TdApi {
         public ChatReportReason reason;
         public long[] messageIds;
 
-        public ReportChat() {
-        }
+        public ReportChat() {}
 
         public ReportChat(long chatId, ChatReportReason reason, long[] messageIds) {
 
@@ -31399,9 +28101,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -312579772;
-        }
+        public int getConstructor() { return -312579772; }
 
     }
 
@@ -31420,8 +28120,7 @@ public class TdApi {
         public String parameters;
         public boolean isDark;
 
-        public GetChatStatisticsUrl() {
-        }
+        public GetChatStatisticsUrl() {}
 
         public GetChatStatisticsUrl(long chatId, String parameters, boolean isDark) {
 
@@ -31432,9 +28131,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1114621183;
-        }
+        public int getConstructor() { return 1114621183; }
 
     }
 
@@ -31452,8 +28149,7 @@ public class TdApi {
         public long chatId;
         public boolean isDark;
 
-        public GetChatStatistics() {
-        }
+        public GetChatStatistics() {}
 
         public GetChatStatistics(long chatId, boolean isDark) {
 
@@ -31463,9 +28159,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 327057816;
-        }
+        public int getConstructor() { return 327057816; }
 
     }
 
@@ -31483,8 +28177,7 @@ public class TdApi {
         public String token;
         public long x;
 
-        public GetChatStatisticsGraph() {
-        }
+        public GetChatStatisticsGraph() {}
 
         public GetChatStatisticsGraph(long chatId, String token, long x) {
 
@@ -31495,9 +28188,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1643545293;
-        }
+        public int getConstructor() { return -1643545293; }
 
     }
 
@@ -31507,15 +28198,14 @@ public class TdApi {
      * Can be called before authorization
      *
      * @chatLimit - The maximum number of chats with the largest storage usage for which separate statistics should be returned
-     * All other chats will be grouped in entries with chat_id == 0
-     * If the chat info database is not used, the chat_limit is ignored and is always set to 0
+     *              All other chats will be grouped in entries with chat_id == 0
+     *              If the chat info database is not used, the chat_limit is ignored and is always set to 0
      */
     public static class GetStorageStatistics extends Function {
 
         public int chatLimit;
 
-        public GetStorageStatistics() {
-        }
+        public GetStorageStatistics() {}
 
         public GetStorageStatistics(int chatLimit) {
 
@@ -31524,9 +28214,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -853193929;
-        }
+        public int getConstructor() { return -853193929; }
 
     }
 
@@ -31538,9 +28226,7 @@ public class TdApi {
     public static class GetStorageStatisticsFast extends Function {
 
         @Override
-        public int getConstructor() {
-            return 61368066;
-        }
+        public int getConstructor() { return 61368066; }
 
     }
 
@@ -31551,9 +28237,7 @@ public class TdApi {
     public static class GetDatabaseStatistics extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1942760263;
-        }
+        public int getConstructor() { return -1942760263; }
 
     }
 
@@ -31564,23 +28248,23 @@ public class TdApi {
      * Secret thumbnails can't be deleted
      *
      * @size - Limit on the total size of files after deletion
-     * Pass -1 to use the default limit
+     *         Pass -1 to use the default limit
      * @ttl - Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems)
-     * Pass -1 to use the default limit
+     *        Pass -1 to use the default limit
      * @count - Limit on the total count of files after deletion
-     * Pass -1 to use the default limit
+     *          Pass -1 to use the default limit
      * @immunityDelay - The amount of time after the creation of a file during which it can't be deleted, in seconds
-     * Pass -1 to use the default value
+     *                  Pass -1 to use the default value
      * @fileTypes - If not empty, only files with the given type(s) are considered
-     * By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted
+     *              By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted
      * @chatIds - If not empty, only files from the given chats are considered
-     * Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
+     *            Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
      * @excludeChatIds - If not empty, files from the given chats are excluded
-     * Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
+     *                   Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
      * @returnDeletedFileStatistics - Pass true if deleted file statistics needs to be returned instead of the whole storage usage statistics
-     * Affects only returned statistics
+     *                                Affects only returned statistics
      * @chatLimit - Same as in getStorageStatistics
-     * Affects only returned statistics
+     *              Affects only returned statistics
      */
     public static class OptimizeStorage extends Function {
 
@@ -31594,8 +28278,7 @@ public class TdApi {
         public boolean returnDeletedFileStatistics;
         public int chatLimit;
 
-        public OptimizeStorage() {
-        }
+        public OptimizeStorage() {}
 
         public OptimizeStorage(long size, int ttl, int count, int immunityDelay, FileType[] fileTypes, long[] chatIds, long[] excludeChatIds, boolean returnDeletedFileStatistics, int chatLimit) {
 
@@ -31612,9 +28295,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 853186759;
-        }
+        public int getConstructor() { return 853186759; }
 
     }
 
@@ -31626,14 +28307,13 @@ public class TdApi {
      * Network type is used to check whether the library can use the network at all and also for collecting detailed network data usage statistics
      *
      * @type - The new network type
-     * By default, networkTypeOther
+     *         By default, networkTypeOther
      */
     public static class SetNetworkType extends Function {
 
         public NetworkType type;
 
-        public SetNetworkType() {
-        }
+        public SetNetworkType() {}
 
         public SetNetworkType(NetworkType type) {
 
@@ -31642,9 +28322,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -701635234;
-        }
+        public int getConstructor() { return -701635234; }
 
     }
 
@@ -31659,8 +28337,7 @@ public class TdApi {
 
         public boolean onlyCurrent;
 
-        public GetNetworkStatistics() {
-        }
+        public GetNetworkStatistics() {}
 
         public GetNetworkStatistics(boolean onlyCurrent) {
 
@@ -31669,9 +28346,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -986228706;
-        }
+        public int getConstructor() { return -986228706; }
 
     }
 
@@ -31686,8 +28361,7 @@ public class TdApi {
 
         public NetworkStatisticsEntry entry;
 
-        public AddNetworkStatistics() {
-        }
+        public AddNetworkStatistics() {}
 
         public AddNetworkStatistics(NetworkStatisticsEntry entry) {
 
@@ -31696,9 +28370,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1264825305;
-        }
+        public int getConstructor() { return 1264825305; }
 
     }
 
@@ -31710,9 +28382,7 @@ public class TdApi {
     public static class ResetNetworkStatistics extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1646452102;
-        }
+        public int getConstructor() { return 1646452102; }
 
     }
 
@@ -31723,9 +28393,7 @@ public class TdApi {
     public static class GetAutoDownloadSettingsPresets extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1721088201;
-        }
+        public int getConstructor() { return -1721088201; }
 
     }
 
@@ -31741,8 +28409,7 @@ public class TdApi {
         public AutoDownloadSettings settings;
         public NetworkType type;
 
-        public SetAutoDownloadSettings() {
-        }
+        public SetAutoDownloadSettings() {}
 
         public SetAutoDownloadSettings(AutoDownloadSettings settings, NetworkType type) {
 
@@ -31752,9 +28419,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -353671948;
-        }
+        public int getConstructor() { return -353671948; }
 
     }
 
@@ -31768,8 +28433,7 @@ public class TdApi {
 
         public String bankCardNumber;
 
-        public GetBankCardInfo() {
-        }
+        public GetBankCardInfo() {}
 
         public GetBankCardInfo(String bankCardNumber) {
 
@@ -31778,9 +28442,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1310515792;
-        }
+        public int getConstructor() { return -1310515792; }
 
     }
 
@@ -31796,8 +28458,7 @@ public class TdApi {
         public PassportElementType type;
         public String password;
 
-        public GetPassportElement() {
-        }
+        public GetPassportElement() {}
 
         public GetPassportElement(PassportElementType type, String password) {
 
@@ -31807,9 +28468,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1882398342;
-        }
+        public int getConstructor() { return -1882398342; }
 
     }
 
@@ -31823,8 +28482,7 @@ public class TdApi {
 
         public String password;
 
-        public GetAllPassportElements() {
-        }
+        public GetAllPassportElements() {}
 
         public GetAllPassportElements(String password) {
 
@@ -31833,9 +28491,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2038945045;
-        }
+        public int getConstructor() { return -2038945045; }
 
     }
 
@@ -31852,8 +28508,7 @@ public class TdApi {
         public InputPassportElement element;
         public String password;
 
-        public SetPassportElement() {
-        }
+        public SetPassportElement() {}
 
         public SetPassportElement(InputPassportElement element, String password) {
 
@@ -31863,9 +28518,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2068173212;
-        }
+        public int getConstructor() { return 2068173212; }
 
     }
 
@@ -31879,8 +28532,7 @@ public class TdApi {
 
         public PassportElementType type;
 
-        public DeletePassportElement() {
-        }
+        public DeletePassportElement() {}
 
         public DeletePassportElement(PassportElementType type) {
 
@@ -31889,9 +28541,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1719555468;
-        }
+        public int getConstructor() { return -1719555468; }
 
     }
 
@@ -31909,8 +28559,7 @@ public class TdApi {
         public int userId;
         public InputPassportElementError[] errors;
 
-        public SetPassportElementErrors() {
-        }
+        public SetPassportElementErrors() {}
 
         public SetPassportElementErrors(int userId, InputPassportElementError[] errors) {
 
@@ -31920,9 +28569,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1455869875;
-        }
+        public int getConstructor() { return 1455869875; }
 
     }
 
@@ -31937,8 +28584,7 @@ public class TdApi {
 
         public String countryCode;
 
-        public GetPreferredCountryLanguage() {
-        }
+        public GetPreferredCountryLanguage() {}
 
         public GetPreferredCountryLanguage(String countryCode) {
 
@@ -31947,9 +28593,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -933049386;
-        }
+        public int getConstructor() { return -933049386; }
 
     }
 
@@ -31965,8 +28609,7 @@ public class TdApi {
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
 
-        public SendPhoneNumberVerificationCode() {
-        }
+        public SendPhoneNumberVerificationCode() {}
 
         public SendPhoneNumberVerificationCode(String phoneNumber, PhoneNumberAuthenticationSettings settings) {
 
@@ -31976,9 +28619,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2081689035;
-        }
+        public int getConstructor() { return 2081689035; }
 
     }
 
@@ -31989,9 +28630,7 @@ public class TdApi {
     public static class ResendPhoneNumberVerificationCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1367629820;
-        }
+        public int getConstructor() { return 1367629820; }
 
     }
 
@@ -32005,8 +28644,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckPhoneNumberVerificationCode() {
-        }
+        public CheckPhoneNumberVerificationCode() {}
 
         public CheckPhoneNumberVerificationCode(String code) {
 
@@ -32015,9 +28653,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1497462718;
-        }
+        public int getConstructor() { return 1497462718; }
 
     }
 
@@ -32031,8 +28667,7 @@ public class TdApi {
 
         public String emailAddress;
 
-        public SendEmailAddressVerificationCode() {
-        }
+        public SendEmailAddressVerificationCode() {}
 
         public SendEmailAddressVerificationCode(String emailAddress) {
 
@@ -32041,9 +28676,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -221621379;
-        }
+        public int getConstructor() { return -221621379; }
 
     }
 
@@ -32054,9 +28687,7 @@ public class TdApi {
     public static class ResendEmailAddressVerificationCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1872416732;
-        }
+        public int getConstructor() { return -1872416732; }
 
     }
 
@@ -32070,8 +28701,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckEmailAddressVerificationCode() {
-        }
+        public CheckEmailAddressVerificationCode() {}
 
         public CheckEmailAddressVerificationCode(String code) {
 
@@ -32080,9 +28710,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -426386685;
-        }
+        public int getConstructor() { return -426386685; }
 
     }
 
@@ -32102,8 +28730,7 @@ public class TdApi {
         public String publicKey;
         public String nonce;
 
-        public GetPassportAuthorizationForm() {
-        }
+        public GetPassportAuthorizationForm() {}
 
         public GetPassportAuthorizationForm(int botUserId, String scope, String publicKey, String nonce) {
 
@@ -32115,9 +28742,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1468394095;
-        }
+        public int getConstructor() { return -1468394095; }
 
     }
 
@@ -32134,8 +28759,7 @@ public class TdApi {
         public int autorizationFormId;
         public String password;
 
-        public GetPassportAuthorizationFormAvailableElements() {
-        }
+        public GetPassportAuthorizationFormAvailableElements() {}
 
         public GetPassportAuthorizationFormAvailableElements(int autorizationFormId, String password) {
 
@@ -32145,9 +28769,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1738134754;
-        }
+        public int getConstructor() { return 1738134754; }
 
     }
 
@@ -32164,8 +28786,7 @@ public class TdApi {
         public int autorizationFormId;
         public PassportElementType[] types;
 
-        public SendPassportAuthorizationForm() {
-        }
+        public SendPassportAuthorizationForm() {}
 
         public SendPassportAuthorizationForm(int autorizationFormId, PassportElementType[] types) {
 
@@ -32175,9 +28796,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -602402218;
-        }
+        public int getConstructor() { return -602402218; }
 
     }
 
@@ -32196,8 +28815,7 @@ public class TdApi {
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
 
-        public SendPhoneNumberConfirmationCode() {
-        }
+        public SendPhoneNumberConfirmationCode() {}
 
         public SendPhoneNumberConfirmationCode(String hash, String phoneNumber, PhoneNumberAuthenticationSettings settings) {
 
@@ -32208,9 +28826,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1901171495;
-        }
+        public int getConstructor() { return -1901171495; }
 
     }
 
@@ -32221,9 +28837,7 @@ public class TdApi {
     public static class ResendPhoneNumberConfirmationCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return 2069068522;
-        }
+        public int getConstructor() { return 2069068522; }
 
     }
 
@@ -32237,8 +28851,7 @@ public class TdApi {
 
         public String code;
 
-        public CheckPhoneNumberConfirmationCode() {
-        }
+        public CheckPhoneNumberConfirmationCode() {}
 
         public CheckPhoneNumberConfirmationCode(String code) {
 
@@ -32247,9 +28860,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1348060966;
-        }
+        public int getConstructor() { return -1348060966; }
 
     }
 
@@ -32266,8 +28877,7 @@ public class TdApi {
         public int pendingUpdateCount;
         public String errorMessage;
 
-        public SetBotUpdatesStatus() {
-        }
+        public SetBotUpdatesStatus() {}
 
         public SetBotUpdatesStatus(int pendingUpdateCount, String errorMessage) {
 
@@ -32277,9 +28887,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1154926191;
-        }
+        public int getConstructor() { return -1154926191; }
 
     }
 
@@ -32291,15 +28899,14 @@ public class TdApi {
      *
      * @userId - Sticker file owner
      * @pngSticker - PNG image with the sticker
-     * Must be up to 512 KB in size and fit in 512x512 square
+     *               Must be up to 512 KB in size and fit in 512x512 square
      */
     public static class UploadStickerFile extends Function {
 
         public int userId;
         public InputFile pngSticker;
 
-        public UploadStickerFile() {
-        }
+        public UploadStickerFile() {}
 
         public UploadStickerFile(int userId, InputFile pngSticker) {
 
@@ -32309,9 +28916,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1134087551;
-        }
+        public int getConstructor() { return 1134087551; }
 
     }
 
@@ -32324,12 +28929,12 @@ public class TdApi {
      * @userId - Sticker set owner
      * @title - Sticker set title
      * @name - Sticker set name
-     * Can contain only English letters, digits and underscores
-     * Must end with *"_by_<bot username>"* (*<bot_username>* is case insensitive)
+     *         Can contain only English letters, digits and underscores
+     *         Must end with *"_by_<bot username>"* (*<bot_username>* is case insensitive)
      * @isMasks - True, if stickers are masks
-     * Animated stickers can't be masks
+     *            Animated stickers can't be masks
      * @stickers - List of stickers to be added to the set
-     * All stickers must be of the same type
+     *             All stickers must be of the same type
      */
     public static class CreateNewStickerSet extends Function {
 
@@ -32339,8 +28944,7 @@ public class TdApi {
         public boolean isMasks;
         public InputSticker[] stickers;
 
-        public CreateNewStickerSet() {
-        }
+        public CreateNewStickerSet() {}
 
         public CreateNewStickerSet(int userId, String title, String name, boolean isMasks, InputSticker[] stickers) {
 
@@ -32353,9 +28957,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1139329506;
-        }
+        public int getConstructor() { return -1139329506; }
 
     }
 
@@ -32375,8 +28977,7 @@ public class TdApi {
         public String name;
         public InputSticker sticker;
 
-        public AddStickerToSet() {
-        }
+        public AddStickerToSet() {}
 
         public AddStickerToSet(int userId, String name, InputSticker sticker) {
 
@@ -32387,9 +28988,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -454661588;
-        }
+        public int getConstructor() { return -454661588; }
 
     }
 
@@ -32402,8 +29001,8 @@ public class TdApi {
      * @userId - Sticker set owner
      * @name - Sticker set name
      * @thumbnail - Thumbnail to set in PNG or TGS format
-     * Animated thumbnail must be set for animated sticker sets and only for them
-     * You can use a zero InputFileId to delete the thumbnail
+     *              Animated thumbnail must be set for animated sticker sets and only for them
+     *              You can use a zero InputFileId to delete the thumbnail
      */
     public static class SetStickerSetThumbnail extends Function {
 
@@ -32411,8 +29010,7 @@ public class TdApi {
         public String name;
         public InputFile thumbnail;
 
-        public SetStickerSetThumbnail() {
-        }
+        public SetStickerSetThumbnail() {}
 
         public SetStickerSetThumbnail(int userId, String name, InputFile thumbnail) {
 
@@ -32423,9 +29021,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1694737404;
-        }
+        public int getConstructor() { return -1694737404; }
 
     }
 
@@ -32443,8 +29039,7 @@ public class TdApi {
         public InputFile sticker;
         public int position;
 
-        public SetStickerPositionInSet() {
-        }
+        public SetStickerPositionInSet() {}
 
         public SetStickerPositionInSet(InputFile sticker, int position) {
 
@@ -32454,9 +29049,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2075281185;
-        }
+        public int getConstructor() { return 2075281185; }
 
     }
 
@@ -32472,8 +29065,7 @@ public class TdApi {
 
         public InputFile sticker;
 
-        public RemoveStickerFromSet() {
-        }
+        public RemoveStickerFromSet() {}
 
         public RemoveStickerFromSet(InputFile sticker) {
 
@@ -32482,9 +29074,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1642196644;
-        }
+        public int getConstructor() { return 1642196644; }
 
     }
 
@@ -32499,7 +29089,7 @@ public class TdApi {
      * @height - Map height in pixels before applying scale
      * @scale - Map scale
      * @chatId - Identifier of a chat, in which the thumbnail will be shown
-     * Use 0 if unknown
+     *           Use 0 if unknown
      */
     public static class GetMapThumbnailFile extends Function {
 
@@ -32510,8 +29100,7 @@ public class TdApi {
         public int scale;
         public long chatId;
 
-        public GetMapThumbnailFile() {
-        }
+        public GetMapThumbnailFile() {}
 
         public GetMapThumbnailFile(Location location, int zoom, int width, int height, int scale, long chatId) {
 
@@ -32525,9 +29114,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -152660070;
-        }
+        public int getConstructor() { return -152660070; }
 
     }
 
@@ -32541,8 +29128,7 @@ public class TdApi {
 
         public String termsOfServiceId;
 
-        public AcceptTermsOfService() {
-        }
+        public AcceptTermsOfService() {}
 
         public AcceptTermsOfService(String termsOfServiceId) {
 
@@ -32551,9 +29137,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2130576356;
-        }
+        public int getConstructor() { return 2130576356; }
 
     }
 
@@ -32570,8 +29154,7 @@ public class TdApi {
         public String method;
         public String parameters;
 
-        public SendCustomRequest() {
-        }
+        public SendCustomRequest() {}
 
         public SendCustomRequest(String method, String parameters) {
 
@@ -32581,9 +29164,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 285045153;
-        }
+        public int getConstructor() { return 285045153; }
 
     }
 
@@ -32600,8 +29181,7 @@ public class TdApi {
         public long customQueryId;
         public String data;
 
-        public AnswerCustomQuery() {
-        }
+        public AnswerCustomQuery() {}
 
         public AnswerCustomQuery(long customQueryId, String data) {
 
@@ -32611,9 +29191,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1293603521;
-        }
+        public int getConstructor() { return -1293603521; }
 
     }
 
@@ -32628,8 +29206,7 @@ public class TdApi {
 
         public double seconds;
 
-        public SetAlarm() {
-        }
+        public SetAlarm() {}
 
         public SetAlarm(double seconds) {
 
@@ -32638,9 +29215,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -873497067;
-        }
+        public int getConstructor() { return -873497067; }
 
     }
 
@@ -32653,9 +29228,7 @@ public class TdApi {
     public static class GetCountryCode extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1540593906;
-        }
+        public int getConstructor() { return 1540593906; }
 
     }
 
@@ -32666,9 +29239,7 @@ public class TdApi {
     public static class GetInviteText extends Function {
 
         @Override
-        public int getConstructor() {
-            return 794573512;
-        }
+        public int getConstructor() { return 794573512; }
 
     }
 
@@ -32685,8 +29256,7 @@ public class TdApi {
 
         public String link;
 
-        public GetDeepLinkInfo() {
-        }
+        public GetDeepLinkInfo() {}
 
         public GetDeepLinkInfo(String link) {
 
@@ -32695,9 +29265,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 680673150;
-        }
+        public int getConstructor() { return 680673150; }
 
     }
 
@@ -32709,9 +29277,7 @@ public class TdApi {
     public static class GetApplicationConfig extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1823144318;
-        }
+        public int getConstructor() { return -1823144318; }
 
     }
 
@@ -32730,8 +29296,7 @@ public class TdApi {
         public long chatId;
         public JsonValue data;
 
-        public SaveApplicationLogEvent() {
-        }
+        public SaveApplicationLogEvent() {}
 
         public SaveApplicationLogEvent(String type, long chatId, JsonValue data) {
 
@@ -32742,9 +29307,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -811154930;
-        }
+        public int getConstructor() { return -811154930; }
 
     }
 
@@ -32765,8 +29328,7 @@ public class TdApi {
         public boolean enable;
         public ProxyType type;
 
-        public AddProxy() {
-        }
+        public AddProxy() {}
 
         public AddProxy(String server, int port, boolean enable, ProxyType type) {
 
@@ -32778,9 +29340,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 331529432;
-        }
+        public int getConstructor() { return 331529432; }
 
     }
 
@@ -32803,8 +29363,7 @@ public class TdApi {
         public boolean enable;
         public ProxyType type;
 
-        public EditProxy() {
-        }
+        public EditProxy() {}
 
         public EditProxy(int proxyId, String server, int port, boolean enable, ProxyType type) {
 
@@ -32817,9 +29376,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1605883821;
-        }
+        public int getConstructor() { return -1605883821; }
 
     }
 
@@ -32835,8 +29392,7 @@ public class TdApi {
 
         public int proxyId;
 
-        public EnableProxy() {
-        }
+        public EnableProxy() {}
 
         public EnableProxy(int proxyId) {
 
@@ -32845,9 +29401,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1494450838;
-        }
+        public int getConstructor() { return 1494450838; }
 
     }
 
@@ -32859,9 +29413,7 @@ public class TdApi {
     public static class DisableProxy extends Function {
 
         @Override
-        public int getConstructor() {
-            return -2100095102;
-        }
+        public int getConstructor() { return -2100095102; }
 
     }
 
@@ -32876,8 +29428,7 @@ public class TdApi {
 
         public int proxyId;
 
-        public RemoveProxy() {
-        }
+        public RemoveProxy() {}
 
         public RemoveProxy(int proxyId) {
 
@@ -32886,9 +29437,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1369219847;
-        }
+        public int getConstructor() { return 1369219847; }
 
     }
 
@@ -32900,9 +29449,7 @@ public class TdApi {
     public static class GetProxies extends Function {
 
         @Override
-        public int getConstructor() {
-            return -95026381;
-        }
+        public int getConstructor() { return -95026381; }
 
     }
 
@@ -32918,8 +29465,7 @@ public class TdApi {
 
         public int proxyId;
 
-        public GetProxyLink() {
-        }
+        public GetProxyLink() {}
 
         public GetProxyLink(int proxyId) {
 
@@ -32928,9 +29474,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1285597664;
-        }
+        public int getConstructor() { return -1285597664; }
 
     }
 
@@ -32940,14 +29484,13 @@ public class TdApi {
      * Can be called before authorization
      *
      * @proxyId - Proxy identifier
-     * Use 0 to ping a Telegram server without a proxy
+     *            Use 0 to ping a Telegram server without a proxy
      */
     public static class PingProxy extends Function {
 
         public int proxyId;
 
-        public PingProxy() {
-        }
+        public PingProxy() {}
 
         public PingProxy(int proxyId) {
 
@@ -32956,9 +29499,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -979681103;
-        }
+        public int getConstructor() { return -979681103; }
 
     }
 
@@ -32973,8 +29514,7 @@ public class TdApi {
 
         public LogStream logStream;
 
-        public SetLogStream() {
-        }
+        public SetLogStream() {}
 
         public SetLogStream(LogStream logStream) {
 
@@ -32983,9 +29523,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1364199535;
-        }
+        public int getConstructor() { return -1364199535; }
 
     }
 
@@ -32997,9 +29535,7 @@ public class TdApi {
     public static class GetLogStream extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1167608667;
-        }
+        public int getConstructor() { return 1167608667; }
 
     }
 
@@ -33009,14 +29545,13 @@ public class TdApi {
      * Can be called synchronously
      *
      * @newVerbosityLevel - New value of the verbosity level for logging
-     * Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging
+     *                      Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging
      */
     public static class SetLogVerbosityLevel extends Function {
 
         public int newVerbosityLevel;
 
-        public SetLogVerbosityLevel() {
-        }
+        public SetLogVerbosityLevel() {}
 
         public SetLogVerbosityLevel(int newVerbosityLevel) {
 
@@ -33025,9 +29560,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -303429678;
-        }
+        public int getConstructor() { return -303429678; }
 
     }
 
@@ -33039,9 +29572,7 @@ public class TdApi {
     public static class GetLogVerbosityLevel extends Function {
 
         @Override
-        public int getConstructor() {
-            return 594057956;
-        }
+        public int getConstructor() { return 594057956; }
 
     }
 
@@ -33053,9 +29584,7 @@ public class TdApi {
     public static class GetLogTags extends Function {
 
         @Override
-        public int getConstructor() {
-            return -254449190;
-        }
+        public int getConstructor() { return -254449190; }
 
     }
 
@@ -33072,8 +29601,7 @@ public class TdApi {
         public String tag;
         public int newVerbosityLevel;
 
-        public SetLogTagVerbosityLevel() {
-        }
+        public SetLogTagVerbosityLevel() {}
 
         public SetLogTagVerbosityLevel(String tag, int newVerbosityLevel) {
 
@@ -33083,9 +29611,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2095589738;
-        }
+        public int getConstructor() { return -2095589738; }
 
     }
 
@@ -33100,8 +29626,7 @@ public class TdApi {
 
         public String tag;
 
-        public GetLogTagVerbosityLevel() {
-        }
+        public GetLogTagVerbosityLevel() {}
 
         public GetLogTagVerbosityLevel(String tag) {
 
@@ -33110,9 +29635,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 951004547;
-        }
+        public int getConstructor() { return 951004547; }
 
     }
 
@@ -33129,8 +29652,7 @@ public class TdApi {
         public int verbosityLevel;
         public String text;
 
-        public AddLogMessage() {
-        }
+        public AddLogMessage() {}
 
         public AddLogMessage(int verbosityLevel, String text) {
 
@@ -33140,9 +29662,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1597427692;
-        }
+        public int getConstructor() { return 1597427692; }
 
     }
 
@@ -33156,9 +29676,7 @@ public class TdApi {
     public static class TestCallEmpty extends Function {
 
         @Override
-        public int getConstructor() {
-            return -627291626;
-        }
+        public int getConstructor() { return -627291626; }
 
     }
 
@@ -33175,8 +29693,7 @@ public class TdApi {
 
         public String x;
 
-        public TestCallString() {
-        }
+        public TestCallString() {}
 
         public TestCallString(String x) {
 
@@ -33185,9 +29702,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1732818385;
-        }
+        public int getConstructor() { return -1732818385; }
 
     }
 
@@ -33204,8 +29719,7 @@ public class TdApi {
 
         public byte[] x;
 
-        public TestCallBytes() {
-        }
+        public TestCallBytes() {}
 
         public TestCallBytes(byte[] x) {
 
@@ -33214,9 +29728,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -736011607;
-        }
+        public int getConstructor() { return -736011607; }
 
     }
 
@@ -33233,8 +29745,7 @@ public class TdApi {
 
         public int[] x;
 
-        public TestCallVectorInt() {
-        }
+        public TestCallVectorInt() {}
 
         public TestCallVectorInt(int[] x) {
 
@@ -33243,9 +29754,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2137277793;
-        }
+        public int getConstructor() { return -2137277793; }
 
     }
 
@@ -33262,8 +29771,7 @@ public class TdApi {
 
         public TestInt[] x;
 
-        public TestCallVectorIntObject() {
-        }
+        public TestCallVectorIntObject() {}
 
         public TestCallVectorIntObject(TestInt[] x) {
 
@@ -33272,9 +29780,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1825428218;
-        }
+        public int getConstructor() { return 1825428218; }
 
     }
 
@@ -33291,8 +29797,7 @@ public class TdApi {
 
         public String[] x;
 
-        public TestCallVectorString() {
-        }
+        public TestCallVectorString() {}
 
         public TestCallVectorString(String[] x) {
 
@@ -33301,9 +29806,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -408600900;
-        }
+        public int getConstructor() { return -408600900; }
 
     }
 
@@ -33320,8 +29823,7 @@ public class TdApi {
 
         public TestString[] x;
 
-        public TestCallVectorStringObject() {
-        }
+        public TestCallVectorStringObject() {}
 
         public TestCallVectorStringObject(TestString[] x) {
 
@@ -33330,9 +29832,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1527666429;
-        }
+        public int getConstructor() { return 1527666429; }
 
     }
 
@@ -33349,8 +29849,7 @@ public class TdApi {
 
         public int x;
 
-        public TestSquareInt() {
-        }
+        public TestSquareInt() {}
 
         public TestSquareInt(int x) {
 
@@ -33359,9 +29858,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -60135024;
-        }
+        public int getConstructor() { return -60135024; }
 
     }
 
@@ -33374,9 +29871,7 @@ public class TdApi {
     public static class TestNetwork extends Function {
 
         @Override
-        public int getConstructor() {
-            return -1343998901;
-        }
+        public int getConstructor() { return -1343998901; }
 
     }
 
@@ -33400,8 +29895,7 @@ public class TdApi {
         public int dcId;
         public double timeout;
 
-        public TestProxy() {
-        }
+        public TestProxy() {}
 
         public TestProxy(String server, int port, ProxyType type, int dcId, double timeout) {
 
@@ -33414,9 +29908,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1197366626;
-        }
+        public int getConstructor() { return -1197366626; }
 
     }
 
@@ -33428,9 +29920,7 @@ public class TdApi {
     public static class TestGetDifference extends Function {
 
         @Override
-        public int getConstructor() {
-            return 1747084069;
-        }
+        public int getConstructor() { return 1747084069; }
 
     }
 
@@ -33444,9 +29934,7 @@ public class TdApi {
     public static class TestUseUpdate extends Function {
 
         @Override
-        public int getConstructor() {
-            return 717094686;
-        }
+        public int getConstructor() { return 717094686; }
 
     }
 
@@ -33462,8 +29950,7 @@ public class TdApi {
 
         public Error error;
 
-        public TestReturnError() {
-        }
+        public TestReturnError() {}
 
         public TestReturnError(Error error) {
 
@@ -33472,9 +29959,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 455179506;
-        }
+        public int getConstructor() { return 455179506; }
 
     }
 

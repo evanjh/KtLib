@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns storage usage statistics
@@ -15,17 +14,17 @@ import td.TdApi.*
  *              If the chat info database is not used, the chat_limit is ignored and is always set to 0
  */
 suspend fun TdHandler.getStorageStatistics(
-        chatLimit: Int
+    chatLimit: Int
 ) = sync<StorageStatistics>(GetStorageStatistics(chatLimit))
 
 suspend fun TdHandler.getStorageStatisticsOrNull(
-        chatLimit: Int
+    chatLimit: Int
 ) = syncOrNull<StorageStatistics>(GetStorageStatistics(chatLimit))
 
 fun TdHandler.getStorageStatisticsWith(
-        chatLimit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StorageStatistics>.() -> Unit)? = null
+    chatLimit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StorageStatistics>.() -> Unit)? = null
 ) = send(GetStorageStatistics(chatLimit), stackIgnore + 1, submit)
 
 /**
@@ -37,8 +36,8 @@ suspend fun TdHandler.getStorageStatisticsFast() = sync<StorageStatisticsFast>(G
 suspend fun TdHandler.getStorageStatisticsFastOrNull() = syncOrNull<StorageStatisticsFast>(GetStorageStatisticsFast())
 
 fun TdHandler.getStorageStatisticsFastWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StorageStatisticsFast>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StorageStatisticsFast>.() -> Unit)? = null
 ) = send(GetStorageStatisticsFast(), stackIgnore + 1, submit)
 
 /**
@@ -66,39 +65,39 @@ fun TdHandler.getStorageStatisticsFastWith(
  *              Affects only returned statistics
  */
 suspend fun TdHandler.optimizeStorage(
-        size: Long,
-        ttl: Int,
-        count: Int,
-        immunityDelay: Int,
-        fileTypes: Array<FileType>,
-        chatIds: LongArray,
-        excludeChatIds: LongArray,
-        returnDeletedFileStatistics: Boolean,
-        chatLimit: Int
+    size: Long,
+    ttl: Int,
+    count: Int,
+    immunityDelay: Int,
+    fileTypes: Array<FileType>,
+    chatIds: LongArray,
+    excludeChatIds: LongArray,
+    returnDeletedFileStatistics: Boolean,
+    chatLimit: Int
 ) = sync<StorageStatistics>(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
 
 suspend fun TdHandler.optimizeStorageOrNull(
-        size: Long,
-        ttl: Int,
-        count: Int,
-        immunityDelay: Int,
-        fileTypes: Array<FileType>,
-        chatIds: LongArray,
-        excludeChatIds: LongArray,
-        returnDeletedFileStatistics: Boolean,
-        chatLimit: Int
+    size: Long,
+    ttl: Int,
+    count: Int,
+    immunityDelay: Int,
+    fileTypes: Array<FileType>,
+    chatIds: LongArray,
+    excludeChatIds: LongArray,
+    returnDeletedFileStatistics: Boolean,
+    chatLimit: Int
 ) = syncOrNull<StorageStatistics>(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
 
 fun TdHandler.optimizeStorageWith(
-        size: Long,
-        ttl: Int,
-        count: Int,
-        immunityDelay: Int,
-        fileTypes: Array<FileType>,
-        chatIds: LongArray,
-        excludeChatIds: LongArray,
-        returnDeletedFileStatistics: Boolean,
-        chatLimit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StorageStatistics>.() -> Unit)? = null
+    size: Long,
+    ttl: Int,
+    count: Int,
+    immunityDelay: Int,
+    fileTypes: Array<FileType>,
+    chatIds: LongArray,
+    excludeChatIds: LongArray,
+    returnDeletedFileStatistics: Boolean,
+    chatLimit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StorageStatistics>.() -> Unit)? = null
 ) = send(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit), stackIgnore + 1, submit)

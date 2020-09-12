@@ -2,10 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
-import td.TdApi.BankCardInfo
-import td.TdApi.GetBankCardInfo
+import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a bank card
@@ -13,15 +11,15 @@ import td.TdApi.GetBankCardInfo
  * @bankCardNumber - The bank card number
  */
 suspend fun TdHandler.getBankCardInfo(
-        bankCardNumber: String? = null
+    bankCardNumber: String? = null
 ) = sync<BankCardInfo>(GetBankCardInfo(bankCardNumber))
 
 suspend fun TdHandler.getBankCardInfoOrNull(
-        bankCardNumber: String? = null
+    bankCardNumber: String? = null
 ) = syncOrNull<BankCardInfo>(GetBankCardInfo(bankCardNumber))
 
 fun TdHandler.getBankCardInfoWith(
-        bankCardNumber: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<BankCardInfo>.() -> Unit)? = null
+    bankCardNumber: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<BankCardInfo>.() -> Unit)? = null
 ) = send(GetBankCardInfo(bankCardNumber), stackIgnore + 1, submit)

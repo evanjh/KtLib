@@ -2,10 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
-import td.TdApi.AuthorizationState
-import td.TdApi.GetAuthorizationState
+import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns the current authorization state
@@ -19,6 +17,6 @@ suspend fun TdHandler.getAuthorizationState() = sync<AuthorizationState>(GetAuth
 suspend fun TdHandler.getAuthorizationStateOrNull() = syncOrNull<AuthorizationState>(GetAuthorizationState())
 
 fun TdHandler.getAuthorizationStateWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthorizationState>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthorizationState>.() -> Unit)? = null
 ) = send(GetAuthorizationState(), stackIgnore + 1, submit)

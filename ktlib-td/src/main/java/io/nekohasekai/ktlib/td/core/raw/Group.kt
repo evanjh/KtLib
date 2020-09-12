@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a basic group by its identifier
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @basicGroupId - Basic group identifier
  */
 suspend fun TdHandler.getBasicGroup(
-        basicGroupId: Int
+    basicGroupId: Int
 ) = sync<BasicGroup>(GetBasicGroup(basicGroupId))
 
 suspend fun TdHandler.getBasicGroupOrNull(
-        basicGroupId: Int
+    basicGroupId: Int
 ) = syncOrNull<BasicGroup>(GetBasicGroup(basicGroupId))
 
 fun TdHandler.getBasicGroupWith(
-        basicGroupId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<BasicGroup>.() -> Unit)? = null
+    basicGroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<BasicGroup>.() -> Unit)? = null
 ) = send(GetBasicGroup(basicGroupId), stackIgnore + 1, submit)
 
 /**
@@ -32,15 +31,15 @@ fun TdHandler.getBasicGroupWith(
  * @basicGroupId - Basic group identifier
  */
 suspend fun TdHandler.getBasicGroupFullInfo(
-        basicGroupId: Int
+    basicGroupId: Int
 ) = sync<BasicGroupFullInfo>(GetBasicGroupFullInfo(basicGroupId))
 
 suspend fun TdHandler.getBasicGroupFullInfoOrNull(
-        basicGroupId: Int
+    basicGroupId: Int
 ) = syncOrNull<BasicGroupFullInfo>(GetBasicGroupFullInfo(basicGroupId))
 
 fun TdHandler.getBasicGroupFullInfoWith(
-        basicGroupId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<BasicGroupFullInfo>.() -> Unit)? = null
+    basicGroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<BasicGroupFullInfo>.() -> Unit)? = null
 ) = send(GetBasicGroupFullInfo(basicGroupId), stackIgnore + 1, submit)

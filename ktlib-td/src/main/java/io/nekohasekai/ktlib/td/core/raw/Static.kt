@@ -3,6 +3,7 @@
 package io.nekohasekai.ktlib.td.core.raw
 
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text
@@ -11,7 +12,7 @@ import td.TdApi.*
  * @text - The text in which to look for entites
  */
 fun getTextEntities(
-        text: String? = null
+    text: String? = null
 ) = syncRaw(GetTextEntities(text))
 
 /**
@@ -28,10 +29,10 @@ fun syncRaw(f: GetTextEntities) = io.nekohasekai.ktlib.td.core.syncRaw<TextEntit
  * @parseMode - Text parse mode
  */
 fun parseTextEntities(
-        text: String? = null,
-        parseMode: TextParseMode? = null
+    text: String? = null,
+    parseMode: TextParseMode? = null
 ) = syncRaw(ParseTextEntities(text,
-        parseMode))
+parseMode))
 
 /**
  * Parses Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text
@@ -47,7 +48,7 @@ fun syncRaw(f: ParseTextEntities) = io.nekohasekai.ktlib.td.core.syncRaw<Formatt
  *         For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
  */
 fun parseMarkdown(
-        text: FormattedText? = null
+    text: FormattedText? = null
 ) = syncRaw(ParseMarkdown(text))
 
 /**
@@ -64,7 +65,7 @@ fun syncRaw(f: ParseMarkdown) = io.nekohasekai.ktlib.td.core.syncRaw<FormattedTe
  * @text - The text
  */
 fun getMarkdownText(
-        text: FormattedText? = null
+    text: FormattedText? = null
 ) = syncRaw(GetMarkdownText(text))
 
 /**
@@ -82,7 +83,7 @@ fun syncRaw(f: GetMarkdownText) = io.nekohasekai.ktlib.td.core.syncRaw<Formatted
  * @fileName - The name of the file or path to the file
  */
 fun getFileMimeType(
-        fileName: String? = null
+    fileName: String? = null
 ) = syncRaw(GetFileMimeType(fileName))
 
 /**
@@ -100,7 +101,7 @@ fun syncRaw(f: GetFileMimeType) = io.nekohasekai.ktlib.td.core.syncRaw<Text>(f)
  * @mimeType - The MIME type of the file
  */
 fun getFileExtension(
-        mimeType: String? = null
+    mimeType: String? = null
 ) = syncRaw(GetFileExtension(mimeType))
 
 /**
@@ -119,7 +120,7 @@ fun syncRaw(f: GetFileExtension) = io.nekohasekai.ktlib.td.core.syncRaw<Text>(f)
  * @fileName - File name or path to the file
  */
 fun cleanFileName(
-        fileName: String? = null
+    fileName: String? = null
 ) = syncRaw(CleanFileName(fileName))
 
 /**
@@ -141,14 +142,14 @@ fun syncRaw(f: CleanFileName) = io.nekohasekai.ktlib.td.core.syncRaw<Text>(f)
  * @key - Language pack key of the string to be returned
  */
 fun getLanguagePackString(
-        languagePackDatabasePath: String? = null,
-        localizationTarget: String? = null,
-        languagePackId: String? = null,
-        key: String? = null
+    languagePackDatabasePath: String? = null,
+    localizationTarget: String? = null,
+    languagePackId: String? = null,
+    key: String? = null
 ) = syncRaw(GetLanguagePackString(languagePackDatabasePath,
-        localizationTarget,
-        languagePackId,
-        key))
+localizationTarget,
+languagePackId,
+key))
 
 /**
  * Returns a string stored in the local database from the specified localization target and language pack by its key
@@ -164,7 +165,7 @@ fun syncRaw(f: GetLanguagePackString) = io.nekohasekai.ktlib.td.core.syncRaw<Lan
  * @json - The JSON-serialized string
  */
 fun getJsonValue(
-        json: String? = null
+    json: String? = null
 ) = syncRaw(GetJsonValue(json))
 
 /**
@@ -180,7 +181,7 @@ fun syncRaw(f: GetJsonValue) = io.nekohasekai.ktlib.td.core.syncRaw<JsonValue>(f
  * @jsonValue - The JsonValue object
  */
 fun getJsonString(
-        jsonValue: JsonValue? = null
+    jsonValue: JsonValue? = null
 ) = syncRaw(GetJsonString(jsonValue))
 
 /**
@@ -196,7 +197,7 @@ fun syncRaw(f: GetJsonString) = io.nekohasekai.ktlib.td.core.syncRaw<Text>(f)
  * @filter - Chat filter
  */
 fun getChatFilterDefaultIconName(
-        filter: ChatFilter? = null
+    filter: ChatFilter? = null
 ) = syncRaw(GetChatFilterDefaultIconName(filter))
 
 /**
@@ -212,7 +213,7 @@ fun syncRaw(f: GetChatFilterDefaultIconName) = io.nekohasekai.ktlib.td.core.sync
  * @payload - JSON-encoded push notification payload
  */
 fun getPushReceiverId(
-        payload: String? = null
+    payload: String? = null
 ) = syncRaw(GetPushReceiverId(payload))
 
 /**
@@ -228,7 +229,7 @@ fun syncRaw(f: GetPushReceiverId) = io.nekohasekai.ktlib.td.core.syncRaw<PushRec
  * @logStream - New log stream
  */
 fun setLogStream(
-        logStream: LogStream? = null
+    logStream: LogStream? = null
 ) = syncRaw(SetLogStream(logStream))
 
 /**
@@ -257,7 +258,7 @@ fun syncRaw(f: GetLogStream) = io.nekohasekai.ktlib.td.core.syncRaw<LogStream>(f
  *                      Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging
  */
 fun setLogVerbosityLevel(
-        newVerbosityLevel: Int
+    newVerbosityLevel: Int
 ) = syncRaw(SetLogVerbosityLevel(newVerbosityLevel))
 
 /**
@@ -298,10 +299,10 @@ fun syncRaw(f: GetLogTags) = io.nekohasekai.ktlib.td.core.syncRaw<LogTags>(f)
  * @newVerbosityLevel - New verbosity level
  */
 fun setLogTagVerbosityLevel(
-        tag: String? = null,
-        newVerbosityLevel: Int
+    tag: String? = null,
+    newVerbosityLevel: Int
 ) = syncRaw(SetLogTagVerbosityLevel(tag,
-        newVerbosityLevel))
+newVerbosityLevel))
 
 /**
  * Sets the verbosity level for a specified TDLib internal log tag
@@ -316,7 +317,7 @@ fun syncRaw(f: SetLogTagVerbosityLevel) = io.nekohasekai.ktlib.td.core.syncRaw<O
  * @tag - Logging tag to change verbosity level
  */
 fun getLogTagVerbosityLevel(
-        tag: String? = null
+    tag: String? = null
 ) = syncRaw(GetLogTagVerbosityLevel(tag))
 
 /**
@@ -333,10 +334,10 @@ fun syncRaw(f: GetLogTagVerbosityLevel) = io.nekohasekai.ktlib.td.core.syncRaw<L
  * @text - Text of a message to log
  */
 fun addLogMessage(
-        verbosityLevel: Int,
-        text: String? = null
+    verbosityLevel: Int,
+    text: String? = null
 ) = syncRaw(AddLogMessage(verbosityLevel,
-        text))
+text))
 
 /**
  * Adds a message to TDLib internal log

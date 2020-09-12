@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Changes the location of the current user
@@ -13,15 +12,15 @@ import td.TdApi.*
  * @location - The new location of the user
  */
 suspend fun TdHandler.setLocation(
-        location: Location? = null
+    location: Location? = null
 ) = sync<Ok>(SetLocation(location))
 
 suspend fun TdHandler.setLocationOrNull(
-        location: Location? = null
+    location: Location? = null
 ) = syncOrNull<Ok>(SetLocation(location))
 
 fun TdHandler.setLocationWith(
-        location: Location? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    location: Location? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetLocation(location), stackIgnore + 1, submit)

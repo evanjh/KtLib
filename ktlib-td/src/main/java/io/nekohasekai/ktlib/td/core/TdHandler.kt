@@ -294,6 +294,8 @@ open class TdHandler : AbsEvents {
 
     }
 
+    open suspend fun onNewMessage(userId: Int, chatId: Long, message: Message) = Unit
+
     open suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) = Unit
     open suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) = Unit
 

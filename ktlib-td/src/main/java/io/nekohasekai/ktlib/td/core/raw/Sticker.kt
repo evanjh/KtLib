@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns stickers from the installed sticker sets that correspond to a given emoji
@@ -15,20 +14,20 @@ import td.TdApi.*
  * @limit - The maximum number of stickers to be returned
  */
 suspend fun TdHandler.getStickers(
-        emoji: String? = null,
-        limit: Int
+    emoji: String? = null,
+    limit: Int
 ) = sync<Stickers>(GetStickers(emoji, limit))
 
 suspend fun TdHandler.getStickersOrNull(
-        emoji: String? = null,
-        limit: Int
+    emoji: String? = null,
+    limit: Int
 ) = syncOrNull<Stickers>(GetStickers(emoji, limit))
 
 fun TdHandler.getStickersWith(
-        emoji: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Stickers>.() -> Unit)? = null
+    emoji: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Stickers>.() -> Unit)? = null
 ) = send(GetStickers(emoji, limit), stackIgnore + 1, submit)
 
 /**
@@ -38,20 +37,20 @@ fun TdHandler.getStickersWith(
  * @limit - The maximum number of stickers to be returned
  */
 suspend fun TdHandler.searchStickers(
-        emoji: String? = null,
-        limit: Int
+    emoji: String? = null,
+    limit: Int
 ) = sync<Stickers>(SearchStickers(emoji, limit))
 
 suspend fun TdHandler.searchStickersOrNull(
-        emoji: String? = null,
-        limit: Int
+    emoji: String? = null,
+    limit: Int
 ) = syncOrNull<Stickers>(SearchStickers(emoji, limit))
 
 fun TdHandler.searchStickersWith(
-        emoji: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Stickers>.() -> Unit)? = null
+    emoji: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Stickers>.() -> Unit)? = null
 ) = send(SearchStickers(emoji, limit), stackIgnore + 1, submit)
 
 /**
@@ -61,17 +60,17 @@ fun TdHandler.searchStickersWith(
  *            Pass false to return ordinary sticker sets
  */
 suspend fun TdHandler.getInstalledStickerSets(
-        isMasks: Boolean
+    isMasks: Boolean
 ) = sync<StickerSets>(GetInstalledStickerSets(isMasks))
 
 suspend fun TdHandler.getInstalledStickerSetsOrNull(
-        isMasks: Boolean
+    isMasks: Boolean
 ) = syncOrNull<StickerSets>(GetInstalledStickerSets(isMasks))
 
 fun TdHandler.getInstalledStickerSetsWith(
-        isMasks: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    isMasks: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(GetInstalledStickerSets(isMasks), stackIgnore + 1, submit)
 
 /**
@@ -83,23 +82,23 @@ fun TdHandler.getInstalledStickerSetsWith(
  * @limit - The maximum number of sticker sets to return
  */
 suspend fun TdHandler.getArchivedStickerSets(
-        isMasks: Boolean,
-        offsetStickerSetId: Long,
-        limit: Int
+    isMasks: Boolean,
+    offsetStickerSetId: Long,
+    limit: Int
 ) = sync<StickerSets>(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
 
 suspend fun TdHandler.getArchivedStickerSetsOrNull(
-        isMasks: Boolean,
-        offsetStickerSetId: Long,
-        limit: Int
+    isMasks: Boolean,
+    offsetStickerSetId: Long,
+    limit: Int
 ) = syncOrNull<StickerSets>(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
 
 fun TdHandler.getArchivedStickerSetsWith(
-        isMasks: Boolean,
-        offsetStickerSetId: Long,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    isMasks: Boolean,
+    offsetStickerSetId: Long,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit), stackIgnore + 1, submit)
 
 /**
@@ -111,20 +110,20 @@ fun TdHandler.getArchivedStickerSetsWith(
  *          Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached
  */
 suspend fun TdHandler.getTrendingStickerSets(
-        offset: Int,
-        limit: Int
+    offset: Int,
+    limit: Int
 ) = sync<StickerSets>(GetTrendingStickerSets(offset, limit))
 
 suspend fun TdHandler.getTrendingStickerSetsOrNull(
-        offset: Int,
-        limit: Int
+    offset: Int,
+    limit: Int
 ) = syncOrNull<StickerSets>(GetTrendingStickerSets(offset, limit))
 
 fun TdHandler.getTrendingStickerSetsWith(
-        offset: Int,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(GetTrendingStickerSets(offset, limit), stackIgnore + 1, submit)
 
 /**
@@ -134,17 +133,17 @@ fun TdHandler.getTrendingStickerSetsWith(
  * @fileId - File identifier
  */
 suspend fun TdHandler.getAttachedStickerSets(
-        fileId: Int
+    fileId: Int
 ) = sync<StickerSets>(GetAttachedStickerSets(fileId))
 
 suspend fun TdHandler.getAttachedStickerSetsOrNull(
-        fileId: Int
+    fileId: Int
 ) = syncOrNull<StickerSets>(GetAttachedStickerSets(fileId))
 
 fun TdHandler.getAttachedStickerSetsWith(
-        fileId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    fileId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(GetAttachedStickerSets(fileId), stackIgnore + 1, submit)
 
 /**
@@ -153,17 +152,17 @@ fun TdHandler.getAttachedStickerSetsWith(
  * @setId - Identifier of the sticker set
  */
 suspend fun TdHandler.getStickerSet(
-        setId: Long
+    setId: Long
 ) = sync<StickerSet>(GetStickerSet(setId))
 
 suspend fun TdHandler.getStickerSetOrNull(
-        setId: Long
+    setId: Long
 ) = syncOrNull<StickerSet>(GetStickerSet(setId))
 
 fun TdHandler.getStickerSetWith(
-        setId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSet>.() -> Unit)? = null
+    setId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSet>.() -> Unit)? = null
 ) = send(GetStickerSet(setId), stackIgnore + 1, submit)
 
 /**
@@ -172,17 +171,17 @@ fun TdHandler.getStickerSetWith(
  * @name - Name of the sticker set
  */
 suspend fun TdHandler.searchStickerSet(
-        name: String? = null
+    name: String? = null
 ) = sync<StickerSet>(SearchStickerSet(name))
 
 suspend fun TdHandler.searchStickerSetOrNull(
-        name: String? = null
+    name: String? = null
 ) = syncOrNull<StickerSet>(SearchStickerSet(name))
 
 fun TdHandler.searchStickerSetWith(
-        name: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSet>.() -> Unit)? = null
+    name: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSet>.() -> Unit)? = null
 ) = send(SearchStickerSet(name), stackIgnore + 1, submit)
 
 /**
@@ -194,23 +193,23 @@ fun TdHandler.searchStickerSetWith(
  * @limit - The maximum number of sticker sets to return
  */
 suspend fun TdHandler.searchInstalledStickerSets(
-        isMasks: Boolean,
-        query: String? = null,
-        limit: Int
+    isMasks: Boolean,
+    query: String? = null,
+    limit: Int
 ) = sync<StickerSets>(SearchInstalledStickerSets(isMasks, query, limit))
 
 suspend fun TdHandler.searchInstalledStickerSetsOrNull(
-        isMasks: Boolean,
-        query: String? = null,
-        limit: Int
+    isMasks: Boolean,
+    query: String? = null,
+    limit: Int
 ) = syncOrNull<StickerSets>(SearchInstalledStickerSets(isMasks, query, limit))
 
 fun TdHandler.searchInstalledStickerSetsWith(
-        isMasks: Boolean,
-        query: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    isMasks: Boolean,
+    query: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(SearchInstalledStickerSets(isMasks, query, limit), stackIgnore + 1, submit)
 
 /**
@@ -220,17 +219,17 @@ fun TdHandler.searchInstalledStickerSetsWith(
  * @query - Query to search for
  */
 suspend fun TdHandler.searchStickerSets(
-        query: String? = null
+    query: String? = null
 ) = sync<StickerSets>(SearchStickerSets(query))
 
 suspend fun TdHandler.searchStickerSetsOrNull(
-        query: String? = null
+    query: String? = null
 ) = syncOrNull<StickerSets>(SearchStickerSets(query))
 
 fun TdHandler.searchStickerSetsWith(
-        query: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSets>.() -> Unit)? = null
+    query: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSets>.() -> Unit)? = null
 ) = send(SearchStickerSets(query), stackIgnore + 1, submit)
 
 /**
@@ -242,23 +241,23 @@ fun TdHandler.searchStickerSetsWith(
  *               A sticker set can't be installed and archived simultaneously
  */
 suspend fun TdHandler.changeStickerSet(
-        setId: Long,
-        isInstalled: Boolean,
-        isArchived: Boolean
+    setId: Long,
+    isInstalled: Boolean,
+    isArchived: Boolean
 ) = sync<Ok>(ChangeStickerSet(setId, isInstalled, isArchived))
 
 suspend fun TdHandler.changeStickerSetOrNull(
-        setId: Long,
-        isInstalled: Boolean,
-        isArchived: Boolean
+    setId: Long,
+    isInstalled: Boolean,
+    isArchived: Boolean
 ) = syncOrNull<Ok>(ChangeStickerSet(setId, isInstalled, isArchived))
 
 fun TdHandler.changeStickerSetWith(
-        setId: Long,
-        isInstalled: Boolean,
-        isArchived: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    setId: Long,
+    isInstalled: Boolean,
+    isArchived: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ChangeStickerSet(setId, isInstalled, isArchived), stackIgnore + 1, submit)
 
 /**
@@ -267,17 +266,17 @@ fun TdHandler.changeStickerSetWith(
  * @stickerSetIds - Identifiers of viewed trending sticker sets
  */
 suspend fun TdHandler.viewTrendingStickerSets(
-        stickerSetIds: LongArray
+    stickerSetIds: LongArray
 ) = sync<Ok>(ViewTrendingStickerSets(stickerSetIds))
 
 suspend fun TdHandler.viewTrendingStickerSetsOrNull(
-        stickerSetIds: LongArray
+    stickerSetIds: LongArray
 ) = syncOrNull<Ok>(ViewTrendingStickerSets(stickerSetIds))
 
 fun TdHandler.viewTrendingStickerSetsWith(
-        stickerSetIds: LongArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stickerSetIds: LongArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ViewTrendingStickerSets(stickerSetIds), stackIgnore + 1, submit)
 
 /**
@@ -288,20 +287,20 @@ fun TdHandler.viewTrendingStickerSetsWith(
  * @stickerSetIds - Identifiers of installed sticker sets in the new correct order
  */
 suspend fun TdHandler.reorderInstalledStickerSets(
-        isMasks: Boolean,
-        stickerSetIds: LongArray
+    isMasks: Boolean,
+    stickerSetIds: LongArray
 ) = sync<Ok>(ReorderInstalledStickerSets(isMasks, stickerSetIds))
 
 suspend fun TdHandler.reorderInstalledStickerSetsOrNull(
-        isMasks: Boolean,
-        stickerSetIds: LongArray
+    isMasks: Boolean,
+    stickerSetIds: LongArray
 ) = syncOrNull<Ok>(ReorderInstalledStickerSets(isMasks, stickerSetIds))
 
 fun TdHandler.reorderInstalledStickerSetsWith(
-        isMasks: Boolean,
-        stickerSetIds: LongArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    isMasks: Boolean,
+    stickerSetIds: LongArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReorderInstalledStickerSets(isMasks, stickerSetIds), stackIgnore + 1, submit)
 
 /**
@@ -311,17 +310,17 @@ fun TdHandler.reorderInstalledStickerSetsWith(
  *               Pass false to return recently sent stickers
  */
 suspend fun TdHandler.getRecentStickers(
-        isAttached: Boolean
+    isAttached: Boolean
 ) = sync<Stickers>(GetRecentStickers(isAttached))
 
 suspend fun TdHandler.getRecentStickersOrNull(
-        isAttached: Boolean
+    isAttached: Boolean
 ) = syncOrNull<Stickers>(GetRecentStickers(isAttached))
 
 fun TdHandler.getRecentStickersWith(
-        isAttached: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Stickers>.() -> Unit)? = null
+    isAttached: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Stickers>.() -> Unit)? = null
 ) = send(GetRecentStickers(isAttached), stackIgnore + 1, submit)
 
 /**
@@ -335,20 +334,20 @@ fun TdHandler.getRecentStickersWith(
  * @sticker - Sticker file to add
  */
 suspend fun TdHandler.addRecentSticker(
-        isAttached: Boolean,
-        sticker: InputFile? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null
 ) = sync<Stickers>(AddRecentSticker(isAttached, sticker))
 
 suspend fun TdHandler.addRecentStickerOrNull(
-        isAttached: Boolean,
-        sticker: InputFile? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null
 ) = syncOrNull<Stickers>(AddRecentSticker(isAttached, sticker))
 
 fun TdHandler.addRecentStickerWith(
-        isAttached: Boolean,
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Stickers>.() -> Unit)? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Stickers>.() -> Unit)? = null
 ) = send(AddRecentSticker(isAttached, sticker), stackIgnore + 1, submit)
 
 /**
@@ -359,20 +358,20 @@ fun TdHandler.addRecentStickerWith(
  * @sticker - Sticker file to delete
  */
 suspend fun TdHandler.removeRecentSticker(
-        isAttached: Boolean,
-        sticker: InputFile? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null
 ) = sync<Ok>(RemoveRecentSticker(isAttached, sticker))
 
 suspend fun TdHandler.removeRecentStickerOrNull(
-        isAttached: Boolean,
-        sticker: InputFile? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null
 ) = syncOrNull<Ok>(RemoveRecentSticker(isAttached, sticker))
 
 fun TdHandler.removeRecentStickerWith(
-        isAttached: Boolean,
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    isAttached: Boolean,
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveRecentSticker(isAttached, sticker), stackIgnore + 1, submit)
 
 /**
@@ -382,17 +381,17 @@ fun TdHandler.removeRecentStickerWith(
  *               Pass false to clear the list of recently sent stickers
  */
 suspend fun TdHandler.clearRecentStickers(
-        isAttached: Boolean
+    isAttached: Boolean
 ) = sync<Ok>(ClearRecentStickers(isAttached))
 
 suspend fun TdHandler.clearRecentStickersOrNull(
-        isAttached: Boolean
+    isAttached: Boolean
 ) = syncOrNull<Ok>(ClearRecentStickers(isAttached))
 
 fun TdHandler.clearRecentStickersWith(
-        isAttached: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    isAttached: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ClearRecentStickers(isAttached), stackIgnore + 1, submit)
 
 /**
@@ -403,8 +402,8 @@ suspend fun TdHandler.getFavoriteStickers() = sync<Stickers>(GetFavoriteStickers
 suspend fun TdHandler.getFavoriteStickersOrNull() = syncOrNull<Stickers>(GetFavoriteStickers())
 
 fun TdHandler.getFavoriteStickersWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Stickers>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Stickers>.() -> Unit)? = null
 ) = send(GetFavoriteStickers(), stackIgnore + 1, submit)
 
 /**
@@ -416,17 +415,17 @@ fun TdHandler.getFavoriteStickersWith(
  * @sticker - Sticker file to add
  */
 suspend fun TdHandler.addFavoriteSticker(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = sync<Ok>(AddFavoriteSticker(sticker))
 
 suspend fun TdHandler.addFavoriteStickerOrNull(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = syncOrNull<Ok>(AddFavoriteSticker(sticker))
 
 fun TdHandler.addFavoriteStickerWith(
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddFavoriteSticker(sticker), stackIgnore + 1, submit)
 
 /**
@@ -435,17 +434,17 @@ fun TdHandler.addFavoriteStickerWith(
  * @sticker - Sticker file to delete from the list
  */
 suspend fun TdHandler.removeFavoriteSticker(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = sync<Ok>(RemoveFavoriteSticker(sticker))
 
 suspend fun TdHandler.removeFavoriteStickerOrNull(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = syncOrNull<Ok>(RemoveFavoriteSticker(sticker))
 
 fun TdHandler.removeFavoriteStickerWith(
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveFavoriteSticker(sticker), stackIgnore + 1, submit)
 
 /**
@@ -464,29 +463,29 @@ fun TdHandler.removeFavoriteStickerWith(
  *             All stickers must be of the same type
  */
 suspend fun TdHandler.createNewStickerSet(
-        userId: Int,
-        title: String? = null,
-        name: String? = null,
-        isMasks: Boolean,
-        stickers: Array<InputSticker>
+    userId: Int,
+    title: String? = null,
+    name: String? = null,
+    isMasks: Boolean,
+    stickers: Array<InputSticker>
 ) = sync<StickerSet>(CreateNewStickerSet(userId, title, name, isMasks, stickers))
 
 suspend fun TdHandler.createNewStickerSetOrNull(
-        userId: Int,
-        title: String? = null,
-        name: String? = null,
-        isMasks: Boolean,
-        stickers: Array<InputSticker>
+    userId: Int,
+    title: String? = null,
+    name: String? = null,
+    isMasks: Boolean,
+    stickers: Array<InputSticker>
 ) = syncOrNull<StickerSet>(CreateNewStickerSet(userId, title, name, isMasks, stickers))
 
 fun TdHandler.createNewStickerSetWith(
-        userId: Int,
-        title: String? = null,
-        name: String? = null,
-        isMasks: Boolean,
-        stickers: Array<InputSticker>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSet>.() -> Unit)? = null
+    userId: Int,
+    title: String? = null,
+    name: String? = null,
+    isMasks: Boolean,
+    stickers: Array<InputSticker>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSet>.() -> Unit)? = null
 ) = send(CreateNewStickerSet(userId, title, name, isMasks, stickers), stackIgnore + 1, submit)
 
 /**
@@ -499,23 +498,23 @@ fun TdHandler.createNewStickerSetWith(
  * @sticker - Sticker to add to the set
  */
 suspend fun TdHandler.addStickerToSet(
-        userId: Int,
-        name: String? = null,
-        sticker: InputSticker? = null
+    userId: Int,
+    name: String? = null,
+    sticker: InputSticker? = null
 ) = sync<StickerSet>(AddStickerToSet(userId, name, sticker))
 
 suspend fun TdHandler.addStickerToSetOrNull(
-        userId: Int,
-        name: String? = null,
-        sticker: InputSticker? = null
+    userId: Int,
+    name: String? = null,
+    sticker: InputSticker? = null
 ) = syncOrNull<StickerSet>(AddStickerToSet(userId, name, sticker))
 
 fun TdHandler.addStickerToSetWith(
-        userId: Int,
-        name: String? = null,
-        sticker: InputSticker? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSet>.() -> Unit)? = null
+    userId: Int,
+    name: String? = null,
+    sticker: InputSticker? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSet>.() -> Unit)? = null
 ) = send(AddStickerToSet(userId, name, sticker), stackIgnore + 1, submit)
 
 /**
@@ -530,23 +529,23 @@ fun TdHandler.addStickerToSetWith(
  *              You can use a zero InputFileId to delete the thumbnail
  */
 suspend fun TdHandler.setStickerSetThumbnail(
-        userId: Int,
-        name: String? = null,
-        thumbnail: InputFile? = null
+    userId: Int,
+    name: String? = null,
+    thumbnail: InputFile? = null
 ) = sync<StickerSet>(SetStickerSetThumbnail(userId, name, thumbnail))
 
 suspend fun TdHandler.setStickerSetThumbnailOrNull(
-        userId: Int,
-        name: String? = null,
-        thumbnail: InputFile? = null
+    userId: Int,
+    name: String? = null,
+    thumbnail: InputFile? = null
 ) = syncOrNull<StickerSet>(SetStickerSetThumbnail(userId, name, thumbnail))
 
 fun TdHandler.setStickerSetThumbnailWith(
-        userId: Int,
-        name: String? = null,
-        thumbnail: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<StickerSet>.() -> Unit)? = null
+    userId: Int,
+    name: String? = null,
+    thumbnail: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<StickerSet>.() -> Unit)? = null
 ) = send(SetStickerSetThumbnail(userId, name, thumbnail), stackIgnore + 1, submit)
 
 /**
@@ -558,20 +557,20 @@ fun TdHandler.setStickerSetThumbnailWith(
  * @position - New position of the sticker in the set, zero-based
  */
 suspend fun TdHandler.setStickerPositionInSet(
-        sticker: InputFile? = null,
-        position: Int
+    sticker: InputFile? = null,
+    position: Int
 ) = sync<Ok>(SetStickerPositionInSet(sticker, position))
 
 suspend fun TdHandler.setStickerPositionInSetOrNull(
-        sticker: InputFile? = null,
-        position: Int
+    sticker: InputFile? = null,
+    position: Int
 ) = syncOrNull<Ok>(SetStickerPositionInSet(sticker, position))
 
 fun TdHandler.setStickerPositionInSetWith(
-        sticker: InputFile? = null,
-        position: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    sticker: InputFile? = null,
+    position: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetStickerPositionInSet(sticker, position), stackIgnore + 1, submit)
 
 /**
@@ -582,15 +581,15 @@ fun TdHandler.setStickerPositionInSetWith(
  * @sticker - Sticker
  */
 suspend fun TdHandler.removeStickerFromSet(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = sync<Ok>(RemoveStickerFromSet(sticker))
 
 suspend fun TdHandler.removeStickerFromSetOrNull(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = syncOrNull<Ok>(RemoveStickerFromSet(sticker))
 
 fun TdHandler.removeStickerFromSetWith(
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveStickerFromSet(sticker), stackIgnore + 1, submit)

@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Registers the currently used device for receiving push notifications
@@ -14,18 +13,18 @@ import td.TdApi.*
  * @otherUserIds - List of user identifiers of other users currently using the application
  */
 suspend fun TdHandler.registerDevice(
-        deviceToken: DeviceToken? = null,
-        otherUserIds: IntArray
+    deviceToken: DeviceToken? = null,
+    otherUserIds: IntArray
 ) = sync<PushReceiverId>(RegisterDevice(deviceToken, otherUserIds))
 
 suspend fun TdHandler.registerDeviceOrNull(
-        deviceToken: DeviceToken? = null,
-        otherUserIds: IntArray
+    deviceToken: DeviceToken? = null,
+    otherUserIds: IntArray
 ) = syncOrNull<PushReceiverId>(RegisterDevice(deviceToken, otherUserIds))
 
 fun TdHandler.registerDeviceWith(
-        deviceToken: DeviceToken? = null,
-        otherUserIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PushReceiverId>.() -> Unit)? = null
+    deviceToken: DeviceToken? = null,
+    otherUserIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PushReceiverId>.() -> Unit)? = null
 ) = send(RegisterDevice(deviceToken, otherUserIds), stackIgnore + 1, submit)

@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a file
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @fileId - Identifier of the file to get
  */
 suspend fun TdHandler.getFile(
-        fileId: Int
+    fileId: Int
 ) = sync<File>(GetFile(fileId))
 
 suspend fun TdHandler.getFileOrNull(
-        fileId: Int
+    fileId: Int
 ) = syncOrNull<File>(GetFile(fileId))
 
 fun TdHandler.getFileWith(
-        fileId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    fileId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(GetFile(fileId), stackIgnore + 1, submit)
 
 /**
@@ -38,20 +37,20 @@ fun TdHandler.getFileWith(
  * @fileType - File type, if known
  */
 suspend fun TdHandler.getRemoteFile(
-        remoteFileId: String? = null,
-        fileType: FileType? = null
+    remoteFileId: String? = null,
+    fileType: FileType? = null
 ) = sync<File>(GetRemoteFile(remoteFileId, fileType))
 
 suspend fun TdHandler.getRemoteFileOrNull(
-        remoteFileId: String? = null,
-        fileType: FileType? = null
+    remoteFileId: String? = null,
+    fileType: FileType? = null
 ) = syncOrNull<File>(GetRemoteFile(remoteFileId, fileType))
 
 fun TdHandler.getRemoteFileWith(
-        remoteFileId: String? = null,
-        fileType: FileType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    remoteFileId: String? = null,
+    fileType: FileType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(GetRemoteFile(remoteFileId, fileType), stackIgnore + 1, submit)
 
 /**
@@ -69,29 +68,29 @@ fun TdHandler.getRemoteFileWith(
  *                If true, this request returns file state only after the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent
  */
 suspend fun TdHandler.downloadFile(
-        fileId: Int,
-        priority: Int,
-        offset: Int,
-        limit: Int,
-        synchronous: Boolean
+    fileId: Int,
+    priority: Int,
+    offset: Int,
+    limit: Int,
+    synchronous: Boolean
 ) = sync<File>(DownloadFile(fileId, priority, offset, limit, synchronous))
 
 suspend fun TdHandler.downloadFileOrNull(
-        fileId: Int,
-        priority: Int,
-        offset: Int,
-        limit: Int,
-        synchronous: Boolean
+    fileId: Int,
+    priority: Int,
+    offset: Int,
+    limit: Int,
+    synchronous: Boolean
 ) = syncOrNull<File>(DownloadFile(fileId, priority, offset, limit, synchronous))
 
 fun TdHandler.downloadFileWith(
-        fileId: Int,
-        priority: Int,
-        offset: Int,
-        limit: Int,
-        synchronous: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    fileId: Int,
+    priority: Int,
+    offset: Int,
+    limit: Int,
+    synchronous: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(DownloadFile(fileId, priority, offset, limit, synchronous), stackIgnore + 1, submit)
 
 /**
@@ -101,20 +100,20 @@ fun TdHandler.downloadFileWith(
  * @offset - Offset from which downloaded prefix size should be calculated
  */
 suspend fun TdHandler.getFileDownloadedPrefixSize(
-        fileId: Int,
-        offset: Int
+    fileId: Int,
+    offset: Int
 ) = sync<Count>(GetFileDownloadedPrefixSize(fileId, offset))
 
 suspend fun TdHandler.getFileDownloadedPrefixSizeOrNull(
-        fileId: Int,
-        offset: Int
+    fileId: Int,
+    offset: Int
 ) = syncOrNull<Count>(GetFileDownloadedPrefixSize(fileId, offset))
 
 fun TdHandler.getFileDownloadedPrefixSizeWith(
-        fileId: Int,
-        offset: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Count>.() -> Unit)? = null
+    fileId: Int,
+    offset: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Count>.() -> Unit)? = null
 ) = send(GetFileDownloadedPrefixSize(fileId, offset), stackIgnore + 1, submit)
 
 /**
@@ -129,23 +128,23 @@ fun TdHandler.getFileDownloadedPrefixSizeWith(
  *             If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first
  */
 suspend fun TdHandler.uploadFile(
-        file: InputFile? = null,
-        fileType: FileType? = null,
-        priority: Int
+    file: InputFile? = null,
+    fileType: FileType? = null,
+    priority: Int
 ) = sync<File>(UploadFile(file, fileType, priority))
 
 suspend fun TdHandler.uploadFileOrNull(
-        file: InputFile? = null,
-        fileType: FileType? = null,
-        priority: Int
+    file: InputFile? = null,
+    fileType: FileType? = null,
+    priority: Int
 ) = syncOrNull<File>(UploadFile(file, fileType, priority))
 
 fun TdHandler.uploadFileWith(
-        file: InputFile? = null,
-        fileType: FileType? = null,
-        priority: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    file: InputFile? = null,
+    fileType: FileType? = null,
+    priority: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(UploadFile(file, fileType, priority), stackIgnore + 1, submit)
 
 /**
@@ -157,23 +156,23 @@ fun TdHandler.uploadFileWith(
  * @data - The data to write
  */
 suspend fun TdHandler.writeGeneratedFilePart(
-        generationId: Long,
-        offset: Int,
-        data: ByteArray
+    generationId: Long,
+    offset: Int,
+    data: ByteArray
 ) = sync<Ok>(WriteGeneratedFilePart(generationId, offset, data))
 
 suspend fun TdHandler.writeGeneratedFilePartOrNull(
-        generationId: Long,
-        offset: Int,
-        data: ByteArray
+    generationId: Long,
+    offset: Int,
+    data: ByteArray
 ) = syncOrNull<Ok>(WriteGeneratedFilePart(generationId, offset, data))
 
 fun TdHandler.writeGeneratedFilePartWith(
-        generationId: Long,
-        offset: Int,
-        data: ByteArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    generationId: Long,
+    offset: Int,
+    data: ByteArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(WriteGeneratedFilePart(generationId, offset, data), stackIgnore + 1, submit)
 
 /**
@@ -185,23 +184,23 @@ fun TdHandler.writeGeneratedFilePartWith(
  * @localPrefixSize - The number of bytes already generated
  */
 suspend fun TdHandler.setFileGenerationProgress(
-        generationId: Long,
-        expectedSize: Int,
-        localPrefixSize: Int
+    generationId: Long,
+    expectedSize: Int,
+    localPrefixSize: Int
 ) = sync<Ok>(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
 
 suspend fun TdHandler.setFileGenerationProgressOrNull(
-        generationId: Long,
-        expectedSize: Int,
-        localPrefixSize: Int
+    generationId: Long,
+    expectedSize: Int,
+    localPrefixSize: Int
 ) = syncOrNull<Ok>(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
 
 fun TdHandler.setFileGenerationProgressWith(
-        generationId: Long,
-        expectedSize: Int,
-        localPrefixSize: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    generationId: Long,
+    expectedSize: Int,
+    localPrefixSize: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize), stackIgnore + 1, submit)
 
 /**
@@ -211,20 +210,20 @@ fun TdHandler.setFileGenerationProgressWith(
  * @error - If set, means that file generation has failed and should be terminated
  */
 suspend fun TdHandler.finishFileGeneration(
-        generationId: Long,
-        error: Error? = null
+    generationId: Long,
+    error: Error? = null
 ) = sync<Ok>(FinishFileGeneration(generationId, error))
 
 suspend fun TdHandler.finishFileGenerationOrNull(
-        generationId: Long,
-        error: Error? = null
+    generationId: Long,
+    error: Error? = null
 ) = syncOrNull<Ok>(FinishFileGeneration(generationId, error))
 
 fun TdHandler.finishFileGenerationWith(
-        generationId: Long,
-        error: Error? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    generationId: Long,
+    error: Error? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(FinishFileGeneration(generationId, error), stackIgnore + 1, submit)
 
 /**
@@ -239,23 +238,23 @@ fun TdHandler.finishFileGenerationWith(
  *          Pass 0 to read all available data from the specified position
  */
 suspend fun TdHandler.readFilePart(
-        fileId: Int,
-        offset: Int,
-        count: Int
+    fileId: Int,
+    offset: Int,
+    count: Int
 ) = sync<FilePart>(ReadFilePart(fileId, offset, count))
 
 suspend fun TdHandler.readFilePartOrNull(
-        fileId: Int,
-        offset: Int,
-        count: Int
+    fileId: Int,
+    offset: Int,
+    count: Int
 ) = syncOrNull<FilePart>(ReadFilePart(fileId, offset, count))
 
 fun TdHandler.readFilePartWith(
-        fileId: Int,
-        offset: Int,
-        count: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<FilePart>.() -> Unit)? = null
+    fileId: Int,
+    offset: Int,
+    count: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<FilePart>.() -> Unit)? = null
 ) = send(ReadFilePart(fileId, offset, count), stackIgnore + 1, submit)
 
 /**
@@ -264,17 +263,17 @@ fun TdHandler.readFilePartWith(
  * @fileId - Identifier of the file to delete
  */
 suspend fun TdHandler.deleteFile(
-        fileId: Int
+    fileId: Int
 ) = sync<Ok>(DeleteFile(fileId))
 
 suspend fun TdHandler.deleteFileOrNull(
-        fileId: Int
+    fileId: Int
 ) = syncOrNull<Ok>(DeleteFile(fileId))
 
 fun TdHandler.deleteFileWith(
-        fileId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    fileId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteFile(fileId), stackIgnore + 1, submit)
 
 /**
@@ -287,20 +286,20 @@ fun TdHandler.deleteFileWith(
  *               Must be up to 512 KB in size and fit in 512x512 square
  */
 suspend fun TdHandler.uploadStickerFile(
-        userId: Int,
-        pngSticker: InputFile? = null
+    userId: Int,
+    pngSticker: InputFile? = null
 ) = sync<File>(UploadStickerFile(userId, pngSticker))
 
 suspend fun TdHandler.uploadStickerFileOrNull(
-        userId: Int,
-        pngSticker: InputFile? = null
+    userId: Int,
+    pngSticker: InputFile? = null
 ) = syncOrNull<File>(UploadStickerFile(userId, pngSticker))
 
 fun TdHandler.uploadStickerFileWith(
-        userId: Int,
-        pngSticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    userId: Int,
+    pngSticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(UploadStickerFile(userId, pngSticker), stackIgnore + 1, submit)
 
 /**
@@ -316,30 +315,30 @@ fun TdHandler.uploadStickerFileWith(
  *           Use 0 if unknown
  */
 suspend fun TdHandler.getMapThumbnailFile(
-        location: Location? = null,
-        zoom: Int,
-        width: Int,
-        height: Int,
-        scale: Int,
-        chatId: Long
+    location: Location? = null,
+    zoom: Int,
+    width: Int,
+    height: Int,
+    scale: Int,
+    chatId: Long
 ) = sync<File>(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
 
 suspend fun TdHandler.getMapThumbnailFileOrNull(
-        location: Location? = null,
-        zoom: Int,
-        width: Int,
-        height: Int,
-        scale: Int,
-        chatId: Long
+    location: Location? = null,
+    zoom: Int,
+    width: Int,
+    height: Int,
+    scale: Int,
+    chatId: Long
 ) = syncOrNull<File>(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
 
 fun TdHandler.getMapThumbnailFileWith(
-        location: Location? = null,
-        zoom: Int,
-        width: Int,
-        height: Int,
-        scale: Int,
-        chatId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<File>.() -> Unit)? = null
+    location: Location? = null,
+    zoom: Int,
+    width: Int,
+    height: Int,
+    scale: Int,
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<File>.() -> Unit)? = null
 ) = send(GetMapThumbnailFile(location, zoom, width, height, scale, chatId), stackIgnore + 1, submit)

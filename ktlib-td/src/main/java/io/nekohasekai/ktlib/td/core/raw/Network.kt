@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Sets the current network type
@@ -16,17 +15,17 @@ import td.TdApi.*
  *         By default, networkTypeOther
  */
 suspend fun TdHandler.setNetworkType(
-        type: NetworkType? = null
+    type: NetworkType? = null
 ) = sync<Ok>(SetNetworkType(type))
 
 suspend fun TdHandler.setNetworkTypeOrNull(
-        type: NetworkType? = null
+    type: NetworkType? = null
 ) = syncOrNull<Ok>(SetNetworkType(type))
 
 fun TdHandler.setNetworkTypeWith(
-        type: NetworkType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    type: NetworkType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetNetworkType(type), stackIgnore + 1, submit)
 
 /**
@@ -36,17 +35,17 @@ fun TdHandler.setNetworkTypeWith(
  * @onlyCurrent - If true, returns only data for the current library launch
  */
 suspend fun TdHandler.getNetworkStatistics(
-        onlyCurrent: Boolean
+    onlyCurrent: Boolean
 ) = sync<NetworkStatistics>(GetNetworkStatistics(onlyCurrent))
 
 suspend fun TdHandler.getNetworkStatisticsOrNull(
-        onlyCurrent: Boolean
+    onlyCurrent: Boolean
 ) = syncOrNull<NetworkStatistics>(GetNetworkStatistics(onlyCurrent))
 
 fun TdHandler.getNetworkStatisticsWith(
-        onlyCurrent: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<NetworkStatistics>.() -> Unit)? = null
+    onlyCurrent: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<NetworkStatistics>.() -> Unit)? = null
 ) = send(GetNetworkStatistics(onlyCurrent), stackIgnore + 1, submit)
 
 /**
@@ -56,17 +55,17 @@ fun TdHandler.getNetworkStatisticsWith(
  * @entry - The network statistics entry with the data to be added to statistics
  */
 suspend fun TdHandler.addNetworkStatistics(
-        entry: NetworkStatisticsEntry? = null
+    entry: NetworkStatisticsEntry? = null
 ) = sync<Ok>(AddNetworkStatistics(entry))
 
 suspend fun TdHandler.addNetworkStatisticsOrNull(
-        entry: NetworkStatisticsEntry? = null
+    entry: NetworkStatisticsEntry? = null
 ) = syncOrNull<Ok>(AddNetworkStatistics(entry))
 
 fun TdHandler.addNetworkStatisticsWith(
-        entry: NetworkStatisticsEntry? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    entry: NetworkStatisticsEntry? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddNetworkStatistics(entry), stackIgnore + 1, submit)
 
 /**
@@ -78,6 +77,6 @@ suspend fun TdHandler.resetNetworkStatistics() = sync<Ok>(ResetNetworkStatistics
 suspend fun TdHandler.resetNetworkStatisticsOrNull() = syncOrNull<Ok>(ResetNetworkStatistics())
 
 fun TdHandler.resetNetworkStatisticsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ResetNetworkStatistics(), stackIgnore + 1, submit)

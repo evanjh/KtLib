@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Sets the phone number of the user and sends an authentication code to the user
@@ -14,20 +13,20 @@ import td.TdApi.*
  * @settings - Settings for the authentication of the user's phone number
  */
 suspend fun TdHandler.setAuthenticationPhoneNumber(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = sync<Ok>(SetAuthenticationPhoneNumber(phoneNumber, settings))
 
 suspend fun TdHandler.setAuthenticationPhoneNumberOrNull(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = syncOrNull<Ok>(SetAuthenticationPhoneNumber(phoneNumber, settings))
 
 fun TdHandler.setAuthenticationPhoneNumberWith(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetAuthenticationPhoneNumber(phoneNumber, settings), stackIgnore + 1, submit)
 
 /**
@@ -39,8 +38,8 @@ suspend fun TdHandler.resendAuthenticationCode() = sync<Ok>(ResendAuthentication
 suspend fun TdHandler.resendAuthenticationCodeOrNull() = syncOrNull<Ok>(ResendAuthenticationCode())
 
 fun TdHandler.resendAuthenticationCodeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ResendAuthenticationCode(), stackIgnore + 1, submit)
 
 /**
@@ -50,17 +49,17 @@ fun TdHandler.resendAuthenticationCodeWith(
  * @otherUserIds - List of user identifiers of other users currently using the application
  */
 suspend fun TdHandler.requestQrCodeAuthentication(
-        otherUserIds: IntArray
+    otherUserIds: IntArray
 ) = sync<Ok>(RequestQrCodeAuthentication(otherUserIds))
 
 suspend fun TdHandler.requestQrCodeAuthenticationOrNull(
-        otherUserIds: IntArray
+    otherUserIds: IntArray
 ) = syncOrNull<Ok>(RequestQrCodeAuthentication(otherUserIds))
 
 fun TdHandler.requestQrCodeAuthenticationWith(
-        otherUserIds: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    otherUserIds: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RequestQrCodeAuthentication(otherUserIds), stackIgnore + 1, submit)
 
 /**
@@ -72,8 +71,8 @@ suspend fun TdHandler.requestAuthenticationPasswordRecovery() = sync<Ok>(Request
 suspend fun TdHandler.requestAuthenticationPasswordRecoveryOrNull() = syncOrNull<Ok>(RequestAuthenticationPasswordRecovery())
 
 fun TdHandler.requestAuthenticationPasswordRecoveryWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RequestAuthenticationPasswordRecovery(), stackIgnore + 1, submit)
 
 /**
@@ -83,17 +82,17 @@ fun TdHandler.requestAuthenticationPasswordRecoveryWith(
  * @recoveryCode - Recovery code to check
  */
 suspend fun TdHandler.recoverAuthenticationPassword(
-        recoveryCode: String? = null
+    recoveryCode: String? = null
 ) = sync<Ok>(RecoverAuthenticationPassword(recoveryCode))
 
 suspend fun TdHandler.recoverAuthenticationPasswordOrNull(
-        recoveryCode: String? = null
+    recoveryCode: String? = null
 ) = syncOrNull<Ok>(RecoverAuthenticationPassword(recoveryCode))
 
 fun TdHandler.recoverAuthenticationPasswordWith(
-        recoveryCode: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    recoveryCode: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RecoverAuthenticationPassword(recoveryCode), stackIgnore + 1, submit)
 
 /**
@@ -104,20 +103,20 @@ fun TdHandler.recoverAuthenticationPasswordWith(
  * @settings - Settings for the authentication of the user's phone number
  */
 suspend fun TdHandler.changePhoneNumber(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = sync<AuthenticationCodeInfo>(ChangePhoneNumber(phoneNumber, settings))
 
 suspend fun TdHandler.changePhoneNumberOrNull(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = syncOrNull<AuthenticationCodeInfo>(ChangePhoneNumber(phoneNumber, settings))
 
 fun TdHandler.changePhoneNumberWith(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(ChangePhoneNumber(phoneNumber, settings), stackIgnore + 1, submit)
 
 /**
@@ -129,8 +128,8 @@ suspend fun TdHandler.resendChangePhoneNumberCode() = sync<AuthenticationCodeInf
 suspend fun TdHandler.resendChangePhoneNumberCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendChangePhoneNumberCode())
 
 fun TdHandler.resendChangePhoneNumberCodeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(ResendChangePhoneNumberCode(), stackIgnore + 1, submit)
 
 /**
@@ -140,20 +139,20 @@ fun TdHandler.resendChangePhoneNumberCodeWith(
  * @settings - Settings for the authentication of the user's phone number
  */
 suspend fun TdHandler.sendPhoneNumberVerificationCode(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = sync<AuthenticationCodeInfo>(SendPhoneNumberVerificationCode(phoneNumber, settings))
 
 suspend fun TdHandler.sendPhoneNumberVerificationCodeOrNull(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = syncOrNull<AuthenticationCodeInfo>(SendPhoneNumberVerificationCode(phoneNumber, settings))
 
 fun TdHandler.sendPhoneNumberVerificationCodeWith(
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(SendPhoneNumberVerificationCode(phoneNumber, settings), stackIgnore + 1, submit)
 
 /**
@@ -164,8 +163,8 @@ suspend fun TdHandler.resendPhoneNumberVerificationCode() = sync<AuthenticationC
 suspend fun TdHandler.resendPhoneNumberVerificationCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendPhoneNumberVerificationCode())
 
 fun TdHandler.resendPhoneNumberVerificationCodeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(ResendPhoneNumberVerificationCode(), stackIgnore + 1, submit)
 
 /**
@@ -177,23 +176,23 @@ fun TdHandler.resendPhoneNumberVerificationCodeWith(
  * @settings - Settings for the authentication of the user's phone number
  */
 suspend fun TdHandler.sendPhoneNumberConfirmationCode(
-        hash: String? = null,
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    hash: String? = null,
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = sync<AuthenticationCodeInfo>(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
 
 suspend fun TdHandler.sendPhoneNumberConfirmationCodeOrNull(
-        hash: String? = null,
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null
+    hash: String? = null,
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null
 ) = syncOrNull<AuthenticationCodeInfo>(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
 
 fun TdHandler.sendPhoneNumberConfirmationCodeWith(
-        hash: String? = null,
-        phoneNumber: String? = null,
-        settings: PhoneNumberAuthenticationSettings? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    hash: String? = null,
+    phoneNumber: String? = null,
+    settings: PhoneNumberAuthenticationSettings? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings), stackIgnore + 1, submit)
 
 /**
@@ -204,6 +203,6 @@ suspend fun TdHandler.resendPhoneNumberConfirmationCode() = sync<AuthenticationC
 suspend fun TdHandler.resendPhoneNumberConfirmationCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendPhoneNumberConfirmationCode())
 
 fun TdHandler.resendPhoneNumberConfirmationCodeWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AuthenticationCodeInfo>.() -> Unit)? = null
 ) = send(ResendPhoneNumberConfirmationCode(), stackIgnore + 1, submit)

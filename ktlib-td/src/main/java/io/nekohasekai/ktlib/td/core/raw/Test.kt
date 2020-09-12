@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Does nothing
@@ -17,8 +16,8 @@ suspend fun TdHandler.testCallEmpty() = sync<Ok>(TestCallEmpty())
 suspend fun TdHandler.testCallEmptyOrNull() = syncOrNull<Ok>(TestCallEmpty())
 
 fun TdHandler.testCallEmptyWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(TestCallEmpty(), stackIgnore + 1, submit)
 
 /**
@@ -30,17 +29,17 @@ fun TdHandler.testCallEmptyWith(
  * @x - String to return
  */
 suspend fun TdHandler.testCallString(
-        x: String? = null
+    x: String? = null
 ) = sync<TestString>(TestCallString(x))
 
 suspend fun TdHandler.testCallStringOrNull(
-        x: String? = null
+    x: String? = null
 ) = syncOrNull<TestString>(TestCallString(x))
 
 fun TdHandler.testCallStringWith(
-        x: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestString>.() -> Unit)? = null
+    x: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestString>.() -> Unit)? = null
 ) = send(TestCallString(x), stackIgnore + 1, submit)
 
 /**
@@ -52,17 +51,17 @@ fun TdHandler.testCallStringWith(
  * @x - Bytes to return
  */
 suspend fun TdHandler.testCallBytes(
-        x: ByteArray
+    x: ByteArray
 ) = sync<TestBytes>(TestCallBytes(x))
 
 suspend fun TdHandler.testCallBytesOrNull(
-        x: ByteArray
+    x: ByteArray
 ) = syncOrNull<TestBytes>(TestCallBytes(x))
 
 fun TdHandler.testCallBytesWith(
-        x: ByteArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestBytes>.() -> Unit)? = null
+    x: ByteArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestBytes>.() -> Unit)? = null
 ) = send(TestCallBytes(x), stackIgnore + 1, submit)
 
 /**
@@ -74,17 +73,17 @@ fun TdHandler.testCallBytesWith(
  * @x - Vector of numbers to return
  */
 suspend fun TdHandler.testCallVectorInt(
-        x: IntArray
+    x: IntArray
 ) = sync<TestVectorInt>(TestCallVectorInt(x))
 
 suspend fun TdHandler.testCallVectorIntOrNull(
-        x: IntArray
+    x: IntArray
 ) = syncOrNull<TestVectorInt>(TestCallVectorInt(x))
 
 fun TdHandler.testCallVectorIntWith(
-        x: IntArray,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestVectorInt>.() -> Unit)? = null
+    x: IntArray,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestVectorInt>.() -> Unit)? = null
 ) = send(TestCallVectorInt(x), stackIgnore + 1, submit)
 
 /**
@@ -96,17 +95,17 @@ fun TdHandler.testCallVectorIntWith(
  * @x - Vector of objects to return
  */
 suspend fun TdHandler.testCallVectorIntObject(
-        x: Array<TestInt>
+    x: Array<TestInt>
 ) = sync<TestVectorIntObject>(TestCallVectorIntObject(x))
 
 suspend fun TdHandler.testCallVectorIntObjectOrNull(
-        x: Array<TestInt>
+    x: Array<TestInt>
 ) = syncOrNull<TestVectorIntObject>(TestCallVectorIntObject(x))
 
 fun TdHandler.testCallVectorIntObjectWith(
-        x: Array<TestInt>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestVectorIntObject>.() -> Unit)? = null
+    x: Array<TestInt>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestVectorIntObject>.() -> Unit)? = null
 ) = send(TestCallVectorIntObject(x), stackIgnore + 1, submit)
 
 /**
@@ -118,17 +117,17 @@ fun TdHandler.testCallVectorIntObjectWith(
  * @x - Vector of strings to return
  */
 suspend fun TdHandler.testCallVectorString(
-        x: Array<String>
+    x: Array<String>
 ) = sync<TestVectorString>(TestCallVectorString(x))
 
 suspend fun TdHandler.testCallVectorStringOrNull(
-        x: Array<String>
+    x: Array<String>
 ) = syncOrNull<TestVectorString>(TestCallVectorString(x))
 
 fun TdHandler.testCallVectorStringWith(
-        x: Array<String>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestVectorString>.() -> Unit)? = null
+    x: Array<String>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestVectorString>.() -> Unit)? = null
 ) = send(TestCallVectorString(x), stackIgnore + 1, submit)
 
 /**
@@ -140,17 +139,17 @@ fun TdHandler.testCallVectorStringWith(
  * @x - Vector of objects to return
  */
 suspend fun TdHandler.testCallVectorStringObject(
-        x: Array<TestString>
+    x: Array<TestString>
 ) = sync<TestVectorStringObject>(TestCallVectorStringObject(x))
 
 suspend fun TdHandler.testCallVectorStringObjectOrNull(
-        x: Array<TestString>
+    x: Array<TestString>
 ) = syncOrNull<TestVectorStringObject>(TestCallVectorStringObject(x))
 
 fun TdHandler.testCallVectorStringObjectWith(
-        x: Array<TestString>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestVectorStringObject>.() -> Unit)? = null
+    x: Array<TestString>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestVectorStringObject>.() -> Unit)? = null
 ) = send(TestCallVectorStringObject(x), stackIgnore + 1, submit)
 
 /**
@@ -162,17 +161,17 @@ fun TdHandler.testCallVectorStringObjectWith(
  * @x - Number to square
  */
 suspend fun TdHandler.testSquareInt(
-        x: Int
+    x: Int
 ) = sync<TestInt>(TestSquareInt(x))
 
 suspend fun TdHandler.testSquareIntOrNull(
-        x: Int
+    x: Int
 ) = syncOrNull<TestInt>(TestSquareInt(x))
 
 fun TdHandler.testSquareIntWith(
-        x: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<TestInt>.() -> Unit)? = null
+    x: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<TestInt>.() -> Unit)? = null
 ) = send(TestSquareInt(x), stackIgnore + 1, submit)
 
 /**
@@ -185,8 +184,8 @@ suspend fun TdHandler.testNetwork() = sync<Ok>(TestNetwork())
 suspend fun TdHandler.testNetworkOrNull() = syncOrNull<Ok>(TestNetwork())
 
 fun TdHandler.testNetworkWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(TestNetwork(), stackIgnore + 1, submit)
 
 /**
@@ -201,29 +200,29 @@ fun TdHandler.testNetworkWith(
  * @timeout - The maximum overall timeout for the request
  */
 suspend fun TdHandler.testProxy(
-        server: String? = null,
-        port: Int,
-        type: ProxyType? = null,
-        dcId: Int,
-        timeout: Double
+    server: String? = null,
+    port: Int,
+    type: ProxyType? = null,
+    dcId: Int,
+    timeout: Double
 ) = sync<Ok>(TestProxy(server, port, type, dcId, timeout))
 
 suspend fun TdHandler.testProxyOrNull(
-        server: String? = null,
-        port: Int,
-        type: ProxyType? = null,
-        dcId: Int,
-        timeout: Double
+    server: String? = null,
+    port: Int,
+    type: ProxyType? = null,
+    dcId: Int,
+    timeout: Double
 ) = syncOrNull<Ok>(TestProxy(server, port, type, dcId, timeout))
 
 fun TdHandler.testProxyWith(
-        server: String? = null,
-        port: Int,
-        type: ProxyType? = null,
-        dcId: Int,
-        timeout: Double,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    server: String? = null,
+    port: Int,
+    type: ProxyType? = null,
+    dcId: Int,
+    timeout: Double,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(TestProxy(server, port, type, dcId, timeout), stackIgnore + 1, submit)
 
 /**
@@ -235,8 +234,8 @@ suspend fun TdHandler.testGetDifference() = sync<Ok>(TestGetDifference())
 suspend fun TdHandler.testGetDifferenceOrNull() = syncOrNull<Ok>(TestGetDifference())
 
 fun TdHandler.testGetDifferenceWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(TestGetDifference(), stackIgnore + 1, submit)
 
 /**
@@ -250,8 +249,8 @@ suspend fun TdHandler.testUseUpdate() = sync<Update>(TestUseUpdate())
 suspend fun TdHandler.testUseUpdateOrNull() = syncOrNull<Update>(TestUseUpdate())
 
 fun TdHandler.testUseUpdateWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Update>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Update>.() -> Unit)? = null
 ) = send(TestUseUpdate(), stackIgnore + 1, submit)
 
 /**
@@ -262,15 +261,15 @@ fun TdHandler.testUseUpdateWith(
  * @error - The error to be returned
  */
 suspend fun TdHandler.testReturnError(
-        error: Error? = null
+    error: Error? = null
 ) = sync<Error>(TestReturnError(error))
 
 suspend fun TdHandler.testReturnErrorOrNull(
-        error: Error? = null
+    error: Error? = null
 ) = syncOrNull<Error>(TestReturnError(error))
 
 fun TdHandler.testReturnErrorWith(
-        error: Error? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Error>.() -> Unit)? = null
+    error: Error? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Error>.() -> Unit)? = null
 ) = send(TestReturnError(error), stackIgnore + 1, submit)

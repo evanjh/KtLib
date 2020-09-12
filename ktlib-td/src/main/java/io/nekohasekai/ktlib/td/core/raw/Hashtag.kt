@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Searches for recently used hashtags by their prefix
@@ -13,20 +12,20 @@ import td.TdApi.*
  * @limit - The maximum number of hashtags to be returned
  */
 suspend fun TdHandler.searchHashtags(
-        prefix: String? = null,
-        limit: Int
+    prefix: String? = null,
+    limit: Int
 ) = sync<Hashtags>(SearchHashtags(prefix, limit))
 
 suspend fun TdHandler.searchHashtagsOrNull(
-        prefix: String? = null,
-        limit: Int
+    prefix: String? = null,
+    limit: Int
 ) = syncOrNull<Hashtags>(SearchHashtags(prefix, limit))
 
 fun TdHandler.searchHashtagsWith(
-        prefix: String? = null,
-        limit: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Hashtags>.() -> Unit)? = null
+    prefix: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Hashtags>.() -> Unit)? = null
 ) = send(SearchHashtags(prefix, limit), stackIgnore + 1, submit)
 
 /**
@@ -35,15 +34,15 @@ fun TdHandler.searchHashtagsWith(
  * @hashtag - Hashtag to delete
  */
 suspend fun TdHandler.removeRecentHashtag(
-        hashtag: String? = null
+    hashtag: String? = null
 ) = sync<Ok>(RemoveRecentHashtag(hashtag))
 
 suspend fun TdHandler.removeRecentHashtagOrNull(
-        hashtag: String? = null
+    hashtag: String? = null
 ) = syncOrNull<Ok>(RemoveRecentHashtag(hashtag))
 
 fun TdHandler.removeRecentHashtagWith(
-        hashtag: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    hashtag: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveRecentHashtag(hashtag), stackIgnore + 1, submit)

@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns saved order info, if any
@@ -14,8 +13,8 @@ suspend fun TdHandler.getSavedOrderInfo() = sync<OrderInfo>(GetSavedOrderInfo())
 suspend fun TdHandler.getSavedOrderInfoOrNull() = syncOrNull<OrderInfo>(GetSavedOrderInfo())
 
 fun TdHandler.getSavedOrderInfoWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<OrderInfo>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<OrderInfo>.() -> Unit)? = null
 ) = send(GetSavedOrderInfo(), stackIgnore + 1, submit)
 
 /**
@@ -26,6 +25,6 @@ suspend fun TdHandler.deleteSavedOrderInfo() = sync<Ok>(DeleteSavedOrderInfo())
 suspend fun TdHandler.deleteSavedOrderInfoOrNull() = syncOrNull<Ok>(DeleteSavedOrderInfo())
 
 fun TdHandler.deleteSavedOrderInfoWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteSavedOrderInfo(), stackIgnore + 1, submit)

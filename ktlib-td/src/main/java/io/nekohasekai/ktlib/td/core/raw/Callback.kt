@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Sends a callback query to a bot and returns an answer
@@ -15,23 +14,23 @@ import td.TdApi.*
  * @payload - Query payload
  */
 suspend fun TdHandler.getCallbackQueryAnswer(
-        chatId: Long,
-        messageId: Long,
-        payload: CallbackQueryPayload? = null
+    chatId: Long,
+    messageId: Long,
+    payload: CallbackQueryPayload? = null
 ) = sync<CallbackQueryAnswer>(GetCallbackQueryAnswer(chatId, messageId, payload))
 
 suspend fun TdHandler.getCallbackQueryAnswerOrNull(
-        chatId: Long,
-        messageId: Long,
-        payload: CallbackQueryPayload? = null
+    chatId: Long,
+    messageId: Long,
+    payload: CallbackQueryPayload? = null
 ) = syncOrNull<CallbackQueryAnswer>(GetCallbackQueryAnswer(chatId, messageId, payload))
 
 fun TdHandler.getCallbackQueryAnswerWith(
-        chatId: Long,
-        messageId: Long,
-        payload: CallbackQueryPayload? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<CallbackQueryAnswer>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    payload: CallbackQueryPayload? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<CallbackQueryAnswer>.() -> Unit)? = null
 ) = send(GetCallbackQueryAnswer(chatId, messageId, payload), stackIgnore + 1, submit)
 
 /**
@@ -45,27 +44,27 @@ fun TdHandler.getCallbackQueryAnswerWith(
  * @cacheTime - Time during which the result of the query can be cached, in seconds
  */
 suspend fun TdHandler.answerCallbackQuery(
-        callbackQueryId: Long,
-        text: String? = null,
-        showAlert: Boolean,
-        url: String? = null,
-        cacheTime: Int
+    callbackQueryId: Long,
+    text: String? = null,
+    showAlert: Boolean,
+    url: String? = null,
+    cacheTime: Int
 ) = sync<Ok>(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
 
 suspend fun TdHandler.answerCallbackQueryOrNull(
-        callbackQueryId: Long,
-        text: String? = null,
-        showAlert: Boolean,
-        url: String? = null,
-        cacheTime: Int
+    callbackQueryId: Long,
+    text: String? = null,
+    showAlert: Boolean,
+    url: String? = null,
+    cacheTime: Int
 ) = syncOrNull<Ok>(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
 
 fun TdHandler.answerCallbackQueryWith(
-        callbackQueryId: Long,
-        text: String? = null,
-        showAlert: Boolean,
-        url: String? = null,
-        cacheTime: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    callbackQueryId: Long,
+    text: String? = null,
+    showAlert: Boolean,
+    url: String? = null,
+    cacheTime: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime), stackIgnore + 1, submit)

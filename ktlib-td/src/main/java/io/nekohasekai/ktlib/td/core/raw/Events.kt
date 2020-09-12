@@ -17,7 +17,7 @@ interface AbsEvents {
      *
      * @message - The new message
      */
-    suspend fun onNewMessage(userId: Int, chatId: Long, message: Message) = Unit
+    suspend fun handleNewMessage(message: Message) = Unit
 
     /**
      * A request to send a message has reached the Telegram server
@@ -722,7 +722,7 @@ interface AbsEvents {
 
             is UpdateAuthorizationState -> onAuthorizationState(eventObj.authorizationState)
 
-            is UpdateNewMessage -> onNewMessage(eventObj.message.senderUserId, eventObj.message.chatId, eventObj.message)
+            is UpdateNewMessage -> handleNewMessage(eventObj.message)
 
             is UpdateMessageSendAcknowledged -> onMessageSendAcknowledged(eventObj.chatId, eventObj.messageId)
 

@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns saved animations
@@ -14,8 +13,8 @@ suspend fun TdHandler.getSavedAnimations() = sync<Animations>(GetSavedAnimations
 suspend fun TdHandler.getSavedAnimationsOrNull() = syncOrNull<Animations>(GetSavedAnimations())
 
 fun TdHandler.getSavedAnimationsWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Animations>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Animations>.() -> Unit)? = null
 ) = send(GetSavedAnimations(), stackIgnore + 1, submit)
 
 /**
@@ -29,17 +28,17 @@ fun TdHandler.getSavedAnimationsWith(
  *              Successfully sent via a message) can be added to the list
  */
 suspend fun TdHandler.addSavedAnimation(
-        animation: InputFile? = null
+    animation: InputFile? = null
 ) = sync<Ok>(AddSavedAnimation(animation))
 
 suspend fun TdHandler.addSavedAnimationOrNull(
-        animation: InputFile? = null
+    animation: InputFile? = null
 ) = syncOrNull<Ok>(AddSavedAnimation(animation))
 
 fun TdHandler.addSavedAnimationWith(
-        animation: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    animation: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(AddSavedAnimation(animation), stackIgnore + 1, submit)
 
 /**
@@ -48,15 +47,15 @@ fun TdHandler.addSavedAnimationWith(
  * @animation - Animation file to be removed
  */
 suspend fun TdHandler.removeSavedAnimation(
-        animation: InputFile? = null
+    animation: InputFile? = null
 ) = sync<Ok>(RemoveSavedAnimation(animation))
 
 suspend fun TdHandler.removeSavedAnimationOrNull(
-        animation: InputFile? = null
+    animation: InputFile? = null
 ) = syncOrNull<Ok>(RemoveSavedAnimation(animation))
 
 fun TdHandler.removeSavedAnimationWith(
-        animation: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    animation: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(RemoveSavedAnimation(animation), stackIgnore + 1, submit)

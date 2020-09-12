@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns emoji corresponding to a sticker
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @sticker - Sticker file identifier
  */
 suspend fun TdHandler.getStickerEmojis(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = sync<Emojis>(GetStickerEmojis(sticker))
 
 suspend fun TdHandler.getStickerEmojisOrNull(
-        sticker: InputFile? = null
+    sticker: InputFile? = null
 ) = syncOrNull<Emojis>(GetStickerEmojis(sticker))
 
 fun TdHandler.getStickerEmojisWith(
-        sticker: InputFile? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Emojis>.() -> Unit)? = null
+    sticker: InputFile? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Emojis>.() -> Unit)? = null
 ) = send(GetStickerEmojis(sticker), stackIgnore + 1, submit)
 
 /**
@@ -36,23 +35,23 @@ fun TdHandler.getStickerEmojisWith(
  *                       May be empty if unknown
  */
 suspend fun TdHandler.searchEmojis(
-        text: String? = null,
-        exactMatch: Boolean,
-        inputLanguageCodes: Array<String>
+    text: String? = null,
+    exactMatch: Boolean,
+    inputLanguageCodes: Array<String>
 ) = sync<Emojis>(SearchEmojis(text, exactMatch, inputLanguageCodes))
 
 suspend fun TdHandler.searchEmojisOrNull(
-        text: String? = null,
-        exactMatch: Boolean,
-        inputLanguageCodes: Array<String>
+    text: String? = null,
+    exactMatch: Boolean,
+    inputLanguageCodes: Array<String>
 ) = syncOrNull<Emojis>(SearchEmojis(text, exactMatch, inputLanguageCodes))
 
 fun TdHandler.searchEmojisWith(
-        text: String? = null,
-        exactMatch: Boolean,
-        inputLanguageCodes: Array<String>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Emojis>.() -> Unit)? = null
+    text: String? = null,
+    exactMatch: Boolean,
+    inputLanguageCodes: Array<String>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Emojis>.() -> Unit)? = null
 ) = send(SearchEmojis(text, exactMatch, inputLanguageCodes), stackIgnore + 1, submit)
 
 /**
@@ -62,15 +61,15 @@ fun TdHandler.searchEmojisWith(
  * @languageCode - Language code for which the emoji replacements will be suggested
  */
 suspend fun TdHandler.getEmojiSuggestionsUrl(
-        languageCode: String? = null
+    languageCode: String? = null
 ) = sync<HttpUrl>(GetEmojiSuggestionsUrl(languageCode))
 
 suspend fun TdHandler.getEmojiSuggestionsUrlOrNull(
-        languageCode: String? = null
+    languageCode: String? = null
 ) = syncOrNull<HttpUrl>(GetEmojiSuggestionsUrl(languageCode))
 
 fun TdHandler.getEmojiSuggestionsUrlWith(
-        languageCode: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+    languageCode: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
 ) = send(GetEmojiSuggestionsUrl(languageCode), stackIgnore + 1, submit)

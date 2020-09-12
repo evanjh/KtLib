@@ -2,10 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
-import td.TdApi.GetCurrentState
-import td.TdApi.Updates
+import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns all updates needed to restore current TDLib state, i.e
@@ -18,6 +16,6 @@ suspend fun TdHandler.getCurrentState() = sync<Updates>(GetCurrentState())
 suspend fun TdHandler.getCurrentStateOrNull() = syncOrNull<Updates>(GetCurrentState())
 
 fun TdHandler.getCurrentStateWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Updates>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Updates>.() -> Unit)? = null
 ) = send(GetCurrentState(), stackIgnore + 1, submit)

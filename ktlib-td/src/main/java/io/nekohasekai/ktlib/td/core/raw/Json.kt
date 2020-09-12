@@ -2,10 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
-import td.TdApi.GetApplicationConfig
-import td.TdApi.JsonValue
+import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns application config, provided by the server
@@ -16,6 +14,6 @@ suspend fun TdHandler.getApplicationConfig() = sync<JsonValue>(GetApplicationCon
 suspend fun TdHandler.getApplicationConfigOrNull() = syncOrNull<JsonValue>(GetApplicationConfig())
 
 fun TdHandler.getApplicationConfigWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<JsonValue>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<JsonValue>.() -> Unit)? = null
 ) = send(GetApplicationConfig(), stackIgnore + 1, submit)

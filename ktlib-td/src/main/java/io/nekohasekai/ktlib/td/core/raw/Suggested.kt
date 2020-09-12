@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Hides a suggested action
@@ -12,15 +11,15 @@ import td.TdApi.*
  * @action - Suggested action to hide
  */
 suspend fun TdHandler.hideSuggestedAction(
-        action: SuggestedAction? = null
+    action: SuggestedAction? = null
 ) = sync<Ok>(HideSuggestedAction(action))
 
 suspend fun TdHandler.hideSuggestedActionOrNull(
-        action: SuggestedAction? = null
+    action: SuggestedAction? = null
 ) = syncOrNull<Ok>(HideSuggestedAction(action))
 
 fun TdHandler.hideSuggestedActionWith(
-        action: SuggestedAction? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    action: SuggestedAction? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(HideSuggestedAction(action), stackIgnore + 1, submit)

@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns the high scores for a game and some part of the high score table in the range of the specified user
@@ -15,23 +14,23 @@ import td.TdApi.*
  * @userId - User identifier
  */
 suspend fun TdHandler.getGameHighScores(
-        chatId: Long,
-        messageId: Long,
-        userId: Int
+    chatId: Long,
+    messageId: Long,
+    userId: Int
 ) = sync<GameHighScores>(GetGameHighScores(chatId, messageId, userId))
 
 suspend fun TdHandler.getGameHighScoresOrNull(
-        chatId: Long,
-        messageId: Long,
-        userId: Int
+    chatId: Long,
+    messageId: Long,
+    userId: Int
 ) = syncOrNull<GameHighScores>(GetGameHighScores(chatId, messageId, userId))
 
 fun TdHandler.getGameHighScoresWith(
-        chatId: Long,
-        messageId: Long,
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<GameHighScores>.() -> Unit)? = null
+    chatId: Long,
+    messageId: Long,
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<GameHighScores>.() -> Unit)? = null
 ) = send(GetGameHighScores(chatId, messageId, userId), stackIgnore + 1, submit)
 
 /**
@@ -42,18 +41,18 @@ fun TdHandler.getGameHighScoresWith(
  * @userId - User identifier
  */
 suspend fun TdHandler.getInlineGameHighScores(
-        inlineMessageId: String? = null,
-        userId: Int
+    inlineMessageId: String? = null,
+    userId: Int
 ) = sync<GameHighScores>(GetInlineGameHighScores(inlineMessageId, userId))
 
 suspend fun TdHandler.getInlineGameHighScoresOrNull(
-        inlineMessageId: String? = null,
-        userId: Int
+    inlineMessageId: String? = null,
+    userId: Int
 ) = syncOrNull<GameHighScores>(GetInlineGameHighScores(inlineMessageId, userId))
 
 fun TdHandler.getInlineGameHighScoresWith(
-        inlineMessageId: String? = null,
-        userId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<GameHighScores>.() -> Unit)? = null
+    inlineMessageId: String? = null,
+    userId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<GameHighScores>.() -> Unit)? = null
 ) = send(GetInlineGameHighScores(inlineMessageId, userId), stackIgnore + 1, submit)

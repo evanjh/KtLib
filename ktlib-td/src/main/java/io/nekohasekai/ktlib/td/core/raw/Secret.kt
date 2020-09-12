@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a secret chat by its identifier
@@ -13,17 +12,17 @@ import td.TdApi.*
  * @secretChatId - Secret chat identifier
  */
 suspend fun TdHandler.getSecretChat(
-        secretChatId: Int
+    secretChatId: Int
 ) = sync<SecretChat>(GetSecretChat(secretChatId))
 
 suspend fun TdHandler.getSecretChatOrNull(
-        secretChatId: Int
+    secretChatId: Int
 ) = syncOrNull<SecretChat>(GetSecretChat(secretChatId))
 
 fun TdHandler.getSecretChatWith(
-        secretChatId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<SecretChat>.() -> Unit)? = null
+    secretChatId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<SecretChat>.() -> Unit)? = null
 ) = send(GetSecretChat(secretChatId), stackIgnore + 1, submit)
 
 /**
@@ -32,15 +31,15 @@ fun TdHandler.getSecretChatWith(
  * @secretChatId - Secret chat identifier
  */
 suspend fun TdHandler.closeSecretChat(
-        secretChatId: Int
+    secretChatId: Int
 ) = sync<Ok>(CloseSecretChat(secretChatId))
 
 suspend fun TdHandler.closeSecretChatOrNull(
-        secretChatId: Int
+    secretChatId: Int
 ) = syncOrNull<Ok>(CloseSecretChat(secretChatId))
 
 fun TdHandler.closeSecretChatWith(
-        secretChatId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    secretChatId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(CloseSecretChat(secretChatId), stackIgnore + 1, submit)

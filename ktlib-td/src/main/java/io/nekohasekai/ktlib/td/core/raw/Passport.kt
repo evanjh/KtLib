@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns one of the available Telegram Passport elements
@@ -13,20 +12,20 @@ import td.TdApi.*
  * @password - Password of the current user
  */
 suspend fun TdHandler.getPassportElement(
-        type: PassportElementType? = null,
-        password: String? = null
+    type: PassportElementType? = null,
+    password: String? = null
 ) = sync<PassportElement>(GetPassportElement(type, password))
 
 suspend fun TdHandler.getPassportElementOrNull(
-        type: PassportElementType? = null,
-        password: String? = null
+    type: PassportElementType? = null,
+    password: String? = null
 ) = syncOrNull<PassportElement>(GetPassportElement(type, password))
 
 fun TdHandler.getPassportElementWith(
-        type: PassportElementType? = null,
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PassportElement>.() -> Unit)? = null
+    type: PassportElementType? = null,
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PassportElement>.() -> Unit)? = null
 ) = send(GetPassportElement(type, password), stackIgnore + 1, submit)
 
 /**
@@ -35,17 +34,17 @@ fun TdHandler.getPassportElementWith(
  * @password - Password of the current user
  */
 suspend fun TdHandler.getAllPassportElements(
-        password: String? = null
+    password: String? = null
 ) = sync<PassportElements>(GetAllPassportElements(password))
 
 suspend fun TdHandler.getAllPassportElementsOrNull(
-        password: String? = null
+    password: String? = null
 ) = syncOrNull<PassportElements>(GetAllPassportElements(password))
 
 fun TdHandler.getAllPassportElementsWith(
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PassportElements>.() -> Unit)? = null
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PassportElements>.() -> Unit)? = null
 ) = send(GetAllPassportElements(password), stackIgnore + 1, submit)
 
 /**
@@ -56,20 +55,20 @@ fun TdHandler.getAllPassportElementsWith(
  * @password - Password of the current user
  */
 suspend fun TdHandler.setPassportElement(
-        element: InputPassportElement? = null,
-        password: String? = null
+    element: InputPassportElement? = null,
+    password: String? = null
 ) = sync<PassportElement>(SetPassportElement(element, password))
 
 suspend fun TdHandler.setPassportElementOrNull(
-        element: InputPassportElement? = null,
-        password: String? = null
+    element: InputPassportElement? = null,
+    password: String? = null
 ) = syncOrNull<PassportElement>(SetPassportElement(element, password))
 
 fun TdHandler.setPassportElementWith(
-        element: InputPassportElement? = null,
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PassportElement>.() -> Unit)? = null
+    element: InputPassportElement? = null,
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PassportElement>.() -> Unit)? = null
 ) = send(SetPassportElement(element, password), stackIgnore + 1, submit)
 
 /**
@@ -78,17 +77,17 @@ fun TdHandler.setPassportElementWith(
  * @type - Element type
  */
 suspend fun TdHandler.deletePassportElement(
-        type: PassportElementType? = null
+    type: PassportElementType? = null
 ) = sync<Ok>(DeletePassportElement(type))
 
 suspend fun TdHandler.deletePassportElementOrNull(
-        type: PassportElementType? = null
+    type: PassportElementType? = null
 ) = syncOrNull<Ok>(DeletePassportElement(type))
 
 fun TdHandler.deletePassportElementWith(
-        type: PassportElementType? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    type: PassportElementType? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeletePassportElement(type), stackIgnore + 1, submit)
 
 /**
@@ -100,20 +99,20 @@ fun TdHandler.deletePassportElementWith(
  * @errors - The errors
  */
 suspend fun TdHandler.setPassportElementErrors(
-        userId: Int,
-        errors: Array<InputPassportElementError>
+    userId: Int,
+    errors: Array<InputPassportElementError>
 ) = sync<Ok>(SetPassportElementErrors(userId, errors))
 
 suspend fun TdHandler.setPassportElementErrorsOrNull(
-        userId: Int,
-        errors: Array<InputPassportElementError>
+    userId: Int,
+    errors: Array<InputPassportElementError>
 ) = syncOrNull<Ok>(SetPassportElementErrors(userId, errors))
 
 fun TdHandler.setPassportElementErrorsWith(
-        userId: Int,
-        errors: Array<InputPassportElementError>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    userId: Int,
+    errors: Array<InputPassportElementError>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetPassportElementErrors(userId, errors), stackIgnore + 1, submit)
 
 /**
@@ -125,26 +124,26 @@ fun TdHandler.setPassportElementErrorsWith(
  * @nonce - Authorization form nonce provided by the service
  */
 suspend fun TdHandler.getPassportAuthorizationForm(
-        botUserId: Int,
-        scope: String? = null,
-        publicKey: String? = null,
-        nonce: String? = null
+    botUserId: Int,
+    scope: String? = null,
+    publicKey: String? = null,
+    nonce: String? = null
 ) = sync<PassportAuthorizationForm>(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
 
 suspend fun TdHandler.getPassportAuthorizationFormOrNull(
-        botUserId: Int,
-        scope: String? = null,
-        publicKey: String? = null,
-        nonce: String? = null
+    botUserId: Int,
+    scope: String? = null,
+    publicKey: String? = null,
+    nonce: String? = null
 ) = syncOrNull<PassportAuthorizationForm>(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
 
 fun TdHandler.getPassportAuthorizationFormWith(
-        botUserId: Int,
-        scope: String? = null,
-        publicKey: String? = null,
-        nonce: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PassportAuthorizationForm>.() -> Unit)? = null
+    botUserId: Int,
+    scope: String? = null,
+    publicKey: String? = null,
+    nonce: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PassportAuthorizationForm>.() -> Unit)? = null
 ) = send(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce), stackIgnore + 1, submit)
 
 /**
@@ -155,20 +154,20 @@ fun TdHandler.getPassportAuthorizationFormWith(
  * @password - Password of the current user
  */
 suspend fun TdHandler.getPassportAuthorizationFormAvailableElements(
-        autorizationFormId: Int,
-        password: String? = null
+    autorizationFormId: Int,
+    password: String? = null
 ) = sync<PassportElementsWithErrors>(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
 
 suspend fun TdHandler.getPassportAuthorizationFormAvailableElementsOrNull(
-        autorizationFormId: Int,
-        password: String? = null
+    autorizationFormId: Int,
+    password: String? = null
 ) = syncOrNull<PassportElementsWithErrors>(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
 
 fun TdHandler.getPassportAuthorizationFormAvailableElementsWith(
-        autorizationFormId: Int,
-        password: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<PassportElementsWithErrors>.() -> Unit)? = null
+    autorizationFormId: Int,
+    password: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PassportElementsWithErrors>.() -> Unit)? = null
 ) = send(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password), stackIgnore + 1, submit)
 
 /**
@@ -179,18 +178,18 @@ fun TdHandler.getPassportAuthorizationFormAvailableElementsWith(
  * @types - Types of Telegram Passport elements chosen by user to complete the authorization form
  */
 suspend fun TdHandler.sendPassportAuthorizationForm(
-        autorizationFormId: Int,
-        types: Array<PassportElementType>
+    autorizationFormId: Int,
+    types: Array<PassportElementType>
 ) = sync<Ok>(SendPassportAuthorizationForm(autorizationFormId, types))
 
 suspend fun TdHandler.sendPassportAuthorizationFormOrNull(
-        autorizationFormId: Int,
-        types: Array<PassportElementType>
+    autorizationFormId: Int,
+    types: Array<PassportElementType>
 ) = syncOrNull<Ok>(SendPassportAuthorizationForm(autorizationFormId, types))
 
 fun TdHandler.sendPassportAuthorizationFormWith(
-        autorizationFormId: Int,
-        types: Array<PassportElementType>,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    autorizationFormId: Int,
+    types: Array<PassportElementType>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SendPassportAuthorizationForm(autorizationFormId, types), stackIgnore + 1, submit)

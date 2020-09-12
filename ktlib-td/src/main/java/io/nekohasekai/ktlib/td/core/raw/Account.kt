@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Changes the period of inactivity after which the account of the current user will automatically be deleted
@@ -12,17 +11,17 @@ import td.TdApi.*
  * @ttl - New account TTL
  */
 suspend fun TdHandler.setAccountTtl(
-        ttl: AccountTtl? = null
+    ttl: AccountTtl? = null
 ) = sync<Ok>(SetAccountTtl(ttl))
 
 suspend fun TdHandler.setAccountTtlOrNull(
-        ttl: AccountTtl? = null
+    ttl: AccountTtl? = null
 ) = syncOrNull<Ok>(SetAccountTtl(ttl))
 
 fun TdHandler.setAccountTtlWith(
-        ttl: AccountTtl? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    ttl: AccountTtl? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetAccountTtl(ttl), stackIgnore + 1, submit)
 
 /**
@@ -33,8 +32,8 @@ suspend fun TdHandler.getAccountTtl() = sync<AccountTtl>(GetAccountTtl())
 suspend fun TdHandler.getAccountTtlOrNull() = syncOrNull<AccountTtl>(GetAccountTtl())
 
 fun TdHandler.getAccountTtlWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<AccountTtl>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<AccountTtl>.() -> Unit)? = null
 ) = send(GetAccountTtl(), stackIgnore + 1, submit)
 
 /**
@@ -45,15 +44,15 @@ fun TdHandler.getAccountTtlWith(
  * @reason - The reason why the account was deleted
  */
 suspend fun TdHandler.deleteAccount(
-        reason: String? = null
+    reason: String? = null
 ) = sync<Ok>(DeleteAccount(reason))
 
 suspend fun TdHandler.deleteAccountOrNull(
-        reason: String? = null
+    reason: String? = null
 ) = syncOrNull<Ok>(DeleteAccount(reason))
 
 fun TdHandler.deleteAccountWith(
-        reason: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    reason: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteAccount(reason), stackIgnore + 1, submit)

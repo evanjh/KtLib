@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Changes a profile photo for the current user
@@ -12,17 +11,17 @@ import td.TdApi.*
  * @photo - Profile photo to set
  */
 suspend fun TdHandler.setProfilePhoto(
-        photo: InputChatPhoto? = null
+    photo: InputChatPhoto? = null
 ) = sync<Ok>(SetProfilePhoto(photo))
 
 suspend fun TdHandler.setProfilePhotoOrNull(
-        photo: InputChatPhoto? = null
+    photo: InputChatPhoto? = null
 ) = syncOrNull<Ok>(SetProfilePhoto(photo))
 
 fun TdHandler.setProfilePhotoWith(
-        photo: InputChatPhoto? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    photo: InputChatPhoto? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetProfilePhoto(photo), stackIgnore + 1, submit)
 
 /**
@@ -31,15 +30,15 @@ fun TdHandler.setProfilePhotoWith(
  * @profilePhotoId - Identifier of the profile photo to delete
  */
 suspend fun TdHandler.deleteProfilePhoto(
-        profilePhotoId: Long
+    profilePhotoId: Long
 ) = sync<Ok>(DeleteProfilePhoto(profilePhotoId))
 
 suspend fun TdHandler.deleteProfilePhotoOrNull(
-        profilePhotoId: Long
+    profilePhotoId: Long
 ) = syncOrNull<Ok>(DeleteProfilePhoto(profilePhotoId))
 
 fun TdHandler.deleteProfilePhotoWith(
-        profilePhotoId: Long,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    profilePhotoId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(DeleteProfilePhoto(profilePhotoId), stackIgnore + 1, submit)

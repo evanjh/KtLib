@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Checks whether the current session can be used to transfer a chat ownership to another user
@@ -14,8 +13,8 @@ suspend fun TdHandler.canTransferOwnership() = sync<CanTransferOwnershipResult>(
 suspend fun TdHandler.canTransferOwnershipOrNull() = syncOrNull<CanTransferOwnershipResult>(CanTransferOwnership())
 
 fun TdHandler.canTransferOwnershipWith(
-        stackIgnore: Int = 0,
-        submit: (TdCallback<CanTransferOwnershipResult>.() -> Unit)? = null
+    stackIgnore: Int = 0,
+    submit: (TdCallback<CanTransferOwnershipResult>.() -> Unit)? = null
 ) = send(CanTransferOwnership(), stackIgnore + 1, submit)
 
 /**
@@ -27,20 +26,20 @@ fun TdHandler.canTransferOwnershipWith(
  *                  Request hasn't been sent to server
  */
 suspend fun TdHandler.cancelDownloadFile(
-        fileId: Int,
-        onlyIfPending: Boolean
+    fileId: Int,
+    onlyIfPending: Boolean
 ) = sync<Ok>(CancelDownloadFile(fileId, onlyIfPending))
 
 suspend fun TdHandler.cancelDownloadFileOrNull(
-        fileId: Int,
-        onlyIfPending: Boolean
+    fileId: Int,
+    onlyIfPending: Boolean
 ) = syncOrNull<Ok>(CancelDownloadFile(fileId, onlyIfPending))
 
 fun TdHandler.cancelDownloadFileWith(
-        fileId: Int,
-        onlyIfPending: Boolean,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    fileId: Int,
+    onlyIfPending: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(CancelDownloadFile(fileId, onlyIfPending), stackIgnore + 1, submit)
 
 /**
@@ -51,15 +50,15 @@ fun TdHandler.cancelDownloadFileWith(
  * @fileId - Identifier of the file to stop uploading
  */
 suspend fun TdHandler.cancelUploadFile(
-        fileId: Int
+    fileId: Int
 ) = sync<Ok>(CancelUploadFile(fileId))
 
 suspend fun TdHandler.cancelUploadFileOrNull(
-        fileId: Int
+    fileId: Int
 ) = syncOrNull<Ok>(CancelUploadFile(fileId))
 
 fun TdHandler.cancelUploadFileWith(
-        fileId: Int,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<Ok>.() -> Unit)? = null
+    fileId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(CancelUploadFile(fileId), stackIgnore + 1, submit)

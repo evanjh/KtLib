@@ -2,10 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
-import td.TdApi.DeepLinkInfo
-import td.TdApi.GetDeepLinkInfo
+import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a tg:// deep link
@@ -16,15 +14,15 @@ import td.TdApi.GetDeepLinkInfo
  * @link - The link
  */
 suspend fun TdHandler.getDeepLinkInfo(
-        link: String? = null
+    link: String? = null
 ) = sync<DeepLinkInfo>(GetDeepLinkInfo(link))
 
 suspend fun TdHandler.getDeepLinkInfoOrNull(
-        link: String? = null
+    link: String? = null
 ) = syncOrNull<DeepLinkInfo>(GetDeepLinkInfo(link))
 
 fun TdHandler.getDeepLinkInfoWith(
-        link: String? = null,
-        stackIgnore: Int = 0,
-        submit: (TdCallback<DeepLinkInfo>.() -> Unit)? = null
+    link: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<DeepLinkInfo>.() -> Unit)? = null
 ) = send(GetDeepLinkInfo(link), stackIgnore + 1, submit)
