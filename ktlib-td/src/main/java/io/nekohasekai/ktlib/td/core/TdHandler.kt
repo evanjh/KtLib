@@ -35,11 +35,12 @@ open class TdHandler : AbsEvents {
 
     open suspend fun gc() = Unit
 
-    open suspend fun onLogin() {}
+    open suspend fun beforeLogin() = Unit
+    open suspend fun onLogin() = Unit
 
-    open suspend fun onLogout() {}
+    open suspend fun onLogout() = Unit
 
-    open suspend fun onDestroy() {}
+    open suspend fun onDestroy() = Unit
 
     open fun <T : Object> send(function: td.TdApi.Function, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
 

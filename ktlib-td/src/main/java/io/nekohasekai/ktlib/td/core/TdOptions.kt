@@ -1,6 +1,6 @@
 package io.nekohasekai.ktlib.td.core
 
-import td.TdApi.TdlibParameters
+import td.TdApi.*
 import java.io.File
 
 class TdOptions {
@@ -16,8 +16,8 @@ class TdOptions {
     var apiHash = "3e0cb5efcd52300aec5994fdfc5bdc16" // TGX appHash
     var systemLanguageCode = "en"
     var deviceModel = "KtLib@td-${TdLoader.version}"
-    var systemVersion = "114"
-    var applicationVersion = "514"
+    var systemVersion = "1.0"
+    var applicationVersion = "1.0"
     var enableStorageOptimizer = true
     var ignoreFileNames = true
 

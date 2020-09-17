@@ -5,17 +5,10 @@ package io.nekohasekai.ktlib.core
 import cn.hutool.core.collection.CollUtil
 import cn.hutool.core.util.ArrayUtil
 import cn.hutool.core.util.StrUtil
-import cn.hutool.setting.Setting
-import java.io.File
 import java.math.BigInteger
 import java.util.*
-import java.util.concurrent.atomic.AtomicBoolean
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
-import java.util.concurrent.atomic.AtomicReference
-import kotlin.reflect.KMutableProperty0
-import kotlin.reflect.KProperty
-import kotlin.reflect.KProperty0
+import java.util.concurrent.atomic.*
+import kotlin.reflect.*
 
 /**
  * 一些基于语言特性的全局函数
@@ -252,11 +245,5 @@ operator fun <K, V> MutableMap<K, V>.setValue(thisRef: K, property: KProperty<*>
         remove(thisRef)
 
     }
-
-}
-
-fun readSettings(path: String): Setting? {
-
-    return Setting((File(path).takeIf { it.isFile } ?: return null).canonicalPath, false)
 
 }

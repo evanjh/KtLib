@@ -9,10 +9,10 @@ import cn.hutool.core.util.StrUtil
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.td.core.*
 import io.nekohasekai.ktlib.td.core.extensions.*
+import io.nekohasekai.ktlib.td.core.i18n.*
 import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.core.utils.make
 import io.nekohasekai.ktlib.td.core.utils.removeKeyboard
-import io.nekohasekai.ktlib.td.core.i18n.*
 import kotlinx.coroutines.*
 import org.apache.commons.lang3.SystemUtils
 import org.yaml.snakeyaml.Yaml
@@ -20,7 +20,7 @@ import td.TdApi
 import java.io.File
 import kotlin.system.exitProcess
 
-open class TdCli : TdClient() {
+open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
 
     lateinit var arguments: Array<String>
 
@@ -105,6 +105,9 @@ open class TdCli : TdClient() {
     private val binlogInEnv get() = stringConfig("BINLONG")
     override val defaultLang get() = stringConfig("BOT_LANG")
 
+    var dataDir = File("data").canonicalFile
+    var cacheDir = File("cache").canonicalFile
+
     open fun onArgument(argument: String, value: String?) {
 
         if (::configFile.isInitialized && argument == "config") {
@@ -171,7 +174,7 @@ open class TdCli : TdClient() {
 
             if (!authorized) {
 
-                defaultLog.error(">> Unauthorized")
+                clientLog.error("Unauthorized.")
 
                 exitProcess(100)
 
@@ -187,7 +190,7 @@ open class TdCli : TdClient() {
 
             file.writeText(binlog)
 
-            defaultLog.info(">> Saved to $fileName")
+            clientLog.info(">> Saved to $fileName")
 
             exitProcess(0)
 
@@ -211,7 +214,7 @@ open class TdCli : TdClient() {
 
             } catch (e: Exception) {
 
-                defaultLog.error(e, ">> Parse config failed : ${configFile.path}")
+                clientLog.error(e, "Parse config failed : ${configFile.path}")
 
                 exitProcess(100)
 
@@ -223,11 +226,55 @@ open class TdCli : TdClient() {
 
     }
 
+    fun loadLogLevel() {
+
+        val logLevel = stringConfig("LOG_LEVEL")?.toUpperCase()
+
+        if (logLevel != null) initLogLevel(logLevel)
+
+    }
+
+    fun loadDataDir() {
+
+        val dataDirStr = stringConfig("DATA_DIR")
+
+        if (!dataDirStr.isNullOrBlank()) {
+
+            dataDir = File(dataDirStr)
+
+            if (!dataDir.isDirectory && !dataDir.mkdirs()) {
+
+                clientLog.error("Unable to create data directory: $dataDir")
+
+                exitProcess(100)
+
+            }
+
+        }
+
+        val cacheDirStr = stringConfig("CACHE_DIR")
+
+        if (!cacheDirStr.isNullOrBlank()) {
+
+            cacheDir = File(cacheDirStr)
+
+            if (!cacheDir.isDirectory || cacheDir.mkdirs()) {
+
+                clientLog.error("Unable to create cache directory: $cacheDir")
+
+                exitProcess(100)
+
+            }
+
+        }
+
+    }
+
     open fun onLoadConfig() {
 
-        val logLevel = stringConfig("LOG_LEVEL")?.toUpperCase() ?: "INFO"
+        loadLogLevel()
 
-        initLogLevel(logLevel)
+        loadDataDir()
 
     }
 
@@ -236,6 +283,33 @@ open class TdCli : TdClient() {
     open val loginType = LoginType.BOT
 
     override val skipSelfMessage by lazy { loginType == LoginType.BOT }
+
+    override fun onLoad() {
+
+        val apiId = intConfig("API_ID")
+
+        if (apiId != null) {
+
+            options apiId apiId
+
+            val apiHash = stringConfig("API_HASH")
+
+            if (apiHash.isNullOrBlank()) {
+
+                clientLog.error("API_HASH undefined.")
+
+                exitProcess(100)
+
+            }
+
+            options apiHash apiHash
+
+        }
+
+        options databaseDirectory dataDir.path
+        options filesDirectory File(cacheDir, "files").path
+
+    }
 
     override fun start() {
 
@@ -481,7 +555,7 @@ open class TdCli : TdClient() {
 
                 }
 
-                authLog.info("认证正常 : ${me.displayName}")
+                clientLog.info("Login User ${me.displayNameFormatted}")
 
             } else {
 
@@ -491,7 +565,7 @@ open class TdCli : TdClient() {
 
         } catch (e: NoSuchElementException) {
 
-            authLog.error("无认证信息")
+            clientLog.error("Login Failed")
 
             waitForClose()
 

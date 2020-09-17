@@ -26,11 +26,15 @@ import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
-import kotlin.coroutines.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.reflect.jvm.isAccessible
 
-open class TdClient : TdHandler() {
+open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() {
 
     override val sudo get() = this
+
+    val clientLog = mkLog(name)
 
     var options: TdOptions = TdOptions()
     var encryptionKey: ByteArray? = null
@@ -49,11 +53,11 @@ open class TdClient : TdHandler() {
     var handlers = LinkedList<TdHandler>()
 
     var start by AtomicBoolean()
-    var started by AtomicBoolean()
-    var authing by AtomicBoolean()
-    var auth by AtomicBoolean()
+    var started by MutexBoolean()
+    var authing by MutexBoolean()
+    var auth by MutexBoolean()
     var stop by AtomicBoolean()
-    var closed by AtomicBoolean()
+    var closed by MutexBoolean()
 
     private val clientId by lazy { TdNative.createNativeClient() }
     private val requestId = AtomicLong(1)
@@ -165,9 +169,9 @@ open class TdClient : TdHandler() {
 
                 runBlocking {
 
-                    clients.forEach { it.waitForClose() }
-
                     events.launch {
+
+                        clients.forEach { it.waitForClose() }
 
                         defaultLog.info("Closing threads")
 
@@ -175,11 +179,11 @@ open class TdClient : TdHandler() {
 
                     eventsContext.close()
 
+                    loopThread.interrupt()
+
+                    loopThread.join()
+
                 }
-
-                loopThread.interrupt()
-
-                loopThread.join()
 
             }
 
@@ -191,7 +195,7 @@ open class TdClient : TdHandler() {
 
         if (!start) start()
 
-        while (!started) delay(100L)
+        (::started.apply { isAccessible = true }.getDelegate() as MutexBoolean).waitFor(true)
 
     }
 
@@ -199,7 +203,7 @@ open class TdClient : TdHandler() {
 
         if (!start) start()
 
-        while (authing) delay(100L)
+        (::authing.apply { isAccessible = true }.getDelegate() as MutexBoolean).waitFor(false)
 
         return auth
 
@@ -209,7 +213,7 @@ open class TdClient : TdHandler() {
 
         if (!start) start()
 
-        while (!auth) delay(100L)
+        (::auth.apply { isAccessible = true }.getDelegate() as MutexBoolean).waitFor(true)
 
     }
 
@@ -239,7 +243,7 @@ open class TdClient : TdHandler() {
 
         if (!stop) stop()
 
-        while (!closed) delay(1000L)
+        (::closed.apply { isAccessible = true }.getDelegate() as MutexBoolean).waitFor(true)
 
     }
 
@@ -601,11 +605,13 @@ open class TdClient : TdHandler() {
 
                     _fullInfo = getUserFullInfo(me.id)
 
-                    handlers.toLinkedList().forEach { it.onLogin() }
+                    handlers.toLinkedList().forEach { it.beforeLogin() }
 
                     authing = false
 
                     auth = true
+
+                    handlers.toLinkedList().forEach { it.onLogin() }
 
                 } catch (ignored: TdException) {
 
@@ -659,7 +665,7 @@ open class TdClient : TdHandler() {
 
         return withContext(Dispatchers.Unconfined) {
 
-            suspendCoroutine { continuation ->
+            suspendCancellableCoroutine { continuation ->
 
                 send<T>(function, 1) {
 
@@ -671,11 +677,19 @@ open class TdClient : TdHandler() {
 
                     onFailure { exception ->
 
-                        continuation.resumeWithException(TdException(exception).also {
+                        if (exception.code == 500) {
 
-                            it.stackTrace = stackTrace
+                            continuation.cancel()
 
-                        })
+                        } else {
+
+                            continuation.resumeWithException(TdException(exception).also {
+
+                                it.stackTrace = stackTrace
+
+                            })
+
+                        }
 
                     }
 
@@ -798,7 +812,7 @@ open class TdClient : TdHandler() {
 
     private fun sendRaw(requestId: Long, function: td.TdApi.Function) {
 
-        check(!closed) { "已停止" }
+        check(!closed) { "Client closed" }
 
         TdNative.nativeClientSend(clientId, requestId, function)
 
@@ -825,7 +839,6 @@ open class TdClient : TdHandler() {
 
     companion object {
 
-        val authLog = mkLog("TdAuth")
         val eventsLog = mkLog("TdEvents")
 
         val timer = Timer("Global Timer")
@@ -843,6 +856,8 @@ open class TdClient : TdHandler() {
 
         lateinit var loopThread: Thread
 
+        var STOPPING by AtomicBoolean()
+
         val loopThreadInitiated get() = Companion::loopThread.isInitialized
 
         class LoopThread : Thread("TDLib Loop Thread") {
@@ -857,15 +872,15 @@ open class TdClient : TdHandler() {
 
                             synchronized(postAdd) {
 
-                                val iter = postAdd.iterator()
+                                val iterator = postAdd.iterator()
 
-                                while (iter.hasNext()) {
+                                while (iterator.hasNext()) {
 
-                                    val toAdd = iter.next()
+                                    val toAdd = iterator.next()
 
                                     clients.add(toAdd)
 
-                                    iter.remove()
+                                    iterator.remove()
 
                                     toAdd.started = true
 
@@ -875,11 +890,11 @@ open class TdClient : TdHandler() {
 
                             synchronized(postDestroy) {
 
-                                val iter = postDestroy.iterator()
+                                val iterator = postDestroy.iterator()
 
-                                while (iter.hasNext()) {
+                                while (iterator.hasNext()) {
 
-                                    val toDestroy = iter.next()
+                                    val toDestroy = iterator.next()
 
                                     clients.remove(toDestroy)
 
@@ -888,7 +903,7 @@ open class TdClient : TdHandler() {
                                     toDestroy.stop = true
                                     toDestroy.closed = true
 
-                                    iter.remove()
+                                    iterator.remove()
 
                                 }
 
@@ -907,16 +922,16 @@ open class TdClient : TdHandler() {
                             for (client in clients) {
 
                                 val eventIds = LongArray(MAX_EVENTS)
-                                val eventObjs = arrayOfNulls<Object>(MAX_EVENTS)
+                                val events = arrayOfNulls<Object>(MAX_EVENTS)
 
-                                val resultCount = TdNative.nativeClientReceive(client.clientId, eventIds, eventObjs, 0.0)
+                                val resultCount = TdNative.nativeClientReceive(client.clientId, eventIds, events, 0.0)
 
                                 if (resultCount == 0) continue
 
                                 for (index in 0 until resultCount) {
 
                                     val requestId = eventIds[index]
-                                    val eventObj = eventObjs[index]!!
+                                    val event = events[index]!!
 
                                     if (requestId != 0L) {
 
@@ -928,19 +943,19 @@ open class TdClient : TdHandler() {
 
                                             runCatching {
 
-                                                if (eventObj is Error) {
+                                                if (event is Error) {
 
-                                                    callback.postError(TdException(eventObj))
+                                                    callback.postError(TdException(event))
 
                                                 } else {
 
-                                                    callback.postResult(eventObj)
+                                                    callback.postResult(event)
 
                                                 }
 
                                             }.onFailure {
 
-                                                defaultLog.error(it, "TdError - Sync\n\nIn callback$eventObj")
+                                                defaultLog.error(it, "TdError - Sync\n\nIn callback$event")
 
                                             }
 
@@ -948,7 +963,7 @@ open class TdClient : TdHandler() {
 
                                     } else {
 
-                                        postUpdate(client, eventObj as Update)
+                                        postUpdate(client, event as Update)
 
                                     }
 
@@ -978,7 +993,8 @@ open class TdClient : TdHandler() {
         }
 
         class MessageNode(
-                val message: Deferred<Pair<Long, Long>>
+                val message: Deferred<Pair<Long, Long>>,
+                val outdated: Boolean
         ) {
 
             val isCompleted get() = message.isCompleted
@@ -988,7 +1004,7 @@ open class TdClient : TdHandler() {
 
             fun activeCount(): Int {
 
-                if (!message.isActive) return 0
+                if (outdated || !message.isActive) return 0
 
                 return if (::parent.isInitialized) parent.activeCount() + 1 else 1
 
@@ -1078,7 +1094,7 @@ open class TdClient : TdHandler() {
                         activeCount = lastMessage.activeCount()
                         count = lastMessage.count()
 
-                        if (senderUserId == client.me.id || client.skipFloodCheck(senderUserId, update.message)) {
+                        if (senderUserId == 0 || senderUserId == client.me.id || client.skipFloodCheck(senderUserId, update.message)) {
 
                             // 跳过检查
 
@@ -1108,7 +1124,7 @@ open class TdClient : TdHandler() {
 
                         SystemClock.now() to process()
 
-                    }).apply {
+                    }, (SystemClock.now() / 1000L) - update.message.date > 30 * 1000L).apply {
 
                         if (lastMessage != null) parent = lastMessage
 
@@ -1138,7 +1154,7 @@ open class TdClient : TdHandler() {
 
         val userName = getUserOrNull(senderUserId)?.displayNameFormatted ?: "$senderUserId"
 
-        eventsLog.warn("[${me.displayName}] $userName has been dropped for 5 min.")
+        clientLog.warn("[${me.displayName}] $userName has been dropped for 5 min.")
 
     }
 

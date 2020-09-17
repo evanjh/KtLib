@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID
 import org.jetbrains.exposed.dao.id.IdTable
+import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.UpsertStatement
 import org.jetbrains.exposed.sql.transactions.TransactionManager
@@ -69,6 +70,26 @@ fun openSqliteDatabase(file: File): DatabaseDispatcher {
             }
 
         }
+    }
+
+}
+
+fun forceCreateTables(vararg tables: Table) {
+
+    for (table in tables) {
+
+        try {
+
+            SchemaUtils.createMissingTablesAndColumns(table)
+
+        } catch (e: ExposedSQLException) {
+
+            SchemaUtils.drop(table)
+
+            SchemaUtils.createMissingTablesAndColumns(table)
+
+        }
+
     }
 
 }
