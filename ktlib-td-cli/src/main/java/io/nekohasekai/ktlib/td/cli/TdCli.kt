@@ -53,7 +53,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
                     param = argument.substringAfter("=")
                     argument = argument.substringBefore("=")
 
-                } else if (arguments.size > index) {
+                } else if (arguments.size - 1 > index) {
 
                     ctn = true
                     param = arguments[index + 1]
