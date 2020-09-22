@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil
 import cn.hutool.core.util.RuntimeUtil
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
+import io.nekohasekai.ktlib.core.defaultLog
 import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -83,6 +84,8 @@ fun forceCreateTables(vararg tables: Table) {
             SchemaUtils.createMissingTablesAndColumns(table)
 
         } catch (e: ExposedSQLException) {
+
+            defaultLog.warn("Destroy old table ${table.nameInDatabaseCase()}")
 
             SchemaUtils.drop(table)
 
