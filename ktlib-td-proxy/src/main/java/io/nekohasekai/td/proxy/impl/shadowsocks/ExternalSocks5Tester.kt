@@ -6,7 +6,8 @@ import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.testProxyWith
 import io.nekohasekai.td.proxy.impl.Proxy
 import io.nekohasekai.td.proxy.tester.*
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.withTimeoutOrNull
 import td.TdApi
 import java.io.File
 import java.net.InetSocketAddress
@@ -73,28 +74,32 @@ abstract class ExternalSocks5Tester<T : Proxy> : TdHandler(), ProxyTester<T> {
 
         var result = -1
         var exception: Exception? = null
-        var end = false
+
+        val finishLock = Mutex(true)
 
         testProxyWith("127.0.0.1", port, TdApi.ProxyTypeSocks5(), testDcTarget, testTimeout) {
-
 
             onSuccess {
 
                 result = (SystemClock.now() - start).toInt()
-                end = true
+                finishLock.unlock()
 
             }
 
             onFailure {
 
                 exception = it
-                end = true
+                finishLock.unlock()
 
             }
 
         }
 
-        delay(testTimeout.toLong() * 1000L)
+        withTimeoutOrNull(testTimeout.toLong() * 1000L) {
+
+            finishLock.lock()
+
+        }
 
         if (result != -1) return result
 

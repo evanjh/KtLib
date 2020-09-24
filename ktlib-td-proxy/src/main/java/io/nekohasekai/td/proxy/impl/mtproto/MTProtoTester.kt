@@ -8,7 +8,8 @@ import io.nekohasekai.ktlib.td.core.raw.addProxy
 import io.nekohasekai.ktlib.td.core.raw.pingProxyWith
 import io.nekohasekai.td.proxy.tester.ProxyTester
 import io.nekohasekai.td.proxy.tester.testTimeout
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.withTimeoutOrNull
 import td.TdApi
 
 object MTProtoTester : TdHandler(), ProxyTester<MTProtoProxy> {
@@ -17,24 +18,31 @@ object MTProtoTester : TdHandler(), ProxyTester<MTProtoProxy> {
 
         var result = -1
         var exception: Exception? = null
+        val finishLock = Mutex(true)
 
         pingProxyWith(addProxy(proxy.server, proxy.port, false, TdApi.ProxyTypeMtproto(proxy.secret)).id) {
 
             onSuccess {
 
                 result = (it.seconds * 100).toInt()
+                finishLock.unlock()
 
             }
 
             onFailure {
 
                 exception = it
+                finishLock.unlock()
 
             }
 
         }
 
-        delay(testTimeout.toLong() * 1000L)
+        withTimeoutOrNull(testTimeout.toLong() * 1000L) {
+
+            finishLock.lock()
+
+        }
 
         if (result != -1) return result
 
