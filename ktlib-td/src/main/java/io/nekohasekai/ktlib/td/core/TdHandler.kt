@@ -3,12 +3,12 @@
 package io.nekohasekai.ktlib.td.core
 
 import io.nekohasekai.ktlib.core.toLinkedList
-import io.nekohasekai.ktlib.td.core.extensions.fromPrivate
-import io.nekohasekai.ktlib.td.core.extensions.text
+import io.nekohasekai.ktlib.td.extensions.fromPrivate
+import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import io.nekohasekai.ktlib.td.core.raw.AbsEvents
 import io.nekohasekai.ktlib.td.core.raw.downloadFile
-import io.nekohasekai.ktlib.td.core.utils.delete
+import io.nekohasekai.ktlib.td.utils.delete
 import td.TdApi.*
 import java.util.*
 

@@ -2,7 +2,7 @@
 
 package io.nekohasekai.td.proxy.parser.td
 
-import io.nekohasekai.ktlib.td.core.extensions.text
+import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.td.proxy.impl.Proxy
 import io.nekohasekai.td.proxy.parser.*
 import td.TdApi

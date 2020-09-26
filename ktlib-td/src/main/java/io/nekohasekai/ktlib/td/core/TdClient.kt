@@ -10,11 +10,11 @@ import com.esotericsoftware.kryo.KryoException
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.db.DatabaseDispatcher
 import io.nekohasekai.ktlib.db.openSqliteDatabase
-import io.nekohasekai.ktlib.td.core.extensions.*
 import io.nekohasekai.ktlib.td.core.persists.store.PersistStore
 import io.nekohasekai.ktlib.td.core.raw.*
-import io.nekohasekai.ktlib.td.core.utils.confirmTo
-import io.nekohasekai.ktlib.td.core.utils.make
+import io.nekohasekai.ktlib.td.extensions.*
+import io.nekohasekai.ktlib.td.utils.confirmTo
+import io.nekohasekai.ktlib.td.utils.make
 import kotlinx.coroutines.*
 import td.TdApi.*
 import td.TdNative

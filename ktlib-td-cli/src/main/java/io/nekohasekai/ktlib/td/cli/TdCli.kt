@@ -8,11 +8,11 @@ import cn.hutool.core.lang.Console
 import cn.hutool.core.util.StrUtil
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.td.core.*
-import io.nekohasekai.ktlib.td.core.extensions.*
-import io.nekohasekai.ktlib.td.core.i18n.*
 import io.nekohasekai.ktlib.td.core.raw.*
-import io.nekohasekai.ktlib.td.core.utils.make
-import io.nekohasekai.ktlib.td.core.utils.removeKeyboard
+import io.nekohasekai.ktlib.td.extensions.*
+import io.nekohasekai.ktlib.td.i18n.*
+import io.nekohasekai.ktlib.td.utils.make
+import io.nekohasekai.ktlib.td.utils.removeKeyboard
 import kotlinx.coroutines.*
 import org.apache.commons.lang3.SystemUtils
 import org.yaml.snakeyaml.Yaml

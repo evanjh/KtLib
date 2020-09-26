@@ -15,7 +15,7 @@
     <artifactId>ktlib-core</artifactId>
 
     <properties>
-        <hutool.version>5.4.2</hutool.version>
+        <hutool.version>5.4.3</hutool.version>
     </properties>
 
     <dependencies>

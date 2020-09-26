@@ -6,8 +6,8 @@ import cn.hutool.core.date.SystemClock
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.db.*
 import io.nekohasekai.ktlib.td.core.TdClient
-import io.nekohasekai.ktlib.td.core.extensions.mkData
-import io.nekohasekai.ktlib.td.core.extensions.readData
+import io.nekohasekai.ktlib.td.extensions.mkData
+import io.nekohasekai.ktlib.td.extensions.readData
 import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import kotlinx.coroutines.launch
 import org.jetbrains.exposed.sql.*
