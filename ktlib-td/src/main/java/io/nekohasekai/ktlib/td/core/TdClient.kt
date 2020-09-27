@@ -1098,7 +1098,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                             // 跳过检查
 
-                        } else if (activeCount > 20 || count > 200) {
+                        } else if (activeCount > 100 || count > 300) {
 
                             lastMessage.drop()
 
