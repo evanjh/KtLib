@@ -56,6 +56,8 @@ class LocaleSwitcher(private val dataId: Long, private val setupWizard: (suspend
 
             LocaleController.allLocales.forEach { locale ->
 
+                if (sudo.localeList?.contains(locale.LANG) == false) return@forEach
+
                 dataLine(locale.NAME, dataId, locale.ID.asByteArray(), setup.asByteArray())
 
             }

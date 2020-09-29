@@ -42,6 +42,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     open val skipSelfMessage = true
     open val funPrefix = arrayOf("/", "!")
     open val defaultLang: String? = null
+    open val localeList: Array<String>? = null
 
     val payloads = HashMap<String, TdHandler>()
     val functions = HashMap<String, TdHandler>()
