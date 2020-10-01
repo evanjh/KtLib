@@ -8,7 +8,7 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns backgrounds installed by the user
  *
- * @forDarkTheme - True, if the backgrounds needs to be ordered for dark theme
+ * @forDarkTheme - True, if the backgrounds need to be ordered for dark theme
  */
 suspend fun TdHandler.getBackgrounds(
     forDarkTheme: Boolean

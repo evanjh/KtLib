@@ -925,12 +925,13 @@ public class TdApi {
 
 
     /**
-     * Photo description
+     * Describes an image in JPEG format
      *
-     * @type - Thumbnail type (see https://core.telegram.org/constructor/photoSize)
-     * @photo - Information about the photo file
-     * @width - Photo width
-     * @height - Photo height
+     * @type - Image type (see https://core.telegram.org/constructor/photoSize)
+     * @photo - Information about the image file
+     * @width - Image width
+     * @height - Image height
+     * @progressiveSizes - Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image
      */
     public static class PhotoSize extends Object {
 
@@ -938,20 +939,22 @@ public class TdApi {
         public File photo;
         public int width;
         public int height;
+        public int[] progressiveSizes;
 
         public PhotoSize() {}
 
-        public PhotoSize(String type, File photo, int width, int height) {
+        public PhotoSize(String type, File photo, int width, int height, int[] progressiveSizes) {
 
             this.type = type;
             this.photo = photo;
             this.width = width;
             this.height = height;
+            this.progressiveSizes = progressiveSizes;
 
         }
 
         @Override
-        public int getConstructor() { return 421980227; }
+        public int getConstructor() { return 1609182352; }
 
     }
 
@@ -1696,7 +1699,7 @@ public class TdApi {
      *            As defined by the sender
      * @provider - Provider of the venue database
      *             As defined by the sender
-     *             Currently only "foursquare" and "gplaces" (Google Places) needs to be supported
+     *             Currently only "foursquare" and "gplaces" (Google Places) need to be supported
      * @id - Identifier of the venue in the provider database
      *       As defined by the sender
      * @type - Type of the venue in the provider database
@@ -2051,7 +2054,7 @@ public class TdApi {
      *
      * @length - Animation width and height
      * @file - Information about the animation file
-     * @mainFrameTimestamp - Timestamp of the frame, used as static chat photo
+     * @mainFrameTimestamp - Timestamp of the frame, used as a static chat photo
      */
     public static class AnimatedChatPhoto extends Object {
 
@@ -2190,7 +2193,7 @@ public class TdApi {
 
     /**
      * An animation in MPEG4 format
-     * Must be square, shorter than 10 seconds, have width between 160 and 800 and be at most 2MB in size
+     * Must be square, at most 10 seconds long, have width between 160 and 800 and be at most 2MB in size
      *
      * @animation - Animation to be set as profile photo
      *              Only inputFileLocal and inputFileGenerated are allowed
@@ -2290,7 +2293,6 @@ public class TdApi {
      * Contains full information about a user
      *
      * @photo - User profile photo
-     * @isBlocked - True, if the user is blocked by the current user
      * @canBeCalled - True, if the user can be called
      * @supportsVideoCalls - True, if a video call can be created with the user
      * @hasPrivateCalls - True, if the user can't be called due to their privacy settings
@@ -2304,7 +2306,6 @@ public class TdApi {
     public static class UserFullInfo extends Object {
 
         @Nullable public ChatPhoto photo;
-        public boolean isBlocked;
         public boolean canBeCalled;
         public boolean supportsVideoCalls;
         public boolean hasPrivateCalls;
@@ -2316,10 +2317,9 @@ public class TdApi {
 
         public UserFullInfo() {}
 
-        public UserFullInfo(@Nullable ChatPhoto photo, boolean isBlocked, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean needPhoneNumberPrivacyException, String bio, String shareText, int groupInCommonCount, @Nullable BotInfo botInfo) {
+        public UserFullInfo(@Nullable ChatPhoto photo, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean needPhoneNumberPrivacyException, String bio, String shareText, int groupInCommonCount, @Nullable BotInfo botInfo) {
 
             this.photo = photo;
-            this.isBlocked = isBlocked;
             this.canBeCalled = canBeCalled;
             this.supportsVideoCalls = supportsVideoCalls;
             this.hasPrivateCalls = hasPrivateCalls;
@@ -2332,7 +2332,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -710655904; }
+        public int getConstructor() { return -1067749716; }
 
     }
 
@@ -2423,7 +2423,7 @@ public class TdApi {
      *                         Implies can_send_messages permissions
      * @canSendPolls - True, if the user can send polls
      *                 Implies can_send_messages permissions
-     * @canSendOtherMessages - True, if the user can send animations, games, stickers and dice and use inline bots
+     * @canSendOtherMessages - True, if the user can send animations, games, stickers, and dice and use inline bots
      *                         Implies can_send_messages permissions
      * @canAddWebPagePreviews - True, if the user may add a web page preview to their messages
      *                          Implies can_send_messages permissions
@@ -2473,24 +2473,27 @@ public class TdApi {
      *
      * @customTitle - A custom title of the owner
      *                Applicable to supergroups only
+     * @isAnonymous - True, if the creator isn't shown in the chat member list and sends messages anonymously
      * @isMember - True, if the user is a member of the chat
      */
     public static class ChatMemberStatusCreator extends ChatMemberStatus {
 
         public String customTitle;
+        public boolean isAnonymous;
         public boolean isMember;
 
         public ChatMemberStatusCreator() {}
 
-        public ChatMemberStatusCreator(String customTitle, boolean isMember) {
+        public ChatMemberStatusCreator(String customTitle, boolean isAnonymous, boolean isMember) {
 
             this.customTitle = customTitle;
+            this.isAnonymous = isAnonymous;
             this.isMember = isMember;
 
         }
 
         @Override
-        public int getConstructor() { return 2038475849; }
+        public int getConstructor() { return -160019714; }
 
     }
 
@@ -2514,6 +2517,7 @@ public class TdApi {
      * @canPinMessages - True, if the administrator can pin messages
      *                   Applicable to groups only
      * @canPromoteMembers - True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them
+     * @isAnonymous - True, if the administrator isn't shown in the chat member list and sends messages anonymously
      */
     public static class ChatMemberStatusAdministrator extends ChatMemberStatus {
 
@@ -2527,10 +2531,11 @@ public class TdApi {
         public boolean canRestrictMembers;
         public boolean canPinMessages;
         public boolean canPromoteMembers;
+        public boolean isAnonymous;
 
         public ChatMemberStatusAdministrator() {}
 
-        public ChatMemberStatusAdministrator(String customTitle, boolean canBeEdited, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canPromoteMembers) {
+        public ChatMemberStatusAdministrator(String customTitle, boolean canBeEdited, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canPromoteMembers, boolean isAnonymous) {
 
             this.customTitle = customTitle;
             this.canBeEdited = canBeEdited;
@@ -2542,11 +2547,12 @@ public class TdApi {
             this.canRestrictMembers = canRestrictMembers;
             this.canPinMessages = canPinMessages;
             this.canPromoteMembers = canPromoteMembers;
+            this.isAnonymous = isAnonymous;
 
         }
 
         @Override
-        public int getConstructor() { return 1800612058; }
+        public int getConstructor() { return 222495835; }
 
     }
 
@@ -2637,10 +2643,10 @@ public class TdApi {
      * @userId - User identifier of the chat member
      * @inviterUserId - Identifier of a user that invited/promoted/banned this member in the chat
      *                  0 if unknown
-     * @joinedChatDate - Point in time (Unix timestamp) when the user joined a chat
+     * @joinedChatDate - Point in time (Unix timestamp) when the user joined the chat
      * @status - Status of the member in the chat
      * @botInfo - If the user is a bot, information about the bot
-     *            Can be null even for a bot if the bot is not a chat member
+     *            Can be null even for a bot if the bot is not the chat member
      */
     public static class ChatMember extends Object {
 
@@ -3061,7 +3067,7 @@ public class TdApi {
      * @canSetUsername - True, if the chat username can be changed
      * @canSetStickerSet - True, if the supergroup sticker set can be changed
      * @canSetLocation - True, if the supergroup location can be changed
-     * @canViewStatistics - True, if the channel statistics is available
+     * @canGetStatistics - True, if the supergroup or channel statistics are available
      * @isAllHistoryAvailable - True, if new chat members will have access to old messages
      *                          In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat
      *                          The value of this field is only available for chat administrators
@@ -3089,7 +3095,7 @@ public class TdApi {
         public boolean canSetUsername;
         public boolean canSetStickerSet;
         public boolean canSetLocation;
-        public boolean canViewStatistics;
+        public boolean canGetStatistics;
         public boolean isAllHistoryAvailable;
         public long stickerSetId;
         @Nullable public ChatLocation location;
@@ -3099,7 +3105,7 @@ public class TdApi {
 
         public SupergroupFullInfo() {}
 
-        public SupergroupFullInfo(@Nullable ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean canSetUsername, boolean canSetStickerSet, boolean canSetLocation, boolean canViewStatistics, boolean isAllHistoryAvailable, long stickerSetId, @Nullable ChatLocation location, String inviteLink, int upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(@Nullable ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean canSetUsername, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean isAllHistoryAvailable, long stickerSetId, @Nullable ChatLocation location, String inviteLink, int upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
 
             this.photo = photo;
             this.description = description;
@@ -3114,7 +3120,7 @@ public class TdApi {
             this.canSetUsername = canSetUsername;
             this.canSetStickerSet = canSetStickerSet;
             this.canSetLocation = canSetLocation;
-            this.canViewStatistics = canViewStatistics;
+            this.canGetStatistics = canGetStatistics;
             this.isAllHistoryAvailable = isAllHistoryAvailable;
             this.stickerSetId = stickerSetId;
             this.location = location;
@@ -3125,7 +3131,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -739402159; }
+        public int getConstructor() { return -1112328416; }
 
     }
 
@@ -3246,6 +3252,29 @@ public class TdApi {
 
 
     /**
+     * The message was originally written by an anonymous chat administrator on behalf of the chat
+     *
+     * @senderChatId - Identifier of the chat that originally sent the message
+     */
+    public static class MessageForwardOriginChat extends MessageForwardOrigin {
+
+        public long senderChatId;
+
+        public MessageForwardOriginChat() {}
+
+        public MessageForwardOriginChat(long senderChatId) {
+
+            this.senderChatId = senderChatId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 872598889; }
+
+    }
+
+
+    /**
      * The message was originally written by a user, which is hidden by their privacy settings
      *
      * @senderName - Name of the sender
@@ -3304,9 +3333,9 @@ public class TdApi {
      * @origin - Origin of a forwarded message
      * @date - Point in time (Unix timestamp) when the message was originally sent
      * @publicServiceAnnouncementType - The type of a public service announcement for the forwarded message
-     * @fromChatId - For messages forwarded to the chat with the current user (Saved Messages) or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time
+     * @fromChatId - For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time
      *               0 if unknown
-     * @fromMessageId - For messages forwarded to the chat with the current user (Saved Messages) or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time
+     * @fromMessageId - For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time
      *                  0 if unknown
      */
     public static class MessageForwardInfo extends Object {
@@ -3331,6 +3360,49 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -327300408; }
+
+    }
+
+
+    /**
+     * Contains information about interactions with a message
+     *
+     * @viewCount - Number of times the message was viewed
+     * @forwardCount - Number of times the message was forwarded
+     * @replyCount - Number of times the message was directly or indirectly replied
+     *               Available in discussion supergroups and channels with a discussion supergroup
+     * @recentReplierUserIds - User identifiers of the recent repliers to the message
+     *                         Available in channels with a discussion supergroup
+     * @lastReadInboxCommentMessageId - Identifier of the last read incoming comment to the message
+     * @lastReadOutboxCommentMessageId - Identifier of the last read outgoing comment to the message
+     * @lastCommentMessageId - Identifier of the last comment to the message
+     */
+    public static class MessageInteractionInfo extends Object {
+
+        public int viewCount;
+        public int forwardCount;
+        public int replyCount;
+        public int[] recentReplierUserIds;
+        public long lastReadInboxCommentMessageId;
+        public long lastReadOutboxCommentMessageId;
+        public long lastCommentMessageId;
+
+        public MessageInteractionInfo() {}
+
+        public MessageInteractionInfo(int viewCount, int forwardCount, int replyCount, int[] recentReplierUserIds, long lastReadInboxCommentMessageId, long lastReadOutboxCommentMessageId, long lastCommentMessageId) {
+
+            this.viewCount = viewCount;
+            this.forwardCount = forwardCount;
+            this.replyCount = replyCount;
+            this.recentReplierUserIds = recentReplierUserIds;
+            this.lastReadInboxCommentMessageId = lastReadInboxCommentMessageId;
+            this.lastReadOutboxCommentMessageId = lastReadOutboxCommentMessageId;
+            this.lastCommentMessageId = lastCommentMessageId;
+
+        }
+
+        @Override
+        public int getConstructor() { return -953354030; }
 
     }
 
@@ -3388,10 +3460,13 @@ public class TdApi {
     /**
      * Describes a message
      *
-     * @id - Message identifier, unique for the chat to which the message belongs
+     * @id - Message identifier
+     *       Unique for the chat to which the message belongs
      * @senderUserId - Identifier of the user who sent the message
      *                 0 if unknown
-     *                 Currently, it is unknown for channel posts and for channel posts automatically forwarded to discussion group
+     *                 Currently, it is unknown for channel posts, for channel posts automatically forwarded to discussion group and for anonymously sent supergroup messages
+     * @senderChatId - Identifier of the chat on behalf of which the message was sent
+     *                 0 if none
      * @chatId - Chat identifier
      * @sendingState - Information about the sending state of the message
      * @schedulingState - Information about the scheduling state of the message
@@ -3401,21 +3476,27 @@ public class TdApi {
      * @canBeForwarded - True, if the message can be forwarded
      * @canBeDeletedOnlyForSelf - True, if the message can be deleted only for the current user while other users will continue to see it
      * @canBeDeletedForAllUsers - True, if the message can be deleted for all users
+     * @canGetStatistics - True, if the message statistics are available
+     * @canGetMessageThread - True, if the message thread info is available
      * @isChannelPost - True, if the message is a channel post
      *                  All messages to channels are channel posts, all other messages are not channel posts
      * @containsUnreadMention - True, if the message contains an unread mention for the current user
      * @date - Point in time (Unix timestamp) when the message was sent
      * @editDate - Point in time (Unix timestamp) when the message was last edited
      * @forwardInfo - Information about the initial message sender
+     * @interactionInfo - Information about interactions with the message
+     * @replyInChatId - If non-zero, the identifier of the chat to which the replied message belongs
+     *                  Currently, only messages in the Replies chat can have different reply_in_chat_id and chat_id
      * @replyToMessageId - If non-zero, the identifier of the message this message is replying to
      *                     Can be the identifier of a deleted message
+     * @messageThreadId - If non-zero, the identifier of the message thread the message belongs to
+     *                    Unique within the chat to which the message belongs
      * @ttl - For self-destructing messages, the message's TTL (Time To Live), in seconds
      *        0 if none
      *        TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
      * @ttlExpiresIn - Time left before the message expires, in seconds
      * @viaBotUserId - If non-zero, the user identifier of the bot through which this message was sent
      * @authorSignature - For channel posts, optional author signature
-     * @views - Number of times this message was viewed
      * @mediaAlbumId - Unique identifier of an album this message belongs to
      *                 Only photos and videos can be grouped together in albums
      * @restrictionReason - If non-empty, contains a human-readable description of the reason why access to this message must be restricted
@@ -3426,6 +3507,7 @@ public class TdApi {
 
         public long id;
         public int senderUserId;
+        public long senderChatId;
         public long chatId;
         @Nullable public MessageSendingState sendingState;
         @Nullable public MessageSchedulingState schedulingState;
@@ -3434,17 +3516,21 @@ public class TdApi {
         public boolean canBeForwarded;
         public boolean canBeDeletedOnlyForSelf;
         public boolean canBeDeletedForAllUsers;
+        public boolean canGetStatistics;
+        public boolean canGetMessageThread;
         public boolean isChannelPost;
         public boolean containsUnreadMention;
         public int date;
         public int editDate;
         @Nullable public MessageForwardInfo forwardInfo;
+        @Nullable public MessageInteractionInfo interactionInfo;
+        public long replyInChatId;
         public long replyToMessageId;
+        public long messageThreadId;
         public int ttl;
         public double ttlExpiresIn;
         public int viaBotUserId;
         public String authorSignature;
-        public int views;
         public long mediaAlbumId;
         public String restrictionReason;
         public MessageContent content;
@@ -3452,10 +3538,11 @@ public class TdApi {
 
         public Message() {}
 
-        public Message(long id, int senderUserId, long chatId, @Nullable MessageSendingState sendingState, @Nullable MessageSchedulingState schedulingState, boolean isOutgoing, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, @Nullable MessageForwardInfo forwardInfo, long replyToMessageId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, int views, long mediaAlbumId, String restrictionReason, MessageContent content, @Nullable ReplyMarkup replyMarkup) {
+        public Message(long id, int senderUserId, long senderChatId, long chatId, @Nullable MessageSendingState sendingState, @Nullable MessageSchedulingState schedulingState, boolean isOutgoing, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, @Nullable MessageForwardInfo forwardInfo, @Nullable MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, @Nullable ReplyMarkup replyMarkup) {
 
             this.id = id;
             this.senderUserId = senderUserId;
+            this.senderChatId = senderChatId;
             this.chatId = chatId;
             this.sendingState = sendingState;
             this.schedulingState = schedulingState;
@@ -3464,17 +3551,21 @@ public class TdApi {
             this.canBeForwarded = canBeForwarded;
             this.canBeDeletedOnlyForSelf = canBeDeletedOnlyForSelf;
             this.canBeDeletedForAllUsers = canBeDeletedForAllUsers;
+            this.canGetStatistics = canGetStatistics;
+            this.canGetMessageThread = canGetMessageThread;
             this.isChannelPost = isChannelPost;
             this.containsUnreadMention = containsUnreadMention;
             this.date = date;
             this.editDate = editDate;
             this.forwardInfo = forwardInfo;
+            this.interactionInfo = interactionInfo;
+            this.replyInChatId = replyInChatId;
             this.replyToMessageId = replyToMessageId;
+            this.messageThreadId = messageThreadId;
             this.ttl = ttl;
             this.ttlExpiresIn = ttlExpiresIn;
             this.viaBotUserId = viaBotUserId;
             this.authorSignature = authorSignature;
-            this.views = views;
             this.mediaAlbumId = mediaAlbumId;
             this.restrictionReason = restrictionReason;
             this.content = content;
@@ -3483,7 +3574,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1169109781; }
+        public int getConstructor() { return 81067037; }
 
     }
 
@@ -3518,25 +3609,30 @@ public class TdApi {
     /**
      * Contains a list of messages found by a search
      *
+     * @totalCount - Approximate total count of messages found
+     *               -1 if unknown
      * @messages - List of messages
-     * @nextFromSearchId - Value to pass as from_search_id to get more results
+     * @nextOffset - The offset for the next request
+     *               If empty, there are no more results
      */
     public static class FoundMessages extends Object {
 
+        public int totalCount;
         public Message[] messages;
-        public long nextFromSearchId;
+        public String nextOffset;
 
         public FoundMessages() {}
 
-        public FoundMessages(Message[] messages, long nextFromSearchId) {
+        public FoundMessages(int totalCount, Message[] messages, String nextOffset) {
 
+            this.totalCount = totalCount;
             this.messages = messages;
-            this.nextFromSearchId = nextFromSearchId;
+            this.nextOffset = nextOffset;
 
         }
 
         @Override
-        public int getConstructor() { return 2135623881; }
+        public int getConstructor() { return -529809608; }
 
     }
 
@@ -4102,6 +4198,7 @@ public class TdApi {
      * @lastMessage - Last message in the chat
      * @positions - Positions of the chat in chat lists
      * @isMarkedAsUnread - True, if the chat is marked as unread
+     * @isBlocked - True, if the chat is blocked by the current user and private messages from the chat can't be received
      * @hasScheduledMessages - True, if the chat has scheduled messages
      * @canBeDeletedOnlyForSelf - True, if the chat messages can be deleted only for the current user while other users will continue to see the messages
      * @canBeDeletedForAllUsers - True, if the chat messages can be deleted for all users
@@ -4131,6 +4228,7 @@ public class TdApi {
         @Nullable public Message lastMessage;
         public ChatPosition[] positions;
         public boolean isMarkedAsUnread;
+        public boolean isBlocked;
         public boolean hasScheduledMessages;
         public boolean canBeDeletedOnlyForSelf;
         public boolean canBeDeletedForAllUsers;
@@ -4149,7 +4247,7 @@ public class TdApi {
 
         public Chat() {}
 
-        public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, long pinnedMessageId, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, long pinnedMessageId, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
 
             this.id = id;
             this.type = type;
@@ -4159,6 +4257,7 @@ public class TdApi {
             this.lastMessage = lastMessage;
             this.positions = positions;
             this.isMarkedAsUnread = isMarkedAsUnread;
+            this.isBlocked = isBlocked;
             this.hasScheduledMessages = hasScheduledMessages;
             this.canBeDeletedOnlyForSelf = canBeDeletedOnlyForSelf;
             this.canBeDeletedForAllUsers = canBeDeletedForAllUsers;
@@ -4178,7 +4277,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1318398921; }
+        public int getConstructor() { return 1881489172; }
 
     }
 
@@ -4186,22 +4285,25 @@ public class TdApi {
     /**
      * Represents a list of chats
      *
+     * @totalCount - Approximate total count of chats found
      * @chatIds - List of chat identifiers
      */
     public static class Chats extends Object {
 
+        public int totalCount;
         public long[] chatIds;
 
         public Chats() {}
 
-        public Chats(long[] chatIds) {
+        public Chats(int totalCount, long[] chatIds) {
 
+            this.totalCount = totalCount;
             this.chatIds = chatIds;
 
         }
 
         @Override
-        public int getConstructor() { return -1687756019; }
+        public int getConstructor() { return 1809654812; }
 
     }
 
@@ -4285,7 +4387,7 @@ public class TdApi {
      * Contains information about a chat invite link
      *
      * @chatId - Chat identifier of the invite link
-     *           0 if the user have no access to the chat before joining
+     *           0 if the user has no access to the chat before joining
      * @accessibleFor - If non-zero, the remaining time for which read access is granted to the chat, in seconds
      * @type - Contains information about the type of the chat
      * @title - Title of the chat
@@ -4592,7 +4694,7 @@ public class TdApi {
 
 
     /**
-     * A button that sends a special callback query to a bot
+     * A button that sends a callback query to a bot
      *
      * @data - Data to be sent to the bot via a callback query
      */
@@ -4615,7 +4717,30 @@ public class TdApi {
 
 
     /**
-     * A button with a game that sends a special callback query to a bot
+     * A button that asks for password of the current user and then sends a callback query to a bot
+     *
+     * @data - Data to be sent to the bot via a callback query
+     */
+    public static class InlineKeyboardButtonTypeCallbackWithPassword extends InlineKeyboardButtonType {
+
+        public byte[] data;
+
+        public InlineKeyboardButtonTypeCallbackWithPassword() {}
+
+        public InlineKeyboardButtonTypeCallbackWithPassword(byte[] data) {
+
+            this.data = data;
+
+        }
+
+        @Override
+        public int getConstructor() { return 908018248; }
+
+    }
+
+
+    /**
+     * A button with a game that sends a callback query to a bot
      * This button must be in the first column and row of the keyboard and can be attached only to a message with content of the type messageGame
      */
     public static class InlineKeyboardButtonTypeCallbackGame extends InlineKeyboardButtonType {
@@ -4859,6 +4984,39 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -1761898342; }
+
+    }
+
+
+    /**
+     * Contains information about a message thread
+     *
+     * @chatId - Identifier of the chat to which the message thread belongs
+     * @messageThreadId - Message thread identifier, unique within the chat
+     * @messages - The messages from which the thread starts
+     *             The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
+     * @draftMessage - A draft of a message in the message thread
+     */
+    public static class MessageThreadInfo extends Object {
+
+        public long chatId;
+        public long messageThreadId;
+        public Message[] messages;
+        @Nullable public DraftMessage draftMessage;
+
+        public MessageThreadInfo() {}
+
+        public MessageThreadInfo(long chatId, long messageThreadId, Message[] messages, @Nullable DraftMessage draftMessage) {
+
+            this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
+            this.messages = messages;
+            this.draftMessage = draftMessage;
+
+        }
+
+        @Override
+        public int getConstructor() { return -800726069; }
 
     }
 
@@ -6397,6 +6555,93 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -577333714; }
+
+    }
+
+
+    /**
+     * Contains information about a country
+     *
+     * @countryCode - A two-letter ISO 3166-1 alpha-2 country code
+     * @name - Native name of the country
+     * @englishName - English name of the country
+     * @isHidden - True, if the country should be hidden from the list of all countries
+     * @callingCodes - List of country calling codes
+     */
+    public static class CountryInfo extends Object {
+
+        public String countryCode;
+        public String name;
+        public String englishName;
+        public boolean isHidden;
+        public String[] callingCodes;
+
+        public CountryInfo() {}
+
+        public CountryInfo(String countryCode, String name, String englishName, boolean isHidden, String[] callingCodes) {
+
+            this.countryCode = countryCode;
+            this.name = name;
+            this.englishName = englishName;
+            this.isHidden = isHidden;
+            this.callingCodes = callingCodes;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1617195722; }
+
+    }
+
+
+    /**
+     * Contains information about countries
+     *
+     * @countries - The list of countries
+     */
+    public static class Countries extends Object {
+
+        public CountryInfo[] countries;
+
+        public Countries() {}
+
+        public Countries(CountryInfo[] countries) {
+
+            this.countries = countries;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1854211813; }
+
+    }
+
+
+    /**
+     * Contains information about a phone number
+     *
+     * @country - Information about the country to which the phone number belongs
+     * @countryCallingCode - The part of the phone number denoting country calling code or its part
+     * @formattedPhoneNumber - The phone number without country calling code formatted accordingly to local rules
+     */
+    public static class PhoneNumberInfo extends Object {
+
+        @Nullable public CountryInfo country;
+        public String countryCallingCode;
+        public String formattedPhoneNumber;
+
+        public PhoneNumberInfo() {}
+
+        public PhoneNumberInfo(@Nullable CountryInfo country, String countryCallingCode, String formattedPhoneNumber) {
+
+            this.country = country;
+            this.countryCallingCode = countryCallingCode;
+            this.formattedPhoneNumber = formattedPhoneNumber;
+
+        }
+
+        @Override
+        public int getConstructor() { return 560180961; }
 
     }
 
@@ -9871,7 +10116,6 @@ public class TdApi {
      * Options to be used when a message is sent
      *
      * @disableNotification - Pass true to disable notification for the message
-     *                        Must be false if the message is sent to a secret chat
      * @fromBackground - Pass true if the message is sent from the background
      * @schedulingState - Message scheduling state
      *                    Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled
@@ -10056,8 +10300,8 @@ public class TdApi {
      *
      * @document - Document to be sent
      * @thumbnail - Document thumbnail, if available
-     * @forceFile - If true, automatic file type detection will be disabled and the document will be always sent as file
-     *              Always true for files sent to secret chats
+     * @disableContentTypeDetection - If true, automatic file type detection will be disabled and the document will be always sent as file
+     *                                Always true for files sent to secret chats
      * @caption - Document caption
      *            0-GetOption("message_caption_length_max") characters
      */
@@ -10065,22 +10309,22 @@ public class TdApi {
 
         public InputFile document;
         public InputThumbnail thumbnail;
-        public boolean forceFile;
+        public boolean disableContentTypeDetection;
         public FormattedText caption;
 
         public InputMessageDocument() {}
 
-        public InputMessageDocument(InputFile document, InputThumbnail thumbnail, boolean forceFile, FormattedText caption) {
+        public InputMessageDocument(InputFile document, InputThumbnail thumbnail, boolean disableContentTypeDetection, FormattedText caption) {
 
             this.document = document;
             this.thumbnail = thumbnail;
-            this.forceFile = forceFile;
+            this.disableContentTypeDetection = disableContentTypeDetection;
             this.caption = caption;
 
         }
 
         @Override
-        public int getConstructor() { return 1960124119; }
+        public int getConstructor() { return 1633383097; }
 
     }
 
@@ -10707,7 +10951,7 @@ public class TdApi {
 
     /**
      * Returns only messages with unread mentions of the current user, or messages that are replies to their messages
-     * When using this filter the results can't be additionally filtered by a query or by the sending user
+     * When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user
      */
     public static class SearchMessagesFilterUnreadMention extends SearchMessagesFilter {
 
@@ -11349,7 +11593,7 @@ public class TdApi {
     /**
      * A WebRTC server
      *
-     * @username - Username to be used for authentification
+     * @username - Username to be used for authentication
      * @password - Authentication password
      * @supportsTurn - True, if the server supports TURN
      * @supportsStun - True, if the server supports STUN
@@ -11663,6 +11907,28 @@ public class TdApi {
 
 
     /**
+     * The video was distorted
+     */
+    public static class CallProblemDistortedVideo extends CallProblem {
+
+        @Override
+        public int getConstructor() { return 385245706; }
+
+    }
+
+
+    /**
+     * The video was pixelated
+     */
+    public static class CallProblemPixelatedVideo extends CallProblem {
+
+        @Override
+        public int getConstructor() { return 2115315411; }
+
+    }
+
+
+    /**
      * Describes a call
      *
      * @id - Call identifier, not persistent
@@ -11703,7 +11969,7 @@ public class TdApi {
      * @allowFlashCall - Pass true if the authentication code may be sent via flash call to the specified phone number
      * @isCurrentPhoneNumber - Pass true if the authenticated phone number is used on the current device
      * @allowSmsRetrieverApi - For official applications only
-     *                         True, if the app can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS
+     *                         True, if the application can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS
      *                         See https://developers.google.com/identity/sms-retriever/ for more details
      */
     public static class PhoneNumberAuthenticationSettings extends Object {
@@ -12774,7 +13040,7 @@ public class TdApi {
     public static abstract class CallbackQueryPayload extends Object {}
 
     /**
-     * The payload from a general callback button
+     * The payload for a general callback button
      *
      * @data - Data that was attached to the callback button
      */
@@ -12797,7 +13063,33 @@ public class TdApi {
 
 
     /**
-     * The payload from a game callback button
+     * The payload for a callback button requiring password
+     *
+     * @password - The password for the current user
+     * @data Data that was attached to the callback button
+     */
+    public static class CallbackQueryPayloadDataWithPassword extends CallbackQueryPayload {
+
+        public String password;
+        public byte[] data;
+
+        public CallbackQueryPayloadDataWithPassword() {}
+
+        public CallbackQueryPayloadDataWithPassword(String password, byte[] data) {
+
+            this.password = password;
+            this.data = data;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1340266738; }
+
+    }
+
+
+    /**
+     * The payload for a game callback button
      *
      * @gameShortName - A short name of the game that was attached to the callback button
      */
@@ -13765,7 +14057,7 @@ public class TdApi {
 
     /**
      * Represents a data needed to subscribe for push notifications through registerDevice method
-     * To use specific push notification service, you must specify the correct application platform and upload valid server authentication data at https://my.telegram.org
+     * To use specific push notification service, the correct application platform must be specified and a valid server authentication data must be uploaded at https://my.telegram.org
      */
     public static abstract class DeviceToken extends Object {}
 
@@ -15182,10 +15474,12 @@ public class TdApi {
      * New message was received through a push notification
      *
      * @messageId - The message identifier
-     *              The message will not be available in the chat history, but the ID can be used in viewMessages and as reply_to_message_id
+     *              The message will not be available in the chat history, but the ID can be used in viewMessages, or as reply_to_message_id
      * @senderUserId - Sender of the message
      *                 0 if unknown
      *                 Corresponding user may be inaccessible
+     * @senderChatId - Sender chat of the message
+     *                 0 if none
      * @senderName - Name of the sender
      *               Can be different from the name of the sender user
      * @isOutgoing - True, if the message is outgoing
@@ -15195,16 +15489,18 @@ public class TdApi {
 
         public long messageId;
         public int senderUserId;
+        public long senderChatId;
         public String senderName;
         public boolean isOutgoing;
         public PushMessageContent content;
 
         public NotificationTypeNewPushMessage() {}
 
-        public NotificationTypeNewPushMessage(long messageId, int senderUserId, String senderName, boolean isOutgoing, PushMessageContent content) {
+        public NotificationTypeNewPushMessage(long messageId, int senderUserId, long senderChatId, String senderName, boolean isOutgoing, PushMessageContent content) {
 
             this.messageId = messageId;
             this.senderUserId = senderUserId;
+            this.senderChatId = senderChatId;
             this.senderName = senderName;
             this.isOutgoing = isOutgoing;
             this.content = content;
@@ -15212,7 +15508,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 999250657; }
+        public int getConstructor() { return -728846585; }
 
     }
 
@@ -15379,18 +15675,18 @@ public class TdApi {
      */
     public static class OptionValueInteger extends OptionValue {
 
-        public int value;
+        public long value;
 
         public OptionValueInteger() {}
 
-        public OptionValueInteger(int value) {
+        public OptionValueInteger(long value) {
 
             this.value = value;
 
         }
 
         @Override
-        public int getConstructor() { return -1400911104; }
+        public int getConstructor() { return -186858780; }
 
     }
 
@@ -16115,27 +16411,27 @@ public class TdApi {
 
 
     /**
-     * Contains a public HTTPS link to a message in a supergroup or channel with a username
+     * Contains an HTTPS link to a message in a supergroup or channel
      *
      * @link - Message link
-     * @html - HTML-code for embedding the message
+     * @isPublic - True, if the link will work for non-members of the chat
      */
-    public static class PublicMessageLink extends Object {
+    public static class MessageLink extends Object {
 
         public String link;
-        public String html;
+        public boolean isPublic;
 
-        public PublicMessageLink() {}
+        public MessageLink() {}
 
-        public PublicMessageLink(String link, String html) {
+        public MessageLink(String link, boolean isPublic) {
 
             this.link = link;
-            this.html = html;
+            this.isPublic = isPublic;
 
         }
 
         @Override
-        public int getConstructor() { return -679603433; }
+        public int getConstructor() { return -1354089818; }
 
     }
 
@@ -16147,6 +16443,7 @@ public class TdApi {
      * @chatId - If found, identifier of the chat to which the message belongs, 0 otherwise
      * @message - If found, the linked message
      * @forAlbum - True, if the whole media album to which the message belongs is linked
+     * @forComment - True, if the message is linked as a channel post comment or from a message thread
      */
     public static class MessageLinkInfo extends Object {
 
@@ -16154,20 +16451,22 @@ public class TdApi {
         public long chatId;
         @Nullable public Message message;
         public boolean forAlbum;
+        public boolean forComment;
 
         public MessageLinkInfo() {}
 
-        public MessageLinkInfo(boolean isPublic, long chatId, @Nullable Message message, boolean forAlbum) {
+        public MessageLinkInfo(boolean isPublic, long chatId, @Nullable Message message, boolean forAlbum, boolean forComment) {
 
             this.isPublic = isPublic;
             this.chatId = chatId;
             this.message = message;
             this.forAlbum = forAlbum;
+            this.forComment = forComment;
 
         }
 
         @Override
-        public int getConstructor() { return 657372995; }
+        public int getConstructor() { return -1002342529; }
 
     }
 
@@ -16659,7 +16958,7 @@ public class TdApi {
     /**
      * A full list of available network statistic entries
      *
-     * @sinceDate - Point in time (Unix timestamp) when the app began collecting statistics
+     * @sinceDate - Point in time (Unix timestamp) from which the statistics are collected
      * @entries - Network statistics entries
      */
     public static class NetworkStatistics extends Object {
@@ -16690,7 +16989,7 @@ public class TdApi {
      * @maxVideoFileSize - The maximum size of a video file to be auto-downloaded
      * @maxOtherFileSize - The maximum size of other file types to be auto-downloaded
      * @videoUploadBitrate - The maximum suggested bitrate for uploaded videos
-     * @preloadLargeVideos - True, if the beginning of videos needs to be preloaded for instant playback
+     * @preloadLargeVideos - True, if the beginning of video files needs to be preloaded for instant playback
      * @preloadNextAudio - True, if the next audio track needs to be preloaded while the user is listening to an audio file
      * @useLessDataForCalls - True, if "use less data for calls" option needs to be enabled
      */
@@ -17504,7 +17803,7 @@ public class TdApi {
 
 
     /**
-     * The graph data to be asynchronously loaded through getChatStatisticsGraph
+     * The graph data to be asynchronously loaded through getStatisticsGraph
      *
      * @token - The token to use for data loading
      */
@@ -17804,6 +18103,29 @@ public class TdApi {
 
 
     /**
+     * A detailed statistics about a message
+     *
+     * @messageInteractionGraph - A graph containing number of message views and shares
+     */
+    public static class MessageStatistics extends Object {
+
+        public StatisticsGraph messageInteractionGraph;
+
+        public MessageStatistics() {}
+
+        public MessageStatistics(StatisticsGraph messageInteractionGraph) {
+
+            this.messageInteractionGraph = messageInteractionGraph;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1148915634; }
+
+    }
+
+
+    /**
      * Contains notifications about data changes
      */
     public static abstract class Update extends Object {}
@@ -18007,30 +18329,30 @@ public class TdApi {
 
 
     /**
-     * The view count of the message has changed
+     * The information about interactions with a message has changed
      *
      * @chatId - Chat identifier
      * @messageId - Message identifier
-     * @views - New value of the view count
+     * @interactionInfo - New information about interactions with the message
      */
-    public static class UpdateMessageViews extends Update {
+    public static class UpdateMessageInteractionInfo extends Update {
 
         public long chatId;
         public long messageId;
-        public int views;
+        @Nullable public MessageInteractionInfo interactionInfo;
 
-        public UpdateMessageViews() {}
+        public UpdateMessageInteractionInfo() {}
 
-        public UpdateMessageViews(long chatId, long messageId, int views) {
+        public UpdateMessageInteractionInfo(long chatId, long messageId, @Nullable MessageInteractionInfo interactionInfo) {
 
             this.chatId = chatId;
             this.messageId = messageId;
-            this.views = views;
+            this.interactionInfo = interactionInfo;
 
         }
 
         @Override
-        public int getConstructor() { return -1854131125; }
+        public int getConstructor() { return -1417659394; }
 
     }
 
@@ -18302,6 +18624,32 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return 1468347188; }
+
+    }
+
+
+    /**
+     * A chat was blocked or unblocked
+     *
+     * @chatId - Chat identifier
+     * @isBlocked - New value of is_blocked
+     */
+    public static class UpdateChatIsBlocked extends Update {
+
+        public long chatId;
+        public boolean isBlocked;
+
+        public UpdateChatIsBlocked() {}
+
+        public UpdateChatIsBlocked(long chatId, boolean isBlocked) {
+
+            this.chatId = chatId;
+            this.isBlocked = isBlocked;
+
+        }
+
+        @Override
+        public int getConstructor() { return -1998946752; }
 
     }
 
@@ -18812,27 +19160,30 @@ public class TdApi {
      * User activity in the chat has changed
      *
      * @chatId - Chat identifier
+     * @messageThreadId - If not 0, a message thread identifier in which the action was performed
      * @userId - Identifier of a user performing an action
      * @action - The action description
      */
     public static class UpdateUserChatAction extends Update {
 
         public long chatId;
+        public long messageThreadId;
         public int userId;
         public ChatAction action;
 
         public UpdateUserChatAction() {}
 
-        public UpdateUserChatAction(long chatId, int userId, ChatAction action) {
+        public UpdateUserChatAction(long chatId, long messageThreadId, int userId, ChatAction action) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.userId = userId;
             this.action = action;
 
         }
 
         @Override
-        public int getConstructor() { return 1444133514; }
+        public int getConstructor() { return 2066409603; }
 
     }
 
@@ -20042,23 +20393,27 @@ public class TdApi {
      *
      * @path - Path to the file to where the internal TDLib log will be written
      * @maxFileSize - The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated
+     * @redirectStderr - Pass true to additionally redirect stderr to the log file
+     *                   Ignored on Windows
      */
     public static class LogStreamFile extends LogStream {
 
         public String path;
         public long maxFileSize;
+        public boolean redirectStderr;
 
         public LogStreamFile() {}
 
-        public LogStreamFile(String path, long maxFileSize) {
+        public LogStreamFile(String path, long maxFileSize, boolean redirectStderr) {
 
             this.path = path;
             this.maxFileSize = maxFileSize;
+            this.redirectStderr = redirectStderr;
 
         }
 
         @Override
-        public int getConstructor() { return -1880085930; }
+        public int getConstructor() { return 1532136933; }
 
     }
 
@@ -21116,10 +21471,11 @@ public class TdApi {
 
 
     /**
-     * Returns information about a message that is replied by given message
+     * Returns information about a message that is replied by a given message
+     * Also returns the pinned message, the game message, and the invoice message for messages of the types messagePinMessage, messageGameScore, and messagePaymentSuccessful respectively
      *
      * @chatId - Identifier of the chat the message belongs to
-     * @messageId - Identifier of the message reply to which get
+     * @messageId - Identifier of the message reply to which to get
      */
     public static class GetRepliedMessage extends Function {
 
@@ -21187,6 +21543,33 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return 425299338; }
+
+    }
+
+
+    /**
+     * Returns information about a message thread
+     * Can be used only if message.can_get_message_thread == true
+     *
+     * @chatId - Chat identifier
+     * @messageId - Identifier of the message
+     */
+    public static class GetMessageThread extends Function {
+
+        public long chatId;
+        public long messageId;
+
+        public GetMessageThread() {}
+
+        public GetMessageThread(long chatId, long messageId) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 2062695998; }
 
     }
 
@@ -21670,7 +22053,7 @@ public class TdApi {
      * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
      * @limit - The maximum number of messages to be returned
      *          Must be positive and can't be greater than 100
-     *          If the offset is negative, the limit must be greater or equal to -offset
+     *          If the offset is negative, the limit must be greater than or equal to -offset
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @onlyLocal - If true, returns only messages that are available locally without sending network requests
      */
@@ -21696,6 +22079,49 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -799960451; }
+
+    }
+
+
+    /**
+     * Returns messages in a message thread of a message
+     * Can be used only if message.can_get_message_thread == true
+     * Message thread of a channel message is in the channel's linked supergroup
+     * The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
+     * For optimal performance the number of returned messages is chosen by the library
+     *
+     * @chatId - Chat identifier
+     * @messageId - Message identifier, which thread history needs to be returned
+     * @fromMessageId - Identifier of the message starting from which history must be fetched
+     *                  Use 0 to get results from the last message
+     * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
+     * @limit - The maximum number of messages to be returned
+     *          Must be positive and can't be greater than 100
+     *          If the offset is negative, the limit must be greater than or equal to -offset
+     *          Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached
+     */
+    public static class GetMessageThreadHistory extends Function {
+
+        public long chatId;
+        public long messageId;
+        public long fromMessageId;
+        public int offset;
+        public int limit;
+
+        public GetMessageThreadHistory() {}
+
+        public GetMessageThreadHistory(long chatId, long messageId, long fromMessageId, int offset, int limit) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.fromMessageId = fromMessageId;
+            this.offset = offset;
+            this.limit = limit;
+
+        }
+
+        @Override
+        public int getConstructor() { return -1808411608; }
 
     }
 
@@ -21749,6 +22175,8 @@ public class TdApi {
      *          If the offset is negative, the limit must be greater than -offset
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @filter - Filter for message content in the search results
+     * @messageThreadId - If not 0, only messages in the specified thread will be returned
+     *                    Supergroups only
      */
     public static class SearchChatMessages extends Function {
 
@@ -21759,10 +22187,11 @@ public class TdApi {
         public int offset;
         public int limit;
         public SearchMessagesFilter filter;
+        public long messageThreadId;
 
         public SearchChatMessages() {}
 
-        public SearchChatMessages(long chatId, String query, int senderUserId, long fromMessageId, int offset, int limit, SearchMessagesFilter filter) {
+        public SearchChatMessages(long chatId, String query, int senderUserId, long fromMessageId, int offset, int limit, SearchMessagesFilter filter, long messageThreadId) {
 
             this.chatId = chatId;
             this.query = query;
@@ -21771,11 +22200,12 @@ public class TdApi {
             this.offset = offset;
             this.limit = limit;
             this.filter = filter;
+            this.messageThreadId = messageThreadId;
 
         }
 
         @Override
-        public int getConstructor() { return -1528846671; }
+        public int getConstructor() { return 1445943052; }
 
     }
 
@@ -21792,8 +22222,12 @@ public class TdApi {
      *               Use 0 or any date in the future to get results from the last message
      * @offsetChatId - The chat identifier of the last found message, or 0 for the first request
      * @offsetMessageId - The message identifier of the last found message, or 0 for the first request
-     * @limit - The maximum number of messages to be returned, up to 100
+     * @limit - The maximum number of messages to be returned
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+     * @filter - Filter for message content in the search results
+     *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention and searchMessagesFilterFailedToSend are unsupported in this function
+     * @minDate - If not 0, the minimum date of the messages to return
+     * @maxDate - If not 0, the maximum date of the messages to return
      */
     public static class SearchMessages extends Function {
 
@@ -21803,10 +22237,13 @@ public class TdApi {
         public long offsetChatId;
         public long offsetMessageId;
         public int limit;
+        public SearchMessagesFilter filter;
+        public int minDate;
+        public int maxDate;
 
         public SearchMessages() {}
 
-        public SearchMessages(ChatList chatList, String query, int offsetDate, long offsetChatId, long offsetMessageId, int limit) {
+        public SearchMessages(ChatList chatList, String query, int offsetDate, long offsetChatId, long offsetMessageId, int limit, SearchMessagesFilter filter, int minDate, int maxDate) {
 
             this.chatList = chatList;
             this.query = query;
@@ -21814,11 +22251,14 @@ public class TdApi {
             this.offsetChatId = offsetChatId;
             this.offsetMessageId = offsetMessageId;
             this.limit = limit;
+            this.filter = filter;
+            this.minDate = minDate;
+            this.maxDate = maxDate;
 
         }
 
         @Override
-        public int getConstructor() { return -455843835; }
+        public int getConstructor() { return -225214062; }
 
     }
 
@@ -21832,33 +22272,34 @@ public class TdApi {
      *           Specify 0 to search in all secret chats
      * @query - Query to search for
      *          If empty, searchChatMessages should be used instead
-     * @fromSearchId - The identifier from the result of a previous request, use 0 to get results from the last message
+     * @offset - Offset of the first entry to return as received from the previous request
+     *           Use empty string to get first chunk of results
      * @limit - The maximum number of messages to be returned
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
-     * @filter - A filter for the content of messages in the search results
+     * @filter - A filter for message content in the search results
      */
     public static class SearchSecretMessages extends Function {
 
         public long chatId;
         public String query;
-        public long fromSearchId;
+        public String offset;
         public int limit;
         public SearchMessagesFilter filter;
 
         public SearchSecretMessages() {}
 
-        public SearchSecretMessages(long chatId, String query, long fromSearchId, int limit, SearchMessagesFilter filter) {
+        public SearchSecretMessages(long chatId, String query, String offset, int limit, SearchMessagesFilter filter) {
 
             this.chatId = chatId;
             this.query = query;
-            this.fromSearchId = fromSearchId;
+            this.offset = offset;
             this.limit = limit;
             this.filter = filter;
 
         }
 
         @Override
-        public int getConstructor() { return -1670627915; }
+        public int getConstructor() { return -852865892; }
 
     }
 
@@ -22017,6 +22458,42 @@ public class TdApi {
 
 
     /**
+     * Returns forwarded copies of a channel message to another public channels
+     * For optimal performance the number of returned messages is chosen by the library
+     *
+     * @chatId - Chat identifier of the message
+     * @messageId - Message identifier
+     * @offset - Offset of the first entry to return as received from the previous request
+     *           Use empty string to get first chunk of results
+     * @limit - The maximum number of messages to be returned
+     *          Must be positive and can't be greater than 100
+     *          Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached
+     */
+    public static class GetMessagePublicForwards extends Function {
+
+        public long chatId;
+        public long messageId;
+        public String offset;
+        public int limit;
+
+        public GetMessagePublicForwards() {}
+
+        public GetMessagePublicForwards(long chatId, long messageId, String offset, int limit) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.offset = offset;
+            this.limit = limit;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1611049289; }
+
+    }
+
+
+    /**
      * Removes an active notification from notification list
      * Needs to be called only if the notification is removed by the current user
      *
@@ -22071,22 +22548,56 @@ public class TdApi {
 
 
     /**
-     * Returns a public HTTPS link to a message
+     * Returns an HTTPS link to a message in a chat
+     * Available only for already sent messages in supergroups and channels
+     * This is an offline request
+     *
+     * @chatId - Identifier of the chat to which the message belongs
+     * @messageId - Identifier of the message
+     * @forAlbum - Pass true to create a link for the whole media album
+     * @forComment - Pass true to create a link to the message as a channel post comment, or from a message thread
+     */
+    public static class GetMessageLink extends Function {
+
+        public long chatId;
+        public long messageId;
+        public boolean forAlbum;
+        public boolean forComment;
+
+        public GetMessageLink() {}
+
+        public GetMessageLink(long chatId, long messageId, boolean forAlbum, boolean forComment) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.forAlbum = forAlbum;
+            this.forComment = forComment;
+
+        }
+
+        @Override
+        public int getConstructor() { return -177667137; }
+
+    }
+
+
+    /**
+     * Returns an HTML code for embedding the message
      * Available only for messages in supergroups and channels with a username
      *
      * @chatId - Identifier of the chat to which the message belongs
      * @messageId - Identifier of the message
-     * @forAlbum - Pass true if a link for a whole media album should be returned
+     * @forAlbum - Pass true to return an HTML code for embedding of the whole media album
      */
-    public static class GetPublicMessageLink extends Function {
+    public static class GetMessageEmbeddingCode extends Function {
 
         public long chatId;
         public long messageId;
         public boolean forAlbum;
 
-        public GetPublicMessageLink() {}
+        public GetMessageEmbeddingCode() {}
 
-        public GetPublicMessageLink(long chatId, long messageId, boolean forAlbum) {
+        public GetMessageEmbeddingCode(long chatId, long messageId, boolean forAlbum) {
 
             this.chatId = chatId;
             this.messageId = messageId;
@@ -22095,35 +22606,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -374642839; }
-
-    }
-
-
-    /**
-     * Returns a private HTTPS link to a message in a chat
-     * Available only for already sent messages in supergroups and channels
-     * The link will work only for members of the chat
-     *
-     * @chatId - Identifier of the chat to which the message belongs
-     * @messageId - Identifier of the message
-     */
-    public static class GetMessageLink extends Function {
-
-        public long chatId;
-        public long messageId;
-
-        public GetMessageLink() {}
-
-        public GetMessageLink(long chatId, long messageId) {
-
-            this.chatId = chatId;
-            this.messageId = messageId;
-
-        }
-
-        @Override
-        public int getConstructor() { return 1362732326; }
+        public int getConstructor() { return 1654967561; }
 
     }
 
@@ -22156,6 +22639,7 @@ public class TdApi {
      * Returns the sent message
      *
      * @chatId - Target chat
+     * @messageThreadId - If not 0, a message thread identifier in which the message will be sent
      * @replyToMessageId - Identifier of the message to reply to or 0
      * @options - Options to be used to send the message
      * @replyMarkup - Markup for replying to the message
@@ -22165,6 +22649,7 @@ public class TdApi {
     public static class SendMessage extends Function {
 
         public long chatId;
+        public long messageThreadId;
         public long replyToMessageId;
         public MessageSendOptions options;
         public ReplyMarkup replyMarkup;
@@ -22172,9 +22657,10 @@ public class TdApi {
 
         public SendMessage() {}
 
-        public SendMessage(long chatId, long replyToMessageId, MessageSendOptions options, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
+        public SendMessage(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, ReplyMarkup replyMarkup, InputMessageContent inputMessageContent) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.replyToMessageId = replyToMessageId;
             this.options = options;
             this.replyMarkup = replyMarkup;
@@ -22183,7 +22669,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1693468857; }
+        public int getConstructor() { return 960453021; }
 
     }
 
@@ -22194,6 +22680,7 @@ public class TdApi {
      * Returns sent messages
      *
      * @chatId - Target chat
+     * @messageThreadId - If not 0, a message thread identifier in which the messages will be sent
      * @replyToMessageId - Identifier of a message to reply to or 0
      * @options - Options to be used to send the messages
      * @inputMessageContents - Contents of messages to be sent
@@ -22201,15 +22688,17 @@ public class TdApi {
     public static class SendMessageAlbum extends Function {
 
         public long chatId;
+        public long messageThreadId;
         public long replyToMessageId;
         public MessageSendOptions options;
         public InputMessageContent[] inputMessageContents;
 
         public SendMessageAlbum() {}
 
-        public SendMessageAlbum(long chatId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents) {
+        public SendMessageAlbum(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, InputMessageContent[] inputMessageContents) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.replyToMessageId = replyToMessageId;
             this.options = options;
             this.inputMessageContents = inputMessageContents;
@@ -22217,7 +22706,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1301182434; }
+        public int getConstructor() { return 983360432; }
 
     }
 
@@ -22260,6 +22749,7 @@ public class TdApi {
      * Always clears a chat draft message
      *
      * @chatId - Target chat
+     * @messageThreadId - If not 0, a message thread identifier in which the message will be sent
      * @replyToMessageId - Identifier of a message to reply to or 0
      * @options - Options to be used to send the message
      * @queryId - Identifier of the inline query
@@ -22270,6 +22760,7 @@ public class TdApi {
     public static class SendInlineQueryResultMessage extends Function {
 
         public long chatId;
+        public long messageThreadId;
         public long replyToMessageId;
         public MessageSendOptions options;
         public long queryId;
@@ -22278,9 +22769,10 @@ public class TdApi {
 
         public SendInlineQueryResultMessage() {}
 
-        public SendInlineQueryResultMessage(long chatId, long replyToMessageId, MessageSendOptions options, long queryId, String resultId, boolean hideViaBot) {
+        public SendInlineQueryResultMessage(long chatId, long messageThreadId, long replyToMessageId, MessageSendOptions options, long queryId, String resultId, boolean hideViaBot) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.replyToMessageId = replyToMessageId;
             this.options = options;
             this.queryId = queryId;
@@ -22290,7 +22782,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1624402875; }
+        public int getConstructor() { return -948639588; }
 
     }
 
@@ -22303,12 +22795,11 @@ public class TdApi {
      * @chatId - Identifier of the chat to which to forward messages
      * @fromChatId - Identifier of the chat from which to forward messages
      * @messageIds - Identifiers of the messages to forward
+     *               Message identifiers must be in a strictly increasing order
      * @options - Options to be used to send the messages
-     * @asAlbum - True, if the messages should be grouped into an album after forwarding
-     *            For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages
      * @sendCopy - True, if content of the messages needs to be copied without links to the original messages
      *             Always true if the messages are forwarded to a secret chat
-     * @removeCaption - True, if media captions of message copies needs to be removed
+     * @removeCaption - True, if media caption of message copies needs to be removed
      *                  Ignored if send_copy is false
      */
     public static class ForwardMessages extends Function {
@@ -22317,26 +22808,24 @@ public class TdApi {
         public long fromChatId;
         public long[] messageIds;
         public MessageSendOptions options;
-        public boolean asAlbum;
         public boolean sendCopy;
         public boolean removeCaption;
 
         public ForwardMessages() {}
 
-        public ForwardMessages(long chatId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean asAlbum, boolean sendCopy, boolean removeCaption) {
+        public ForwardMessages(long chatId, long fromChatId, long[] messageIds, MessageSendOptions options, boolean sendCopy, boolean removeCaption) {
 
             this.chatId = chatId;
             this.fromChatId = fromChatId;
             this.messageIds = messageIds;
             this.options = options;
-            this.asAlbum = asAlbum;
             this.sendCopy = sendCopy;
             this.removeCaption = removeCaption;
 
         }
 
         @Override
-        public int getConstructor() { return 705611900; }
+        public int getConstructor() { return 2086130821; }
 
     }
 
@@ -23690,24 +24179,27 @@ public class TdApi {
      * Sends a notification about user activity in a chat
      *
      * @chatId - Chat identifier
+     * @messageThreadId - If not 0, a message thread identifier in which the action was performed
      * @action - The action description
      */
     public static class SendChatAction extends Function {
 
         public long chatId;
+        public long messageThreadId;
         public ChatAction action;
 
         public SendChatAction() {}
 
-        public SendChatAction(long chatId, ChatAction action) {
+        public SendChatAction(long chatId, long messageThreadId, ChatAction action) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.action = action;
 
         }
 
         @Override
-        public int getConstructor() { return -841357536; }
+        public int getConstructor() { return 2096947540; }
 
     }
 
@@ -23765,27 +24257,30 @@ public class TdApi {
      * Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels)
      *
      * @chatId - Chat identifier
+     * @messageThreadId - If not 0, a message thread identifier in which the messages are being viewed
      * @messageIds - The identifiers of the messages being viewed
-     * @forceRead - True, if messages in closed chats should be marked as read
+     * @forceRead - True, if messages in closed chats should be marked as read by the request
      */
     public static class ViewMessages extends Function {
 
         public long chatId;
+        public long messageThreadId;
         public long[] messageIds;
         public boolean forceRead;
 
         public ViewMessages() {}
 
-        public ViewMessages(long chatId, long[] messageIds, boolean forceRead) {
+        public ViewMessages(long chatId, long messageThreadId, long[] messageIds, boolean forceRead) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.messageIds = messageIds;
             this.forceRead = forceRead;
 
         }
 
         @Override
-        public int getConstructor() { return -1925784915; }
+        public int getConstructor() { return -1155961496; }
 
     }
 
@@ -24295,7 +24790,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      * @photo - New chat photo
-     *          You can pass null to delete the chat photo
+     *          Pass null to delete the chat photo
      */
     public static class SetChatPhoto extends Function {
 
@@ -24349,24 +24844,27 @@ public class TdApi {
      * Changes the draft message in a chat
      *
      * @chatId - Chat identifier
+     * @messageThreadId - If not 0, a message thread identifier in which the draft was changed
      * @draftMessage - New draft message
      */
     public static class SetChatDraftMessage extends Function {
 
         public long chatId;
+        public long messageThreadId;
         @Nullable public DraftMessage draftMessage;
 
         public SetChatDraftMessage() {}
 
-        public SetChatDraftMessage(long chatId, @Nullable DraftMessage draftMessage) {
+        public SetChatDraftMessage(long chatId, long messageThreadId, @Nullable DraftMessage draftMessage) {
 
             this.chatId = chatId;
+            this.messageThreadId = messageThreadId;
             this.draftMessage = draftMessage;
 
         }
 
         @Override
-        public int getConstructor() { return -588175579; }
+        public int getConstructor() { return 1683889946; }
 
     }
 
@@ -24421,6 +24919,33 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -986129697; }
+
+    }
+
+
+    /**
+     * Changes the block state of a chat
+     * Currently, only private chats and supergroups can be blocked
+     *
+     * @chatId - Chat identifier
+     * @isBlocked - New value of is_blocked
+     */
+    public static class ToggleChatIsBlocked extends Function {
+
+        public long chatId;
+        public boolean isBlocked;
+
+        public ToggleChatIsBlocked() {}
+
+        public ToggleChatIsBlocked(long chatId, boolean isBlocked) {
+
+            this.chatId = chatId;
+            this.isBlocked = isBlocked;
+
+        }
+
+        @Override
+        public int getConstructor() { return 202580115; }
 
     }
 
@@ -24514,7 +25039,7 @@ public class TdApi {
      * @discussionChatId - Identifier of a new channel's discussion group
      *                     Use 0 to remove the discussion group
      *                     Use the method getSuitableDiscussionChats to find all suitable groups
-     *                     Basic group chats needs to be first upgraded to supergroup chats
+     *                     Basic group chats need to be first upgraded to supergroup chats
      *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
      */
     public static class SetChatDiscussionGroup extends Function {
@@ -25029,7 +25554,7 @@ public class TdApi {
 
     /**
      * Changes the pinned state of a chat
-     * You can pin up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") non-secret chats and the same number of secret chats in the main/arhive chat list
+     * There can be up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") pinned non-secret chats and the same number of secret chats in the main/arhive chat list
      *
      * @chatList - Chat list in which to change the pinned state of the chat
      * @chatId - Chat identifier
@@ -25625,65 +26150,51 @@ public class TdApi {
 
 
     /**
-     * Blocks a user
+     * Blocks an original sender of a message in the Replies chat
      *
-     * @userId - User identifier
+     * @messageId - The identifier of an incoming message in the Replies chat
+     * @deleteMessage - Pass true if the message must be deleted
+     * @deleteAllMessages - Pass true if all messages from the same sender must be deleted
+     * @reportSpam - Pass true if the sender must be reported to the Telegram moderators
      */
-    public static class BlockUser extends Function {
+    public static class BlockChatFromReplies extends Function {
 
-        public int userId;
+        public long messageId;
+        public boolean deleteMessage;
+        public boolean deleteAllMessages;
+        public boolean reportSpam;
 
-        public BlockUser() {}
+        public BlockChatFromReplies() {}
 
-        public BlockUser(int userId) {
+        public BlockChatFromReplies(long messageId, boolean deleteMessage, boolean deleteAllMessages, boolean reportSpam) {
 
-            this.userId = userId;
+            this.messageId = messageId;
+            this.deleteMessage = deleteMessage;
+            this.deleteAllMessages = deleteAllMessages;
+            this.reportSpam = reportSpam;
 
         }
 
         @Override
-        public int getConstructor() { return -1239315139; }
+        public int getConstructor() { return -869244252; }
 
     }
 
 
     /**
-     * Unblocks a user
+     * Returns chats that were blocked by the current user
      *
-     * @userId - User identifier
+     * @offset - Number of chats to skip in the result
+     * @limit - The maximum number of chats to return
      */
-    public static class UnblockUser extends Function {
-
-        public int userId;
-
-        public UnblockUser() {}
-
-        public UnblockUser(int userId) {
-
-            this.userId = userId;
-
-        }
-
-        @Override
-        public int getConstructor() { return -307286367; }
-
-    }
-
-
-    /**
-     * Returns users that were blocked by the current user
-     *
-     * @offset - Number of users to skip in the result
-     * @limit - The maximum number of users to return
-     */
-    public static class GetBlockedUsers extends Function {
+    public static class GetBlockedChats extends Function {
 
         public int offset;
         public int limit;
 
-        public GetBlockedUsers() {}
+        public GetBlockedChats() {}
 
-        public GetBlockedUsers(int offset, int limit) {
+        public GetBlockedChats(int offset, int limit) {
 
             this.offset = offset;
             this.limit = limit;
@@ -25691,7 +26202,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -742912777; }
+        public int getConstructor() { return -733106443; }
 
     }
 
@@ -27427,7 +27938,7 @@ public class TdApi {
     /**
      * Returns backgrounds installed by the user
      *
-     * @forDarkTheme - True, if the backgrounds needs to be ordered for dark theme
+     * @forDarkTheme - True, if the backgrounds need to be ordered for dark theme
      */
     public static class GetBackgrounds extends Function {
 
@@ -28108,7 +28619,7 @@ public class TdApi {
 
     /**
      * Returns an HTTP URL with the chat statistics
-     * Currently this method of getting the statistics is disabled and can be deleted in the future
+     * Currently this method of getting the statistics are disabled and can be deleted in the future
      *
      * @chatId - Chat identifier
      * @parameters - Parameters from "tg://statsrefresh?params=******" link
@@ -28139,10 +28650,10 @@ public class TdApi {
     /**
      * Returns detailed statistics about a chat
      * Currently this method can be used only for supergroups and channels
-     * Requires administrator rights in the channel
+     * Can be used only if SupergroupFullInfo.can_get_statistics == true
      *
      * @chatId - Chat identifier
-     * @isDark - Pass true if a dark theme is used by the app
+     * @isDark - Pass true if a dark theme is used by the application
      */
     public static class GetChatStatistics extends Function {
 
@@ -28165,21 +28676,51 @@ public class TdApi {
 
 
     /**
-     * Loads asynchronous or zoomed in chat statistics graph
+     * Returns detailed statistics about a message
+     * Can be used only if Message.can_get_statistics == true
+     *
+     * @chatId - Chat identifier
+     * @messageId - Message identifier
+     * @isDark - Pass true if a dark theme is used by the application
+     */
+    public static class GetMessageStatistics extends Function {
+
+        public long chatId;
+        public long messageId;
+        public boolean isDark;
+
+        public GetMessageStatistics() {}
+
+        public GetMessageStatistics(long chatId, long messageId, boolean isDark) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.isDark = isDark;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1270194648; }
+
+    }
+
+
+    /**
+     * Loads asynchronous or zoomed in chat or message statistics graph
      *
      * @chatId - Chat identifier
      * @token - The token for graph loading
      * @x - X-value for zoomed in graph or 0 otherwise
      */
-    public static class GetChatStatisticsGraph extends Function {
+    public static class GetStatisticsGraph extends Function {
 
         public long chatId;
         public String token;
         public long x;
 
-        public GetChatStatisticsGraph() {}
+        public GetStatisticsGraph() {}
 
-        public GetChatStatisticsGraph(long chatId, String token, long x) {
+        public GetStatisticsGraph(long chatId, String token, long x) {
 
             this.chatId = chatId;
             this.token = token;
@@ -28188,7 +28729,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1643545293; }
+        public int getConstructor() { return 687537922; }
 
     }
 
@@ -28261,7 +28802,7 @@ public class TdApi {
      *            Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
      * @excludeChatIds - If not empty, files from the given chats are excluded
      *                   Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
-     * @returnDeletedFileStatistics - Pass true if deleted file statistics needs to be returned instead of the whole storage usage statistics
+     * @returnDeletedFileStatistics - Pass true if deleted file statistics need to be returned instead of the whole storage usage statistics
      *                                Affects only returned statistics
      * @chatLimit - Same as in getStorageStatistics
      *              Affects only returned statistics
@@ -29002,7 +29543,7 @@ public class TdApi {
      * @name - Sticker set name
      * @thumbnail - Thumbnail to set in PNG or TGS format
      *              Animated thumbnail must be set for animated sticker sets and only for them
-     *              You can use a zero InputFileId to delete the thumbnail
+     *              Pass a zero InputFileId to delete the thumbnail
      */
     public static class SetStickerSetThumbnail extends Function {
 
@@ -29221,6 +29762,18 @@ public class TdApi {
 
 
     /**
+     * Returns information about existing countries
+     * Can be called before authorization
+     */
+    public static class GetCountries extends Function {
+
+        @Override
+        public int getConstructor() { return -51902050; }
+
+    }
+
+
+    /**
      * Uses current user IP address to find their country
      * Returns two-letter ISO 3166-1 alpha-2 country code
      * Can be called before authorization
@@ -29229,6 +29782,30 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return 1540593906; }
+
+    }
+
+
+    /**
+     * Returns information about a phone number by its prefix
+     * Can be called before authorization
+     *
+     * @phoneNumberPrefix - The phone number prefix
+     */
+    public static class GetPhoneNumberInfo extends Function {
+
+        public String phoneNumberPrefix;
+
+        public GetPhoneNumberInfo() {}
+
+        public GetPhoneNumberInfo(String phoneNumberPrefix) {
+
+            this.phoneNumberPrefix = phoneNumberPrefix;
+
+        }
+
+        @Override
+        public int getConstructor() { return -1608344583; }
 
     }
 

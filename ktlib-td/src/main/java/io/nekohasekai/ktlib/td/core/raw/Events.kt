@@ -71,13 +71,13 @@ interface AbsEvents {
     suspend fun onMessageEdited(chatId: Long, messageId: Long, editDate: Int, replyMarkup: ReplyMarkup?) = Unit
 
     /**
-     * The view count of the message has changed
+     * The information about interactions with a message has changed
      *
      * @chatId - Chat identifier
      * @messageId - Message identifier
-     * @views - New value of the view count
+     * @interactionInfo - New information about interactions with the message
      */
-    suspend fun onMessageViews(chatId: Long, messageId: Long, views: Int) = Unit
+    suspend fun onMessageInteractionInfo(chatId: Long, messageId: Long, interactionInfo: MessageInteractionInfo?) = Unit
 
     /**
      * The message content was opened
@@ -167,6 +167,14 @@ interface AbsEvents {
      * @isMarkedAsUnread - New value of is_marked_as_unread
      */
     suspend fun onChatIsMarkedAsUnread(chatId: Long, isMarkedAsUnread: Boolean) = Unit
+
+    /**
+     * A chat was blocked or unblocked
+     *
+     * @chatId - Chat identifier
+     * @isBlocked - New value of is_blocked
+     */
+    suspend fun onChatIsBlocked(chatId: Long, isBlocked: Boolean) = Unit
 
     /**
      * A chat's has_scheduled_messages field has changed
@@ -334,10 +342,11 @@ interface AbsEvents {
      * User activity in the chat has changed
      *
      * @chatId - Chat identifier
+     * @messageThreadId - If not 0, a message thread identifier in which the action was performed
      * @userId - Identifier of a user performing an action
      * @action - The action description
      */
-    suspend fun onUserChatAction(chatId: Long, userId: Int, action: ChatAction) = Unit
+    suspend fun onUserChatAction(chatId: Long, messageThreadId: Long, userId: Int, action: ChatAction) = Unit
 
     /**
      * The user went online or offline
@@ -734,7 +743,7 @@ interface AbsEvents {
 
             is UpdateMessageEdited -> onMessageEdited(eventObj.chatId, eventObj.messageId, eventObj.editDate, eventObj.replyMarkup)
 
-            is UpdateMessageViews -> onMessageViews(eventObj.chatId, eventObj.messageId, eventObj.views)
+            is UpdateMessageInteractionInfo -> onMessageInteractionInfo(eventObj.chatId, eventObj.messageId, eventObj.interactionInfo)
 
             is UpdateMessageContentOpened -> onMessageContentOpened(eventObj.chatId, eventObj.messageId)
 
@@ -755,6 +764,8 @@ interface AbsEvents {
             is UpdateChatPosition -> onChatPosition(eventObj.chatId, eventObj.position)
 
             is UpdateChatIsMarkedAsUnread -> onChatIsMarkedAsUnread(eventObj.chatId, eventObj.isMarkedAsUnread)
+
+            is UpdateChatIsBlocked -> onChatIsBlocked(eventObj.chatId, eventObj.isBlocked)
 
             is UpdateChatHasScheduledMessages -> onChatHasScheduledMessages(eventObj.chatId, eventObj.hasScheduledMessages)
 
@@ -792,7 +803,7 @@ interface AbsEvents {
 
             is UpdateDeleteMessages -> onDeleteMessages(eventObj.chatId, eventObj.messageIds, eventObj.isPermanent, eventObj.fromCache)
 
-            is UpdateUserChatAction -> onUserChatAction(eventObj.chatId, eventObj.userId, eventObj.action)
+            is UpdateUserChatAction -> onUserChatAction(eventObj.chatId, eventObj.messageThreadId, eventObj.userId, eventObj.action)
 
             is UpdateUserStatus -> onUserStatus(eventObj.userId, eventObj.status)
 

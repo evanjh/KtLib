@@ -526,7 +526,7 @@ fun TdHandler.addStickerToSetWith(
  * @name - Sticker set name
  * @thumbnail - Thumbnail to set in PNG or TGS format
  *              Animated thumbnail must be set for animated sticker sets and only for them
- *              You can use a zero InputFileId to delete the thumbnail
+ *              Pass a zero InputFileId to delete the thumbnail
  */
 suspend fun TdHandler.setStickerSetThumbnail(
     userId: Int,

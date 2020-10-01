@@ -119,67 +119,6 @@ fun TdHandler.getPollVotersWith(
 ) = send(GetPollVoters(chatId, messageId, optionId, offset, limit), stackIgnore + 1, submit)
 
 /**
- * Blocks a user
- *
- * @userId - User identifier
- */
-suspend fun TdHandler.blockUser(
-    userId: Int
-) = sync<Ok>(BlockUser(userId))
-
-suspend fun TdHandler.blockUserOrNull(
-    userId: Int
-) = syncOrNull<Ok>(BlockUser(userId))
-
-fun TdHandler.blockUserWith(
-    userId: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(BlockUser(userId), stackIgnore + 1, submit)
-
-/**
- * Unblocks a user
- *
- * @userId - User identifier
- */
-suspend fun TdHandler.unblockUser(
-    userId: Int
-) = sync<Ok>(UnblockUser(userId))
-
-suspend fun TdHandler.unblockUserOrNull(
-    userId: Int
-) = syncOrNull<Ok>(UnblockUser(userId))
-
-fun TdHandler.unblockUserWith(
-    userId: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(UnblockUser(userId), stackIgnore + 1, submit)
-
-/**
- * Returns users that were blocked by the current user
- *
- * @offset - Number of users to skip in the result
- * @limit - The maximum number of users to return
- */
-suspend fun TdHandler.getBlockedUsers(
-    offset: Int,
-    limit: Int
-) = sync<Users>(GetBlockedUsers(offset, limit))
-
-suspend fun TdHandler.getBlockedUsersOrNull(
-    offset: Int,
-    limit: Int
-) = syncOrNull<Users>(GetBlockedUsers(offset, limit))
-
-fun TdHandler.getBlockedUsersWith(
-    offset: Int,
-    limit: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Users>.() -> Unit)? = null
-) = send(GetBlockedUsers(offset, limit), stackIgnore + 1, submit)
-
-/**
  * Returns all user contacts
  */
 suspend fun TdHandler.getContacts() = sync<Users>(GetContacts())

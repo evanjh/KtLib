@@ -6,28 +6,28 @@ import td.TdApi.*
 import io.nekohasekai.ktlib.td.core.*
 
 /**
- * Loads asynchronous or zoomed in chat statistics graph
+ * Loads asynchronous or zoomed in chat or message statistics graph
  *
  * @chatId - Chat identifier
  * @token - The token for graph loading
  * @x - X-value for zoomed in graph or 0 otherwise
  */
-suspend fun TdHandler.getChatStatisticsGraph(
+suspend fun TdHandler.getStatisticsGraph(
     chatId: Long,
     token: String? = null,
     x: Long
-) = sync<StatisticsGraph>(GetChatStatisticsGraph(chatId, token, x))
+) = sync<StatisticsGraph>(GetStatisticsGraph(chatId, token, x))
 
-suspend fun TdHandler.getChatStatisticsGraphOrNull(
+suspend fun TdHandler.getStatisticsGraphOrNull(
     chatId: Long,
     token: String? = null,
     x: Long
-) = syncOrNull<StatisticsGraph>(GetChatStatisticsGraph(chatId, token, x))
+) = syncOrNull<StatisticsGraph>(GetStatisticsGraph(chatId, token, x))
 
-fun TdHandler.getChatStatisticsGraphWith(
+fun TdHandler.getStatisticsGraphWith(
     chatId: Long,
     token: String? = null,
     x: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<StatisticsGraph>.() -> Unit)? = null
-) = send(GetChatStatisticsGraph(chatId, token, x), stackIgnore + 1, submit)
+) = send(GetStatisticsGraph(chatId, token, x), stackIgnore + 1, submit)

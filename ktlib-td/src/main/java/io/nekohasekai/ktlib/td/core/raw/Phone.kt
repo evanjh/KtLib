@@ -25,3 +25,23 @@ fun TdHandler.sharePhoneNumberWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SharePhoneNumber(userId), stackIgnore + 1, submit)
+
+/**
+ * Returns information about a phone number by its prefix
+ * Can be called before authorization
+ *
+ * @phoneNumberPrefix - The phone number prefix
+ */
+suspend fun TdHandler.getPhoneNumberInfo(
+    phoneNumberPrefix: String? = null
+) = sync<PhoneNumberInfo>(GetPhoneNumberInfo(phoneNumberPrefix))
+
+suspend fun TdHandler.getPhoneNumberInfoOrNull(
+    phoneNumberPrefix: String? = null
+) = syncOrNull<PhoneNumberInfo>(GetPhoneNumberInfo(phoneNumberPrefix))
+
+fun TdHandler.getPhoneNumberInfoWith(
+    phoneNumberPrefix: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<PhoneNumberInfo>.() -> Unit)? = null
+) = send(GetPhoneNumberInfo(phoneNumberPrefix), stackIgnore + 1, submit)

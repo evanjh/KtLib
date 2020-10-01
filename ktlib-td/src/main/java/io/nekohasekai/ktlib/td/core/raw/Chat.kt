@@ -479,24 +479,28 @@ fun TdHandler.deleteChatReplyMarkupWith(
  * Sends a notification about user activity in a chat
  *
  * @chatId - Chat identifier
+ * @messageThreadId - If not 0, a message thread identifier in which the action was performed
  * @action - The action description
  */
 suspend fun TdHandler.sendChatAction(
     chatId: Long,
+    messageThreadId: Long,
     action: ChatAction? = null
-) = sync<Ok>(SendChatAction(chatId, action))
+) = sync<Ok>(SendChatAction(chatId, messageThreadId, action))
 
 suspend fun TdHandler.sendChatActionOrNull(
     chatId: Long,
+    messageThreadId: Long,
     action: ChatAction? = null
-) = syncOrNull<Ok>(SendChatAction(chatId, action))
+) = syncOrNull<Ok>(SendChatAction(chatId, messageThreadId, action))
 
 fun TdHandler.sendChatActionWith(
     chatId: Long,
+    messageThreadId: Long,
     action: ChatAction? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(SendChatAction(chatId, action), stackIgnore + 1, submit)
+) = send(SendChatAction(chatId, messageThreadId, action), stackIgnore + 1, submit)
 
 /**
  * Informs TDLib that the chat is opened by the user
@@ -923,7 +927,7 @@ fun TdHandler.setChatTitleWith(
  *
  * @chatId - Chat identifier
  * @photo - New chat photo
- *          You can pass null to delete the chat photo
+ *          Pass null to delete the chat photo
  */
 suspend fun TdHandler.setChatPhoto(
     chatId: Long,
@@ -971,24 +975,28 @@ fun TdHandler.setChatPermissionsWith(
  * Changes the draft message in a chat
  *
  * @chatId - Chat identifier
+ * @messageThreadId - If not 0, a message thread identifier in which the draft was changed
  * @draftMessage - New draft message
  */
 suspend fun TdHandler.setChatDraftMessage(
     chatId: Long,
+    messageThreadId: Long,
     draftMessage: DraftMessage? = null
-) = sync<Ok>(SetChatDraftMessage(chatId, draftMessage))
+) = sync<Ok>(SetChatDraftMessage(chatId, messageThreadId, draftMessage))
 
 suspend fun TdHandler.setChatDraftMessageOrNull(
     chatId: Long,
+    messageThreadId: Long,
     draftMessage: DraftMessage? = null
-) = syncOrNull<Ok>(SetChatDraftMessage(chatId, draftMessage))
+) = syncOrNull<Ok>(SetChatDraftMessage(chatId, messageThreadId, draftMessage))
 
 fun TdHandler.setChatDraftMessageWith(
     chatId: Long,
+    messageThreadId: Long,
     draftMessage: DraftMessage? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(SetChatDraftMessage(chatId, draftMessage), stackIgnore + 1, submit)
+) = send(SetChatDraftMessage(chatId, messageThreadId, draftMessage), stackIgnore + 1, submit)
 
 /**
  * Changes the notification settings of a chat
@@ -1037,6 +1045,30 @@ fun TdHandler.toggleChatIsMarkedAsUnreadWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ToggleChatIsMarkedAsUnread(chatId, isMarkedAsUnread), stackIgnore + 1, submit)
+
+/**
+ * Changes the block state of a chat
+ * Currently, only private chats and supergroups can be blocked
+ *
+ * @chatId - Chat identifier
+ * @isBlocked - New value of is_blocked
+ */
+suspend fun TdHandler.toggleChatIsBlocked(
+    chatId: Long,
+    isBlocked: Boolean
+) = sync<Ok>(ToggleChatIsBlocked(chatId, isBlocked))
+
+suspend fun TdHandler.toggleChatIsBlockedOrNull(
+    chatId: Long,
+    isBlocked: Boolean
+) = syncOrNull<Ok>(ToggleChatIsBlocked(chatId, isBlocked))
+
+fun TdHandler.toggleChatIsBlockedWith(
+    chatId: Long,
+    isBlocked: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ToggleChatIsBlocked(chatId, isBlocked), stackIgnore + 1, submit)
 
 /**
  * Changes the value of the default disable_notification parameter, used when a message is sent to a chat
@@ -1118,7 +1150,7 @@ fun TdHandler.setChatDescriptionWith(
  * @discussionChatId - Identifier of a new channel's discussion group
  *                     Use 0 to remove the discussion group
  *                     Use the method getSuitableDiscussionChats to find all suitable groups
- *                     Basic group chats needs to be first upgraded to supergroup chats
+ *                     Basic group chats need to be first upgraded to supergroup chats
  *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
  */
 suspend fun TdHandler.setChatDiscussionGroup(
@@ -1495,7 +1527,7 @@ fun TdHandler.getChatNotificationSettingsExceptionsWith(
 
 /**
  * Changes the pinned state of a chat
- * You can pin up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") non-secret chats and the same number of secret chats in the main/arhive chat list
+ * There can be up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") pinned non-secret chats and the same number of secret chats in the main/arhive chat list
  *
  * @chatList - Chat list in which to change the pinned state of the chat
  * @chatId - Chat identifier
@@ -1604,6 +1636,60 @@ fun TdHandler.joinChatByInviteLinkWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(JoinChatByInviteLink(inviteLink), stackIgnore + 1, submit)
+
+/**
+ * Blocks an original sender of a message in the Replies chat
+ *
+ * @messageId - The identifier of an incoming message in the Replies chat
+ * @deleteMessage - Pass true if the message must be deleted
+ * @deleteAllMessages - Pass true if all messages from the same sender must be deleted
+ * @reportSpam - Pass true if the sender must be reported to the Telegram moderators
+ */
+suspend fun TdHandler.blockChatFromReplies(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean
+) = sync<Ok>(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+
+suspend fun TdHandler.blockChatFromRepliesOrNull(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean
+) = syncOrNull<Ok>(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+
+fun TdHandler.blockChatFromRepliesWith(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam), stackIgnore + 1, submit)
+
+/**
+ * Returns chats that were blocked by the current user
+ *
+ * @offset - Number of chats to skip in the result
+ * @limit - The maximum number of chats to return
+ */
+suspend fun TdHandler.getBlockedChats(
+    offset: Int,
+    limit: Int
+) = sync<Chats>(GetBlockedChats(offset, limit))
+
+suspend fun TdHandler.getBlockedChatsOrNull(
+    offset: Int,
+    limit: Int
+) = syncOrNull<Chats>(GetBlockedChats(offset, limit))
+
+fun TdHandler.getBlockedChatsWith(
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Chats>.() -> Unit)? = null
+) = send(GetBlockedChats(offset, limit), stackIgnore + 1, submit)
 
 /**
  * Returns the profile photos of a user
@@ -1763,7 +1849,7 @@ fun TdHandler.reportChatWith(
 
 /**
  * Returns an HTTP URL with the chat statistics
- * Currently this method of getting the statistics is disabled and can be deleted in the future
+ * Currently this method of getting the statistics are disabled and can be deleted in the future
  *
  * @chatId - Chat identifier
  * @parameters - Parameters from "tg://statsrefresh?params=******" link
@@ -1792,10 +1878,10 @@ fun TdHandler.getChatStatisticsUrlWith(
 /**
  * Returns detailed statistics about a chat
  * Currently this method can be used only for supergroups and channels
- * Requires administrator rights in the channel
+ * Can be used only if SupergroupFullInfo.can_get_statistics == true
  *
  * @chatId - Chat identifier
- * @isDark - Pass true if a dark theme is used by the app
+ * @isDark - Pass true if a dark theme is used by the application
  */
 suspend fun TdHandler.getChatStatistics(
     chatId: Long,

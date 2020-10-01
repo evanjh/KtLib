@@ -53,10 +53,11 @@ fun TdHandler.getMessageLocallyWith(
 ) = send(GetMessageLocally(chatId, messageId), stackIgnore + 1, submit)
 
 /**
- * Returns information about a message that is replied by given message
+ * Returns information about a message that is replied by a given message
+ * Also returns the pinned message, the game message, and the invoice message for messages of the types messagePinMessage, messageGameScore, and messagePaymentSuccessful respectively
  *
  * @chatId - Identifier of the chat the message belongs to
- * @messageId - Identifier of the message reply to which get
+ * @messageId - Identifier of the message reply to which to get
  */
 suspend fun TdHandler.getRepliedMessage(
     chatId: Long,
@@ -119,6 +120,30 @@ fun TdHandler.getMessagesWith(
 ) = send(GetMessages(chatId, messageIds), stackIgnore + 1, submit)
 
 /**
+ * Returns information about a message thread
+ * Can be used only if message.can_get_message_thread == true
+ *
+ * @chatId - Chat identifier
+ * @messageId - Identifier of the message
+ */
+suspend fun TdHandler.getMessageThread(
+    chatId: Long,
+    messageId: Long
+) = sync<MessageThreadInfo>(GetMessageThread(chatId, messageId))
+
+suspend fun TdHandler.getMessageThreadOrNull(
+    chatId: Long,
+    messageId: Long
+) = syncOrNull<MessageThreadInfo>(GetMessageThread(chatId, messageId))
+
+fun TdHandler.getMessageThreadWith(
+    chatId: Long,
+    messageId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<MessageThreadInfo>.() -> Unit)? = null
+) = send(GetMessageThread(chatId, messageId), stackIgnore + 1, submit)
+
+/**
  * Returns messages in a chat
  * The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
  * For optimal performance the number of returned messages is chosen by the library
@@ -130,7 +155,7 @@ fun TdHandler.getMessagesWith(
  * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
  * @limit - The maximum number of messages to be returned
  *          Must be positive and can't be greater than 100
- *          If the offset is negative, the limit must be greater or equal to -offset
+ *          If the offset is negative, the limit must be greater than or equal to -offset
  *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
  * @onlyLocal - If true, returns only messages that are available locally without sending network requests
  */
@@ -161,6 +186,49 @@ fun TdHandler.getChatHistoryWith(
 ) = send(GetChatHistory(chatId, fromMessageId, offset, limit, onlyLocal), stackIgnore + 1, submit)
 
 /**
+ * Returns messages in a message thread of a message
+ * Can be used only if message.can_get_message_thread == true
+ * Message thread of a channel message is in the channel's linked supergroup
+ * The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
+ * For optimal performance the number of returned messages is chosen by the library
+ *
+ * @chatId - Chat identifier
+ * @messageId - Message identifier, which thread history needs to be returned
+ * @fromMessageId - Identifier of the message starting from which history must be fetched
+ *                  Use 0 to get results from the last message
+ * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages
+ * @limit - The maximum number of messages to be returned
+ *          Must be positive and can't be greater than 100
+ *          If the offset is negative, the limit must be greater than or equal to -offset
+ *          Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached
+ */
+suspend fun TdHandler.getMessageThreadHistory(
+    chatId: Long,
+    messageId: Long,
+    fromMessageId: Long,
+    offset: Int,
+    limit: Int
+) = sync<Messages>(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
+
+suspend fun TdHandler.getMessageThreadHistoryOrNull(
+    chatId: Long,
+    messageId: Long,
+    fromMessageId: Long,
+    offset: Int,
+    limit: Int
+) = syncOrNull<Messages>(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
+
+fun TdHandler.getMessageThreadHistoryWith(
+    chatId: Long,
+    messageId: Long,
+    fromMessageId: Long,
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Messages>.() -> Unit)? = null
+) = send(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit), stackIgnore + 1, submit)
+
+/**
  * Searches for messages with given words in the chat
  * Returns the results in reverse chronological order, i.e
  * In order of decreasing message_id
@@ -179,6 +247,8 @@ fun TdHandler.getChatHistoryWith(
  *          If the offset is negative, the limit must be greater than -offset
  *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
  * @filter - Filter for message content in the search results
+ * @messageThreadId - If not 0, only messages in the specified thread will be returned
+ *                    Supergroups only
  */
 suspend fun TdHandler.searchChatMessages(
     chatId: Long,
@@ -187,8 +257,9 @@ suspend fun TdHandler.searchChatMessages(
     fromMessageId: Long,
     offset: Int,
     limit: Int,
-    filter: SearchMessagesFilter? = null
-) = sync<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter))
+    filter: SearchMessagesFilter? = null,
+    messageThreadId: Long
+) = sync<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId))
 
 suspend fun TdHandler.searchChatMessagesOrNull(
     chatId: Long,
@@ -197,8 +268,9 @@ suspend fun TdHandler.searchChatMessagesOrNull(
     fromMessageId: Long,
     offset: Int,
     limit: Int,
-    filter: SearchMessagesFilter? = null
-) = syncOrNull<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter))
+    filter: SearchMessagesFilter? = null,
+    messageThreadId: Long
+) = syncOrNull<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId))
 
 fun TdHandler.searchChatMessagesWith(
     chatId: Long,
@@ -208,9 +280,10 @@ fun TdHandler.searchChatMessagesWith(
     offset: Int,
     limit: Int,
     filter: SearchMessagesFilter? = null,
+    messageThreadId: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<Messages>.() -> Unit)? = null
-) = send(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter), stackIgnore + 1, submit)
+) = send(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId), stackIgnore + 1, submit)
 
 /**
  * Searches for messages in all chats except secret chats
@@ -224,8 +297,12 @@ fun TdHandler.searchChatMessagesWith(
  *               Use 0 or any date in the future to get results from the last message
  * @offsetChatId - The chat identifier of the last found message, or 0 for the first request
  * @offsetMessageId - The message identifier of the last found message, or 0 for the first request
- * @limit - The maximum number of messages to be returned, up to 100
+ * @limit - The maximum number of messages to be returned
  *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
+ * @filter - Filter for message content in the search results
+ *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention and searchMessagesFilterFailedToSend are unsupported in this function
+ * @minDate - If not 0, the minimum date of the messages to return
+ * @maxDate - If not 0, the maximum date of the messages to return
  */
 suspend fun TdHandler.searchMessages(
     chatList: ChatList? = null,
@@ -233,8 +310,11 @@ suspend fun TdHandler.searchMessages(
     offsetDate: Int,
     offsetChatId: Long,
     offsetMessageId: Long,
-    limit: Int
-) = sync<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit))
+    limit: Int,
+    filter: SearchMessagesFilter? = null,
+    minDate: Int,
+    maxDate: Int
+) = sync<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
 
 suspend fun TdHandler.searchMessagesOrNull(
     chatList: ChatList? = null,
@@ -242,8 +322,11 @@ suspend fun TdHandler.searchMessagesOrNull(
     offsetDate: Int,
     offsetChatId: Long,
     offsetMessageId: Long,
-    limit: Int
-) = syncOrNull<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit))
+    limit: Int,
+    filter: SearchMessagesFilter? = null,
+    minDate: Int,
+    maxDate: Int
+) = syncOrNull<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
 
 fun TdHandler.searchMessagesWith(
     chatList: ChatList? = null,
@@ -252,9 +335,12 @@ fun TdHandler.searchMessagesWith(
     offsetChatId: Long,
     offsetMessageId: Long,
     limit: Int,
+    filter: SearchMessagesFilter? = null,
+    minDate: Int,
+    maxDate: Int,
     stackIgnore: Int = 0,
     submit: (TdCallback<Messages>.() -> Unit)? = null
-) = send(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit), stackIgnore + 1, submit)
+) = send(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate), stackIgnore + 1, submit)
 
 /**
  * Searches for messages in secret chats
@@ -265,36 +351,37 @@ fun TdHandler.searchMessagesWith(
  *           Specify 0 to search in all secret chats
  * @query - Query to search for
  *          If empty, searchChatMessages should be used instead
- * @fromSearchId - The identifier from the result of a previous request, use 0 to get results from the last message
+ * @offset - Offset of the first entry to return as received from the previous request
+ *           Use empty string to get first chunk of results
  * @limit - The maximum number of messages to be returned
  *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
- * @filter - A filter for the content of messages in the search results
+ * @filter - A filter for message content in the search results
  */
 suspend fun TdHandler.searchSecretMessages(
     chatId: Long,
     query: String? = null,
-    fromSearchId: Long,
+    offset: String? = null,
     limit: Int,
     filter: SearchMessagesFilter? = null
-) = sync<FoundMessages>(SearchSecretMessages(chatId, query, fromSearchId, limit, filter))
+) = sync<FoundMessages>(SearchSecretMessages(chatId, query, offset, limit, filter))
 
 suspend fun TdHandler.searchSecretMessagesOrNull(
     chatId: Long,
     query: String? = null,
-    fromSearchId: Long,
+    offset: String? = null,
     limit: Int,
     filter: SearchMessagesFilter? = null
-) = syncOrNull<FoundMessages>(SearchSecretMessages(chatId, query, fromSearchId, limit, filter))
+) = syncOrNull<FoundMessages>(SearchSecretMessages(chatId, query, offset, limit, filter))
 
 fun TdHandler.searchSecretMessagesWith(
     chatId: Long,
     query: String? = null,
-    fromSearchId: Long,
+    offset: String? = null,
     limit: Int,
     filter: SearchMessagesFilter? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<FoundMessages>.() -> Unit)? = null
-) = send(SearchSecretMessages(chatId, query, fromSearchId, limit, filter), stackIgnore + 1, submit)
+) = send(SearchSecretMessages(chatId, query, offset, limit, filter), stackIgnore + 1, submit)
 
 /**
  * Searches for call messages
@@ -409,57 +496,72 @@ fun TdHandler.getChatScheduledMessagesWith(
 ) = send(GetChatScheduledMessages(chatId), stackIgnore + 1, submit)
 
 /**
- * Returns a public HTTPS link to a message
- * Available only for messages in supergroups and channels with a username
+ * Returns forwarded copies of a channel message to another public channels
+ * For optimal performance the number of returned messages is chosen by the library
  *
- * @chatId - Identifier of the chat to which the message belongs
- * @messageId - Identifier of the message
- * @forAlbum - Pass true if a link for a whole media album should be returned
+ * @chatId - Chat identifier of the message
+ * @messageId - Message identifier
+ * @offset - Offset of the first entry to return as received from the previous request
+ *           Use empty string to get first chunk of results
+ * @limit - The maximum number of messages to be returned
+ *          Must be positive and can't be greater than 100
+ *          Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached
  */
-suspend fun TdHandler.getPublicMessageLink(
+suspend fun TdHandler.getMessagePublicForwards(
     chatId: Long,
     messageId: Long,
-    forAlbum: Boolean
-) = sync<PublicMessageLink>(GetPublicMessageLink(chatId, messageId, forAlbum))
+    offset: String? = null,
+    limit: Int
+) = sync<FoundMessages>(GetMessagePublicForwards(chatId, messageId, offset, limit))
 
-suspend fun TdHandler.getPublicMessageLinkOrNull(
+suspend fun TdHandler.getMessagePublicForwardsOrNull(
     chatId: Long,
     messageId: Long,
-    forAlbum: Boolean
-) = syncOrNull<PublicMessageLink>(GetPublicMessageLink(chatId, messageId, forAlbum))
+    offset: String? = null,
+    limit: Int
+) = syncOrNull<FoundMessages>(GetMessagePublicForwards(chatId, messageId, offset, limit))
 
-fun TdHandler.getPublicMessageLinkWith(
+fun TdHandler.getMessagePublicForwardsWith(
     chatId: Long,
     messageId: Long,
-    forAlbum: Boolean,
+    offset: String? = null,
+    limit: Int,
     stackIgnore: Int = 0,
-    submit: (TdCallback<PublicMessageLink>.() -> Unit)? = null
-) = send(GetPublicMessageLink(chatId, messageId, forAlbum), stackIgnore + 1, submit)
+    submit: (TdCallback<FoundMessages>.() -> Unit)? = null
+) = send(GetMessagePublicForwards(chatId, messageId, offset, limit), stackIgnore + 1, submit)
 
 /**
- * Returns a private HTTPS link to a message in a chat
+ * Returns an HTTPS link to a message in a chat
  * Available only for already sent messages in supergroups and channels
- * The link will work only for members of the chat
+ * This is an offline request
  *
  * @chatId - Identifier of the chat to which the message belongs
  * @messageId - Identifier of the message
+ * @forAlbum - Pass true to create a link for the whole media album
+ * @forComment - Pass true to create a link to the message as a channel post comment, or from a message thread
  */
 suspend fun TdHandler.getMessageLink(
     chatId: Long,
-    messageId: Long
-) = sync<HttpUrl>(GetMessageLink(chatId, messageId))
+    messageId: Long,
+    forAlbum: Boolean,
+    forComment: Boolean
+) = sync<MessageLink>(GetMessageLink(chatId, messageId, forAlbum, forComment))
 
 suspend fun TdHandler.getMessageLinkOrNull(
     chatId: Long,
-    messageId: Long
-) = syncOrNull<HttpUrl>(GetMessageLink(chatId, messageId))
+    messageId: Long,
+    forAlbum: Boolean,
+    forComment: Boolean
+) = syncOrNull<MessageLink>(GetMessageLink(chatId, messageId, forAlbum, forComment))
 
 fun TdHandler.getMessageLinkWith(
     chatId: Long,
     messageId: Long,
+    forAlbum: Boolean,
+    forComment: Boolean,
     stackIgnore: Int = 0,
-    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
-) = send(GetMessageLink(chatId, messageId), stackIgnore + 1, submit)
+    submit: (TdCallback<MessageLink>.() -> Unit)? = null
+) = send(GetMessageLink(chatId, messageId, forAlbum, forComment), stackIgnore + 1, submit)
 
 /**
  * Returns information about a public or private message link
@@ -485,6 +587,7 @@ fun TdHandler.getMessageLinkInfoWith(
  * Returns the sent message
  *
  * @chatId - Target chat
+ * @messageThreadId - If not 0, a message thread identifier in which the message will be sent
  * @replyToMessageId - Identifier of the message to reply to or 0
  * @options - Options to be used to send the message
  * @replyMarkup - Markup for replying to the message
@@ -493,29 +596,32 @@ fun TdHandler.getMessageLinkInfoWith(
  */
 suspend fun TdHandler.sendMessage(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(SendMessage(chatId, replyToMessageId, options, replyMarkup, inputMessageContent))
+) = sync<Message>(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
 
 suspend fun TdHandler.sendMessageOrNull(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(SendMessage(chatId, replyToMessageId, options, replyMarkup, inputMessageContent))
+) = syncOrNull<Message>(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
 
 fun TdHandler.sendMessageWith(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<Message>.() -> Unit)? = null
-) = send(SendMessage(chatId, replyToMessageId, options, replyMarkup, inputMessageContent), stackIgnore + 1, submit)
+) = send(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent), stackIgnore + 1, submit)
 
 /**
  * Sends messages grouped together into an album
@@ -523,32 +629,36 @@ fun TdHandler.sendMessageWith(
  * Returns sent messages
  *
  * @chatId - Target chat
+ * @messageThreadId - If not 0, a message thread identifier in which the messages will be sent
  * @replyToMessageId - Identifier of a message to reply to or 0
  * @options - Options to be used to send the messages
  * @inputMessageContents - Contents of messages to be sent
  */
 suspend fun TdHandler.sendMessageAlbum(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     inputMessageContents: Array<InputMessageContent>
-) = sync<Messages>(SendMessageAlbum(chatId, replyToMessageId, options, inputMessageContents))
+) = sync<Messages>(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
 
 suspend fun TdHandler.sendMessageAlbumOrNull(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     inputMessageContents: Array<InputMessageContent>
-) = syncOrNull<Messages>(SendMessageAlbum(chatId, replyToMessageId, options, inputMessageContents))
+) = syncOrNull<Messages>(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
 
 fun TdHandler.sendMessageAlbumWith(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     inputMessageContents: Array<InputMessageContent>,
     stackIgnore: Int = 0,
     submit: (TdCallback<Messages>.() -> Unit)? = null
-) = send(SendMessageAlbum(chatId, replyToMessageId, options, inputMessageContents), stackIgnore + 1, submit)
+) = send(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents), stackIgnore + 1, submit)
 
 /**
  * Invites a bot to a chat (if it is not yet a member) and sends it the /start command
@@ -586,6 +696,7 @@ fun TdHandler.sendBotStartMessageWith(
  * Always clears a chat draft message
  *
  * @chatId - Target chat
+ * @messageThreadId - If not 0, a message thread identifier in which the message will be sent
  * @replyToMessageId - Identifier of a message to reply to or 0
  * @options - Options to be used to send the message
  * @queryId - Identifier of the inline query
@@ -595,24 +706,27 @@ fun TdHandler.sendBotStartMessageWith(
  */
 suspend fun TdHandler.sendInlineQueryResultMessage(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     queryId: Long,
     resultId: String? = null,
     hideViaBot: Boolean
-) = sync<Message>(SendInlineQueryResultMessage(chatId, replyToMessageId, options, queryId, resultId, hideViaBot))
+) = sync<Message>(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
 
 suspend fun TdHandler.sendInlineQueryResultMessageOrNull(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     queryId: Long,
     resultId: String? = null,
     hideViaBot: Boolean
-) = syncOrNull<Message>(SendInlineQueryResultMessage(chatId, replyToMessageId, options, queryId, resultId, hideViaBot))
+) = syncOrNull<Message>(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
 
 fun TdHandler.sendInlineQueryResultMessageWith(
     chatId: Long,
+    messageThreadId: Long,
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     queryId: Long,
@@ -620,7 +734,7 @@ fun TdHandler.sendInlineQueryResultMessageWith(
     hideViaBot: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Message>.() -> Unit)? = null
-) = send(SendInlineQueryResultMessage(chatId, replyToMessageId, options, queryId, resultId, hideViaBot), stackIgnore + 1, submit)
+) = send(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot), stackIgnore + 1, submit)
 
 /**
  * Forwards previously sent messages
@@ -630,12 +744,11 @@ fun TdHandler.sendInlineQueryResultMessageWith(
  * @chatId - Identifier of the chat to which to forward messages
  * @fromChatId - Identifier of the chat from which to forward messages
  * @messageIds - Identifiers of the messages to forward
+ *               Message identifiers must be in a strictly increasing order
  * @options - Options to be used to send the messages
- * @asAlbum - True, if the messages should be grouped into an album after forwarding
- *            For this to work, no more than 10 messages may be forwarded, and all of them must be photo or video messages
  * @sendCopy - True, if content of the messages needs to be copied without links to the original messages
  *             Always true if the messages are forwarded to a secret chat
- * @removeCaption - True, if media captions of message copies needs to be removed
+ * @removeCaption - True, if media caption of message copies needs to be removed
  *                  Ignored if send_copy is false
  */
 suspend fun TdHandler.forwardMessages(
@@ -643,32 +756,29 @@ suspend fun TdHandler.forwardMessages(
     fromChatId: Long,
     messageIds: LongArray,
     options: MessageSendOptions? = null,
-    asAlbum: Boolean,
     sendCopy: Boolean,
     removeCaption: Boolean
-) = sync<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, asAlbum, sendCopy, removeCaption))
+) = sync<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
 
 suspend fun TdHandler.forwardMessagesOrNull(
     chatId: Long,
     fromChatId: Long,
     messageIds: LongArray,
     options: MessageSendOptions? = null,
-    asAlbum: Boolean,
     sendCopy: Boolean,
     removeCaption: Boolean
-) = syncOrNull<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, asAlbum, sendCopy, removeCaption))
+) = syncOrNull<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
 
 fun TdHandler.forwardMessagesWith(
     chatId: Long,
     fromChatId: Long,
     messageIds: LongArray,
     options: MessageSendOptions? = null,
-    asAlbum: Boolean,
     sendCopy: Boolean,
     removeCaption: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Messages>.() -> Unit)? = null
-) = send(ForwardMessages(chatId, fromChatId, messageIds, options, asAlbum, sendCopy, removeCaption), stackIgnore + 1, submit)
+) = send(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption), stackIgnore + 1, submit)
 
 /**
  * Resends messages which failed to send
@@ -1031,28 +1141,32 @@ fun TdHandler.setGameScoreWith(
  * Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels)
  *
  * @chatId - Chat identifier
+ * @messageThreadId - If not 0, a message thread identifier in which the messages are being viewed
  * @messageIds - The identifiers of the messages being viewed
- * @forceRead - True, if messages in closed chats should be marked as read
+ * @forceRead - True, if messages in closed chats should be marked as read by the request
  */
 suspend fun TdHandler.viewMessages(
     chatId: Long,
+    messageThreadId: Long,
     messageIds: LongArray,
     forceRead: Boolean
-) = sync<Ok>(ViewMessages(chatId, messageIds, forceRead))
+) = sync<Ok>(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
 
 suspend fun TdHandler.viewMessagesOrNull(
     chatId: Long,
+    messageThreadId: Long,
     messageIds: LongArray,
     forceRead: Boolean
-) = syncOrNull<Ok>(ViewMessages(chatId, messageIds, forceRead))
+) = syncOrNull<Ok>(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
 
 fun TdHandler.viewMessagesWith(
     chatId: Long,
+    messageThreadId: Long,
     messageIds: LongArray,
     forceRead: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(ViewMessages(chatId, messageIds, forceRead), stackIgnore + 1, submit)
+) = send(ViewMessages(chatId, messageThreadId, messageIds, forceRead), stackIgnore + 1, submit)
 
 /**
  * Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message)
@@ -1096,3 +1210,31 @@ fun TdHandler.clearAllDraftMessagesWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ClearAllDraftMessages(excludeSecretChats), stackIgnore + 1, submit)
+
+/**
+ * Returns detailed statistics about a message
+ * Can be used only if Message.can_get_statistics == true
+ *
+ * @chatId - Chat identifier
+ * @messageId - Message identifier
+ * @isDark - Pass true if a dark theme is used by the application
+ */
+suspend fun TdHandler.getMessageStatistics(
+    chatId: Long,
+    messageId: Long,
+    isDark: Boolean
+) = sync<MessageStatistics>(GetMessageStatistics(chatId, messageId, isDark))
+
+suspend fun TdHandler.getMessageStatisticsOrNull(
+    chatId: Long,
+    messageId: Long,
+    isDark: Boolean
+) = syncOrNull<MessageStatistics>(GetMessageStatistics(chatId, messageId, isDark))
+
+fun TdHandler.getMessageStatisticsWith(
+    chatId: Long,
+    messageId: Long,
+    isDark: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<MessageStatistics>.() -> Unit)? = null
+) = send(GetMessageStatistics(chatId, messageId, isDark), stackIgnore + 1, submit)

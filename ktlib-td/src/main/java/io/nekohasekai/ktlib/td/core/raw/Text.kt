@@ -6,6 +6,34 @@ import td.TdApi.*
 import io.nekohasekai.ktlib.td.core.*
 
 /**
+ * Returns an HTML code for embedding the message
+ * Available only for messages in supergroups and channels with a username
+ *
+ * @chatId - Identifier of the chat to which the message belongs
+ * @messageId - Identifier of the message
+ * @forAlbum - Pass true to return an HTML code for embedding of the whole media album
+ */
+suspend fun TdHandler.getMessageEmbeddingCode(
+    chatId: Long,
+    messageId: Long,
+    forAlbum: Boolean
+) = sync<Text>(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
+
+suspend fun TdHandler.getMessageEmbeddingCodeOrNull(
+    chatId: Long,
+    messageId: Long,
+    forAlbum: Boolean
+) = syncOrNull<Text>(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
+
+fun TdHandler.getMessageEmbeddingCodeWith(
+    chatId: Long,
+    messageId: Long,
+    forAlbum: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Text>.() -> Unit)? = null
+) = send(GetMessageEmbeddingCode(chatId, messageId, forAlbum), stackIgnore + 1, submit)
+
+/**
  * Returns an IETF language tag of the language preferred in the country, which should be used to fill native fields in Telegram Passport personal details
  * Returns a 404 error if unknown
  *
