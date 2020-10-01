@@ -4,21 +4,17 @@ package io.nekohasekai.ktlib.td.utils
 
 import cn.hutool.core.builder.Builder
 import cn.hutool.core.util.ArrayUtil
-import io.nekohasekai.ktlib.core.WriteOnlyField
-import io.nekohasekai.ktlib.core.applyIfNot
-import io.nekohasekai.ktlib.core.parse
+import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.td.core.TdException
 import io.nekohasekai.ktlib.td.core.TdHandler
-import io.nekohasekai.ktlib.td.extensions.mkData
 import io.nekohasekai.ktlib.td.core.raw.parseMarkdown
 import io.nekohasekai.ktlib.td.core.raw.parseTextEntities
+import io.nekohasekai.ktlib.td.extensions.mkData
 import kotlinx.coroutines.CoroutineScope
 import td.TdApi.*
 import java.io.File
 import java.util.*
-import kotlin.coroutines.Continuation
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import kotlin.coroutines.*
 import kotlin.properties.Delegates
 
 val String.asText: FormattedText get() = FormattedText(this, arrayOf())
@@ -390,10 +386,19 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
     lateinit var input: InputMessageContent
 
     var replyToMessageId = 0L
+    var messageThreadId: Number = 0L
 
     infix fun replyAt(replyToMessageId: Long): MessageFactory {
 
         this.replyToMessageId = replyToMessageId
+
+        return this
+
+    }
+
+    infix fun messageThread(messageThreadId: Number): MessageFactory {
+
+        this.messageThreadId = messageThreadId
 
         return this
 
@@ -709,8 +714,8 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    infix fun mkSend(chatId: Number) = SendMessage(chatId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
-    fun mkSend() = SendMessage(chatId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
+    infix fun mkSend(chatId: Number) = SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
+    fun mkSend() = SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
     fun mkEdit(chatId: Number, messageId: Long) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
     infix fun mkEditTo(chatId: Number) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
     infix fun mkEditAt(messageId: Long) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
@@ -754,7 +759,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
         val successCallback = onSuccess
         val failureCallback = onFailure
 
-        context.send<Message>(SendMessage(chatId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input), 1) {
+        context.send<Message>(SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input), 1) {
 
             onSuccess = successCallback
 

@@ -30,6 +30,7 @@ infix fun TdHandler.make(action: ChatAction): ChatActionFactory {
 class ChatActionFactory(val context: TdHandler, val action: ChatAction) {
 
     lateinit var chatId: Number
+    var threadId: Number = 0
 
     infix fun to(chatId: Number): ChatActionFactory {
 
@@ -39,21 +40,29 @@ class ChatActionFactory(val context: TdHandler, val action: ChatAction) {
 
     }
 
+    infix fun threadId(threadId: Number): ChatActionFactory {
+
+        this.threadId = threadId
+
+        return this
+
+    }
+
     suspend infix fun syncTo(chatId: Number) {
 
-        context.sendChatAction(chatId.toLong(), action)
+        context.sendChatAction(chatId.toLong(), threadId.toLong(), action)
 
     }
 
     infix fun sendTo(chatId: Number) {
 
-        context.sendChatActionWith(chatId.toLong(), action, 1)
+        context.sendChatActionWith(chatId.toLong(), threadId.toLong(), action, 1)
 
     }
 
     infix fun send(block: suspend CoroutineScope.(Ok) -> Unit) {
 
-        context.sendChatActionWith(chatId.toLong(), action, 1) { onSuccess(block) }
+        context.sendChatActionWith(chatId.toLong(), threadId.toLong(), action, 1) { onSuccess(block) }
 
     }
 

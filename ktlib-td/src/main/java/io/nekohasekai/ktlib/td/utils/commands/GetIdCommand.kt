@@ -38,29 +38,7 @@ class GetIdCommand : TdHandler() {
 
             if (!isBot && message.replyToMessageId != 0L) {
 
-                var msg = "${"ChatId".htmlBold}: ${chatId.htmlCode}"
-
-                val replyToMessage = getMessageOrNull(chatId, message.replyToMessageId)
-
-                val sender = if (replyToMessage != null) {
-
-                    getChannelMessageSender(replyToMessage)
-
-                } else 0
-
-                if (sender != 0) {
-
-                    getUserOrNull(sender)?.also {
-
-                        msg += "\n${"SenderUser".htmlBold}: ${it.htmlInlineMention}"
-
-                    }
-
-                    msg += "\n${"SenderUserId".htmlBold}: ${sender.htmlCode}"
-
-                }
-
-                reply(msg)
+                reply("${"ChatId".htmlBold}: ${chatId.htmlCode}")
 
             } else {
 

@@ -152,11 +152,11 @@ suspend fun TdHandler.fetchUserMessages(chatId: Long, userId: Int, startsAt: Lon
 
     while (true) {
 
-        messages = if (nextMessages.isNotEmpty()) nextMessages else searchChatMessages(chatId, "", userId, messageId, 0, 100).messages
+        messages = if (nextMessages.isNotEmpty()) nextMessages else searchChatMessages(chatId, "", userId, messageId, 0, 100, null, 0).messages
 
         messageId = messages[messages.size - 1].id
 
-        nextMessages = searchChatMessages(chatId, "", userId, messageId, 0, 100).messages
+        nextMessages = searchChatMessages(chatId, "", userId, messageId, 0, 100, null, 0).messages
 
         if (!listener(messages)) break
 
