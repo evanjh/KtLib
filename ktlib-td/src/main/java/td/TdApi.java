@@ -3365,44 +3365,67 @@ public class TdApi {
 
 
     /**
+     * Contains information about message replies
+     *
+     * @replyCount - Number of times the message was directly or indirectly replied
+     * @recentReplierUserIds - User identifiers of the recent repliers to the message
+     *                         Available in channels with a discussion supergroup
+     * @lastReadInboxMessageId - Identifier of the last read incoming reply to the message
+     * @lastReadOutboxMessageId - Identifier of the last read outgoing reply to the message
+     * @lastMessageId - Identifier of the last reply to the message
+     */
+    public static class MessageReplyInfo extends Object {
+
+        public int replyCount;
+        public int[] recentReplierUserIds;
+        public long lastReadInboxMessageId;
+        public long lastReadOutboxMessageId;
+        public long lastMessageId;
+
+        public MessageReplyInfo() {}
+
+        public MessageReplyInfo(int replyCount, int[] recentReplierUserIds, long lastReadInboxMessageId, long lastReadOutboxMessageId, long lastMessageId) {
+
+            this.replyCount = replyCount;
+            this.recentReplierUserIds = recentReplierUserIds;
+            this.lastReadInboxMessageId = lastReadInboxMessageId;
+            this.lastReadOutboxMessageId = lastReadOutboxMessageId;
+            this.lastMessageId = lastMessageId;
+
+        }
+
+        @Override
+        public int getConstructor() { return -67189409; }
+
+    }
+
+
+    /**
      * Contains information about interactions with a message
      *
      * @viewCount - Number of times the message was viewed
      * @forwardCount - Number of times the message was forwarded
-     * @replyCount - Number of times the message was directly or indirectly replied
-     *               Available in discussion supergroups and channels with a discussion supergroup
-     * @recentReplierUserIds - User identifiers of the recent repliers to the message
-     *                         Available in channels with a discussion supergroup
-     * @lastReadInboxCommentMessageId - Identifier of the last read incoming comment to the message
-     * @lastReadOutboxCommentMessageId - Identifier of the last read outgoing comment to the message
-     * @lastCommentMessageId - Identifier of the last comment to the message
+     * @replyInfo - Contains information about direct or indirect replies to the message
+     *              Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself
      */
     public static class MessageInteractionInfo extends Object {
 
         public int viewCount;
         public int forwardCount;
-        public int replyCount;
-        public int[] recentReplierUserIds;
-        public long lastReadInboxCommentMessageId;
-        public long lastReadOutboxCommentMessageId;
-        public long lastCommentMessageId;
+        @Nullable public MessageReplyInfo replyInfo;
 
         public MessageInteractionInfo() {}
 
-        public MessageInteractionInfo(int viewCount, int forwardCount, int replyCount, int[] recentReplierUserIds, long lastReadInboxCommentMessageId, long lastReadOutboxCommentMessageId, long lastCommentMessageId) {
+        public MessageInteractionInfo(int viewCount, int forwardCount, @Nullable MessageReplyInfo replyInfo) {
 
             this.viewCount = viewCount;
             this.forwardCount = forwardCount;
-            this.replyCount = replyCount;
-            this.recentReplierUserIds = recentReplierUserIds;
-            this.lastReadInboxCommentMessageId = lastReadInboxCommentMessageId;
-            this.lastReadOutboxCommentMessageId = lastReadOutboxCommentMessageId;
-            this.lastCommentMessageId = lastCommentMessageId;
+            this.replyInfo = replyInfo;
 
         }
 
         @Override
-        public int getConstructor() { return -953354030; }
+        public int getConstructor() { return -620714966; }
 
     }
 
@@ -13066,7 +13089,7 @@ public class TdApi {
      * The payload for a callback button requiring password
      *
      * @password - The password for the current user
-     * @data Data that was attached to the callback button
+     * @data - Data that was attached to the callback button
      */
     public static class CallbackQueryPayloadDataWithPassword extends CallbackQueryPayload {
 
