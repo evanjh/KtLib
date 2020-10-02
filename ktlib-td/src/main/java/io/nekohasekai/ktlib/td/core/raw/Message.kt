@@ -498,6 +498,7 @@ fun TdHandler.getChatScheduledMessagesWith(
 /**
  * Returns forwarded copies of a channel message to another public channels
  * For optimal performance the number of returned messages is chosen by the library
+ * The method is under development and may or may not work
  *
  * @chatId - Chat identifier of the message
  * @messageId - Message identifier
@@ -1214,6 +1215,7 @@ fun TdHandler.clearAllDraftMessagesWith(
 /**
  * Returns detailed statistics about a message
  * Can be used only if Message.can_get_statistics == true
+ * The method is under development and may or may not work
  *
  * @chatId - Chat identifier
  * @messageId - Message identifier

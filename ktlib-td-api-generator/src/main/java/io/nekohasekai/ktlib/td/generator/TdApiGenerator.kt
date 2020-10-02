@@ -14,7 +14,7 @@ object TdApiGenerator {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        val scheme = "https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl"
+        val scheme = "https://raw.githubusercontent.com/TdBotProject/td/master/td/generate/scheme/td_api.tl"
 
         val file = File("ktlib-td-api-generator/td_api.tl")
 
