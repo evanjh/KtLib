@@ -6,7 +6,6 @@ import cn.hutool.cache.impl.LFUCache
 import cn.hutool.core.date.SystemClock
 import cn.hutool.core.thread.ThreadUtil
 import cn.hutool.core.util.RuntimeUtil
-import com.esotericsoftware.kryo.KryoException
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.db.DatabaseDispatcher
 import io.nekohasekai.ktlib.db.openSqliteDatabase
@@ -484,11 +483,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         if (payload is CallbackQueryPayloadGame) return
 
+        payload as CallbackQueryPayloadData
+
         var dataArray = try {
 
-            (payload as CallbackQueryPayloadData).data.readData(true)
+            payload.data.readData(true)
 
-        } catch (e: KryoException) {
+        } catch (e: Throwable) {
 
             userCalled(senderUserId, "unknown callback")
 
@@ -540,7 +541,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             payload.data.readData(true)
 
-        } catch (e: KryoException) {
+        } catch (e: Throwable) {
 
             userCalled(senderUserId, "unknown callback")
 
