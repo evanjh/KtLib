@@ -58,7 +58,7 @@ suspend fun TdHandler.checkChatAdmin(chatId: Long, userId: Int, message: TdApi.M
 
         }
 
-    } sendTo chatId
+    } sendTo (message?.chatId ?: chatId)
 
     return true
 

@@ -263,7 +263,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         }
 
-        if (!sudo.waitForAuth() || userId == me.id && skipSelfMessage || userBlocked(userId)) return
+        if (!sudo.waitForAuth() || userId == me.id && skipSelfMessage && !message.isServiceMessage || userBlocked(userId)) return
 
         val persist = if (message.fromPrivate) persists.read(userId) else null
 
@@ -529,14 +529,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         payload as CallbackQueryPayloadData
 
-        if (payload.data.size == 1 && payload.data[0].toInt() == -1) {
-
-            sudo confirmTo id
-
-            return
-
-        }
-
         var dataArray = try {
 
             payload.data.readData(true)
@@ -552,6 +544,14 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         }
 
         val dataId = dataArray[0].toLong()
+
+        if (dataId == -1L) {
+
+            sudo confirmTo id
+
+            return
+
+        }
 
         dataArray = dataArray.shift()
 

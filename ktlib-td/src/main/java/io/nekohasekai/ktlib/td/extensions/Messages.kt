@@ -2,8 +2,11 @@
 
 package io.nekohasekai.ktlib.td.extensions
 
+import io.nekohasekai.ktlib.td.core.TdHandler
+import io.nekohasekai.ktlib.td.core.raw.getChat
 import td.TdApi.*
 
+val Message.fromAnonymous get() = fromSuperGroup && senderChatId == chatId
 val Message.fromPrivate get() = chatId > 0L
 val Message.fromBasicGroup get() = chatId > -1000000000000L && chatId < 0
 val Message.fromSuperGroup get() = chatId < -1000000000000L && !isChannelPost
