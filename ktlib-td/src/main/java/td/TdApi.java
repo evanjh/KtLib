@@ -2474,6 +2474,7 @@ public class TdApi {
      * @customTitle - A custom title of the owner
      *                Applicable to supergroups only
      * @isAnonymous - True, if the creator isn't shown in the chat member list and sends messages anonymously
+     *                Applicable to supergroups only
      * @isMember - True, if the user is a member of the chat
      */
     public static class ChatMemberStatusCreator extends ChatMemberStatus {
@@ -2518,6 +2519,7 @@ public class TdApi {
      *                   Applicable to groups only
      * @canPromoteMembers - True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them
      * @isAnonymous - True, if the administrator isn't shown in the chat member list and sends messages anonymously
+     *                Applicable to supergroups only
      */
     public static class ChatMemberStatusAdministrator extends ChatMemberStatus {
 
@@ -5016,6 +5018,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat to which the message thread belongs
      * @messageThreadId - Message thread identifier, unique within the chat
+     * @replyInfo - Contains information about the message thread
      * @messages - The messages from which the thread starts
      *             The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id)
      * @draftMessage - A draft of a message in the message thread
@@ -5024,22 +5027,24 @@ public class TdApi {
 
         public long chatId;
         public long messageThreadId;
+        public MessageReplyInfo replyInfo;
         public Message[] messages;
         @Nullable public DraftMessage draftMessage;
 
         public MessageThreadInfo() {}
 
-        public MessageThreadInfo(long chatId, long messageThreadId, Message[] messages, @Nullable DraftMessage draftMessage) {
+        public MessageThreadInfo(long chatId, long messageThreadId, MessageReplyInfo replyInfo, Message[] messages, @Nullable DraftMessage draftMessage) {
 
             this.chatId = chatId;
             this.messageThreadId = messageThreadId;
+            this.replyInfo = replyInfo;
             this.messages = messages;
             this.draftMessage = draftMessage;
 
         }
 
         @Override
-        public int getConstructor() { return -800726069; }
+        public int getConstructor() { return -65494328; }
 
     }
 
