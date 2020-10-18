@@ -583,6 +583,16 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
+    override suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+
+        if (!message.fromPrivate) return
+
+        onLaunch(userId, chatId, message)
+
+        finishEvent()
+
+    }
+
     override suspend fun onAuthorizationState(authorizationState: AuthorizationState) = coroutineScope {
 
         when (authorizationState) {
