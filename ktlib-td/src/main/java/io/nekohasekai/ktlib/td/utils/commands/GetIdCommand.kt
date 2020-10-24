@@ -3,10 +3,10 @@
 package io.nekohasekai.ktlib.td.utils.commands
 
 import io.nekohasekai.ktlib.td.core.TdHandler
-import io.nekohasekai.ktlib.td.core.raw.getMessageOrNull
-import io.nekohasekai.ktlib.td.core.raw.getUserOrNull
+import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.extensions.*
-import io.nekohasekai.ktlib.td.utils.*
+import io.nekohasekai.ktlib.td.utils.isMyMessage
+import io.nekohasekai.ktlib.td.utils.make
 
 class GetIdCommand : TdHandler() {
 
@@ -20,65 +20,52 @@ class GetIdCommand : TdHandler() {
 
         if (!isBot && !isMyMessage(message)) return
 
-        suspend fun reply(id: Any) {
+        if (message.fromChannel || message.fromPrivate) {
 
-            if (message.canBeEdited) {
-
-                sudo makeHtml id.toString() syncEditTo message
-
-            } else {
-
-                sudo makeHtml id.toString() syncReplyTo message
-
-            }
-
-        }
-
-        if (message.fromChannel) {
-
-            if (!isBot && message.replyToMessageId != 0L) {
-
-                reply("${"ChatId".htmlBold}: ${chatId.htmlCode}")
-
-            } else {
-
-                reply(chatId)
-
-            }
-
-        } else if (message.fromPrivate) {
-
-            reply(userId)
+            sudo make "$chatId" editOrSendToChat message
 
         } else {
 
-            if (!isBot && message.replyToMessageId != 0L) {
+            var text = ""
 
-                var msg = "${"ChatId".htmlBold}: ${chatId.htmlCode}"
+            fun append(name: String, content: Any, newLine: Boolean = false) {
 
-                val replyToMessage = getMessageOrNull(chatId, message.replyToMessageId)
+                text += name.htmlBold + ": $content\n"
 
-                val sender = if (replyToMessage != null) getChannelMessageSender(replyToMessage) else 0
+                if (newLine) text += "\n"
 
-                if (sender != 0) {
+            }
 
-                    getUserOrNull(sender)?.also {
+            append("Chat", getChat(chatId).title.htmlCode)
+            append("Id", chatId.htmlCode, true)
 
-                        msg += "\n${"SenderUser".htmlBold}: ${it.htmlInlineMention}"
+            append("Sender", getUser(userId).htmlInlineMention)
+            append("Id", userId.htmlCode)
 
+            if (message.replyToMessageId != 0L) {
+
+                val replyTo = getMessageOrNull(chatId, message.replyToMessageId)
+
+                if (replyTo != null) {
+
+                    when (replyTo.senderChatId) {
+
+                        0L -> {
+
+                            append("ReplyTo", getUser(replyTo.senderUserId).htmlInlineMention)
+                            append("Id", replyTo.senderUserId.htmlCode)
+
+                        }
+
+                        message.chatId -> append("ReplyTo", "AnonymousAdmin")
+                        else -> append("ReplyTo", "Channel")
                     }
-
-                    msg += "\n${"SenderUserId".htmlBold}: ${sender.htmlCode}"
 
                 }
 
-                reply(msg)
-
-            } else {
-
-                reply(chatId)
-
             }
+
+            sudo make text replyTo message
 
         }
 

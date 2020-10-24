@@ -2,7 +2,7 @@ package io.nekohasekai.ktlib.td.core.persists
 
 import cn.hutool.core.date.SystemClock
 
-class TdPersist(
+data class TdPersist(
 
         var userId: Int,
         var persistId: Int,

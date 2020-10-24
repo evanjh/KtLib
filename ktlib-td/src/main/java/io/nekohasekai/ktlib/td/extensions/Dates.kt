@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION", "unused")
+@file:Suppress("unused")
 
 package io.nekohasekai.ktlib.td.extensions
 
@@ -8,38 +8,27 @@ import io.nekohasekai.ktlib.core.input
 import io.nekohasekai.ktlib.td.i18n.*
 import java.util.*
 
-fun nextHour(): Long {
+const val Seconds = 1000L
+const val Minutes = Seconds * 60L
+const val Hours = Minutes * 60L
+const val Days = Hours * 24L
 
-    val nextHour = Date()
+fun pastHours() = Calendar.getInstance()[Calendar.HOUR_OF_DAY]
 
-    nextHour.hours = nextHour.hours + 1
+fun currentHours(): Long {
 
-    nextHour.minutes = 0
-    nextHour.seconds = 0
+    val calendar = Calendar.getInstance()
 
-    return nextHour.time
+    calendar[Calendar.SECOND] = 0
+
+    return calendar.timeInMillis
 
 }
 
-fun nextHalfHour(): Long {
 
-    val nextHour = Date()
+fun nextHour(hours: Float = 1f): Long {
 
-    nextHour.hours = nextHour.hours + 1
-
-    if (nextHour.minutes < 30) {
-
-        nextHour.minutes = 0
-
-    } else {
-
-        nextHour.minutes = 30
-
-    }
-
-    nextHour.seconds = 0
-
-    return nextHour.time
+    return currentHours() + (Hours * hours).toInt()
 
 }
 

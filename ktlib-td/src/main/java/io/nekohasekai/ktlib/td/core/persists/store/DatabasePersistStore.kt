@@ -102,23 +102,13 @@ class DatabasePersistStore @JvmOverloads constructor(database: DatabaseDispatche
 
     override fun persistSave(client: TdClient, persist: TdPersist) {
 
-        with(fetch(persist.userId)) {
-
-            value = persist
-            changed = true
-
-        }
+        fetch(persist.userId).set(persist)
 
     }
 
     override fun persistRemove(client: TdClient, userId: Int) {
 
-        with(fetch(userId)) {
-
-            value = null
-            changed = true
-
-        }
+        fetch(userId).set(null)
 
     }
 

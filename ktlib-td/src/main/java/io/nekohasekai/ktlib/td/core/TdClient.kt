@@ -7,8 +7,6 @@ import cn.hutool.core.date.SystemClock
 import cn.hutool.core.thread.ThreadUtil
 import cn.hutool.core.util.RuntimeUtil
 import io.nekohasekai.ktlib.core.*
-import io.nekohasekai.ktlib.db.DatabaseDispatcher
-import io.nekohasekai.ktlib.db.openSqliteDatabase
 import io.nekohasekai.ktlib.td.core.persists.store.PersistStore
 import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.extensions.*
@@ -17,7 +15,6 @@ import io.nekohasekai.ktlib.td.utils.make
 import kotlinx.coroutines.*
 import td.TdApi.*
 import td.TdNative
-import java.io.File
 import java.math.BigInteger
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
@@ -92,25 +89,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    private lateinit var _database: DatabaseDispatcher
-    override val database by ::_database
-
-    fun initDatabase(dbName: String = "td_data.db", directory: String = options.databaseDirectory): DatabaseDispatcher {
-
-        synchronized(::database) {
-
-            if (!::_database.isInitialized) {
-
-                _database = openSqliteDatabase(File(directory, dbName))
-
-            }
-
-        }
-
-        return database
-
-    }
-
     override suspend fun gc() {
 
         persists.gc()
@@ -119,9 +97,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun onDestroy() {
+    override suspend fun saveCache() {
 
         persists.saveAll()
+
+        handlers.toLinkedList().filter { it != this }.forEach { it.saveCache() }
 
     }
 
@@ -236,6 +216,12 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             handlers.toLinkedList().forEach { it.onDestroy() }
 
         }
+
+    }
+
+    override suspend fun onDestroy() {
+
+        saveCache()
 
     }
 

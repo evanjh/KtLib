@@ -5,7 +5,7 @@ package io.nekohasekai.ktlib.td.i18n.store
 import io.nekohasekai.ktlib.db.*
 import org.jetbrains.exposed.sql.*
 
-class DatabaseLocaleStore @JvmOverloads constructor(database: DatabaseDispatcher, tableName: String = "td_locales", cacheTime: Long = 6 * 60 * 60 * 1000L) : DatabaseCacheMap<Long, Int>(database, 0, cacheTime), LocaleStore {
+class DatabaseLocaleStore @JvmOverloads constructor(database: DatabaseDispatcher, tableName: String = "td_locales", capability: Int = 0, cacheTime: Long = 0L) : DatabaseCacheMap<Long, Int>(database, capability, cacheTime), LocaleStore {
 
     private val table = LocaleTable(tableName)
 
@@ -53,16 +53,8 @@ class DatabaseLocaleStore @JvmOverloads constructor(database: DatabaseDispatcher
 
     override fun localeSave(chatId: Long, localeId: Int) {
 
-        with(fetch(chatId)) {
-
-            value = localeId
-
-            changed = true
-
-        }
+        fetch(chatId).set(localeId)
 
     }
-
-    override fun localeGc() = gc()
 
 }

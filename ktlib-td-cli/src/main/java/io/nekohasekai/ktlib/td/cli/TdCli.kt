@@ -3,10 +3,12 @@
 package io.nekohasekai.ktlib.td.cli
 
 import cn.hutool.core.codec.Base64
+import cn.hutool.core.date.SystemClock
 import cn.hutool.core.io.FileUtil
 import cn.hutool.core.lang.Console
 import cn.hutool.core.util.StrUtil
 import io.nekohasekai.ktlib.core.*
+import io.nekohasekai.ktlib.db.*
 import io.nekohasekai.ktlib.td.core.*
 import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.extensions.*
@@ -18,9 +20,10 @@ import org.apache.commons.lang3.SystemUtils
 import org.yaml.snakeyaml.Yaml
 import td.TdApi
 import java.io.File
+import kotlin.concurrent.timerTask
 import kotlin.system.exitProcess
 
-open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
+open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), DatabaseInterface {
 
     lateinit var arguments: Array<String>
 
@@ -75,6 +78,11 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
     fun stringConfig(key: String) = config[key]?.toString() ?: if (readConfigFromEnvironment) {
         SystemUtils.getEnvironmentVariable(key, null)
     } else null
+
+    fun boolConfig(key: String, default: Boolean = false) = ((config[key]?.toString()
+            ?: if (readConfigFromEnvironment) {
+                SystemUtils.getEnvironmentVariable(key, null)
+            } else null)?.toLowerCase() == "true") xor default
 
     fun listConfig(key: String) = (config[key] as? List<*>)?.map { it.toString() } ?: if (readConfigFromEnvironment) {
         SystemUtils.getEnvironmentVariable(key, null)?.split(" ")
@@ -270,6 +278,65 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
 
     }
 
+    private lateinit var _database: DatabaseDispatcher
+    override val database by ::_database
+
+    fun initDatabase(dbName: String = "td_data.db", directory: String = options.databaseDirectory): DatabaseDispatcher {
+
+        synchronized(::database) {
+
+            if (!::_database.isInitialized) {
+
+                _database = openSqliteDatabase(File(directory, dbName))
+
+            }
+
+        }
+
+        return database
+
+    }
+
+    override suspend fun gc() {
+
+        if (::_database.isInitialized) database.saveAndGc()
+
+        super.gc()
+
+    }
+
+    override suspend fun saveCache() {
+
+        if (::_database.isInitialized) database.saveCache()
+
+        super.saveCache()
+
+    }
+
+    fun scheduleGcAndOptimize(saveDelay: Long = 1L * Hours, gcDelay: Long = 1 * Days) {
+
+        timer.scheduleAtFixedRate(timerTask {
+
+            GlobalScope.launch(Dispatchers.Default) {
+
+                saveCache()
+
+            }
+
+        }, SystemClock.now() + saveDelay, saveDelay)
+
+        timer.scheduleAtFixedRate(timerTask {
+
+            GlobalScope.launch(Dispatchers.Default) {
+
+                gc()
+
+            }
+
+        }, SystemClock.now() + gcDelay, gcDelay)
+
+    }
+
     open fun onLoadConfig() {
 
         loadLogLevel()
@@ -285,6 +352,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
     override val skipSelfMessage by lazy { loginType == LoginType.BOT }
 
     override fun onLoad() {
+
+        if (boolConfig("USE_TEST_DC")) options useTestDc true
 
         val apiId = intConfig("API_ID")
 
@@ -485,7 +554,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name) {
 
                         try {
 
-                            deleteAccount("PASSWORD FORGETTED")
+                            deleteAccount("PASSWORD FORGOTTEN")
 
                             println("已删除")
 

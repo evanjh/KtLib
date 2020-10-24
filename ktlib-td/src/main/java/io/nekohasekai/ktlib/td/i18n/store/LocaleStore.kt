@@ -4,7 +4,7 @@ interface LocaleStore {
 
     fun localeRead(chatId: Long): Int?
     fun localeSave(chatId: Long, localeId: Int)
-    fun localeGc()
+    fun localeGc() = Unit
 
     companion object : LocaleStore {
 

@@ -891,6 +891,12 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
+    infix fun editOrSendToChat(message: Message) {
+
+        if (message.canBeEdited) editTo(message) else sendTo(message.chatId)
+
+    }
+
     infix fun editTo(message: Message) {
 
         val successCallback = onSuccess
