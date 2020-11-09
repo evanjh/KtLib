@@ -1,19 +1,16 @@
-package io.nekohasekai.ktlib.td.core
+package io.nekohasekai.ktlib.td.cli
 
 import io.nekohasekai.ktlib.td.core.raw.checkAuthenticationBotTokenWith
 import kotlinx.coroutines.coroutineScope
-import td.TdApi.AuthorizationState
-import td.TdApi.AuthorizationStateWaitPhoneNumber
+import td.TdApi.*
 
-open class TdBot(val botToken: String) : TdClient() {
+open class TdBot(final override var botToken: String) : TdCli() {
 
     val botUserId = botToken.substringBefore(':').toInt()
 
     override val sudo: TdBot get() = this
 
     override suspend fun onAuthorizationState(authorizationState: AuthorizationState) = coroutineScope {
-
-        super.onAuthorizationState(authorizationState)
 
         if (authorizationState is AuthorizationStateWaitPhoneNumber) {
 
@@ -28,6 +25,10 @@ open class TdBot(val botToken: String) : TdClient() {
                 }
 
             }
+
+        } else {
+
+            super.onAuthorizationState(authorizationState)
 
         }
 

@@ -78,7 +78,7 @@ fun Any.toByteArray(withClass: Boolean = false): ByteArray {
 
 }
 
-fun <T> ByteArray.formByteArray(clazz: Class<T>): T {
+fun <T> ByteArray.fromByteArray(clazz: Class<T>): T {
 
     val input = Input(this)
 
@@ -90,7 +90,7 @@ fun <T> ByteArray.formByteArray(clazz: Class<T>): T {
 
 }
 
-inline fun <reified T> ByteArray.formByteArray() = formByteArray(T::class.java)
+inline fun <reified T> ByteArray.fromByteArray() = fromByteArray(T::class.java)
 
 fun ByteArray.anyFormByteArray(): Any {
 

@@ -644,7 +644,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
-    var botToken = ""
+    open var botToken = ""
 
     override suspend fun onTermsOfService(termsOfServiceId: String, termsOfService: TdApi.TermsOfService) {
 

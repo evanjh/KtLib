@@ -2,7 +2,7 @@ package io.nekohasekai.ktlib.td.extensions
 
 import cn.hutool.core.util.ArrayUtil
 import cn.hutool.core.util.RandomUtil
-import io.nekohasekai.ktlib.core.formByteArray
+import io.nekohasekai.ktlib.core.fromByteArray
 import io.nekohasekai.ktlib.core.toByteArray
 import java.math.BigInteger
 
@@ -36,6 +36,6 @@ fun ByteArray.readData(randomSuffix: Boolean = false): Array<ByteArray> {
 
     }
 
-    return data.formByteArray()
+    return data.fromByteArray()
 
 }

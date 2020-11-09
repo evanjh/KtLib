@@ -16,7 +16,7 @@ import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.statements.UpsertStatement
+import org.jetbrains.exposed.sql.statements.*
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.sqlite.SQLiteDataSource
@@ -46,6 +46,12 @@ interface DatabaseDispatcher : DataSource {
 
     fun saveAndGc()
 
+}
+
+object DefaultLogSqlLogger : SqlLogger {
+    override fun log(context: StatementContext, transaction: Transaction) {
+        defaultLog.debug("Exec: ${context.expandArgs(transaction)}")
+    }
 }
 
 abstract class AbstractDispatcher : DatabaseDispatcher {
