@@ -1,5 +1,6 @@
 package io.nekohasekai.ktlib.db.pair
 
+import io.nekohasekai.ktlib.core.defaultLog
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.*
 
@@ -24,17 +25,27 @@ fun Transaction.recreateTable(table: Table, creator: (tableName: String) -> Tabl
     SchemaUtils.drop(cacheTable)
     SchemaUtils.create(cacheTable)
 
-    exec("INSERT INTO ${cacheTable.tableName} SELECT * FROM ${table.tableName};")
+    exec("INSERT INTO ${cacheTable.tableName} SELECT * FROM ${table.tableName}")
 
     SchemaUtils.drop(table)
 
     try {
 
-        exec("ALTER TABLE ${cacheTable.tableName} RENAME TO ${table.tableName};")
+        exec("ALTER TABLE ${cacheTable.tableName} RENAME TO ${table.tableName}")
 
     } catch (e: ExposedSQLException) {
 
-        if (e.message?.contains("Query returns results") != true) throw e
+        if (e.message?.contains("Query returns results") != true) {
+
+            defaultLog.warn(e)
+
+        }
+
+        SchemaUtils.create(table)
+
+        exec("INSERT INTO ${table.tableName} SELECT * FROM ${cacheTable.tableName}")
+
+        SchemaUtils.drop(cacheTable)
 
     }
 
