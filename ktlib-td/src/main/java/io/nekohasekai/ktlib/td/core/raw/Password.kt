@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns the current state of 2-step verification
  */
-suspend fun TdHandler.getPasswordState() = sync<PasswordState>(GetPasswordState())
+suspend fun TdHandler.getPasswordState() = sync(GetPasswordState())
 
-suspend fun TdHandler.getPasswordStateOrNull() = syncOrNull<PasswordState>(GetPasswordState())
+suspend fun TdHandler.getPasswordStateOrNull() = syncOrNull(GetPasswordState())
 
 fun TdHandler.getPasswordStateWith(
     stackIgnore: Int = 0,
@@ -34,7 +34,7 @@ suspend fun TdHandler.setPassword(
     newHint: String? = null,
     setRecoveryEmailAddress: Boolean,
     newRecoveryEmailAddress: String? = null
-) = sync<PasswordState>(SetPassword(oldPassword, newPassword, newHint, setRecoveryEmailAddress, newRecoveryEmailAddress))
+) = sync(SetPassword(oldPassword, newPassword, newHint, setRecoveryEmailAddress, newRecoveryEmailAddress))
 
 suspend fun TdHandler.setPasswordOrNull(
     oldPassword: String? = null,
@@ -42,7 +42,7 @@ suspend fun TdHandler.setPasswordOrNull(
     newHint: String? = null,
     setRecoveryEmailAddress: Boolean,
     newRecoveryEmailAddress: String? = null
-) = syncOrNull<PasswordState>(SetPassword(oldPassword, newPassword, newHint, setRecoveryEmailAddress, newRecoveryEmailAddress))
+) = syncOrNull(SetPassword(oldPassword, newPassword, newHint, setRecoveryEmailAddress, newRecoveryEmailAddress))
 
 fun TdHandler.setPasswordWith(
     oldPassword: String? = null,
@@ -65,12 +65,12 @@ fun TdHandler.setPasswordWith(
 suspend fun TdHandler.setRecoveryEmailAddress(
     password: String? = null,
     newRecoveryEmailAddress: String? = null
-) = sync<PasswordState>(SetRecoveryEmailAddress(password, newRecoveryEmailAddress))
+) = sync(SetRecoveryEmailAddress(password, newRecoveryEmailAddress))
 
 suspend fun TdHandler.setRecoveryEmailAddressOrNull(
     password: String? = null,
     newRecoveryEmailAddress: String? = null
-) = syncOrNull<PasswordState>(SetRecoveryEmailAddress(password, newRecoveryEmailAddress))
+) = syncOrNull(SetRecoveryEmailAddress(password, newRecoveryEmailAddress))
 
 fun TdHandler.setRecoveryEmailAddressWith(
     password: String? = null,
@@ -86,11 +86,11 @@ fun TdHandler.setRecoveryEmailAddressWith(
  */
 suspend fun TdHandler.checkRecoveryEmailAddressCode(
     code: String? = null
-) = sync<PasswordState>(CheckRecoveryEmailAddressCode(code))
+) = sync(CheckRecoveryEmailAddressCode(code))
 
 suspend fun TdHandler.checkRecoveryEmailAddressCodeOrNull(
     code: String? = null
-) = syncOrNull<PasswordState>(CheckRecoveryEmailAddressCode(code))
+) = syncOrNull(CheckRecoveryEmailAddressCode(code))
 
 fun TdHandler.checkRecoveryEmailAddressCodeWith(
     code: String? = null,
@@ -101,9 +101,9 @@ fun TdHandler.checkRecoveryEmailAddressCodeWith(
 /**
  * Resends the 2-step verification recovery email address verification code
  */
-suspend fun TdHandler.resendRecoveryEmailAddressCode() = sync<PasswordState>(ResendRecoveryEmailAddressCode())
+suspend fun TdHandler.resendRecoveryEmailAddressCode() = sync(ResendRecoveryEmailAddressCode())
 
-suspend fun TdHandler.resendRecoveryEmailAddressCodeOrNull() = syncOrNull<PasswordState>(ResendRecoveryEmailAddressCode())
+suspend fun TdHandler.resendRecoveryEmailAddressCodeOrNull() = syncOrNull(ResendRecoveryEmailAddressCode())
 
 fun TdHandler.resendRecoveryEmailAddressCodeWith(
     stackIgnore: Int = 0,
@@ -117,11 +117,11 @@ fun TdHandler.resendRecoveryEmailAddressCodeWith(
  */
 suspend fun TdHandler.recoverPassword(
     recoveryCode: String? = null
-) = sync<PasswordState>(RecoverPassword(recoveryCode))
+) = sync(RecoverPassword(recoveryCode))
 
 suspend fun TdHandler.recoverPasswordOrNull(
     recoveryCode: String? = null
-) = syncOrNull<PasswordState>(RecoverPassword(recoveryCode))
+) = syncOrNull(RecoverPassword(recoveryCode))
 
 fun TdHandler.recoverPasswordWith(
     recoveryCode: String? = null,
@@ -139,12 +139,12 @@ fun TdHandler.recoverPasswordWith(
 suspend fun TdHandler.createTemporaryPassword(
     password: String? = null,
     validFor: Int
-) = sync<TemporaryPasswordState>(CreateTemporaryPassword(password, validFor))
+) = sync(CreateTemporaryPassword(password, validFor))
 
 suspend fun TdHandler.createTemporaryPasswordOrNull(
     password: String? = null,
     validFor: Int
-) = syncOrNull<TemporaryPasswordState>(CreateTemporaryPassword(password, validFor))
+) = syncOrNull(CreateTemporaryPassword(password, validFor))
 
 fun TdHandler.createTemporaryPasswordWith(
     password: String? = null,
@@ -156,9 +156,9 @@ fun TdHandler.createTemporaryPasswordWith(
 /**
  * Returns information about the current temporary password
  */
-suspend fun TdHandler.getTemporaryPasswordState() = sync<TemporaryPasswordState>(GetTemporaryPasswordState())
+suspend fun TdHandler.getTemporaryPasswordState() = sync(GetTemporaryPasswordState())
 
-suspend fun TdHandler.getTemporaryPasswordStateOrNull() = syncOrNull<TemporaryPasswordState>(GetTemporaryPasswordState())
+suspend fun TdHandler.getTemporaryPasswordStateOrNull() = syncOrNull(GetTemporaryPasswordState())
 
 fun TdHandler.getTemporaryPasswordStateWith(
     stackIgnore: Int = 0,

@@ -12,9 +12,9 @@ import io.nekohasekai.ktlib.td.core.*
  * Use updateAuthorizationState instead to maintain the current authorization state
  * Can be called before initialization
  */
-suspend fun TdHandler.getAuthorizationState() = sync<AuthorizationState>(GetAuthorizationState())
+suspend fun TdHandler.getAuthorizationState() = sync(GetAuthorizationState())
 
-suspend fun TdHandler.getAuthorizationStateOrNull() = syncOrNull<AuthorizationState>(GetAuthorizationState())
+suspend fun TdHandler.getAuthorizationStateOrNull() = syncOrNull(GetAuthorizationState())
 
 fun TdHandler.getAuthorizationStateWith(
     stackIgnore: Int = 0,

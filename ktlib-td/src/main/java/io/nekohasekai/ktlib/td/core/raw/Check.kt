@@ -13,11 +13,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.checkDatabaseEncryptionKey(
     encryptionKey: ByteArray
-) = sync<Ok>(CheckDatabaseEncryptionKey(encryptionKey))
+){
+    sync(CheckDatabaseEncryptionKey(encryptionKey))
+}
 
-suspend fun TdHandler.checkDatabaseEncryptionKeyOrNull(
+
+suspend fun TdHandler.checkDatabaseEncryptionKeyIgnoreException(
     encryptionKey: ByteArray
-) = syncOrNull<Ok>(CheckDatabaseEncryptionKey(encryptionKey))
+){
+    syncOrNull(CheckDatabaseEncryptionKey(encryptionKey))
+}
+
 
 fun TdHandler.checkDatabaseEncryptionKeyWith(
     encryptionKey: ByteArray,
@@ -33,11 +39,17 @@ fun TdHandler.checkDatabaseEncryptionKeyWith(
  */
 suspend fun TdHandler.checkAuthenticationCode(
     code: String? = null
-) = sync<Ok>(CheckAuthenticationCode(code))
+){
+    sync(CheckAuthenticationCode(code))
+}
 
-suspend fun TdHandler.checkAuthenticationCodeOrNull(
+
+suspend fun TdHandler.checkAuthenticationCodeIgnoreException(
     code: String? = null
-) = syncOrNull<Ok>(CheckAuthenticationCode(code))
+){
+    syncOrNull(CheckAuthenticationCode(code))
+}
+
 
 fun TdHandler.checkAuthenticationCodeWith(
     code: String? = null,
@@ -53,11 +65,17 @@ fun TdHandler.checkAuthenticationCodeWith(
  */
 suspend fun TdHandler.checkAuthenticationPassword(
     password: String? = null
-) = sync<Ok>(CheckAuthenticationPassword(password))
+){
+    sync(CheckAuthenticationPassword(password))
+}
 
-suspend fun TdHandler.checkAuthenticationPasswordOrNull(
+
+suspend fun TdHandler.checkAuthenticationPasswordIgnoreException(
     password: String? = null
-) = syncOrNull<Ok>(CheckAuthenticationPassword(password))
+){
+    syncOrNull(CheckAuthenticationPassword(password))
+}
+
 
 fun TdHandler.checkAuthenticationPasswordWith(
     password: String? = null,
@@ -75,11 +93,17 @@ fun TdHandler.checkAuthenticationPasswordWith(
  */
 suspend fun TdHandler.checkAuthenticationBotToken(
     token: String? = null
-) = sync<Ok>(CheckAuthenticationBotToken(token))
+){
+    sync(CheckAuthenticationBotToken(token))
+}
 
-suspend fun TdHandler.checkAuthenticationBotTokenOrNull(
+
+suspend fun TdHandler.checkAuthenticationBotTokenIgnoreException(
     token: String? = null
-) = syncOrNull<Ok>(CheckAuthenticationBotToken(token))
+){
+    syncOrNull(CheckAuthenticationBotToken(token))
+}
+
 
 fun TdHandler.checkAuthenticationBotTokenWith(
     token: String? = null,
@@ -97,12 +121,12 @@ fun TdHandler.checkAuthenticationBotTokenWith(
 suspend fun TdHandler.checkChatUsername(
     chatId: Long,
     username: String? = null
-) = sync<CheckChatUsernameResult>(CheckChatUsername(chatId, username))
+) = sync(CheckChatUsername(chatId, username))
 
 suspend fun TdHandler.checkChatUsernameOrNull(
     chatId: Long,
     username: String? = null
-) = syncOrNull<CheckChatUsernameResult>(CheckChatUsername(chatId, username))
+) = syncOrNull(CheckChatUsername(chatId, username))
 
 fun TdHandler.checkChatUsernameWith(
     chatId: Long,
@@ -119,11 +143,17 @@ fun TdHandler.checkChatUsernameWith(
  */
 suspend fun TdHandler.checkCreatedPublicChatsLimit(
     type: PublicChatType? = null
-) = sync<Ok>(CheckCreatedPublicChatsLimit(type))
+){
+    sync(CheckCreatedPublicChatsLimit(type))
+}
 
-suspend fun TdHandler.checkCreatedPublicChatsLimitOrNull(
+
+suspend fun TdHandler.checkCreatedPublicChatsLimitIgnoreException(
     type: PublicChatType? = null
-) = syncOrNull<Ok>(CheckCreatedPublicChatsLimit(type))
+){
+    syncOrNull(CheckCreatedPublicChatsLimit(type))
+}
+
 
 fun TdHandler.checkCreatedPublicChatsLimitWith(
     type: PublicChatType? = null,
@@ -141,12 +171,18 @@ fun TdHandler.checkCreatedPublicChatsLimitWith(
 suspend fun TdHandler.answerPreCheckoutQuery(
     preCheckoutQueryId: Long,
     errorMessage: String? = null
-) = sync<Ok>(AnswerPreCheckoutQuery(preCheckoutQueryId, errorMessage))
+){
+    sync(AnswerPreCheckoutQuery(preCheckoutQueryId, errorMessage))
+}
 
-suspend fun TdHandler.answerPreCheckoutQueryOrNull(
+
+suspend fun TdHandler.answerPreCheckoutQueryIgnoreException(
     preCheckoutQueryId: Long,
     errorMessage: String? = null
-) = syncOrNull<Ok>(AnswerPreCheckoutQuery(preCheckoutQueryId, errorMessage))
+){
+    syncOrNull(AnswerPreCheckoutQuery(preCheckoutQueryId, errorMessage))
+}
+
 
 fun TdHandler.answerPreCheckoutQueryWith(
     preCheckoutQueryId: Long,
@@ -162,11 +198,17 @@ fun TdHandler.answerPreCheckoutQueryWith(
  */
 suspend fun TdHandler.checkChangePhoneNumberCode(
     code: String? = null
-) = sync<Ok>(CheckChangePhoneNumberCode(code))
+){
+    sync(CheckChangePhoneNumberCode(code))
+}
 
-suspend fun TdHandler.checkChangePhoneNumberCodeOrNull(
+
+suspend fun TdHandler.checkChangePhoneNumberCodeIgnoreException(
     code: String? = null
-) = syncOrNull<Ok>(CheckChangePhoneNumberCode(code))
+){
+    syncOrNull(CheckChangePhoneNumberCode(code))
+}
+
 
 fun TdHandler.checkChangePhoneNumberCodeWith(
     code: String? = null,
@@ -181,11 +223,17 @@ fun TdHandler.checkChangePhoneNumberCodeWith(
  */
 suspend fun TdHandler.checkPhoneNumberVerificationCode(
     code: String? = null
-) = sync<Ok>(CheckPhoneNumberVerificationCode(code))
+){
+    sync(CheckPhoneNumberVerificationCode(code))
+}
 
-suspend fun TdHandler.checkPhoneNumberVerificationCodeOrNull(
+
+suspend fun TdHandler.checkPhoneNumberVerificationCodeIgnoreException(
     code: String? = null
-) = syncOrNull<Ok>(CheckPhoneNumberVerificationCode(code))
+){
+    syncOrNull(CheckPhoneNumberVerificationCode(code))
+}
+
 
 fun TdHandler.checkPhoneNumberVerificationCodeWith(
     code: String? = null,
@@ -200,11 +248,17 @@ fun TdHandler.checkPhoneNumberVerificationCodeWith(
  */
 suspend fun TdHandler.checkEmailAddressVerificationCode(
     code: String? = null
-) = sync<Ok>(CheckEmailAddressVerificationCode(code))
+){
+    sync(CheckEmailAddressVerificationCode(code))
+}
 
-suspend fun TdHandler.checkEmailAddressVerificationCodeOrNull(
+
+suspend fun TdHandler.checkEmailAddressVerificationCodeIgnoreException(
     code: String? = null
-) = syncOrNull<Ok>(CheckEmailAddressVerificationCode(code))
+){
+    syncOrNull(CheckEmailAddressVerificationCode(code))
+}
+
 
 fun TdHandler.checkEmailAddressVerificationCodeWith(
     code: String? = null,
@@ -219,11 +273,17 @@ fun TdHandler.checkEmailAddressVerificationCodeWith(
  */
 suspend fun TdHandler.checkPhoneNumberConfirmationCode(
     code: String? = null
-) = sync<Ok>(CheckPhoneNumberConfirmationCode(code))
+){
+    sync(CheckPhoneNumberConfirmationCode(code))
+}
 
-suspend fun TdHandler.checkPhoneNumberConfirmationCodeOrNull(
+
+suspend fun TdHandler.checkPhoneNumberConfirmationCodeIgnoreException(
     code: String? = null
-) = syncOrNull<Ok>(CheckPhoneNumberConfirmationCode(code))
+){
+    syncOrNull(CheckPhoneNumberConfirmationCode(code))
+}
+
 
 fun TdHandler.checkPhoneNumberConfirmationCodeWith(
     code: String? = null,

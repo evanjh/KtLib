@@ -16,13 +16,13 @@ suspend fun TdHandler.createCall(
     userId: Int,
     protocol: CallProtocol? = null,
     isVideo: Boolean
-) = sync<CallId>(CreateCall(userId, protocol, isVideo))
+) = sync(CreateCall(userId, protocol, isVideo))
 
 suspend fun TdHandler.createCallOrNull(
     userId: Int,
     protocol: CallProtocol? = null,
     isVideo: Boolean
-) = syncOrNull<CallId>(CreateCall(userId, protocol, isVideo))
+) = syncOrNull(CreateCall(userId, protocol, isVideo))
 
 fun TdHandler.createCallWith(
     userId: Int,
@@ -41,12 +41,18 @@ fun TdHandler.createCallWith(
 suspend fun TdHandler.acceptCall(
     callId: Int,
     protocol: CallProtocol? = null
-) = sync<Ok>(AcceptCall(callId, protocol))
+){
+    sync(AcceptCall(callId, protocol))
+}
 
-suspend fun TdHandler.acceptCallOrNull(
+
+suspend fun TdHandler.acceptCallIgnoreException(
     callId: Int,
     protocol: CallProtocol? = null
-) = syncOrNull<Ok>(AcceptCall(callId, protocol))
+){
+    syncOrNull(AcceptCall(callId, protocol))
+}
+
 
 fun TdHandler.acceptCallWith(
     callId: Int,
@@ -64,12 +70,18 @@ fun TdHandler.acceptCallWith(
 suspend fun TdHandler.sendCallSignalingData(
     callId: Int,
     data: ByteArray
-) = sync<Ok>(SendCallSignalingData(callId, data))
+){
+    sync(SendCallSignalingData(callId, data))
+}
 
-suspend fun TdHandler.sendCallSignalingDataOrNull(
+
+suspend fun TdHandler.sendCallSignalingDataIgnoreException(
     callId: Int,
     data: ByteArray
-) = syncOrNull<Ok>(SendCallSignalingData(callId, data))
+){
+    syncOrNull(SendCallSignalingData(callId, data))
+}
+
 
 fun TdHandler.sendCallSignalingDataWith(
     callId: Int,
@@ -93,15 +105,21 @@ suspend fun TdHandler.discardCall(
     duration: Int,
     isVideo: Boolean,
     connectionId: Long
-) = sync<Ok>(DiscardCall(callId, isDisconnected, duration, isVideo, connectionId))
+){
+    sync(DiscardCall(callId, isDisconnected, duration, isVideo, connectionId))
+}
 
-suspend fun TdHandler.discardCallOrNull(
+
+suspend fun TdHandler.discardCallIgnoreException(
     callId: Int,
     isDisconnected: Boolean,
     duration: Int,
     isVideo: Boolean,
     connectionId: Long
-) = syncOrNull<Ok>(DiscardCall(callId, isDisconnected, duration, isVideo, connectionId))
+){
+    syncOrNull(DiscardCall(callId, isDisconnected, duration, isVideo, connectionId))
+}
+
 
 fun TdHandler.discardCallWith(
     callId: Int,
@@ -126,14 +144,20 @@ suspend fun TdHandler.sendCallRating(
     rating: Int,
     comment: String? = null,
     problems: Array<CallProblem>
-) = sync<Ok>(SendCallRating(callId, rating, comment, problems))
+){
+    sync(SendCallRating(callId, rating, comment, problems))
+}
 
-suspend fun TdHandler.sendCallRatingOrNull(
+
+suspend fun TdHandler.sendCallRatingIgnoreException(
     callId: Int,
     rating: Int,
     comment: String? = null,
     problems: Array<CallProblem>
-) = syncOrNull<Ok>(SendCallRating(callId, rating, comment, problems))
+){
+    syncOrNull(SendCallRating(callId, rating, comment, problems))
+}
+
 
 fun TdHandler.sendCallRatingWith(
     callId: Int,
@@ -153,12 +177,18 @@ fun TdHandler.sendCallRatingWith(
 suspend fun TdHandler.sendCallDebugInformation(
     callId: Int,
     debugInformation: String? = null
-) = sync<Ok>(SendCallDebugInformation(callId, debugInformation))
+){
+    sync(SendCallDebugInformation(callId, debugInformation))
+}
 
-suspend fun TdHandler.sendCallDebugInformationOrNull(
+
+suspend fun TdHandler.sendCallDebugInformationIgnoreException(
     callId: Int,
     debugInformation: String? = null
-) = syncOrNull<Ok>(SendCallDebugInformation(callId, debugInformation))
+){
+    syncOrNull(SendCallDebugInformation(callId, debugInformation))
+}
+
 
 fun TdHandler.sendCallDebugInformationWith(
     callId: Int,

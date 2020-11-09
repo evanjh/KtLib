@@ -13,11 +13,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setTdlibParameters(
     parameters: TdlibParameters? = null
-) = sync<Ok>(SetTdlibParameters(parameters))
+){
+    sync(SetTdlibParameters(parameters))
+}
 
-suspend fun TdHandler.setTdlibParametersOrNull(
+
+suspend fun TdHandler.setTdlibParametersIgnoreException(
     parameters: TdlibParameters? = null
-) = syncOrNull<Ok>(SetTdlibParameters(parameters))
+){
+    syncOrNull(SetTdlibParameters(parameters))
+}
+
 
 fun TdHandler.setTdlibParametersWith(
     parameters: TdlibParameters? = null,

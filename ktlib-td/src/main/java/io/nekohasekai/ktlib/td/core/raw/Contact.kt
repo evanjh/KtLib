@@ -17,12 +17,18 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.addContact(
     contact: Contact? = null,
     sharePhoneNumber: Boolean
-) = sync<Ok>(AddContact(contact, sharePhoneNumber))
+){
+    sync(AddContact(contact, sharePhoneNumber))
+}
 
-suspend fun TdHandler.addContactOrNull(
+
+suspend fun TdHandler.addContactIgnoreException(
     contact: Contact? = null,
     sharePhoneNumber: Boolean
-) = syncOrNull<Ok>(AddContact(contact, sharePhoneNumber))
+){
+    syncOrNull(AddContact(contact, sharePhoneNumber))
+}
+
 
 fun TdHandler.addContactWith(
     contact: Contact? = null,
@@ -40,11 +46,11 @@ fun TdHandler.addContactWith(
  */
 suspend fun TdHandler.importContacts(
     contacts: Array<Contact>
-) = sync<ImportedContacts>(ImportContacts(contacts))
+) = sync(ImportContacts(contacts))
 
 suspend fun TdHandler.importContactsOrNull(
     contacts: Array<Contact>
-) = syncOrNull<ImportedContacts>(ImportContacts(contacts))
+) = syncOrNull(ImportContacts(contacts))
 
 fun TdHandler.importContactsWith(
     contacts: Array<Contact>,
@@ -59,11 +65,17 @@ fun TdHandler.importContactsWith(
  */
 suspend fun TdHandler.removeContacts(
     userIds: IntArray
-) = sync<Ok>(RemoveContacts(userIds))
+){
+    sync(RemoveContacts(userIds))
+}
 
-suspend fun TdHandler.removeContactsOrNull(
+
+suspend fun TdHandler.removeContactsIgnoreException(
     userIds: IntArray
-) = syncOrNull<Ok>(RemoveContacts(userIds))
+){
+    syncOrNull(RemoveContacts(userIds))
+}
+
 
 fun TdHandler.removeContactsWith(
     userIds: IntArray,
@@ -74,9 +86,9 @@ fun TdHandler.removeContactsWith(
 /**
  * Returns the total number of imported contacts
  */
-suspend fun TdHandler.getImportedContactCount() = sync<Count>(GetImportedContactCount())
+suspend fun TdHandler.getImportedContactCount() = sync(GetImportedContactCount())
 
-suspend fun TdHandler.getImportedContactCountOrNull() = syncOrNull<Count>(GetImportedContactCount())
+suspend fun TdHandler.getImportedContactCountOrNull() = syncOrNull(GetImportedContactCount())
 
 fun TdHandler.getImportedContactCountWith(
     stackIgnore: Int = 0,
@@ -92,11 +104,11 @@ fun TdHandler.getImportedContactCountWith(
  */
 suspend fun TdHandler.changeImportedContacts(
     contacts: Array<Contact>
-) = sync<ImportedContacts>(ChangeImportedContacts(contacts))
+) = sync(ChangeImportedContacts(contacts))
 
 suspend fun TdHandler.changeImportedContactsOrNull(
     contacts: Array<Contact>
-) = syncOrNull<ImportedContacts>(ChangeImportedContacts(contacts))
+) = syncOrNull(ChangeImportedContacts(contacts))
 
 fun TdHandler.changeImportedContactsWith(
     contacts: Array<Contact>,
@@ -107,9 +119,15 @@ fun TdHandler.changeImportedContactsWith(
 /**
  * Clears all imported contacts, contact list remains unchanged
  */
-suspend fun TdHandler.clearImportedContacts() = sync<Ok>(ClearImportedContacts())
+suspend fun TdHandler.clearImportedContacts(){
+    sync(ClearImportedContacts())
+}
 
-suspend fun TdHandler.clearImportedContactsOrNull() = syncOrNull<Ok>(ClearImportedContacts())
+
+suspend fun TdHandler.clearImportedContactsIgnoreException(){
+    syncOrNull(ClearImportedContacts())
+}
+
 
 fun TdHandler.clearImportedContactsWith(
     stackIgnore: Int = 0,

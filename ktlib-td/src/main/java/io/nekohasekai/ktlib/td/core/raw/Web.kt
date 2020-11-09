@@ -14,11 +14,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getWebPagePreview(
     text: FormattedText? = null
-) = sync<WebPage>(GetWebPagePreview(text))
+) = sync(GetWebPagePreview(text))
 
 suspend fun TdHandler.getWebPagePreviewOrNull(
     text: FormattedText? = null
-) = syncOrNull<WebPage>(GetWebPagePreview(text))
+) = syncOrNull(GetWebPagePreview(text))
 
 fun TdHandler.getWebPagePreviewWith(
     text: FormattedText? = null,
@@ -36,12 +36,12 @@ fun TdHandler.getWebPagePreviewWith(
 suspend fun TdHandler.getWebPageInstantView(
     url: String? = null,
     forceFull: Boolean
-) = sync<WebPageInstantView>(GetWebPageInstantView(url, forceFull))
+) = sync(GetWebPageInstantView(url, forceFull))
 
 suspend fun TdHandler.getWebPageInstantViewOrNull(
     url: String? = null,
     forceFull: Boolean
-) = syncOrNull<WebPageInstantView>(GetWebPageInstantView(url, forceFull))
+) = syncOrNull(GetWebPageInstantView(url, forceFull))
 
 fun TdHandler.getWebPageInstantViewWith(
     url: String? = null,
@@ -57,11 +57,17 @@ fun TdHandler.getWebPageInstantViewWith(
  */
 suspend fun TdHandler.disconnectWebsite(
     websiteId: Long
-) = sync<Ok>(DisconnectWebsite(websiteId))
+){
+    sync(DisconnectWebsite(websiteId))
+}
 
-suspend fun TdHandler.disconnectWebsiteOrNull(
+
+suspend fun TdHandler.disconnectWebsiteIgnoreException(
     websiteId: Long
-) = syncOrNull<Ok>(DisconnectWebsite(websiteId))
+){
+    syncOrNull(DisconnectWebsite(websiteId))
+}
+
 
 fun TdHandler.disconnectWebsiteWith(
     websiteId: Long,
@@ -72,9 +78,15 @@ fun TdHandler.disconnectWebsiteWith(
 /**
  * Disconnects all websites from the current user's Telegram account
  */
-suspend fun TdHandler.disconnectAllWebsites() = sync<Ok>(DisconnectAllWebsites())
+suspend fun TdHandler.disconnectAllWebsites(){
+    sync(DisconnectAllWebsites())
+}
 
-suspend fun TdHandler.disconnectAllWebsitesOrNull() = syncOrNull<Ok>(DisconnectAllWebsites())
+
+suspend fun TdHandler.disconnectAllWebsitesIgnoreException(){
+    syncOrNull(DisconnectAllWebsites())
+}
+
 
 fun TdHandler.disconnectAllWebsitesWith(
     stackIgnore: Int = 0,

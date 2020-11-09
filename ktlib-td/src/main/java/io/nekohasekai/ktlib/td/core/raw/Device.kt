@@ -15,12 +15,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.registerDevice(
     deviceToken: DeviceToken? = null,
     otherUserIds: IntArray
-) = sync<PushReceiverId>(RegisterDevice(deviceToken, otherUserIds))
+) = sync(RegisterDevice(deviceToken, otherUserIds))
 
 suspend fun TdHandler.registerDeviceOrNull(
     deviceToken: DeviceToken? = null,
     otherUserIds: IntArray
-) = syncOrNull<PushReceiverId>(RegisterDevice(deviceToken, otherUserIds))
+) = syncOrNull(RegisterDevice(deviceToken, otherUserIds))
 
 fun TdHandler.registerDeviceWith(
     deviceToken: DeviceToken? = null,

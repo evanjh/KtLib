@@ -15,12 +15,18 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.registerUser(
     firstName: String? = null,
     lastName: String? = null
-) = sync<Ok>(RegisterUser(firstName, lastName))
+){
+    sync(RegisterUser(firstName, lastName))
+}
 
-suspend fun TdHandler.registerUserOrNull(
+
+suspend fun TdHandler.registerUserIgnoreException(
     firstName: String? = null,
     lastName: String? = null
-) = syncOrNull<Ok>(RegisterUser(firstName, lastName))
+){
+    syncOrNull(RegisterUser(firstName, lastName))
+}
+
 
 fun TdHandler.registerUserWith(
     firstName: String? = null,
@@ -32,9 +38,9 @@ fun TdHandler.registerUserWith(
 /**
  * Returns the current user
  */
-suspend fun TdHandler.getMe() = sync<User>(GetMe())
+suspend fun TdHandler.getMe() = sync(GetMe())
 
-suspend fun TdHandler.getMeOrNull() = syncOrNull<User>(GetMe())
+suspend fun TdHandler.getMeOrNull() = syncOrNull(GetMe())
 
 fun TdHandler.getMeWith(
     stackIgnore: Int = 0,
@@ -49,11 +55,11 @@ fun TdHandler.getMeWith(
  */
 suspend fun TdHandler.getUser(
     userId: Int
-) = sync<User>(GetUser(userId))
+) = sync(GetUser(userId))
 
 suspend fun TdHandler.getUserOrNull(
     userId: Int
-) = syncOrNull<User>(GetUser(userId))
+) = syncOrNull(GetUser(userId))
 
 fun TdHandler.getUserWith(
     userId: Int,
@@ -68,11 +74,11 @@ fun TdHandler.getUserWith(
  */
 suspend fun TdHandler.getUserFullInfo(
     userId: Int
-) = sync<UserFullInfo>(GetUserFullInfo(userId))
+) = sync(GetUserFullInfo(userId))
 
 suspend fun TdHandler.getUserFullInfoOrNull(
     userId: Int
-) = syncOrNull<UserFullInfo>(GetUserFullInfo(userId))
+) = syncOrNull(GetUserFullInfo(userId))
 
 fun TdHandler.getUserFullInfoWith(
     userId: Int,
@@ -98,7 +104,7 @@ suspend fun TdHandler.getPollVoters(
     optionId: Int,
     offset: Int,
     limit: Int
-) = sync<Users>(GetPollVoters(chatId, messageId, optionId, offset, limit))
+) = sync(GetPollVoters(chatId, messageId, optionId, offset, limit))
 
 suspend fun TdHandler.getPollVotersOrNull(
     chatId: Long,
@@ -106,7 +112,7 @@ suspend fun TdHandler.getPollVotersOrNull(
     optionId: Int,
     offset: Int,
     limit: Int
-) = syncOrNull<Users>(GetPollVoters(chatId, messageId, optionId, offset, limit))
+) = syncOrNull(GetPollVoters(chatId, messageId, optionId, offset, limit))
 
 fun TdHandler.getPollVotersWith(
     chatId: Long,
@@ -121,9 +127,9 @@ fun TdHandler.getPollVotersWith(
 /**
  * Returns all user contacts
  */
-suspend fun TdHandler.getContacts() = sync<Users>(GetContacts())
+suspend fun TdHandler.getContacts() = sync(GetContacts())
 
-suspend fun TdHandler.getContactsOrNull() = syncOrNull<Users>(GetContacts())
+suspend fun TdHandler.getContactsOrNull() = syncOrNull(GetContacts())
 
 fun TdHandler.getContactsWith(
     stackIgnore: Int = 0,
@@ -140,12 +146,12 @@ fun TdHandler.getContactsWith(
 suspend fun TdHandler.searchContacts(
     query: String? = null,
     limit: Int
-) = sync<Users>(SearchContacts(query, limit))
+) = sync(SearchContacts(query, limit))
 
 suspend fun TdHandler.searchContactsOrNull(
     query: String? = null,
     limit: Int
-) = syncOrNull<Users>(SearchContacts(query, limit))
+) = syncOrNull(SearchContacts(query, limit))
 
 fun TdHandler.searchContactsWith(
     query: String? = null,
@@ -157,9 +163,9 @@ fun TdHandler.searchContactsWith(
 /**
  * Returns up to 20 recently used inline bots in the order of their last usage
  */
-suspend fun TdHandler.getRecentInlineBots() = sync<Users>(GetRecentInlineBots())
+suspend fun TdHandler.getRecentInlineBots() = sync(GetRecentInlineBots())
 
-suspend fun TdHandler.getRecentInlineBotsOrNull() = syncOrNull<Users>(GetRecentInlineBots())
+suspend fun TdHandler.getRecentInlineBotsOrNull() = syncOrNull(GetRecentInlineBots())
 
 fun TdHandler.getRecentInlineBotsWith(
     stackIgnore: Int = 0,
@@ -175,12 +181,18 @@ fun TdHandler.getRecentInlineBotsWith(
 suspend fun TdHandler.setName(
     firstName: String? = null,
     lastName: String? = null
-) = sync<Ok>(SetName(firstName, lastName))
+){
+    sync(SetName(firstName, lastName))
+}
 
-suspend fun TdHandler.setNameOrNull(
+
+suspend fun TdHandler.setNameIgnoreException(
     firstName: String? = null,
     lastName: String? = null
-) = syncOrNull<Ok>(SetName(firstName, lastName))
+){
+    syncOrNull(SetName(firstName, lastName))
+}
+
 
 fun TdHandler.setNameWith(
     firstName: String? = null,
@@ -196,11 +208,17 @@ fun TdHandler.setNameWith(
  */
 suspend fun TdHandler.setBio(
     bio: String? = null
-) = sync<Ok>(SetBio(bio))
+){
+    sync(SetBio(bio))
+}
 
-suspend fun TdHandler.setBioOrNull(
+
+suspend fun TdHandler.setBioIgnoreException(
     bio: String? = null
-) = syncOrNull<Ok>(SetBio(bio))
+){
+    syncOrNull(SetBio(bio))
+}
+
 
 fun TdHandler.setBioWith(
     bio: String? = null,
@@ -216,11 +234,17 @@ fun TdHandler.setBioWith(
  */
 suspend fun TdHandler.setUsername(
     username: String? = null
-) = sync<Ok>(SetUsername(username))
+){
+    sync(SetUsername(username))
+}
 
-suspend fun TdHandler.setUsernameOrNull(
+
+suspend fun TdHandler.setUsernameIgnoreException(
     username: String? = null
-) = syncOrNull<Ok>(SetUsername(username))
+){
+    syncOrNull(SetUsername(username))
+}
+
 
 fun TdHandler.setUsernameWith(
     username: String? = null,
@@ -231,9 +255,9 @@ fun TdHandler.setUsernameWith(
 /**
  * Returns a user that can be contacted to get support
  */
-suspend fun TdHandler.getSupportUser() = sync<User>(GetSupportUser())
+suspend fun TdHandler.getSupportUser() = sync(GetSupportUser())
 
-suspend fun TdHandler.getSupportUserOrNull() = syncOrNull<User>(GetSupportUser())
+suspend fun TdHandler.getSupportUserOrNull() = syncOrNull(GetSupportUser())
 
 fun TdHandler.getSupportUserWith(
     stackIgnore: Int = 0,
@@ -249,12 +273,18 @@ fun TdHandler.getSupportUserWith(
 suspend fun TdHandler.setUserPrivacySettingRules(
     setting: UserPrivacySetting? = null,
     rules: UserPrivacySettingRules? = null
-) = sync<Ok>(SetUserPrivacySettingRules(setting, rules))
+){
+    sync(SetUserPrivacySettingRules(setting, rules))
+}
 
-suspend fun TdHandler.setUserPrivacySettingRulesOrNull(
+
+suspend fun TdHandler.setUserPrivacySettingRulesIgnoreException(
     setting: UserPrivacySetting? = null,
     rules: UserPrivacySettingRules? = null
-) = syncOrNull<Ok>(SetUserPrivacySettingRules(setting, rules))
+){
+    syncOrNull(SetUserPrivacySettingRules(setting, rules))
+}
+
 
 fun TdHandler.setUserPrivacySettingRulesWith(
     setting: UserPrivacySetting? = null,
@@ -270,11 +300,11 @@ fun TdHandler.setUserPrivacySettingRulesWith(
  */
 suspend fun TdHandler.getUserPrivacySettingRules(
     setting: UserPrivacySetting? = null
-) = sync<UserPrivacySettingRules>(GetUserPrivacySettingRules(setting))
+) = sync(GetUserPrivacySettingRules(setting))
 
 suspend fun TdHandler.getUserPrivacySettingRulesOrNull(
     setting: UserPrivacySetting? = null
-) = syncOrNull<UserPrivacySettingRules>(GetUserPrivacySettingRules(setting))
+) = syncOrNull(GetUserPrivacySettingRules(setting))
 
 fun TdHandler.getUserPrivacySettingRulesWith(
     setting: UserPrivacySetting? = null,

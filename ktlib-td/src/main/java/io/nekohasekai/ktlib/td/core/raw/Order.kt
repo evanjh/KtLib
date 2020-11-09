@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns saved order info, if any
  */
-suspend fun TdHandler.getSavedOrderInfo() = sync<OrderInfo>(GetSavedOrderInfo())
+suspend fun TdHandler.getSavedOrderInfo() = sync(GetSavedOrderInfo())
 
-suspend fun TdHandler.getSavedOrderInfoOrNull() = syncOrNull<OrderInfo>(GetSavedOrderInfo())
+suspend fun TdHandler.getSavedOrderInfoOrNull() = syncOrNull(GetSavedOrderInfo())
 
 fun TdHandler.getSavedOrderInfoWith(
     stackIgnore: Int = 0,
@@ -20,9 +20,15 @@ fun TdHandler.getSavedOrderInfoWith(
 /**
  * Deletes saved order info
  */
-suspend fun TdHandler.deleteSavedOrderInfo() = sync<Ok>(DeleteSavedOrderInfo())
+suspend fun TdHandler.deleteSavedOrderInfo(){
+    sync(DeleteSavedOrderInfo())
+}
 
-suspend fun TdHandler.deleteSavedOrderInfoOrNull() = syncOrNull<Ok>(DeleteSavedOrderInfo())
+
+suspend fun TdHandler.deleteSavedOrderInfoIgnoreException(){
+    syncOrNull(DeleteSavedOrderInfo())
+}
+
 
 fun TdHandler.deleteSavedOrderInfoWith(
     stackIgnore: Int = 0,

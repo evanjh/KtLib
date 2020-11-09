@@ -14,11 +14,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.sharePhoneNumber(
     userId: Int
-) = sync<Ok>(SharePhoneNumber(userId))
+){
+    sync(SharePhoneNumber(userId))
+}
 
-suspend fun TdHandler.sharePhoneNumberOrNull(
+
+suspend fun TdHandler.sharePhoneNumberIgnoreException(
     userId: Int
-) = syncOrNull<Ok>(SharePhoneNumber(userId))
+){
+    syncOrNull(SharePhoneNumber(userId))
+}
+
 
 fun TdHandler.sharePhoneNumberWith(
     userId: Int,
@@ -34,11 +40,11 @@ fun TdHandler.sharePhoneNumberWith(
  */
 suspend fun TdHandler.getPhoneNumberInfo(
     phoneNumberPrefix: String? = null
-) = sync<PhoneNumberInfo>(GetPhoneNumberInfo(phoneNumberPrefix))
+) = sync(GetPhoneNumberInfo(phoneNumberPrefix))
 
 suspend fun TdHandler.getPhoneNumberInfoOrNull(
     phoneNumberPrefix: String? = null
-) = syncOrNull<PhoneNumberInfo>(GetPhoneNumberInfo(phoneNumberPrefix))
+) = syncOrNull(GetPhoneNumberInfo(phoneNumberPrefix))
 
 fun TdHandler.getPhoneNumberInfoWith(
     phoneNumberPrefix: String? = null,

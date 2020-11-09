@@ -18,14 +18,14 @@ suspend fun TdHandler.validateOrderInfo(
     messageId: Long,
     orderInfo: OrderInfo? = null,
     allowSave: Boolean
-) = sync<ValidatedOrderInfo>(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
+) = sync(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
 
 suspend fun TdHandler.validateOrderInfoOrNull(
     chatId: Long,
     messageId: Long,
     orderInfo: OrderInfo? = null,
     allowSave: Boolean
-) = syncOrNull<ValidatedOrderInfo>(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
+) = syncOrNull(ValidateOrderInfo(chatId, messageId, orderInfo, allowSave))
 
 fun TdHandler.validateOrderInfoWith(
     chatId: Long,

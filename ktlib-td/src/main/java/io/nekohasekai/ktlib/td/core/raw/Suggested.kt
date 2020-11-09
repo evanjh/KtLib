@@ -12,11 +12,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.hideSuggestedAction(
     action: SuggestedAction? = null
-) = sync<Ok>(HideSuggestedAction(action))
+){
+    sync(HideSuggestedAction(action))
+}
 
-suspend fun TdHandler.hideSuggestedActionOrNull(
+
+suspend fun TdHandler.hideSuggestedActionIgnoreException(
     action: SuggestedAction? = null
-) = syncOrNull<Ok>(HideSuggestedAction(action))
+){
+    syncOrNull(HideSuggestedAction(action))
+}
+
 
 fun TdHandler.hideSuggestedActionWith(
     action: SuggestedAction? = null,

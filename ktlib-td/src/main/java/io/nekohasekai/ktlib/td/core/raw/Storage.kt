@@ -15,11 +15,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getStorageStatistics(
     chatLimit: Int
-) = sync<StorageStatistics>(GetStorageStatistics(chatLimit))
+) = sync(GetStorageStatistics(chatLimit))
 
 suspend fun TdHandler.getStorageStatisticsOrNull(
     chatLimit: Int
-) = syncOrNull<StorageStatistics>(GetStorageStatistics(chatLimit))
+) = syncOrNull(GetStorageStatistics(chatLimit))
 
 fun TdHandler.getStorageStatisticsWith(
     chatLimit: Int,
@@ -31,9 +31,9 @@ fun TdHandler.getStorageStatisticsWith(
  * Quickly returns approximate storage usage statistics
  * Can be called before authorization
  */
-suspend fun TdHandler.getStorageStatisticsFast() = sync<StorageStatisticsFast>(GetStorageStatisticsFast())
+suspend fun TdHandler.getStorageStatisticsFast() = sync(GetStorageStatisticsFast())
 
-suspend fun TdHandler.getStorageStatisticsFastOrNull() = syncOrNull<StorageStatisticsFast>(GetStorageStatisticsFast())
+suspend fun TdHandler.getStorageStatisticsFastOrNull() = syncOrNull(GetStorageStatisticsFast())
 
 fun TdHandler.getStorageStatisticsFastWith(
     stackIgnore: Int = 0,
@@ -74,7 +74,7 @@ suspend fun TdHandler.optimizeStorage(
     excludeChatIds: LongArray,
     returnDeletedFileStatistics: Boolean,
     chatLimit: Int
-) = sync<StorageStatistics>(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
+) = sync(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
 
 suspend fun TdHandler.optimizeStorageOrNull(
     size: Long,
@@ -86,7 +86,7 @@ suspend fun TdHandler.optimizeStorageOrNull(
     excludeChatIds: LongArray,
     returnDeletedFileStatistics: Boolean,
     chatLimit: Int
-) = syncOrNull<StorageStatistics>(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
+) = syncOrNull(OptimizeStorage(size, ttl, count, immunityDelay, fileTypes, chatIds, excludeChatIds, returnDeletedFileStatistics, chatLimit))
 
 fun TdHandler.optimizeStorageWith(
     size: Long,

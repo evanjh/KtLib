@@ -16,11 +16,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setNetworkType(
     type: NetworkType? = null
-) = sync<Ok>(SetNetworkType(type))
+){
+    sync(SetNetworkType(type))
+}
 
-suspend fun TdHandler.setNetworkTypeOrNull(
+
+suspend fun TdHandler.setNetworkTypeIgnoreException(
     type: NetworkType? = null
-) = syncOrNull<Ok>(SetNetworkType(type))
+){
+    syncOrNull(SetNetworkType(type))
+}
+
 
 fun TdHandler.setNetworkTypeWith(
     type: NetworkType? = null,
@@ -36,11 +42,11 @@ fun TdHandler.setNetworkTypeWith(
  */
 suspend fun TdHandler.getNetworkStatistics(
     onlyCurrent: Boolean
-) = sync<NetworkStatistics>(GetNetworkStatistics(onlyCurrent))
+) = sync(GetNetworkStatistics(onlyCurrent))
 
 suspend fun TdHandler.getNetworkStatisticsOrNull(
     onlyCurrent: Boolean
-) = syncOrNull<NetworkStatistics>(GetNetworkStatistics(onlyCurrent))
+) = syncOrNull(GetNetworkStatistics(onlyCurrent))
 
 fun TdHandler.getNetworkStatisticsWith(
     onlyCurrent: Boolean,
@@ -56,11 +62,17 @@ fun TdHandler.getNetworkStatisticsWith(
  */
 suspend fun TdHandler.addNetworkStatistics(
     entry: NetworkStatisticsEntry? = null
-) = sync<Ok>(AddNetworkStatistics(entry))
+){
+    sync(AddNetworkStatistics(entry))
+}
 
-suspend fun TdHandler.addNetworkStatisticsOrNull(
+
+suspend fun TdHandler.addNetworkStatisticsIgnoreException(
     entry: NetworkStatisticsEntry? = null
-) = syncOrNull<Ok>(AddNetworkStatistics(entry))
+){
+    syncOrNull(AddNetworkStatistics(entry))
+}
+
 
 fun TdHandler.addNetworkStatisticsWith(
     entry: NetworkStatisticsEntry? = null,
@@ -72,9 +84,15 @@ fun TdHandler.addNetworkStatisticsWith(
  * Resets all network data usage statistics to zero
  * Can be called before authorization
  */
-suspend fun TdHandler.resetNetworkStatistics() = sync<Ok>(ResetNetworkStatistics())
+suspend fun TdHandler.resetNetworkStatistics(){
+    sync(ResetNetworkStatistics())
+}
 
-suspend fun TdHandler.resetNetworkStatisticsOrNull() = syncOrNull<Ok>(ResetNetworkStatistics())
+
+suspend fun TdHandler.resetNetworkStatisticsIgnoreException(){
+    syncOrNull(ResetNetworkStatistics())
+}
+
 
 fun TdHandler.resetNetworkStatisticsWith(
     stackIgnore: Int = 0,

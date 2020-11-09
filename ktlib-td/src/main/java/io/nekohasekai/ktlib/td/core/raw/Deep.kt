@@ -15,11 +15,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getDeepLinkInfo(
     link: String? = null
-) = sync<DeepLinkInfo>(GetDeepLinkInfo(link))
+) = sync(GetDeepLinkInfo(link))
 
 suspend fun TdHandler.getDeepLinkInfoOrNull(
     link: String? = null
-) = syncOrNull<DeepLinkInfo>(GetDeepLinkInfo(link))
+) = syncOrNull(GetDeepLinkInfo(link))
 
 fun TdHandler.getDeepLinkInfoWith(
     link: String? = null,

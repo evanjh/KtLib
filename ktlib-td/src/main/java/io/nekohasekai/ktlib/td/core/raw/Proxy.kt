@@ -19,14 +19,14 @@ suspend fun TdHandler.addProxy(
     port: Int,
     enable: Boolean,
     type: ProxyType? = null
-) = sync<Proxy>(AddProxy(server, port, enable, type))
+) = sync(AddProxy(server, port, enable, type))
 
 suspend fun TdHandler.addProxyOrNull(
     server: String? = null,
     port: Int,
     enable: Boolean,
     type: ProxyType? = null
-) = syncOrNull<Proxy>(AddProxy(server, port, enable, type))
+) = syncOrNull(AddProxy(server, port, enable, type))
 
 fun TdHandler.addProxyWith(
     server: String? = null,
@@ -53,7 +53,7 @@ suspend fun TdHandler.editProxy(
     port: Int,
     enable: Boolean,
     type: ProxyType? = null
-) = sync<Proxy>(EditProxy(proxyId, server, port, enable, type))
+) = sync(EditProxy(proxyId, server, port, enable, type))
 
 suspend fun TdHandler.editProxyOrNull(
     proxyId: Int,
@@ -61,7 +61,7 @@ suspend fun TdHandler.editProxyOrNull(
     port: Int,
     enable: Boolean,
     type: ProxyType? = null
-) = syncOrNull<Proxy>(EditProxy(proxyId, server, port, enable, type))
+) = syncOrNull(EditProxy(proxyId, server, port, enable, type))
 
 fun TdHandler.editProxyWith(
     proxyId: Int,
@@ -82,11 +82,17 @@ fun TdHandler.editProxyWith(
  */
 suspend fun TdHandler.enableProxy(
     proxyId: Int
-) = sync<Ok>(EnableProxy(proxyId))
+){
+    sync(EnableProxy(proxyId))
+}
 
-suspend fun TdHandler.enableProxyOrNull(
+
+suspend fun TdHandler.enableProxyIgnoreException(
     proxyId: Int
-) = syncOrNull<Ok>(EnableProxy(proxyId))
+){
+    syncOrNull(EnableProxy(proxyId))
+}
+
 
 fun TdHandler.enableProxyWith(
     proxyId: Int,
@@ -98,9 +104,15 @@ fun TdHandler.enableProxyWith(
  * Disables the currently enabled proxy
  * Can be called before authorization
  */
-suspend fun TdHandler.disableProxy() = sync<Ok>(DisableProxy())
+suspend fun TdHandler.disableProxy(){
+    sync(DisableProxy())
+}
 
-suspend fun TdHandler.disableProxyOrNull() = syncOrNull<Ok>(DisableProxy())
+
+suspend fun TdHandler.disableProxyIgnoreException(){
+    syncOrNull(DisableProxy())
+}
+
 
 fun TdHandler.disableProxyWith(
     stackIgnore: Int = 0,
@@ -115,11 +127,17 @@ fun TdHandler.disableProxyWith(
  */
 suspend fun TdHandler.removeProxy(
     proxyId: Int
-) = sync<Ok>(RemoveProxy(proxyId))
+){
+    sync(RemoveProxy(proxyId))
+}
 
-suspend fun TdHandler.removeProxyOrNull(
+
+suspend fun TdHandler.removeProxyIgnoreException(
     proxyId: Int
-) = syncOrNull<Ok>(RemoveProxy(proxyId))
+){
+    syncOrNull(RemoveProxy(proxyId))
+}
+
 
 fun TdHandler.removeProxyWith(
     proxyId: Int,
@@ -136,11 +154,11 @@ fun TdHandler.removeProxyWith(
  */
 suspend fun TdHandler.pingProxy(
     proxyId: Int
-) = sync<Seconds>(PingProxy(proxyId))
+) = sync(PingProxy(proxyId))
 
 suspend fun TdHandler.pingProxyOrNull(
     proxyId: Int
-) = syncOrNull<Seconds>(PingProxy(proxyId))
+) = syncOrNull(PingProxy(proxyId))
 
 fun TdHandler.pingProxyWith(
     proxyId: Int,

@@ -15,12 +15,18 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.setAuthenticationPhoneNumber(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = sync<Ok>(SetAuthenticationPhoneNumber(phoneNumber, settings))
+){
+    sync(SetAuthenticationPhoneNumber(phoneNumber, settings))
+}
 
-suspend fun TdHandler.setAuthenticationPhoneNumberOrNull(
+
+suspend fun TdHandler.setAuthenticationPhoneNumberIgnoreException(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = syncOrNull<Ok>(SetAuthenticationPhoneNumber(phoneNumber, settings))
+){
+    syncOrNull(SetAuthenticationPhoneNumber(phoneNumber, settings))
+}
+
 
 fun TdHandler.setAuthenticationPhoneNumberWith(
     phoneNumber: String? = null,
@@ -33,9 +39,15 @@ fun TdHandler.setAuthenticationPhoneNumberWith(
  * Re-sends an authentication code to the user
  * Works only when the current authorization state is authorizationStateWaitCode and the next_code_type of the result is not null
  */
-suspend fun TdHandler.resendAuthenticationCode() = sync<Ok>(ResendAuthenticationCode())
+suspend fun TdHandler.resendAuthenticationCode(){
+    sync(ResendAuthenticationCode())
+}
 
-suspend fun TdHandler.resendAuthenticationCodeOrNull() = syncOrNull<Ok>(ResendAuthenticationCode())
+
+suspend fun TdHandler.resendAuthenticationCodeIgnoreException(){
+    syncOrNull(ResendAuthenticationCode())
+}
+
 
 fun TdHandler.resendAuthenticationCodeWith(
     stackIgnore: Int = 0,
@@ -50,11 +62,17 @@ fun TdHandler.resendAuthenticationCodeWith(
  */
 suspend fun TdHandler.requestQrCodeAuthentication(
     otherUserIds: IntArray
-) = sync<Ok>(RequestQrCodeAuthentication(otherUserIds))
+){
+    sync(RequestQrCodeAuthentication(otherUserIds))
+}
 
-suspend fun TdHandler.requestQrCodeAuthenticationOrNull(
+
+suspend fun TdHandler.requestQrCodeAuthenticationIgnoreException(
     otherUserIds: IntArray
-) = syncOrNull<Ok>(RequestQrCodeAuthentication(otherUserIds))
+){
+    syncOrNull(RequestQrCodeAuthentication(otherUserIds))
+}
+
 
 fun TdHandler.requestQrCodeAuthenticationWith(
     otherUserIds: IntArray,
@@ -66,9 +84,15 @@ fun TdHandler.requestQrCodeAuthenticationWith(
  * Requests to send a password recovery code to an email address that was previously set up
  * Works only when the current authorization state is authorizationStateWaitPassword
  */
-suspend fun TdHandler.requestAuthenticationPasswordRecovery() = sync<Ok>(RequestAuthenticationPasswordRecovery())
+suspend fun TdHandler.requestAuthenticationPasswordRecovery(){
+    sync(RequestAuthenticationPasswordRecovery())
+}
 
-suspend fun TdHandler.requestAuthenticationPasswordRecoveryOrNull() = syncOrNull<Ok>(RequestAuthenticationPasswordRecovery())
+
+suspend fun TdHandler.requestAuthenticationPasswordRecoveryIgnoreException(){
+    syncOrNull(RequestAuthenticationPasswordRecovery())
+}
+
 
 fun TdHandler.requestAuthenticationPasswordRecoveryWith(
     stackIgnore: Int = 0,
@@ -83,11 +107,17 @@ fun TdHandler.requestAuthenticationPasswordRecoveryWith(
  */
 suspend fun TdHandler.recoverAuthenticationPassword(
     recoveryCode: String? = null
-) = sync<Ok>(RecoverAuthenticationPassword(recoveryCode))
+){
+    sync(RecoverAuthenticationPassword(recoveryCode))
+}
 
-suspend fun TdHandler.recoverAuthenticationPasswordOrNull(
+
+suspend fun TdHandler.recoverAuthenticationPasswordIgnoreException(
     recoveryCode: String? = null
-) = syncOrNull<Ok>(RecoverAuthenticationPassword(recoveryCode))
+){
+    syncOrNull(RecoverAuthenticationPassword(recoveryCode))
+}
+
 
 fun TdHandler.recoverAuthenticationPasswordWith(
     recoveryCode: String? = null,
@@ -105,12 +135,12 @@ fun TdHandler.recoverAuthenticationPasswordWith(
 suspend fun TdHandler.changePhoneNumber(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = sync<AuthenticationCodeInfo>(ChangePhoneNumber(phoneNumber, settings))
+) = sync(ChangePhoneNumber(phoneNumber, settings))
 
 suspend fun TdHandler.changePhoneNumberOrNull(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = syncOrNull<AuthenticationCodeInfo>(ChangePhoneNumber(phoneNumber, settings))
+) = syncOrNull(ChangePhoneNumber(phoneNumber, settings))
 
 fun TdHandler.changePhoneNumberWith(
     phoneNumber: String? = null,
@@ -123,9 +153,9 @@ fun TdHandler.changePhoneNumberWith(
  * Re-sends the authentication code sent to confirm a new phone number for the user
  * Works only if the previously received authenticationCodeInfo next_code_type was not null
  */
-suspend fun TdHandler.resendChangePhoneNumberCode() = sync<AuthenticationCodeInfo>(ResendChangePhoneNumberCode())
+suspend fun TdHandler.resendChangePhoneNumberCode() = sync(ResendChangePhoneNumberCode())
 
-suspend fun TdHandler.resendChangePhoneNumberCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendChangePhoneNumberCode())
+suspend fun TdHandler.resendChangePhoneNumberCodeOrNull() = syncOrNull(ResendChangePhoneNumberCode())
 
 fun TdHandler.resendChangePhoneNumberCodeWith(
     stackIgnore: Int = 0,
@@ -141,12 +171,12 @@ fun TdHandler.resendChangePhoneNumberCodeWith(
 suspend fun TdHandler.sendPhoneNumberVerificationCode(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = sync<AuthenticationCodeInfo>(SendPhoneNumberVerificationCode(phoneNumber, settings))
+) = sync(SendPhoneNumberVerificationCode(phoneNumber, settings))
 
 suspend fun TdHandler.sendPhoneNumberVerificationCodeOrNull(
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = syncOrNull<AuthenticationCodeInfo>(SendPhoneNumberVerificationCode(phoneNumber, settings))
+) = syncOrNull(SendPhoneNumberVerificationCode(phoneNumber, settings))
 
 fun TdHandler.sendPhoneNumberVerificationCodeWith(
     phoneNumber: String? = null,
@@ -158,9 +188,9 @@ fun TdHandler.sendPhoneNumberVerificationCodeWith(
 /**
  * Re-sends the code to verify a phone number to be added to a user's Telegram Passport
  */
-suspend fun TdHandler.resendPhoneNumberVerificationCode() = sync<AuthenticationCodeInfo>(ResendPhoneNumberVerificationCode())
+suspend fun TdHandler.resendPhoneNumberVerificationCode() = sync(ResendPhoneNumberVerificationCode())
 
-suspend fun TdHandler.resendPhoneNumberVerificationCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendPhoneNumberVerificationCode())
+suspend fun TdHandler.resendPhoneNumberVerificationCodeOrNull() = syncOrNull(ResendPhoneNumberVerificationCode())
 
 fun TdHandler.resendPhoneNumberVerificationCodeWith(
     stackIgnore: Int = 0,
@@ -179,13 +209,13 @@ suspend fun TdHandler.sendPhoneNumberConfirmationCode(
     hash: String? = null,
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = sync<AuthenticationCodeInfo>(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
+) = sync(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
 
 suspend fun TdHandler.sendPhoneNumberConfirmationCodeOrNull(
     hash: String? = null,
     phoneNumber: String? = null,
     settings: PhoneNumberAuthenticationSettings? = null
-) = syncOrNull<AuthenticationCodeInfo>(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
+) = syncOrNull(SendPhoneNumberConfirmationCode(hash, phoneNumber, settings))
 
 fun TdHandler.sendPhoneNumberConfirmationCodeWith(
     hash: String? = null,
@@ -198,9 +228,9 @@ fun TdHandler.sendPhoneNumberConfirmationCodeWith(
 /**
  * Resends phone number confirmation code
  */
-suspend fun TdHandler.resendPhoneNumberConfirmationCode() = sync<AuthenticationCodeInfo>(ResendPhoneNumberConfirmationCode())
+suspend fun TdHandler.resendPhoneNumberConfirmationCode() = sync(ResendPhoneNumberConfirmationCode())
 
-suspend fun TdHandler.resendPhoneNumberConfirmationCodeOrNull() = syncOrNull<AuthenticationCodeInfo>(ResendPhoneNumberConfirmationCode())
+suspend fun TdHandler.resendPhoneNumberConfirmationCodeOrNull() = syncOrNull(ResendPhoneNumberConfirmationCode())
 
 fun TdHandler.resendPhoneNumberConfirmationCodeWith(
     stackIgnore: Int = 0,

@@ -13,11 +13,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setDatabaseEncryptionKey(
     newEncryptionKey: ByteArray
-) = sync<Ok>(SetDatabaseEncryptionKey(newEncryptionKey))
+){
+    sync(SetDatabaseEncryptionKey(newEncryptionKey))
+}
 
-suspend fun TdHandler.setDatabaseEncryptionKeyOrNull(
+
+suspend fun TdHandler.setDatabaseEncryptionKeyIgnoreException(
     newEncryptionKey: ByteArray
-) = syncOrNull<Ok>(SetDatabaseEncryptionKey(newEncryptionKey))
+){
+    syncOrNull(SetDatabaseEncryptionKey(newEncryptionKey))
+}
+
 
 fun TdHandler.setDatabaseEncryptionKeyWith(
     newEncryptionKey: ByteArray,
@@ -28,9 +34,9 @@ fun TdHandler.setDatabaseEncryptionKeyWith(
 /**
  * Returns database statistics
  */
-suspend fun TdHandler.getDatabaseStatistics() = sync<DatabaseStatistics>(GetDatabaseStatistics())
+suspend fun TdHandler.getDatabaseStatistics() = sync(GetDatabaseStatistics())
 
-suspend fun TdHandler.getDatabaseStatisticsOrNull() = syncOrNull<DatabaseStatistics>(GetDatabaseStatistics())
+suspend fun TdHandler.getDatabaseStatisticsOrNull() = syncOrNull(GetDatabaseStatistics())
 
 fun TdHandler.getDatabaseStatisticsWith(
     stackIgnore: Int = 0,

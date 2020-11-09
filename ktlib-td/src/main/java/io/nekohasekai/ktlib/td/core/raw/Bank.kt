@@ -12,11 +12,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getBankCardInfo(
     bankCardNumber: String? = null
-) = sync<BankCardInfo>(GetBankCardInfo(bankCardNumber))
+) = sync(GetBankCardInfo(bankCardNumber))
 
 suspend fun TdHandler.getBankCardInfoOrNull(
     bankCardNumber: String? = null
-) = syncOrNull<BankCardInfo>(GetBankCardInfo(bankCardNumber))
+) = syncOrNull(GetBankCardInfo(bankCardNumber))
 
 fun TdHandler.getBankCardInfoWith(
     bankCardNumber: String? = null,

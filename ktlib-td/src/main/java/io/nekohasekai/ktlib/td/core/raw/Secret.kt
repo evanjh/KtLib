@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getSecretChat(
     secretChatId: Int
-) = sync<SecretChat>(GetSecretChat(secretChatId))
+) = sync(GetSecretChat(secretChatId))
 
 suspend fun TdHandler.getSecretChatOrNull(
     secretChatId: Int
-) = syncOrNull<SecretChat>(GetSecretChat(secretChatId))
+) = syncOrNull(GetSecretChat(secretChatId))
 
 fun TdHandler.getSecretChatWith(
     secretChatId: Int,
@@ -32,11 +32,17 @@ fun TdHandler.getSecretChatWith(
  */
 suspend fun TdHandler.closeSecretChat(
     secretChatId: Int
-) = sync<Ok>(CloseSecretChat(secretChatId))
+){
+    sync(CloseSecretChat(secretChatId))
+}
 
-suspend fun TdHandler.closeSecretChatOrNull(
+
+suspend fun TdHandler.closeSecretChatIgnoreException(
     secretChatId: Int
-) = syncOrNull<Ok>(CloseSecretChat(secretChatId))
+){
+    syncOrNull(CloseSecretChat(secretChatId))
+}
+
 
 fun TdHandler.closeSecretChatWith(
     secretChatId: Int,

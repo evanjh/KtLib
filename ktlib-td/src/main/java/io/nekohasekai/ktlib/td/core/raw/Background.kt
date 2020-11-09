@@ -12,11 +12,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getBackgrounds(
     forDarkTheme: Boolean
-) = sync<Backgrounds>(GetBackgrounds(forDarkTheme))
+) = sync(GetBackgrounds(forDarkTheme))
 
 suspend fun TdHandler.getBackgroundsOrNull(
     forDarkTheme: Boolean
-) = syncOrNull<Backgrounds>(GetBackgrounds(forDarkTheme))
+) = syncOrNull(GetBackgrounds(forDarkTheme))
 
 fun TdHandler.getBackgroundsWith(
     forDarkTheme: Boolean,
@@ -33,12 +33,12 @@ fun TdHandler.getBackgroundsWith(
 suspend fun TdHandler.getBackgroundUrl(
     name: String? = null,
     type: BackgroundType? = null
-) = sync<HttpUrl>(GetBackgroundUrl(name, type))
+) = sync(GetBackgroundUrl(name, type))
 
 suspend fun TdHandler.getBackgroundUrlOrNull(
     name: String? = null,
     type: BackgroundType? = null
-) = syncOrNull<HttpUrl>(GetBackgroundUrl(name, type))
+) = syncOrNull(GetBackgroundUrl(name, type))
 
 fun TdHandler.getBackgroundUrlWith(
     name: String? = null,
@@ -54,11 +54,11 @@ fun TdHandler.getBackgroundUrlWith(
  */
 suspend fun TdHandler.searchBackground(
     name: String? = null
-) = sync<Background>(SearchBackground(name))
+) = sync(SearchBackground(name))
 
 suspend fun TdHandler.searchBackgroundOrNull(
     name: String? = null
-) = syncOrNull<Background>(SearchBackground(name))
+) = syncOrNull(SearchBackground(name))
 
 fun TdHandler.searchBackgroundWith(
     name: String? = null,
@@ -80,13 +80,13 @@ suspend fun TdHandler.setBackground(
     background: InputBackground? = null,
     type: BackgroundType? = null,
     forDarkTheme: Boolean
-) = sync<Background>(SetBackground(background, type, forDarkTheme))
+) = sync(SetBackground(background, type, forDarkTheme))
 
 suspend fun TdHandler.setBackgroundOrNull(
     background: InputBackground? = null,
     type: BackgroundType? = null,
     forDarkTheme: Boolean
-) = syncOrNull<Background>(SetBackground(background, type, forDarkTheme))
+) = syncOrNull(SetBackground(background, type, forDarkTheme))
 
 fun TdHandler.setBackgroundWith(
     background: InputBackground? = null,
@@ -103,11 +103,17 @@ fun TdHandler.setBackgroundWith(
  */
 suspend fun TdHandler.removeBackground(
     backgroundId: Long
-) = sync<Ok>(RemoveBackground(backgroundId))
+){
+    sync(RemoveBackground(backgroundId))
+}
 
-suspend fun TdHandler.removeBackgroundOrNull(
+
+suspend fun TdHandler.removeBackgroundIgnoreException(
     backgroundId: Long
-) = syncOrNull<Ok>(RemoveBackground(backgroundId))
+){
+    syncOrNull(RemoveBackground(backgroundId))
+}
+
 
 fun TdHandler.removeBackgroundWith(
     backgroundId: Long,
@@ -118,9 +124,15 @@ fun TdHandler.removeBackgroundWith(
 /**
  * Resets list of installed backgrounds to its default value
  */
-suspend fun TdHandler.resetBackgrounds() = sync<Ok>(ResetBackgrounds())
+suspend fun TdHandler.resetBackgrounds(){
+    sync(ResetBackgrounds())
+}
 
-suspend fun TdHandler.resetBackgroundsOrNull() = syncOrNull<Ok>(ResetBackgrounds())
+
+suspend fun TdHandler.resetBackgroundsIgnoreException(){
+    syncOrNull(ResetBackgrounds())
+}
+
 
 fun TdHandler.resetBackgroundsWith(
     stackIgnore: Int = 0,

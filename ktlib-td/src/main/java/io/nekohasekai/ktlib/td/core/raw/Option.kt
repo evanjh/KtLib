@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getOption(
     name: String? = null
-) = sync<OptionValue>(GetOption(name))
+) = sync(GetOption(name))
 
 suspend fun TdHandler.getOptionOrNull(
     name: String? = null
-) = syncOrNull<OptionValue>(GetOption(name))
+) = syncOrNull(GetOption(name))
 
 fun TdHandler.getOptionWith(
     name: String? = null,
@@ -36,12 +36,18 @@ fun TdHandler.getOptionWith(
 suspend fun TdHandler.setOption(
     name: String? = null,
     value: OptionValue? = null
-) = sync<Ok>(SetOption(name, value))
+){
+    sync(SetOption(name, value))
+}
 
-suspend fun TdHandler.setOptionOrNull(
+
+suspend fun TdHandler.setOptionIgnoreException(
     name: String? = null,
     value: OptionValue? = null
-) = syncOrNull<Ok>(SetOption(name, value))
+){
+    syncOrNull(SetOption(name, value))
+}
+
 
 fun TdHandler.setOptionWith(
     name: String? = null,

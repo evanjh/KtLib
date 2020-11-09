@@ -15,12 +15,18 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.setBotUpdatesStatus(
     pendingUpdateCount: Int,
     errorMessage: String? = null
-) = sync<Ok>(SetBotUpdatesStatus(pendingUpdateCount, errorMessage))
+){
+    sync(SetBotUpdatesStatus(pendingUpdateCount, errorMessage))
+}
 
-suspend fun TdHandler.setBotUpdatesStatusOrNull(
+
+suspend fun TdHandler.setBotUpdatesStatusIgnoreException(
     pendingUpdateCount: Int,
     errorMessage: String? = null
-) = syncOrNull<Ok>(SetBotUpdatesStatus(pendingUpdateCount, errorMessage))
+){
+    syncOrNull(SetBotUpdatesStatus(pendingUpdateCount, errorMessage))
+}
+
 
 fun TdHandler.setBotUpdatesStatusWith(
     pendingUpdateCount: Int,

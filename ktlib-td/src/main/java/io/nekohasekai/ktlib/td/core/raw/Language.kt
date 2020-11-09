@@ -14,11 +14,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getLanguagePackInfo(
     languagePackId: String? = null
-) = sync<LanguagePackInfo>(GetLanguagePackInfo(languagePackId))
+) = sync(GetLanguagePackInfo(languagePackId))
 
 suspend fun TdHandler.getLanguagePackInfoOrNull(
     languagePackId: String? = null
-) = syncOrNull<LanguagePackInfo>(GetLanguagePackInfo(languagePackId))
+) = syncOrNull(GetLanguagePackInfo(languagePackId))
 
 fun TdHandler.getLanguagePackInfoWith(
     languagePackId: String? = null,
@@ -37,12 +37,12 @@ fun TdHandler.getLanguagePackInfoWith(
 suspend fun TdHandler.getLanguagePackStrings(
     languagePackId: String? = null,
     keys: Array<String>
-) = sync<LanguagePackStrings>(GetLanguagePackStrings(languagePackId, keys))
+) = sync(GetLanguagePackStrings(languagePackId, keys))
 
 suspend fun TdHandler.getLanguagePackStringsOrNull(
     languagePackId: String? = null,
     keys: Array<String>
-) = syncOrNull<LanguagePackStrings>(GetLanguagePackStrings(languagePackId, keys))
+) = syncOrNull(GetLanguagePackStrings(languagePackId, keys))
 
 fun TdHandler.getLanguagePackStringsWith(
     languagePackId: String? = null,
@@ -60,11 +60,17 @@ fun TdHandler.getLanguagePackStringsWith(
  */
 suspend fun TdHandler.synchronizeLanguagePack(
     languagePackId: String? = null
-) = sync<Ok>(SynchronizeLanguagePack(languagePackId))
+){
+    sync(SynchronizeLanguagePack(languagePackId))
+}
 
-suspend fun TdHandler.synchronizeLanguagePackOrNull(
+
+suspend fun TdHandler.synchronizeLanguagePackIgnoreException(
     languagePackId: String? = null
-) = syncOrNull<Ok>(SynchronizeLanguagePack(languagePackId))
+){
+    syncOrNull(SynchronizeLanguagePack(languagePackId))
+}
+
 
 fun TdHandler.synchronizeLanguagePackWith(
     languagePackId: String? = null,
@@ -81,11 +87,17 @@ fun TdHandler.synchronizeLanguagePackWith(
  */
 suspend fun TdHandler.deleteLanguagePack(
     languagePackId: String? = null
-) = sync<Ok>(DeleteLanguagePack(languagePackId))
+){
+    sync(DeleteLanguagePack(languagePackId))
+}
 
-suspend fun TdHandler.deleteLanguagePackOrNull(
+
+suspend fun TdHandler.deleteLanguagePackIgnoreException(
     languagePackId: String? = null
-) = syncOrNull<Ok>(DeleteLanguagePack(languagePackId))
+){
+    syncOrNull(DeleteLanguagePack(languagePackId))
+}
+
 
 fun TdHandler.deleteLanguagePackWith(
     languagePackId: String? = null,

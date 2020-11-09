@@ -17,13 +17,13 @@ suspend fun TdHandler.getLoginUrlInfo(
     chatId: Long,
     messageId: Long,
     buttonId: Int
-) = sync<LoginUrlInfo>(GetLoginUrlInfo(chatId, messageId, buttonId))
+) = sync(GetLoginUrlInfo(chatId, messageId, buttonId))
 
 suspend fun TdHandler.getLoginUrlInfoOrNull(
     chatId: Long,
     messageId: Long,
     buttonId: Int
-) = syncOrNull<LoginUrlInfo>(GetLoginUrlInfo(chatId, messageId, buttonId))
+) = syncOrNull(GetLoginUrlInfo(chatId, messageId, buttonId))
 
 fun TdHandler.getLoginUrlInfoWith(
     chatId: Long,
@@ -48,14 +48,14 @@ suspend fun TdHandler.getLoginUrl(
     messageId: Long,
     buttonId: Int,
     allowWriteAccess: Boolean
-) = sync<HttpUrl>(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
+) = sync(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
 
 suspend fun TdHandler.getLoginUrlOrNull(
     chatId: Long,
     messageId: Long,
     buttonId: Int,
     allowWriteAccess: Boolean
-) = syncOrNull<HttpUrl>(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
+) = syncOrNull(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess))
 
 fun TdHandler.getLoginUrlWith(
     chatId: Long,

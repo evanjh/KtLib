@@ -11,9 +11,9 @@ import io.nekohasekai.ktlib.td.core.*
  * This is especially useful if TDLib is run in a separate process
  * Can be called before initialization
  */
-suspend fun TdHandler.getCurrentState() = sync<Updates>(GetCurrentState())
+suspend fun TdHandler.getCurrentState() = sync(GetCurrentState())
 
-suspend fun TdHandler.getCurrentStateOrNull() = syncOrNull<Updates>(GetCurrentState())
+suspend fun TdHandler.getCurrentStateOrNull() = syncOrNull(GetCurrentState())
 
 fun TdHandler.getCurrentStateWith(
     stackIgnore: Int = 0,

@@ -12,11 +12,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.acceptTermsOfService(
     termsOfServiceId: String? = null
-) = sync<Ok>(AcceptTermsOfService(termsOfServiceId))
+){
+    sync(AcceptTermsOfService(termsOfServiceId))
+}
 
-suspend fun TdHandler.acceptTermsOfServiceOrNull(
+
+suspend fun TdHandler.acceptTermsOfServiceIgnoreException(
     termsOfServiceId: String? = null
-) = syncOrNull<Ok>(AcceptTermsOfService(termsOfServiceId))
+){
+    syncOrNull(AcceptTermsOfService(termsOfServiceId))
+}
+
 
 fun TdHandler.acceptTermsOfServiceWith(
     termsOfServiceId: String? = null,

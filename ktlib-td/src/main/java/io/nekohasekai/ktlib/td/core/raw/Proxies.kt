@@ -9,9 +9,9 @@ import io.nekohasekai.ktlib.td.core.*
  * Returns list of proxies that are currently set up
  * Can be called before authorization
  */
-suspend fun TdHandler.getProxies() = sync<Proxies>(GetProxies())
+suspend fun TdHandler.getProxies() = sync(GetProxies())
 
-suspend fun TdHandler.getProxiesOrNull() = syncOrNull<Proxies>(GetProxies())
+suspend fun TdHandler.getProxiesOrNull() = syncOrNull(GetProxies())
 
 fun TdHandler.getProxiesWith(
     stackIgnore: Int = 0,

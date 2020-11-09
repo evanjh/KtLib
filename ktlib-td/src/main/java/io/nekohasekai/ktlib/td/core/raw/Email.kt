@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getRecoveryEmailAddress(
     password: String? = null
-) = sync<RecoveryEmailAddress>(GetRecoveryEmailAddress(password))
+) = sync(GetRecoveryEmailAddress(password))
 
 suspend fun TdHandler.getRecoveryEmailAddressOrNull(
     password: String? = null
-) = syncOrNull<RecoveryEmailAddress>(GetRecoveryEmailAddress(password))
+) = syncOrNull(GetRecoveryEmailAddress(password))
 
 fun TdHandler.getRecoveryEmailAddressWith(
     password: String? = null,
@@ -28,9 +28,9 @@ fun TdHandler.getRecoveryEmailAddressWith(
 /**
  * Requests to send a password recovery code to an email address that was previously set up
  */
-suspend fun TdHandler.requestPasswordRecovery() = sync<EmailAddressAuthenticationCodeInfo>(RequestPasswordRecovery())
+suspend fun TdHandler.requestPasswordRecovery() = sync(RequestPasswordRecovery())
 
-suspend fun TdHandler.requestPasswordRecoveryOrNull() = syncOrNull<EmailAddressAuthenticationCodeInfo>(RequestPasswordRecovery())
+suspend fun TdHandler.requestPasswordRecoveryOrNull() = syncOrNull(RequestPasswordRecovery())
 
 fun TdHandler.requestPasswordRecoveryWith(
     stackIgnore: Int = 0,
@@ -44,11 +44,11 @@ fun TdHandler.requestPasswordRecoveryWith(
  */
 suspend fun TdHandler.sendEmailAddressVerificationCode(
     emailAddress: String? = null
-) = sync<EmailAddressAuthenticationCodeInfo>(SendEmailAddressVerificationCode(emailAddress))
+) = sync(SendEmailAddressVerificationCode(emailAddress))
 
 suspend fun TdHandler.sendEmailAddressVerificationCodeOrNull(
     emailAddress: String? = null
-) = syncOrNull<EmailAddressAuthenticationCodeInfo>(SendEmailAddressVerificationCode(emailAddress))
+) = syncOrNull(SendEmailAddressVerificationCode(emailAddress))
 
 fun TdHandler.sendEmailAddressVerificationCodeWith(
     emailAddress: String? = null,
@@ -59,9 +59,9 @@ fun TdHandler.sendEmailAddressVerificationCodeWith(
 /**
  * Re-sends the code to verify an email address to be added to a user's Telegram Passport
  */
-suspend fun TdHandler.resendEmailAddressVerificationCode() = sync<EmailAddressAuthenticationCodeInfo>(ResendEmailAddressVerificationCode())
+suspend fun TdHandler.resendEmailAddressVerificationCode() = sync(ResendEmailAddressVerificationCode())
 
-suspend fun TdHandler.resendEmailAddressVerificationCodeOrNull() = syncOrNull<EmailAddressAuthenticationCodeInfo>(ResendEmailAddressVerificationCode())
+suspend fun TdHandler.resendEmailAddressVerificationCodeOrNull() = syncOrNull(ResendEmailAddressVerificationCode())
 
 fun TdHandler.resendEmailAddressVerificationCodeWith(
     stackIgnore: Int = 0,

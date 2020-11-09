@@ -11,9 +11,15 @@ import io.nekohasekai.ktlib.td.core.*
  * This is an offline method
  * Can be called before authorization
  */
-suspend fun TdHandler.testCallEmpty() = sync<Ok>(TestCallEmpty())
+suspend fun TdHandler.testCallEmpty(){
+    sync(TestCallEmpty())
+}
 
-suspend fun TdHandler.testCallEmptyOrNull() = syncOrNull<Ok>(TestCallEmpty())
+
+suspend fun TdHandler.testCallEmptyIgnoreException(){
+    syncOrNull(TestCallEmpty())
+}
+
 
 fun TdHandler.testCallEmptyWith(
     stackIgnore: Int = 0,
@@ -30,11 +36,11 @@ fun TdHandler.testCallEmptyWith(
  */
 suspend fun TdHandler.testCallString(
     x: String? = null
-) = sync<TestString>(TestCallString(x))
+) = sync(TestCallString(x))
 
 suspend fun TdHandler.testCallStringOrNull(
     x: String? = null
-) = syncOrNull<TestString>(TestCallString(x))
+) = syncOrNull(TestCallString(x))
 
 fun TdHandler.testCallStringWith(
     x: String? = null,
@@ -52,11 +58,11 @@ fun TdHandler.testCallStringWith(
  */
 suspend fun TdHandler.testCallBytes(
     x: ByteArray
-) = sync<TestBytes>(TestCallBytes(x))
+) = sync(TestCallBytes(x))
 
 suspend fun TdHandler.testCallBytesOrNull(
     x: ByteArray
-) = syncOrNull<TestBytes>(TestCallBytes(x))
+) = syncOrNull(TestCallBytes(x))
 
 fun TdHandler.testCallBytesWith(
     x: ByteArray,
@@ -74,11 +80,11 @@ fun TdHandler.testCallBytesWith(
  */
 suspend fun TdHandler.testCallVectorInt(
     x: IntArray
-) = sync<TestVectorInt>(TestCallVectorInt(x))
+) = sync(TestCallVectorInt(x))
 
 suspend fun TdHandler.testCallVectorIntOrNull(
     x: IntArray
-) = syncOrNull<TestVectorInt>(TestCallVectorInt(x))
+) = syncOrNull(TestCallVectorInt(x))
 
 fun TdHandler.testCallVectorIntWith(
     x: IntArray,
@@ -96,11 +102,11 @@ fun TdHandler.testCallVectorIntWith(
  */
 suspend fun TdHandler.testCallVectorIntObject(
     x: Array<TestInt>
-) = sync<TestVectorIntObject>(TestCallVectorIntObject(x))
+) = sync(TestCallVectorIntObject(x))
 
 suspend fun TdHandler.testCallVectorIntObjectOrNull(
     x: Array<TestInt>
-) = syncOrNull<TestVectorIntObject>(TestCallVectorIntObject(x))
+) = syncOrNull(TestCallVectorIntObject(x))
 
 fun TdHandler.testCallVectorIntObjectWith(
     x: Array<TestInt>,
@@ -118,11 +124,11 @@ fun TdHandler.testCallVectorIntObjectWith(
  */
 suspend fun TdHandler.testCallVectorString(
     x: Array<String>
-) = sync<TestVectorString>(TestCallVectorString(x))
+) = sync(TestCallVectorString(x))
 
 suspend fun TdHandler.testCallVectorStringOrNull(
     x: Array<String>
-) = syncOrNull<TestVectorString>(TestCallVectorString(x))
+) = syncOrNull(TestCallVectorString(x))
 
 fun TdHandler.testCallVectorStringWith(
     x: Array<String>,
@@ -140,11 +146,11 @@ fun TdHandler.testCallVectorStringWith(
  */
 suspend fun TdHandler.testCallVectorStringObject(
     x: Array<TestString>
-) = sync<TestVectorStringObject>(TestCallVectorStringObject(x))
+) = sync(TestCallVectorStringObject(x))
 
 suspend fun TdHandler.testCallVectorStringObjectOrNull(
     x: Array<TestString>
-) = syncOrNull<TestVectorStringObject>(TestCallVectorStringObject(x))
+) = syncOrNull(TestCallVectorStringObject(x))
 
 fun TdHandler.testCallVectorStringObjectWith(
     x: Array<TestString>,
@@ -162,11 +168,11 @@ fun TdHandler.testCallVectorStringObjectWith(
  */
 suspend fun TdHandler.testSquareInt(
     x: Int
-) = sync<TestInt>(TestSquareInt(x))
+) = sync(TestSquareInt(x))
 
 suspend fun TdHandler.testSquareIntOrNull(
     x: Int
-) = syncOrNull<TestInt>(TestSquareInt(x))
+) = syncOrNull(TestSquareInt(x))
 
 fun TdHandler.testSquareIntWith(
     x: Int,
@@ -179,9 +185,15 @@ fun TdHandler.testSquareIntWith(
  * For testing only
  * Can be called before authorization
  */
-suspend fun TdHandler.testNetwork() = sync<Ok>(TestNetwork())
+suspend fun TdHandler.testNetwork(){
+    sync(TestNetwork())
+}
 
-suspend fun TdHandler.testNetworkOrNull() = syncOrNull<Ok>(TestNetwork())
+
+suspend fun TdHandler.testNetworkIgnoreException(){
+    syncOrNull(TestNetwork())
+}
+
 
 fun TdHandler.testNetworkWith(
     stackIgnore: Int = 0,
@@ -205,15 +217,21 @@ suspend fun TdHandler.testProxy(
     type: ProxyType? = null,
     dcId: Int,
     timeout: Double
-) = sync<Ok>(TestProxy(server, port, type, dcId, timeout))
+){
+    sync(TestProxy(server, port, type, dcId, timeout))
+}
 
-suspend fun TdHandler.testProxyOrNull(
+
+suspend fun TdHandler.testProxyIgnoreException(
     server: String? = null,
     port: Int,
     type: ProxyType? = null,
     dcId: Int,
     timeout: Double
-) = syncOrNull<Ok>(TestProxy(server, port, type, dcId, timeout))
+){
+    syncOrNull(TestProxy(server, port, type, dcId, timeout))
+}
+
 
 fun TdHandler.testProxyWith(
     server: String? = null,
@@ -229,9 +247,15 @@ fun TdHandler.testProxyWith(
  * Forces an updates.getDifference call to the Telegram servers
  * For testing only
  */
-suspend fun TdHandler.testGetDifference() = sync<Ok>(TestGetDifference())
+suspend fun TdHandler.testGetDifference(){
+    sync(TestGetDifference())
+}
 
-suspend fun TdHandler.testGetDifferenceOrNull() = syncOrNull<Ok>(TestGetDifference())
+
+suspend fun TdHandler.testGetDifferenceIgnoreException(){
+    syncOrNull(TestGetDifference())
+}
+
 
 fun TdHandler.testGetDifferenceWith(
     stackIgnore: Int = 0,
@@ -244,9 +268,9 @@ fun TdHandler.testGetDifferenceWith(
  * This is an offline method
  * Can be called before authorization
  */
-suspend fun TdHandler.testUseUpdate() = sync<Update>(TestUseUpdate())
+suspend fun TdHandler.testUseUpdate() = sync(TestUseUpdate())
 
-suspend fun TdHandler.testUseUpdateOrNull() = syncOrNull<Update>(TestUseUpdate())
+suspend fun TdHandler.testUseUpdateOrNull() = syncOrNull(TestUseUpdate())
 
 fun TdHandler.testUseUpdateWith(
     stackIgnore: Int = 0,
@@ -262,11 +286,11 @@ fun TdHandler.testUseUpdateWith(
  */
 suspend fun TdHandler.testReturnError(
     error: Error? = null
-) = sync<Error>(TestReturnError(error))
+) = sync(TestReturnError(error))
 
 suspend fun TdHandler.testReturnErrorOrNull(
     error: Error? = null
-) = syncOrNull<Error>(TestReturnError(error))
+) = syncOrNull(TestReturnError(error))
 
 fun TdHandler.testReturnErrorWith(
     error: Error? = null,

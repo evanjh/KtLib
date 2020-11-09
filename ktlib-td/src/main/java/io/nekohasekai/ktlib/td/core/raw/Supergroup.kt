@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getSupergroup(
     supergroupId: Int
-) = sync<Supergroup>(GetSupergroup(supergroupId))
+) = sync(GetSupergroup(supergroupId))
 
 suspend fun TdHandler.getSupergroupOrNull(
     supergroupId: Int
-) = syncOrNull<Supergroup>(GetSupergroup(supergroupId))
+) = syncOrNull(GetSupergroup(supergroupId))
 
 fun TdHandler.getSupergroupWith(
     supergroupId: Int,
@@ -32,11 +32,11 @@ fun TdHandler.getSupergroupWith(
  */
 suspend fun TdHandler.getSupergroupFullInfo(
     supergroupId: Int
-) = sync<SupergroupFullInfo>(GetSupergroupFullInfo(supergroupId))
+) = sync(GetSupergroupFullInfo(supergroupId))
 
 suspend fun TdHandler.getSupergroupFullInfoOrNull(
     supergroupId: Int
-) = syncOrNull<SupergroupFullInfo>(GetSupergroupFullInfo(supergroupId))
+) = syncOrNull(GetSupergroupFullInfo(supergroupId))
 
 fun TdHandler.getSupergroupFullInfoWith(
     supergroupId: Int,
@@ -54,12 +54,18 @@ fun TdHandler.getSupergroupFullInfoWith(
 suspend fun TdHandler.setSupergroupUsername(
     supergroupId: Int,
     username: String? = null
-) = sync<Ok>(SetSupergroupUsername(supergroupId, username))
+){
+    sync(SetSupergroupUsername(supergroupId, username))
+}
 
-suspend fun TdHandler.setSupergroupUsernameOrNull(
+
+suspend fun TdHandler.setSupergroupUsernameIgnoreException(
     supergroupId: Int,
     username: String? = null
-) = syncOrNull<Ok>(SetSupergroupUsername(supergroupId, username))
+){
+    syncOrNull(SetSupergroupUsername(supergroupId, username))
+}
+
 
 fun TdHandler.setSupergroupUsernameWith(
     supergroupId: Int,
@@ -79,12 +85,18 @@ fun TdHandler.setSupergroupUsernameWith(
 suspend fun TdHandler.setSupergroupStickerSet(
     supergroupId: Int,
     stickerSetId: Long
-) = sync<Ok>(SetSupergroupStickerSet(supergroupId, stickerSetId))
+){
+    sync(SetSupergroupStickerSet(supergroupId, stickerSetId))
+}
 
-suspend fun TdHandler.setSupergroupStickerSetOrNull(
+
+suspend fun TdHandler.setSupergroupStickerSetIgnoreException(
     supergroupId: Int,
     stickerSetId: Long
-) = syncOrNull<Ok>(SetSupergroupStickerSet(supergroupId, stickerSetId))
+){
+    syncOrNull(SetSupergroupStickerSet(supergroupId, stickerSetId))
+}
+
 
 fun TdHandler.setSupergroupStickerSetWith(
     supergroupId: Int,
@@ -103,12 +115,18 @@ fun TdHandler.setSupergroupStickerSetWith(
 suspend fun TdHandler.toggleSupergroupSignMessages(
     supergroupId: Int,
     signMessages: Boolean
-) = sync<Ok>(ToggleSupergroupSignMessages(supergroupId, signMessages))
+){
+    sync(ToggleSupergroupSignMessages(supergroupId, signMessages))
+}
 
-suspend fun TdHandler.toggleSupergroupSignMessagesOrNull(
+
+suspend fun TdHandler.toggleSupergroupSignMessagesIgnoreException(
     supergroupId: Int,
     signMessages: Boolean
-) = syncOrNull<Ok>(ToggleSupergroupSignMessages(supergroupId, signMessages))
+){
+    syncOrNull(ToggleSupergroupSignMessages(supergroupId, signMessages))
+}
+
 
 fun TdHandler.toggleSupergroupSignMessagesWith(
     supergroupId: Int,
@@ -127,12 +145,18 @@ fun TdHandler.toggleSupergroupSignMessagesWith(
 suspend fun TdHandler.toggleSupergroupIsAllHistoryAvailable(
     supergroupId: Int,
     isAllHistoryAvailable: Boolean
-) = sync<Ok>(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
+){
+    sync(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
+}
 
-suspend fun TdHandler.toggleSupergroupIsAllHistoryAvailableOrNull(
+
+suspend fun TdHandler.toggleSupergroupIsAllHistoryAvailableIgnoreException(
     supergroupId: Int,
     isAllHistoryAvailable: Boolean
-) = syncOrNull<Ok>(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
+){
+    syncOrNull(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable))
+}
+
 
 fun TdHandler.toggleSupergroupIsAllHistoryAvailableWith(
     supergroupId: Int,
@@ -154,13 +178,19 @@ suspend fun TdHandler.reportSupergroupSpam(
     supergroupId: Int,
     userId: Int,
     messageIds: LongArray
-) = sync<Ok>(ReportSupergroupSpam(supergroupId, userId, messageIds))
+){
+    sync(ReportSupergroupSpam(supergroupId, userId, messageIds))
+}
 
-suspend fun TdHandler.reportSupergroupSpamOrNull(
+
+suspend fun TdHandler.reportSupergroupSpamIgnoreException(
     supergroupId: Int,
     userId: Int,
     messageIds: LongArray
-) = syncOrNull<Ok>(ReportSupergroupSpam(supergroupId, userId, messageIds))
+){
+    syncOrNull(ReportSupergroupSpam(supergroupId, userId, messageIds))
+}
+
 
 fun TdHandler.reportSupergroupSpamWith(
     supergroupId: Int,
@@ -180,11 +210,17 @@ fun TdHandler.reportSupergroupSpamWith(
  */
 suspend fun TdHandler.deleteSupergroup(
     supergroupId: Int
-) = sync<Ok>(DeleteSupergroup(supergroupId))
+){
+    sync(DeleteSupergroup(supergroupId))
+}
 
-suspend fun TdHandler.deleteSupergroupOrNull(
+
+suspend fun TdHandler.deleteSupergroupIgnoreException(
     supergroupId: Int
-) = syncOrNull<Ok>(DeleteSupergroup(supergroupId))
+){
+    syncOrNull(DeleteSupergroup(supergroupId))
+}
+
 
 fun TdHandler.deleteSupergroupWith(
     supergroupId: Int,

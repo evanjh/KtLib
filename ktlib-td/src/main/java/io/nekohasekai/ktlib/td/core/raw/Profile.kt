@@ -12,11 +12,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setProfilePhoto(
     photo: InputChatPhoto? = null
-) = sync<Ok>(SetProfilePhoto(photo))
+){
+    sync(SetProfilePhoto(photo))
+}
 
-suspend fun TdHandler.setProfilePhotoOrNull(
+
+suspend fun TdHandler.setProfilePhotoIgnoreException(
     photo: InputChatPhoto? = null
-) = syncOrNull<Ok>(SetProfilePhoto(photo))
+){
+    syncOrNull(SetProfilePhoto(photo))
+}
+
 
 fun TdHandler.setProfilePhotoWith(
     photo: InputChatPhoto? = null,
@@ -31,11 +37,17 @@ fun TdHandler.setProfilePhotoWith(
  */
 suspend fun TdHandler.deleteProfilePhoto(
     profilePhotoId: Long
-) = sync<Ok>(DeleteProfilePhoto(profilePhotoId))
+){
+    sync(DeleteProfilePhoto(profilePhotoId))
+}
 
-suspend fun TdHandler.deleteProfilePhotoOrNull(
+
+suspend fun TdHandler.deleteProfilePhotoIgnoreException(
     profilePhotoId: Long
-) = syncOrNull<Ok>(DeleteProfilePhoto(profilePhotoId))
+){
+    syncOrNull(DeleteProfilePhoto(profilePhotoId))
+}
+
 
 fun TdHandler.deleteProfilePhotoWith(
     profilePhotoId: Long,

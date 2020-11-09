@@ -11,9 +11,15 @@ import io.nekohasekai.ktlib.td.core.*
  * After the close completes, updateAuthorizationState with authorizationStateClosed will be sent
  * Can be called before initialization
  */
-suspend fun TdHandler.close() = sync<Ok>(Close())
+suspend fun TdHandler.close(){
+    sync(Close())
+}
 
-suspend fun TdHandler.closeOrNull() = syncOrNull<Ok>(Close())
+
+suspend fun TdHandler.closeIgnoreException(){
+    syncOrNull(Close())
+}
+
 
 fun TdHandler.closeWith(
     stackIgnore: Int = 0,
@@ -27,9 +33,15 @@ fun TdHandler.closeWith(
  * After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent
  * Can be called before authorization
  */
-suspend fun TdHandler.destroy() = sync<Ok>(Destroy())
+suspend fun TdHandler.destroy(){
+    sync(Destroy())
+}
 
-suspend fun TdHandler.destroyOrNull() = syncOrNull<Ok>(Destroy())
+
+suspend fun TdHandler.destroyIgnoreException(){
+    syncOrNull(Destroy())
+}
+
 
 fun TdHandler.destroyWith(
     stackIgnore: Int = 0,
@@ -44,11 +56,17 @@ fun TdHandler.destroyWith(
  */
 suspend fun TdHandler.setCommands(
     commands: Array<BotCommand>
-) = sync<Ok>(SetCommands(commands))
+){
+    sync(SetCommands(commands))
+}
 
-suspend fun TdHandler.setCommandsOrNull(
+
+suspend fun TdHandler.setCommandsIgnoreException(
     commands: Array<BotCommand>
-) = syncOrNull<Ok>(SetCommands(commands))
+){
+    syncOrNull(SetCommands(commands))
+}
+
 
 fun TdHandler.setCommandsWith(
     commands: Array<BotCommand>,
@@ -63,11 +81,11 @@ fun TdHandler.setCommandsWith(
  */
 suspend fun TdHandler.getRecentlyVisitedTMeUrls(
     referrer: String? = null
-) = sync<TMeUrls>(GetRecentlyVisitedTMeUrls(referrer))
+) = sync(GetRecentlyVisitedTMeUrls(referrer))
 
 suspend fun TdHandler.getRecentlyVisitedTMeUrlsOrNull(
     referrer: String? = null
-) = syncOrNull<TMeUrls>(GetRecentlyVisitedTMeUrls(referrer))
+) = syncOrNull(GetRecentlyVisitedTMeUrls(referrer))
 
 fun TdHandler.getRecentlyVisitedTMeUrlsWith(
     referrer: String? = null,
@@ -83,11 +101,17 @@ fun TdHandler.getRecentlyVisitedTMeUrlsWith(
  */
 suspend fun TdHandler.setAlarm(
     seconds: Double
-) = sync<Ok>(SetAlarm(seconds))
+){
+    sync(SetAlarm(seconds))
+}
 
-suspend fun TdHandler.setAlarmOrNull(
+
+suspend fun TdHandler.setAlarmIgnoreException(
     seconds: Double
-) = syncOrNull<Ok>(SetAlarm(seconds))
+){
+    syncOrNull(SetAlarm(seconds))
+}
+
 
 fun TdHandler.setAlarmWith(
     seconds: Double,

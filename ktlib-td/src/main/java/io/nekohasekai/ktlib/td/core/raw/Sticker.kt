@@ -16,12 +16,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.getStickers(
     emoji: String? = null,
     limit: Int
-) = sync<Stickers>(GetStickers(emoji, limit))
+) = sync(GetStickers(emoji, limit))
 
 suspend fun TdHandler.getStickersOrNull(
     emoji: String? = null,
     limit: Int
-) = syncOrNull<Stickers>(GetStickers(emoji, limit))
+) = syncOrNull(GetStickers(emoji, limit))
 
 fun TdHandler.getStickersWith(
     emoji: String? = null,
@@ -39,12 +39,12 @@ fun TdHandler.getStickersWith(
 suspend fun TdHandler.searchStickers(
     emoji: String? = null,
     limit: Int
-) = sync<Stickers>(SearchStickers(emoji, limit))
+) = sync(SearchStickers(emoji, limit))
 
 suspend fun TdHandler.searchStickersOrNull(
     emoji: String? = null,
     limit: Int
-) = syncOrNull<Stickers>(SearchStickers(emoji, limit))
+) = syncOrNull(SearchStickers(emoji, limit))
 
 fun TdHandler.searchStickersWith(
     emoji: String? = null,
@@ -61,11 +61,11 @@ fun TdHandler.searchStickersWith(
  */
 suspend fun TdHandler.getInstalledStickerSets(
     isMasks: Boolean
-) = sync<StickerSets>(GetInstalledStickerSets(isMasks))
+) = sync(GetInstalledStickerSets(isMasks))
 
 suspend fun TdHandler.getInstalledStickerSetsOrNull(
     isMasks: Boolean
-) = syncOrNull<StickerSets>(GetInstalledStickerSets(isMasks))
+) = syncOrNull(GetInstalledStickerSets(isMasks))
 
 fun TdHandler.getInstalledStickerSetsWith(
     isMasks: Boolean,
@@ -85,13 +85,13 @@ suspend fun TdHandler.getArchivedStickerSets(
     isMasks: Boolean,
     offsetStickerSetId: Long,
     limit: Int
-) = sync<StickerSets>(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
+) = sync(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
 
 suspend fun TdHandler.getArchivedStickerSetsOrNull(
     isMasks: Boolean,
     offsetStickerSetId: Long,
     limit: Int
-) = syncOrNull<StickerSets>(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
+) = syncOrNull(GetArchivedStickerSets(isMasks, offsetStickerSetId, limit))
 
 fun TdHandler.getArchivedStickerSetsWith(
     isMasks: Boolean,
@@ -112,12 +112,12 @@ fun TdHandler.getArchivedStickerSetsWith(
 suspend fun TdHandler.getTrendingStickerSets(
     offset: Int,
     limit: Int
-) = sync<StickerSets>(GetTrendingStickerSets(offset, limit))
+) = sync(GetTrendingStickerSets(offset, limit))
 
 suspend fun TdHandler.getTrendingStickerSetsOrNull(
     offset: Int,
     limit: Int
-) = syncOrNull<StickerSets>(GetTrendingStickerSets(offset, limit))
+) = syncOrNull(GetTrendingStickerSets(offset, limit))
 
 fun TdHandler.getTrendingStickerSetsWith(
     offset: Int,
@@ -134,11 +134,11 @@ fun TdHandler.getTrendingStickerSetsWith(
  */
 suspend fun TdHandler.getAttachedStickerSets(
     fileId: Int
-) = sync<StickerSets>(GetAttachedStickerSets(fileId))
+) = sync(GetAttachedStickerSets(fileId))
 
 suspend fun TdHandler.getAttachedStickerSetsOrNull(
     fileId: Int
-) = syncOrNull<StickerSets>(GetAttachedStickerSets(fileId))
+) = syncOrNull(GetAttachedStickerSets(fileId))
 
 fun TdHandler.getAttachedStickerSetsWith(
     fileId: Int,
@@ -153,11 +153,11 @@ fun TdHandler.getAttachedStickerSetsWith(
  */
 suspend fun TdHandler.getStickerSet(
     setId: Long
-) = sync<StickerSet>(GetStickerSet(setId))
+) = sync(GetStickerSet(setId))
 
 suspend fun TdHandler.getStickerSetOrNull(
     setId: Long
-) = syncOrNull<StickerSet>(GetStickerSet(setId))
+) = syncOrNull(GetStickerSet(setId))
 
 fun TdHandler.getStickerSetWith(
     setId: Long,
@@ -172,11 +172,11 @@ fun TdHandler.getStickerSetWith(
  */
 suspend fun TdHandler.searchStickerSet(
     name: String? = null
-) = sync<StickerSet>(SearchStickerSet(name))
+) = sync(SearchStickerSet(name))
 
 suspend fun TdHandler.searchStickerSetOrNull(
     name: String? = null
-) = syncOrNull<StickerSet>(SearchStickerSet(name))
+) = syncOrNull(SearchStickerSet(name))
 
 fun TdHandler.searchStickerSetWith(
     name: String? = null,
@@ -196,13 +196,13 @@ suspend fun TdHandler.searchInstalledStickerSets(
     isMasks: Boolean,
     query: String? = null,
     limit: Int
-) = sync<StickerSets>(SearchInstalledStickerSets(isMasks, query, limit))
+) = sync(SearchInstalledStickerSets(isMasks, query, limit))
 
 suspend fun TdHandler.searchInstalledStickerSetsOrNull(
     isMasks: Boolean,
     query: String? = null,
     limit: Int
-) = syncOrNull<StickerSets>(SearchInstalledStickerSets(isMasks, query, limit))
+) = syncOrNull(SearchInstalledStickerSets(isMasks, query, limit))
 
 fun TdHandler.searchInstalledStickerSetsWith(
     isMasks: Boolean,
@@ -220,11 +220,11 @@ fun TdHandler.searchInstalledStickerSetsWith(
  */
 suspend fun TdHandler.searchStickerSets(
     query: String? = null
-) = sync<StickerSets>(SearchStickerSets(query))
+) = sync(SearchStickerSets(query))
 
 suspend fun TdHandler.searchStickerSetsOrNull(
     query: String? = null
-) = syncOrNull<StickerSets>(SearchStickerSets(query))
+) = syncOrNull(SearchStickerSets(query))
 
 fun TdHandler.searchStickerSetsWith(
     query: String? = null,
@@ -244,13 +244,19 @@ suspend fun TdHandler.changeStickerSet(
     setId: Long,
     isInstalled: Boolean,
     isArchived: Boolean
-) = sync<Ok>(ChangeStickerSet(setId, isInstalled, isArchived))
+){
+    sync(ChangeStickerSet(setId, isInstalled, isArchived))
+}
 
-suspend fun TdHandler.changeStickerSetOrNull(
+
+suspend fun TdHandler.changeStickerSetIgnoreException(
     setId: Long,
     isInstalled: Boolean,
     isArchived: Boolean
-) = syncOrNull<Ok>(ChangeStickerSet(setId, isInstalled, isArchived))
+){
+    syncOrNull(ChangeStickerSet(setId, isInstalled, isArchived))
+}
+
 
 fun TdHandler.changeStickerSetWith(
     setId: Long,
@@ -267,11 +273,17 @@ fun TdHandler.changeStickerSetWith(
  */
 suspend fun TdHandler.viewTrendingStickerSets(
     stickerSetIds: LongArray
-) = sync<Ok>(ViewTrendingStickerSets(stickerSetIds))
+){
+    sync(ViewTrendingStickerSets(stickerSetIds))
+}
 
-suspend fun TdHandler.viewTrendingStickerSetsOrNull(
+
+suspend fun TdHandler.viewTrendingStickerSetsIgnoreException(
     stickerSetIds: LongArray
-) = syncOrNull<Ok>(ViewTrendingStickerSets(stickerSetIds))
+){
+    syncOrNull(ViewTrendingStickerSets(stickerSetIds))
+}
+
 
 fun TdHandler.viewTrendingStickerSetsWith(
     stickerSetIds: LongArray,
@@ -289,12 +301,18 @@ fun TdHandler.viewTrendingStickerSetsWith(
 suspend fun TdHandler.reorderInstalledStickerSets(
     isMasks: Boolean,
     stickerSetIds: LongArray
-) = sync<Ok>(ReorderInstalledStickerSets(isMasks, stickerSetIds))
+){
+    sync(ReorderInstalledStickerSets(isMasks, stickerSetIds))
+}
 
-suspend fun TdHandler.reorderInstalledStickerSetsOrNull(
+
+suspend fun TdHandler.reorderInstalledStickerSetsIgnoreException(
     isMasks: Boolean,
     stickerSetIds: LongArray
-) = syncOrNull<Ok>(ReorderInstalledStickerSets(isMasks, stickerSetIds))
+){
+    syncOrNull(ReorderInstalledStickerSets(isMasks, stickerSetIds))
+}
+
 
 fun TdHandler.reorderInstalledStickerSetsWith(
     isMasks: Boolean,
@@ -311,11 +329,11 @@ fun TdHandler.reorderInstalledStickerSetsWith(
  */
 suspend fun TdHandler.getRecentStickers(
     isAttached: Boolean
-) = sync<Stickers>(GetRecentStickers(isAttached))
+) = sync(GetRecentStickers(isAttached))
 
 suspend fun TdHandler.getRecentStickersOrNull(
     isAttached: Boolean
-) = syncOrNull<Stickers>(GetRecentStickers(isAttached))
+) = syncOrNull(GetRecentStickers(isAttached))
 
 fun TdHandler.getRecentStickersWith(
     isAttached: Boolean,
@@ -336,12 +354,12 @@ fun TdHandler.getRecentStickersWith(
 suspend fun TdHandler.addRecentSticker(
     isAttached: Boolean,
     sticker: InputFile? = null
-) = sync<Stickers>(AddRecentSticker(isAttached, sticker))
+) = sync(AddRecentSticker(isAttached, sticker))
 
 suspend fun TdHandler.addRecentStickerOrNull(
     isAttached: Boolean,
     sticker: InputFile? = null
-) = syncOrNull<Stickers>(AddRecentSticker(isAttached, sticker))
+) = syncOrNull(AddRecentSticker(isAttached, sticker))
 
 fun TdHandler.addRecentStickerWith(
     isAttached: Boolean,
@@ -360,12 +378,18 @@ fun TdHandler.addRecentStickerWith(
 suspend fun TdHandler.removeRecentSticker(
     isAttached: Boolean,
     sticker: InputFile? = null
-) = sync<Ok>(RemoveRecentSticker(isAttached, sticker))
+){
+    sync(RemoveRecentSticker(isAttached, sticker))
+}
 
-suspend fun TdHandler.removeRecentStickerOrNull(
+
+suspend fun TdHandler.removeRecentStickerIgnoreException(
     isAttached: Boolean,
     sticker: InputFile? = null
-) = syncOrNull<Ok>(RemoveRecentSticker(isAttached, sticker))
+){
+    syncOrNull(RemoveRecentSticker(isAttached, sticker))
+}
+
 
 fun TdHandler.removeRecentStickerWith(
     isAttached: Boolean,
@@ -382,11 +406,17 @@ fun TdHandler.removeRecentStickerWith(
  */
 suspend fun TdHandler.clearRecentStickers(
     isAttached: Boolean
-) = sync<Ok>(ClearRecentStickers(isAttached))
+){
+    sync(ClearRecentStickers(isAttached))
+}
 
-suspend fun TdHandler.clearRecentStickersOrNull(
+
+suspend fun TdHandler.clearRecentStickersIgnoreException(
     isAttached: Boolean
-) = syncOrNull<Ok>(ClearRecentStickers(isAttached))
+){
+    syncOrNull(ClearRecentStickers(isAttached))
+}
+
 
 fun TdHandler.clearRecentStickersWith(
     isAttached: Boolean,
@@ -397,9 +427,9 @@ fun TdHandler.clearRecentStickersWith(
 /**
  * Returns favorite stickers
  */
-suspend fun TdHandler.getFavoriteStickers() = sync<Stickers>(GetFavoriteStickers())
+suspend fun TdHandler.getFavoriteStickers() = sync(GetFavoriteStickers())
 
-suspend fun TdHandler.getFavoriteStickersOrNull() = syncOrNull<Stickers>(GetFavoriteStickers())
+suspend fun TdHandler.getFavoriteStickersOrNull() = syncOrNull(GetFavoriteStickers())
 
 fun TdHandler.getFavoriteStickersWith(
     stackIgnore: Int = 0,
@@ -416,11 +446,17 @@ fun TdHandler.getFavoriteStickersWith(
  */
 suspend fun TdHandler.addFavoriteSticker(
     sticker: InputFile? = null
-) = sync<Ok>(AddFavoriteSticker(sticker))
+){
+    sync(AddFavoriteSticker(sticker))
+}
 
-suspend fun TdHandler.addFavoriteStickerOrNull(
+
+suspend fun TdHandler.addFavoriteStickerIgnoreException(
     sticker: InputFile? = null
-) = syncOrNull<Ok>(AddFavoriteSticker(sticker))
+){
+    syncOrNull(AddFavoriteSticker(sticker))
+}
+
 
 fun TdHandler.addFavoriteStickerWith(
     sticker: InputFile? = null,
@@ -435,11 +471,17 @@ fun TdHandler.addFavoriteStickerWith(
  */
 suspend fun TdHandler.removeFavoriteSticker(
     sticker: InputFile? = null
-) = sync<Ok>(RemoveFavoriteSticker(sticker))
+){
+    sync(RemoveFavoriteSticker(sticker))
+}
 
-suspend fun TdHandler.removeFavoriteStickerOrNull(
+
+suspend fun TdHandler.removeFavoriteStickerIgnoreException(
     sticker: InputFile? = null
-) = syncOrNull<Ok>(RemoveFavoriteSticker(sticker))
+){
+    syncOrNull(RemoveFavoriteSticker(sticker))
+}
+
 
 fun TdHandler.removeFavoriteStickerWith(
     sticker: InputFile? = null,
@@ -468,7 +510,7 @@ suspend fun TdHandler.createNewStickerSet(
     name: String? = null,
     isMasks: Boolean,
     stickers: Array<InputSticker>
-) = sync<StickerSet>(CreateNewStickerSet(userId, title, name, isMasks, stickers))
+) = sync(CreateNewStickerSet(userId, title, name, isMasks, stickers))
 
 suspend fun TdHandler.createNewStickerSetOrNull(
     userId: Int,
@@ -476,7 +518,7 @@ suspend fun TdHandler.createNewStickerSetOrNull(
     name: String? = null,
     isMasks: Boolean,
     stickers: Array<InputSticker>
-) = syncOrNull<StickerSet>(CreateNewStickerSet(userId, title, name, isMasks, stickers))
+) = syncOrNull(CreateNewStickerSet(userId, title, name, isMasks, stickers))
 
 fun TdHandler.createNewStickerSetWith(
     userId: Int,
@@ -501,13 +543,13 @@ suspend fun TdHandler.addStickerToSet(
     userId: Int,
     name: String? = null,
     sticker: InputSticker? = null
-) = sync<StickerSet>(AddStickerToSet(userId, name, sticker))
+) = sync(AddStickerToSet(userId, name, sticker))
 
 suspend fun TdHandler.addStickerToSetOrNull(
     userId: Int,
     name: String? = null,
     sticker: InputSticker? = null
-) = syncOrNull<StickerSet>(AddStickerToSet(userId, name, sticker))
+) = syncOrNull(AddStickerToSet(userId, name, sticker))
 
 fun TdHandler.addStickerToSetWith(
     userId: Int,
@@ -532,13 +574,13 @@ suspend fun TdHandler.setStickerSetThumbnail(
     userId: Int,
     name: String? = null,
     thumbnail: InputFile? = null
-) = sync<StickerSet>(SetStickerSetThumbnail(userId, name, thumbnail))
+) = sync(SetStickerSetThumbnail(userId, name, thumbnail))
 
 suspend fun TdHandler.setStickerSetThumbnailOrNull(
     userId: Int,
     name: String? = null,
     thumbnail: InputFile? = null
-) = syncOrNull<StickerSet>(SetStickerSetThumbnail(userId, name, thumbnail))
+) = syncOrNull(SetStickerSetThumbnail(userId, name, thumbnail))
 
 fun TdHandler.setStickerSetThumbnailWith(
     userId: Int,
@@ -559,12 +601,18 @@ fun TdHandler.setStickerSetThumbnailWith(
 suspend fun TdHandler.setStickerPositionInSet(
     sticker: InputFile? = null,
     position: Int
-) = sync<Ok>(SetStickerPositionInSet(sticker, position))
+){
+    sync(SetStickerPositionInSet(sticker, position))
+}
 
-suspend fun TdHandler.setStickerPositionInSetOrNull(
+
+suspend fun TdHandler.setStickerPositionInSetIgnoreException(
     sticker: InputFile? = null,
     position: Int
-) = syncOrNull<Ok>(SetStickerPositionInSet(sticker, position))
+){
+    syncOrNull(SetStickerPositionInSet(sticker, position))
+}
+
 
 fun TdHandler.setStickerPositionInSetWith(
     sticker: InputFile? = null,
@@ -582,11 +630,17 @@ fun TdHandler.setStickerPositionInSetWith(
  */
 suspend fun TdHandler.removeStickerFromSet(
     sticker: InputFile? = null
-) = sync<Ok>(RemoveStickerFromSet(sticker))
+){
+    sync(RemoveStickerFromSet(sticker))
+}
 
-suspend fun TdHandler.removeStickerFromSetOrNull(
+
+suspend fun TdHandler.removeStickerFromSetIgnoreException(
     sticker: InputFile? = null
-) = syncOrNull<Ok>(RemoveStickerFromSet(sticker))
+){
+    syncOrNull(RemoveStickerFromSet(sticker))
+}
+
 
 fun TdHandler.removeStickerFromSetWith(
     sticker: InputFile? = null,

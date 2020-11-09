@@ -16,13 +16,13 @@ suspend fun TdHandler.getStatisticsGraph(
     chatId: Long,
     token: String? = null,
     x: Long
-) = sync<StatisticsGraph>(GetStatisticsGraph(chatId, token, x))
+) = sync(GetStatisticsGraph(chatId, token, x))
 
 suspend fun TdHandler.getStatisticsGraphOrNull(
     chatId: Long,
     token: String? = null,
     x: Long
-) = syncOrNull<StatisticsGraph>(GetStatisticsGraph(chatId, token, x))
+) = syncOrNull(GetStatisticsGraph(chatId, token, x))
 
 fun TdHandler.getStatisticsGraphWith(
     chatId: Long,

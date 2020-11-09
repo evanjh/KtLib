@@ -12,11 +12,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setAccountTtl(
     ttl: AccountTtl? = null
-) = sync<Ok>(SetAccountTtl(ttl))
+){
+    sync(SetAccountTtl(ttl))
+}
 
-suspend fun TdHandler.setAccountTtlOrNull(
+
+suspend fun TdHandler.setAccountTtlIgnoreException(
     ttl: AccountTtl? = null
-) = syncOrNull<Ok>(SetAccountTtl(ttl))
+){
+    syncOrNull(SetAccountTtl(ttl))
+}
+
 
 fun TdHandler.setAccountTtlWith(
     ttl: AccountTtl? = null,
@@ -27,9 +33,9 @@ fun TdHandler.setAccountTtlWith(
 /**
  * Returns the period of inactivity after which the account of the current user will automatically be deleted
  */
-suspend fun TdHandler.getAccountTtl() = sync<AccountTtl>(GetAccountTtl())
+suspend fun TdHandler.getAccountTtl() = sync(GetAccountTtl())
 
-suspend fun TdHandler.getAccountTtlOrNull() = syncOrNull<AccountTtl>(GetAccountTtl())
+suspend fun TdHandler.getAccountTtlOrNull() = syncOrNull(GetAccountTtl())
 
 fun TdHandler.getAccountTtlWith(
     stackIgnore: Int = 0,
@@ -45,11 +51,17 @@ fun TdHandler.getAccountTtlWith(
  */
 suspend fun TdHandler.deleteAccount(
     reason: String? = null
-) = sync<Ok>(DeleteAccount(reason))
+){
+    sync(DeleteAccount(reason))
+}
 
-suspend fun TdHandler.deleteAccountOrNull(
+
+suspend fun TdHandler.deleteAccountIgnoreException(
     reason: String? = null
-) = syncOrNull<Ok>(DeleteAccount(reason))
+){
+    syncOrNull(DeleteAccount(reason))
+}
+
 
 fun TdHandler.deleteAccountWith(
     reason: String? = null,

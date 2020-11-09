@@ -14,12 +14,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.getMessage(
     chatId: Long,
     messageId: Long
-) = sync<Message>(GetMessage(chatId, messageId))
+) = sync(GetMessage(chatId, messageId))
 
 suspend fun TdHandler.getMessageOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<Message>(GetMessage(chatId, messageId))
+) = syncOrNull(GetMessage(chatId, messageId))
 
 fun TdHandler.getMessageWith(
     chatId: Long,
@@ -38,12 +38,12 @@ fun TdHandler.getMessageWith(
 suspend fun TdHandler.getMessageLocally(
     chatId: Long,
     messageId: Long
-) = sync<Message>(GetMessageLocally(chatId, messageId))
+) = sync(GetMessageLocally(chatId, messageId))
 
 suspend fun TdHandler.getMessageLocallyOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<Message>(GetMessageLocally(chatId, messageId))
+) = syncOrNull(GetMessageLocally(chatId, messageId))
 
 fun TdHandler.getMessageLocallyWith(
     chatId: Long,
@@ -62,12 +62,12 @@ fun TdHandler.getMessageLocallyWith(
 suspend fun TdHandler.getRepliedMessage(
     chatId: Long,
     messageId: Long
-) = sync<Message>(GetRepliedMessage(chatId, messageId))
+) = sync(GetRepliedMessage(chatId, messageId))
 
 suspend fun TdHandler.getRepliedMessageOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<Message>(GetRepliedMessage(chatId, messageId))
+) = syncOrNull(GetRepliedMessage(chatId, messageId))
 
 fun TdHandler.getRepliedMessageWith(
     chatId: Long,
@@ -83,11 +83,11 @@ fun TdHandler.getRepliedMessageWith(
  */
 suspend fun TdHandler.getChatPinnedMessage(
     chatId: Long
-) = sync<Message>(GetChatPinnedMessage(chatId))
+) = sync(GetChatPinnedMessage(chatId))
 
 suspend fun TdHandler.getChatPinnedMessageOrNull(
     chatId: Long
-) = syncOrNull<Message>(GetChatPinnedMessage(chatId))
+) = syncOrNull(GetChatPinnedMessage(chatId))
 
 fun TdHandler.getChatPinnedMessageWith(
     chatId: Long,
@@ -107,13 +107,13 @@ suspend fun TdHandler.getCallbackQueryMessage(
     chatId: Long,
     messageId: Long,
     callbackQueryId: Long
-) = sync<Message>(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
+) = sync(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
 
 suspend fun TdHandler.getCallbackQueryMessageOrNull(
     chatId: Long,
     messageId: Long,
     callbackQueryId: Long
-) = syncOrNull<Message>(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
+) = syncOrNull(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
 
 fun TdHandler.getCallbackQueryMessageWith(
     chatId: Long,
@@ -133,12 +133,12 @@ fun TdHandler.getCallbackQueryMessageWith(
 suspend fun TdHandler.getMessages(
     chatId: Long,
     messageIds: LongArray
-) = sync<Messages>(GetMessages(chatId, messageIds))
+) = sync(GetMessages(chatId, messageIds))
 
 suspend fun TdHandler.getMessagesOrNull(
     chatId: Long,
     messageIds: LongArray
-) = syncOrNull<Messages>(GetMessages(chatId, messageIds))
+) = syncOrNull(GetMessages(chatId, messageIds))
 
 fun TdHandler.getMessagesWith(
     chatId: Long,
@@ -157,12 +157,12 @@ fun TdHandler.getMessagesWith(
 suspend fun TdHandler.getMessageThread(
     chatId: Long,
     messageId: Long
-) = sync<MessageThreadInfo>(GetMessageThread(chatId, messageId))
+) = sync(GetMessageThread(chatId, messageId))
 
 suspend fun TdHandler.getMessageThreadOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<MessageThreadInfo>(GetMessageThread(chatId, messageId))
+) = syncOrNull(GetMessageThread(chatId, messageId))
 
 fun TdHandler.getMessageThreadWith(
     chatId: Long,
@@ -193,7 +193,7 @@ suspend fun TdHandler.getChatHistory(
     offset: Int,
     limit: Int,
     onlyLocal: Boolean
-) = sync<Messages>(GetChatHistory(chatId, fromMessageId, offset, limit, onlyLocal))
+) = sync(GetChatHistory(chatId, fromMessageId, offset, limit, onlyLocal))
 
 suspend fun TdHandler.getChatHistoryOrNull(
     chatId: Long,
@@ -201,7 +201,7 @@ suspend fun TdHandler.getChatHistoryOrNull(
     offset: Int,
     limit: Int,
     onlyLocal: Boolean
-) = syncOrNull<Messages>(GetChatHistory(chatId, fromMessageId, offset, limit, onlyLocal))
+) = syncOrNull(GetChatHistory(chatId, fromMessageId, offset, limit, onlyLocal))
 
 fun TdHandler.getChatHistoryWith(
     chatId: Long,
@@ -236,7 +236,7 @@ suspend fun TdHandler.getMessageThreadHistory(
     fromMessageId: Long,
     offset: Int,
     limit: Int
-) = sync<Messages>(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
+) = sync(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
 
 suspend fun TdHandler.getMessageThreadHistoryOrNull(
     chatId: Long,
@@ -244,7 +244,7 @@ suspend fun TdHandler.getMessageThreadHistoryOrNull(
     fromMessageId: Long,
     offset: Int,
     limit: Int
-) = syncOrNull<Messages>(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
+) = syncOrNull(GetMessageThreadHistory(chatId, messageId, fromMessageId, offset, limit))
 
 fun TdHandler.getMessageThreadHistoryWith(
     chatId: Long,
@@ -287,7 +287,7 @@ suspend fun TdHandler.searchChatMessages(
     limit: Int,
     filter: SearchMessagesFilter? = null,
     messageThreadId: Long
-) = sync<Messages>(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
+) = sync(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
 
 suspend fun TdHandler.searchChatMessagesOrNull(
     chatId: Long,
@@ -298,7 +298,7 @@ suspend fun TdHandler.searchChatMessagesOrNull(
     limit: Int,
     filter: SearchMessagesFilter? = null,
     messageThreadId: Long
-) = syncOrNull<Messages>(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
+) = syncOrNull(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
 
 fun TdHandler.searchChatMessagesWith(
     chatId: Long,
@@ -342,7 +342,7 @@ suspend fun TdHandler.searchMessages(
     filter: SearchMessagesFilter? = null,
     minDate: Int,
     maxDate: Int
-) = sync<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
+) = sync(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
 
 suspend fun TdHandler.searchMessagesOrNull(
     chatList: ChatList? = null,
@@ -354,7 +354,7 @@ suspend fun TdHandler.searchMessagesOrNull(
     filter: SearchMessagesFilter? = null,
     minDate: Int,
     maxDate: Int
-) = syncOrNull<Messages>(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
+) = syncOrNull(SearchMessages(chatList, query, offsetDate, offsetChatId, offsetMessageId, limit, filter, minDate, maxDate))
 
 fun TdHandler.searchMessagesWith(
     chatList: ChatList? = null,
@@ -391,7 +391,7 @@ suspend fun TdHandler.searchSecretMessages(
     offset: String? = null,
     limit: Int,
     filter: SearchMessagesFilter? = null
-) = sync<FoundMessages>(SearchSecretMessages(chatId, query, offset, limit, filter))
+) = sync(SearchSecretMessages(chatId, query, offset, limit, filter))
 
 suspend fun TdHandler.searchSecretMessagesOrNull(
     chatId: Long,
@@ -399,7 +399,7 @@ suspend fun TdHandler.searchSecretMessagesOrNull(
     offset: String? = null,
     limit: Int,
     filter: SearchMessagesFilter? = null
-) = syncOrNull<FoundMessages>(SearchSecretMessages(chatId, query, offset, limit, filter))
+) = syncOrNull(SearchSecretMessages(chatId, query, offset, limit, filter))
 
 fun TdHandler.searchSecretMessagesWith(
     chatId: Long,
@@ -427,13 +427,13 @@ suspend fun TdHandler.searchCallMessages(
     fromMessageId: Long,
     limit: Int,
     onlyMissed: Boolean
-) = sync<Messages>(SearchCallMessages(fromMessageId, limit, onlyMissed))
+) = sync(SearchCallMessages(fromMessageId, limit, onlyMissed))
 
 suspend fun TdHandler.searchCallMessagesOrNull(
     fromMessageId: Long,
     limit: Int,
     onlyMissed: Boolean
-) = syncOrNull<Messages>(SearchCallMessages(fromMessageId, limit, onlyMissed))
+) = syncOrNull(SearchCallMessages(fromMessageId, limit, onlyMissed))
 
 fun TdHandler.searchCallMessagesWith(
     fromMessageId: Long,
@@ -453,12 +453,12 @@ fun TdHandler.searchCallMessagesWith(
 suspend fun TdHandler.searchChatRecentLocationMessages(
     chatId: Long,
     limit: Int
-) = sync<Messages>(SearchChatRecentLocationMessages(chatId, limit))
+) = sync(SearchChatRecentLocationMessages(chatId, limit))
 
 suspend fun TdHandler.searchChatRecentLocationMessagesOrNull(
     chatId: Long,
     limit: Int
-) = syncOrNull<Messages>(SearchChatRecentLocationMessages(chatId, limit))
+) = syncOrNull(SearchChatRecentLocationMessages(chatId, limit))
 
 fun TdHandler.searchChatRecentLocationMessagesWith(
     chatId: Long,
@@ -471,9 +471,9 @@ fun TdHandler.searchChatRecentLocationMessagesWith(
  * Returns all active live locations that should be updated by the application
  * The list is persistent across application restarts only if the message database is used
  */
-suspend fun TdHandler.getActiveLiveLocationMessages() = sync<Messages>(GetActiveLiveLocationMessages())
+suspend fun TdHandler.getActiveLiveLocationMessages() = sync(GetActiveLiveLocationMessages())
 
-suspend fun TdHandler.getActiveLiveLocationMessagesOrNull() = syncOrNull<Messages>(GetActiveLiveLocationMessages())
+suspend fun TdHandler.getActiveLiveLocationMessagesOrNull() = syncOrNull(GetActiveLiveLocationMessages())
 
 fun TdHandler.getActiveLiveLocationMessagesWith(
     stackIgnore: Int = 0,
@@ -489,12 +489,12 @@ fun TdHandler.getActiveLiveLocationMessagesWith(
 suspend fun TdHandler.getChatMessageByDate(
     chatId: Long,
     date: Int
-) = sync<Message>(GetChatMessageByDate(chatId, date))
+) = sync(GetChatMessageByDate(chatId, date))
 
 suspend fun TdHandler.getChatMessageByDateOrNull(
     chatId: Long,
     date: Int
-) = syncOrNull<Message>(GetChatMessageByDate(chatId, date))
+) = syncOrNull(GetChatMessageByDate(chatId, date))
 
 fun TdHandler.getChatMessageByDateWith(
     chatId: Long,
@@ -511,11 +511,11 @@ fun TdHandler.getChatMessageByDateWith(
  */
 suspend fun TdHandler.getChatScheduledMessages(
     chatId: Long
-) = sync<Messages>(GetChatScheduledMessages(chatId))
+) = sync(GetChatScheduledMessages(chatId))
 
 suspend fun TdHandler.getChatScheduledMessagesOrNull(
     chatId: Long
-) = syncOrNull<Messages>(GetChatScheduledMessages(chatId))
+) = syncOrNull(GetChatScheduledMessages(chatId))
 
 fun TdHandler.getChatScheduledMessagesWith(
     chatId: Long,
@@ -540,14 +540,14 @@ suspend fun TdHandler.getMessagePublicForwards(
     messageId: Long,
     offset: String? = null,
     limit: Int
-) = sync<FoundMessages>(GetMessagePublicForwards(chatId, messageId, offset, limit))
+) = sync(GetMessagePublicForwards(chatId, messageId, offset, limit))
 
 suspend fun TdHandler.getMessagePublicForwardsOrNull(
     chatId: Long,
     messageId: Long,
     offset: String? = null,
     limit: Int
-) = syncOrNull<FoundMessages>(GetMessagePublicForwards(chatId, messageId, offset, limit))
+) = syncOrNull(GetMessagePublicForwards(chatId, messageId, offset, limit))
 
 fun TdHandler.getMessagePublicForwardsWith(
     chatId: Long,
@@ -573,14 +573,14 @@ suspend fun TdHandler.getMessageLink(
     messageId: Long,
     forAlbum: Boolean,
     forComment: Boolean
-) = sync<MessageLink>(GetMessageLink(chatId, messageId, forAlbum, forComment))
+) = sync(GetMessageLink(chatId, messageId, forAlbum, forComment))
 
 suspend fun TdHandler.getMessageLinkOrNull(
     chatId: Long,
     messageId: Long,
     forAlbum: Boolean,
     forComment: Boolean
-) = syncOrNull<MessageLink>(GetMessageLink(chatId, messageId, forAlbum, forComment))
+) = syncOrNull(GetMessageLink(chatId, messageId, forAlbum, forComment))
 
 fun TdHandler.getMessageLinkWith(
     chatId: Long,
@@ -598,11 +598,11 @@ fun TdHandler.getMessageLinkWith(
  */
 suspend fun TdHandler.getMessageLinkInfo(
     url: String? = null
-) = sync<MessageLinkInfo>(GetMessageLinkInfo(url))
+) = sync(GetMessageLinkInfo(url))
 
 suspend fun TdHandler.getMessageLinkInfoOrNull(
     url: String? = null
-) = syncOrNull<MessageLinkInfo>(GetMessageLinkInfo(url))
+) = syncOrNull(GetMessageLinkInfo(url))
 
 fun TdHandler.getMessageLinkInfoWith(
     url: String? = null,
@@ -629,7 +629,7 @@ suspend fun TdHandler.sendMessage(
     options: MessageSendOptions? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
+) = sync(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
 
 suspend fun TdHandler.sendMessageOrNull(
     chatId: Long,
@@ -638,7 +638,7 @@ suspend fun TdHandler.sendMessageOrNull(
     options: MessageSendOptions? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
+) = syncOrNull(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent))
 
 fun TdHandler.sendMessageWith(
     chatId: Long,
@@ -668,7 +668,7 @@ suspend fun TdHandler.sendMessageAlbum(
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     inputMessageContents: Array<InputMessageContent>
-) = sync<Messages>(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
+) = sync(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
 
 suspend fun TdHandler.sendMessageAlbumOrNull(
     chatId: Long,
@@ -676,7 +676,7 @@ suspend fun TdHandler.sendMessageAlbumOrNull(
     replyToMessageId: Long,
     options: MessageSendOptions? = null,
     inputMessageContents: Array<InputMessageContent>
-) = syncOrNull<Messages>(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
+) = syncOrNull(SendMessageAlbum(chatId, messageThreadId, replyToMessageId, options, inputMessageContents))
 
 fun TdHandler.sendMessageAlbumWith(
     chatId: Long,
@@ -702,13 +702,13 @@ suspend fun TdHandler.sendBotStartMessage(
     botUserId: Int,
     chatId: Long,
     parameter: String? = null
-) = sync<Message>(SendBotStartMessage(botUserId, chatId, parameter))
+) = sync(SendBotStartMessage(botUserId, chatId, parameter))
 
 suspend fun TdHandler.sendBotStartMessageOrNull(
     botUserId: Int,
     chatId: Long,
     parameter: String? = null
-) = syncOrNull<Message>(SendBotStartMessage(botUserId, chatId, parameter))
+) = syncOrNull(SendBotStartMessage(botUserId, chatId, parameter))
 
 fun TdHandler.sendBotStartMessageWith(
     botUserId: Int,
@@ -740,7 +740,7 @@ suspend fun TdHandler.sendInlineQueryResultMessage(
     queryId: Long,
     resultId: String? = null,
     hideViaBot: Boolean
-) = sync<Message>(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
+) = sync(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
 
 suspend fun TdHandler.sendInlineQueryResultMessageOrNull(
     chatId: Long,
@@ -750,7 +750,7 @@ suspend fun TdHandler.sendInlineQueryResultMessageOrNull(
     queryId: Long,
     resultId: String? = null,
     hideViaBot: Boolean
-) = syncOrNull<Message>(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
+) = syncOrNull(SendInlineQueryResultMessage(chatId, messageThreadId, replyToMessageId, options, queryId, resultId, hideViaBot))
 
 fun TdHandler.sendInlineQueryResultMessageWith(
     chatId: Long,
@@ -786,7 +786,7 @@ suspend fun TdHandler.forwardMessages(
     options: MessageSendOptions? = null,
     sendCopy: Boolean,
     removeCaption: Boolean
-) = sync<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
+) = sync(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
 
 suspend fun TdHandler.forwardMessagesOrNull(
     chatId: Long,
@@ -795,7 +795,7 @@ suspend fun TdHandler.forwardMessagesOrNull(
     options: MessageSendOptions? = null,
     sendCopy: Boolean,
     removeCaption: Boolean
-) = syncOrNull<Messages>(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
+) = syncOrNull(ForwardMessages(chatId, fromChatId, messageIds, options, sendCopy, removeCaption))
 
 fun TdHandler.forwardMessagesWith(
     chatId: Long,
@@ -822,12 +822,12 @@ fun TdHandler.forwardMessagesWith(
 suspend fun TdHandler.resendMessages(
     chatId: Long,
     messageIds: LongArray
-) = sync<Messages>(ResendMessages(chatId, messageIds))
+) = sync(ResendMessages(chatId, messageIds))
 
 suspend fun TdHandler.resendMessagesOrNull(
     chatId: Long,
     messageIds: LongArray
-) = syncOrNull<Messages>(ResendMessages(chatId, messageIds))
+) = syncOrNull(ResendMessages(chatId, messageIds))
 
 fun TdHandler.resendMessagesWith(
     chatId: Long,
@@ -845,12 +845,12 @@ fun TdHandler.resendMessagesWith(
 suspend fun TdHandler.sendChatSetTtlMessage(
     chatId: Long,
     ttl: Int
-) = sync<Message>(SendChatSetTtlMessage(chatId, ttl))
+) = sync(SendChatSetTtlMessage(chatId, ttl))
 
 suspend fun TdHandler.sendChatSetTtlMessageOrNull(
     chatId: Long,
     ttl: Int
-) = syncOrNull<Message>(SendChatSetTtlMessage(chatId, ttl))
+) = syncOrNull(SendChatSetTtlMessage(chatId, ttl))
 
 fun TdHandler.sendChatSetTtlMessageWith(
     chatId: Long,
@@ -876,7 +876,7 @@ suspend fun TdHandler.addLocalMessage(
     replyToMessageId: Long,
     disableNotification: Boolean,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
+) = sync(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
 
 suspend fun TdHandler.addLocalMessageOrNull(
     chatId: Long,
@@ -884,7 +884,7 @@ suspend fun TdHandler.addLocalMessageOrNull(
     replyToMessageId: Long,
     disableNotification: Boolean,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
+) = syncOrNull(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
 
 fun TdHandler.addLocalMessageWith(
     chatId: Long,
@@ -908,13 +908,19 @@ suspend fun TdHandler.deleteMessages(
     chatId: Long,
     messageIds: LongArray,
     revoke: Boolean
-) = sync<Ok>(DeleteMessages(chatId, messageIds, revoke))
+){
+    sync(DeleteMessages(chatId, messageIds, revoke))
+}
 
-suspend fun TdHandler.deleteMessagesOrNull(
+
+suspend fun TdHandler.deleteMessagesIgnoreException(
     chatId: Long,
     messageIds: LongArray,
     revoke: Boolean
-) = syncOrNull<Ok>(DeleteMessages(chatId, messageIds, revoke))
+){
+    syncOrNull(DeleteMessages(chatId, messageIds, revoke))
+}
+
 
 fun TdHandler.deleteMessagesWith(
     chatId: Long,
@@ -940,14 +946,14 @@ suspend fun TdHandler.editMessageText(
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(EditMessageText(chatId, messageId, replyMarkup, inputMessageContent))
+) = sync(EditMessageText(chatId, messageId, replyMarkup, inputMessageContent))
 
 suspend fun TdHandler.editMessageTextOrNull(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(EditMessageText(chatId, messageId, replyMarkup, inputMessageContent))
+) = syncOrNull(EditMessageText(chatId, messageId, replyMarkup, inputMessageContent))
 
 fun TdHandler.editMessageTextWith(
     chatId: Long,
@@ -981,7 +987,7 @@ suspend fun TdHandler.editMessageLiveLocation(
     location: Location? = null,
     heading: Int,
     proximityAlertRadius: Int
-) = sync<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
+) = sync(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
 
 suspend fun TdHandler.editMessageLiveLocationOrNull(
     chatId: Long,
@@ -990,7 +996,7 @@ suspend fun TdHandler.editMessageLiveLocationOrNull(
     location: Location? = null,
     heading: Int,
     proximityAlertRadius: Int
-) = syncOrNull<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
+) = syncOrNull(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
 
 fun TdHandler.editMessageLiveLocationWith(
     chatId: Long,
@@ -1022,14 +1028,14 @@ suspend fun TdHandler.editMessageMedia(
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(EditMessageMedia(chatId, messageId, replyMarkup, inputMessageContent))
+) = sync(EditMessageMedia(chatId, messageId, replyMarkup, inputMessageContent))
 
 suspend fun TdHandler.editMessageMediaOrNull(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(EditMessageMedia(chatId, messageId, replyMarkup, inputMessageContent))
+) = syncOrNull(EditMessageMedia(chatId, messageId, replyMarkup, inputMessageContent))
 
 fun TdHandler.editMessageMediaWith(
     chatId: Long,
@@ -1056,14 +1062,14 @@ suspend fun TdHandler.editMessageCaption(
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     caption: FormattedText? = null
-) = sync<Message>(EditMessageCaption(chatId, messageId, replyMarkup, caption))
+) = sync(EditMessageCaption(chatId, messageId, replyMarkup, caption))
 
 suspend fun TdHandler.editMessageCaptionOrNull(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     caption: FormattedText? = null
-) = syncOrNull<Message>(EditMessageCaption(chatId, messageId, replyMarkup, caption))
+) = syncOrNull(EditMessageCaption(chatId, messageId, replyMarkup, caption))
 
 fun TdHandler.editMessageCaptionWith(
     chatId: Long,
@@ -1087,13 +1093,13 @@ suspend fun TdHandler.editMessageReplyMarkup(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null
-) = sync<Message>(EditMessageReplyMarkup(chatId, messageId, replyMarkup))
+) = sync(EditMessageReplyMarkup(chatId, messageId, replyMarkup))
 
 suspend fun TdHandler.editMessageReplyMarkupOrNull(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null
-) = syncOrNull<Message>(EditMessageReplyMarkup(chatId, messageId, replyMarkup))
+) = syncOrNull(EditMessageReplyMarkup(chatId, messageId, replyMarkup))
 
 fun TdHandler.editMessageReplyMarkupWith(
     chatId: Long,
@@ -1116,13 +1122,19 @@ suspend fun TdHandler.editMessageSchedulingState(
     chatId: Long,
     messageId: Long,
     schedulingState: MessageSchedulingState? = null
-) = sync<Ok>(EditMessageSchedulingState(chatId, messageId, schedulingState))
+){
+    sync(EditMessageSchedulingState(chatId, messageId, schedulingState))
+}
 
-suspend fun TdHandler.editMessageSchedulingStateOrNull(
+
+suspend fun TdHandler.editMessageSchedulingStateIgnoreException(
     chatId: Long,
     messageId: Long,
     schedulingState: MessageSchedulingState? = null
-) = syncOrNull<Ok>(EditMessageSchedulingState(chatId, messageId, schedulingState))
+){
+    syncOrNull(EditMessageSchedulingState(chatId, messageId, schedulingState))
+}
+
 
 fun TdHandler.editMessageSchedulingStateWith(
     chatId: Long,
@@ -1151,7 +1163,7 @@ suspend fun TdHandler.setGameScore(
     userId: Int,
     score: Int,
     force: Boolean
-) = sync<Message>(SetGameScore(chatId, messageId, editMessage, userId, score, force))
+) = sync(SetGameScore(chatId, messageId, editMessage, userId, score, force))
 
 suspend fun TdHandler.setGameScoreOrNull(
     chatId: Long,
@@ -1160,7 +1172,7 @@ suspend fun TdHandler.setGameScoreOrNull(
     userId: Int,
     score: Int,
     force: Boolean
-) = syncOrNull<Message>(SetGameScore(chatId, messageId, editMessage, userId, score, force))
+) = syncOrNull(SetGameScore(chatId, messageId, editMessage, userId, score, force))
 
 fun TdHandler.setGameScoreWith(
     chatId: Long,
@@ -1187,14 +1199,20 @@ suspend fun TdHandler.viewMessages(
     messageThreadId: Long,
     messageIds: LongArray,
     forceRead: Boolean
-) = sync<Ok>(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
+){
+    sync(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
+}
 
-suspend fun TdHandler.viewMessagesOrNull(
+
+suspend fun TdHandler.viewMessagesIgnoreException(
     chatId: Long,
     messageThreadId: Long,
     messageIds: LongArray,
     forceRead: Boolean
-) = syncOrNull<Ok>(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
+){
+    syncOrNull(ViewMessages(chatId, messageThreadId, messageIds, forceRead))
+}
+
 
 fun TdHandler.viewMessagesWith(
     chatId: Long,
@@ -1215,12 +1233,18 @@ fun TdHandler.viewMessagesWith(
 suspend fun TdHandler.openMessageContent(
     chatId: Long,
     messageId: Long
-) = sync<Ok>(OpenMessageContent(chatId, messageId))
+){
+    sync(OpenMessageContent(chatId, messageId))
+}
 
-suspend fun TdHandler.openMessageContentOrNull(
+
+suspend fun TdHandler.openMessageContentIgnoreException(
     chatId: Long,
     messageId: Long
-) = syncOrNull<Ok>(OpenMessageContent(chatId, messageId))
+){
+    syncOrNull(OpenMessageContent(chatId, messageId))
+}
+
 
 fun TdHandler.openMessageContentWith(
     chatId: Long,
@@ -1236,11 +1260,17 @@ fun TdHandler.openMessageContentWith(
  */
 suspend fun TdHandler.clearAllDraftMessages(
     excludeSecretChats: Boolean
-) = sync<Ok>(ClearAllDraftMessages(excludeSecretChats))
+){
+    sync(ClearAllDraftMessages(excludeSecretChats))
+}
 
-suspend fun TdHandler.clearAllDraftMessagesOrNull(
+
+suspend fun TdHandler.clearAllDraftMessagesIgnoreException(
     excludeSecretChats: Boolean
-) = syncOrNull<Ok>(ClearAllDraftMessages(excludeSecretChats))
+){
+    syncOrNull(ClearAllDraftMessages(excludeSecretChats))
+}
+
 
 fun TdHandler.clearAllDraftMessagesWith(
     excludeSecretChats: Boolean,
@@ -1258,12 +1288,18 @@ fun TdHandler.clearAllDraftMessagesWith(
 suspend fun TdHandler.toggleMessageSenderIsBlocked(
     sender: MessageSender? = null,
     isBlocked: Boolean
-) = sync<Ok>(ToggleMessageSenderIsBlocked(sender, isBlocked))
+){
+    sync(ToggleMessageSenderIsBlocked(sender, isBlocked))
+}
 
-suspend fun TdHandler.toggleMessageSenderIsBlockedOrNull(
+
+suspend fun TdHandler.toggleMessageSenderIsBlockedIgnoreException(
     sender: MessageSender? = null,
     isBlocked: Boolean
-) = syncOrNull<Ok>(ToggleMessageSenderIsBlocked(sender, isBlocked))
+){
+    syncOrNull(ToggleMessageSenderIsBlocked(sender, isBlocked))
+}
+
 
 fun TdHandler.toggleMessageSenderIsBlockedWith(
     sender: MessageSender? = null,
@@ -1285,14 +1321,20 @@ suspend fun TdHandler.blockMessageSenderFromReplies(
     deleteMessage: Boolean,
     deleteAllMessages: Boolean,
     reportSpam: Boolean
-) = sync<Ok>(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+){
+    sync(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+}
 
-suspend fun TdHandler.blockMessageSenderFromRepliesOrNull(
+
+suspend fun TdHandler.blockMessageSenderFromRepliesIgnoreException(
     messageId: Long,
     deleteMessage: Boolean,
     deleteAllMessages: Boolean,
     reportSpam: Boolean
-) = syncOrNull<Ok>(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+){
+    syncOrNull(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+}
+
 
 fun TdHandler.blockMessageSenderFromRepliesWith(
     messageId: Long,
@@ -1312,12 +1354,12 @@ fun TdHandler.blockMessageSenderFromRepliesWith(
 suspend fun TdHandler.getBlockedMessageSenders(
     offset: Int,
     limit: Int
-) = sync<MessageSenders>(GetBlockedMessageSenders(offset, limit))
+) = sync(GetBlockedMessageSenders(offset, limit))
 
 suspend fun TdHandler.getBlockedMessageSendersOrNull(
     offset: Int,
     limit: Int
-) = syncOrNull<MessageSenders>(GetBlockedMessageSenders(offset, limit))
+) = syncOrNull(GetBlockedMessageSenders(offset, limit))
 
 fun TdHandler.getBlockedMessageSendersWith(
     offset: Int,
@@ -1338,13 +1380,13 @@ suspend fun TdHandler.getMessageStatistics(
     chatId: Long,
     messageId: Long,
     isDark: Boolean
-) = sync<MessageStatistics>(GetMessageStatistics(chatId, messageId, isDark))
+) = sync(GetMessageStatistics(chatId, messageId, isDark))
 
 suspend fun TdHandler.getMessageStatisticsOrNull(
     chatId: Long,
     messageId: Long,
     isDark: Boolean
-) = syncOrNull<MessageStatistics>(GetMessageStatistics(chatId, messageId, isDark))
+) = syncOrNull(GetMessageStatistics(chatId, messageId, isDark))
 
 fun TdHandler.getMessageStatisticsWith(
     chatId: Long,

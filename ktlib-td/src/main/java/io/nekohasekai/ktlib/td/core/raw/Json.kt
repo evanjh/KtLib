@@ -9,9 +9,9 @@ import io.nekohasekai.ktlib.td.core.*
  * Returns application config, provided by the server
  * Can be called before authorization
  */
-suspend fun TdHandler.getApplicationConfig() = sync<JsonValue>(GetApplicationConfig())
+suspend fun TdHandler.getApplicationConfig() = sync(GetApplicationConfig())
 
-suspend fun TdHandler.getApplicationConfigOrNull() = syncOrNull<JsonValue>(GetApplicationConfig())
+suspend fun TdHandler.getApplicationConfigOrNull() = syncOrNull(GetApplicationConfig())
 
 fun TdHandler.getApplicationConfigWith(
     stackIgnore: Int = 0,

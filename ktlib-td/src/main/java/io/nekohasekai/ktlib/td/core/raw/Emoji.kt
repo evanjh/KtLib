@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getStickerEmojis(
     sticker: InputFile? = null
-) = sync<Emojis>(GetStickerEmojis(sticker))
+) = sync(GetStickerEmojis(sticker))
 
 suspend fun TdHandler.getStickerEmojisOrNull(
     sticker: InputFile? = null
-) = syncOrNull<Emojis>(GetStickerEmojis(sticker))
+) = syncOrNull(GetStickerEmojis(sticker))
 
 fun TdHandler.getStickerEmojisWith(
     sticker: InputFile? = null,
@@ -38,13 +38,13 @@ suspend fun TdHandler.searchEmojis(
     text: String? = null,
     exactMatch: Boolean,
     inputLanguageCodes: Array<String>
-) = sync<Emojis>(SearchEmojis(text, exactMatch, inputLanguageCodes))
+) = sync(SearchEmojis(text, exactMatch, inputLanguageCodes))
 
 suspend fun TdHandler.searchEmojisOrNull(
     text: String? = null,
     exactMatch: Boolean,
     inputLanguageCodes: Array<String>
-) = syncOrNull<Emojis>(SearchEmojis(text, exactMatch, inputLanguageCodes))
+) = syncOrNull(SearchEmojis(text, exactMatch, inputLanguageCodes))
 
 fun TdHandler.searchEmojisWith(
     text: String? = null,
@@ -62,11 +62,11 @@ fun TdHandler.searchEmojisWith(
  */
 suspend fun TdHandler.getEmojiSuggestionsUrl(
     languageCode: String? = null
-) = sync<HttpUrl>(GetEmojiSuggestionsUrl(languageCode))
+) = sync(GetEmojiSuggestionsUrl(languageCode))
 
 suspend fun TdHandler.getEmojiSuggestionsUrlOrNull(
     languageCode: String? = null
-) = syncOrNull<HttpUrl>(GetEmojiSuggestionsUrl(languageCode))
+) = syncOrNull(GetEmojiSuggestionsUrl(languageCode))
 
 fun TdHandler.getEmojiSuggestionsUrlWith(
     languageCode: String? = null,

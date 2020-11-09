@@ -14,11 +14,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getLocalizationTargetInfo(
     onlyLocal: Boolean
-) = sync<LocalizationTargetInfo>(GetLocalizationTargetInfo(onlyLocal))
+) = sync(GetLocalizationTargetInfo(onlyLocal))
 
 suspend fun TdHandler.getLocalizationTargetInfoOrNull(
     onlyLocal: Boolean
-) = syncOrNull<LocalizationTargetInfo>(GetLocalizationTargetInfo(onlyLocal))
+) = syncOrNull(GetLocalizationTargetInfo(onlyLocal))
 
 fun TdHandler.getLocalizationTargetInfoWith(
     onlyLocal: Boolean,

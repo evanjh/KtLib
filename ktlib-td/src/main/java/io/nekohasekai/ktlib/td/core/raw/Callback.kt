@@ -17,13 +17,13 @@ suspend fun TdHandler.getCallbackQueryAnswer(
     chatId: Long,
     messageId: Long,
     payload: CallbackQueryPayload? = null
-) = sync<CallbackQueryAnswer>(GetCallbackQueryAnswer(chatId, messageId, payload))
+) = sync(GetCallbackQueryAnswer(chatId, messageId, payload))
 
 suspend fun TdHandler.getCallbackQueryAnswerOrNull(
     chatId: Long,
     messageId: Long,
     payload: CallbackQueryPayload? = null
-) = syncOrNull<CallbackQueryAnswer>(GetCallbackQueryAnswer(chatId, messageId, payload))
+) = syncOrNull(GetCallbackQueryAnswer(chatId, messageId, payload))
 
 fun TdHandler.getCallbackQueryAnswerWith(
     chatId: Long,
@@ -49,15 +49,21 @@ suspend fun TdHandler.answerCallbackQuery(
     showAlert: Boolean,
     url: String? = null,
     cacheTime: Int
-) = sync<Ok>(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
+){
+    sync(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
+}
 
-suspend fun TdHandler.answerCallbackQueryOrNull(
+
+suspend fun TdHandler.answerCallbackQueryIgnoreException(
     callbackQueryId: Long,
     text: String? = null,
     showAlert: Boolean,
     url: String? = null,
     cacheTime: Int
-) = syncOrNull<Ok>(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
+){
+    syncOrNull(AnswerCallbackQuery(callbackQueryId, text, showAlert, url, cacheTime))
+}
+
 
 fun TdHandler.answerCallbackQueryWith(
     callbackQueryId: Long,

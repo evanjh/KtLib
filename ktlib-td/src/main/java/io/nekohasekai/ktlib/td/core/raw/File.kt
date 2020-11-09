@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getFile(
     fileId: Int
-) = sync<File>(GetFile(fileId))
+) = sync(GetFile(fileId))
 
 suspend fun TdHandler.getFileOrNull(
     fileId: Int
-) = syncOrNull<File>(GetFile(fileId))
+) = syncOrNull(GetFile(fileId))
 
 fun TdHandler.getFileWith(
     fileId: Int,
@@ -39,12 +39,12 @@ fun TdHandler.getFileWith(
 suspend fun TdHandler.getRemoteFile(
     remoteFileId: String? = null,
     fileType: FileType? = null
-) = sync<File>(GetRemoteFile(remoteFileId, fileType))
+) = sync(GetRemoteFile(remoteFileId, fileType))
 
 suspend fun TdHandler.getRemoteFileOrNull(
     remoteFileId: String? = null,
     fileType: FileType? = null
-) = syncOrNull<File>(GetRemoteFile(remoteFileId, fileType))
+) = syncOrNull(GetRemoteFile(remoteFileId, fileType))
 
 fun TdHandler.getRemoteFileWith(
     remoteFileId: String? = null,
@@ -73,7 +73,7 @@ suspend fun TdHandler.downloadFile(
     offset: Int,
     limit: Int,
     synchronous: Boolean
-) = sync<File>(DownloadFile(fileId, priority, offset, limit, synchronous))
+) = sync(DownloadFile(fileId, priority, offset, limit, synchronous))
 
 suspend fun TdHandler.downloadFileOrNull(
     fileId: Int,
@@ -81,7 +81,7 @@ suspend fun TdHandler.downloadFileOrNull(
     offset: Int,
     limit: Int,
     synchronous: Boolean
-) = syncOrNull<File>(DownloadFile(fileId, priority, offset, limit, synchronous))
+) = syncOrNull(DownloadFile(fileId, priority, offset, limit, synchronous))
 
 fun TdHandler.downloadFileWith(
     fileId: Int,
@@ -102,12 +102,12 @@ fun TdHandler.downloadFileWith(
 suspend fun TdHandler.getFileDownloadedPrefixSize(
     fileId: Int,
     offset: Int
-) = sync<Count>(GetFileDownloadedPrefixSize(fileId, offset))
+) = sync(GetFileDownloadedPrefixSize(fileId, offset))
 
 suspend fun TdHandler.getFileDownloadedPrefixSizeOrNull(
     fileId: Int,
     offset: Int
-) = syncOrNull<Count>(GetFileDownloadedPrefixSize(fileId, offset))
+) = syncOrNull(GetFileDownloadedPrefixSize(fileId, offset))
 
 fun TdHandler.getFileDownloadedPrefixSizeWith(
     fileId: Int,
@@ -131,13 +131,13 @@ suspend fun TdHandler.uploadFile(
     file: InputFile? = null,
     fileType: FileType? = null,
     priority: Int
-) = sync<File>(UploadFile(file, fileType, priority))
+) = sync(UploadFile(file, fileType, priority))
 
 suspend fun TdHandler.uploadFileOrNull(
     file: InputFile? = null,
     fileType: FileType? = null,
     priority: Int
-) = syncOrNull<File>(UploadFile(file, fileType, priority))
+) = syncOrNull(UploadFile(file, fileType, priority))
 
 fun TdHandler.uploadFileWith(
     file: InputFile? = null,
@@ -159,13 +159,19 @@ suspend fun TdHandler.writeGeneratedFilePart(
     generationId: Long,
     offset: Int,
     data: ByteArray
-) = sync<Ok>(WriteGeneratedFilePart(generationId, offset, data))
+){
+    sync(WriteGeneratedFilePart(generationId, offset, data))
+}
 
-suspend fun TdHandler.writeGeneratedFilePartOrNull(
+
+suspend fun TdHandler.writeGeneratedFilePartIgnoreException(
     generationId: Long,
     offset: Int,
     data: ByteArray
-) = syncOrNull<Ok>(WriteGeneratedFilePart(generationId, offset, data))
+){
+    syncOrNull(WriteGeneratedFilePart(generationId, offset, data))
+}
+
 
 fun TdHandler.writeGeneratedFilePartWith(
     generationId: Long,
@@ -187,13 +193,19 @@ suspend fun TdHandler.setFileGenerationProgress(
     generationId: Long,
     expectedSize: Int,
     localPrefixSize: Int
-) = sync<Ok>(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
+){
+    sync(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
+}
 
-suspend fun TdHandler.setFileGenerationProgressOrNull(
+
+suspend fun TdHandler.setFileGenerationProgressIgnoreException(
     generationId: Long,
     expectedSize: Int,
     localPrefixSize: Int
-) = syncOrNull<Ok>(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
+){
+    syncOrNull(SetFileGenerationProgress(generationId, expectedSize, localPrefixSize))
+}
+
 
 fun TdHandler.setFileGenerationProgressWith(
     generationId: Long,
@@ -212,12 +224,18 @@ fun TdHandler.setFileGenerationProgressWith(
 suspend fun TdHandler.finishFileGeneration(
     generationId: Long,
     error: Error? = null
-) = sync<Ok>(FinishFileGeneration(generationId, error))
+){
+    sync(FinishFileGeneration(generationId, error))
+}
 
-suspend fun TdHandler.finishFileGenerationOrNull(
+
+suspend fun TdHandler.finishFileGenerationIgnoreException(
     generationId: Long,
     error: Error? = null
-) = syncOrNull<Ok>(FinishFileGeneration(generationId, error))
+){
+    syncOrNull(FinishFileGeneration(generationId, error))
+}
+
 
 fun TdHandler.finishFileGenerationWith(
     generationId: Long,
@@ -241,13 +259,13 @@ suspend fun TdHandler.readFilePart(
     fileId: Int,
     offset: Int,
     count: Int
-) = sync<FilePart>(ReadFilePart(fileId, offset, count))
+) = sync(ReadFilePart(fileId, offset, count))
 
 suspend fun TdHandler.readFilePartOrNull(
     fileId: Int,
     offset: Int,
     count: Int
-) = syncOrNull<FilePart>(ReadFilePart(fileId, offset, count))
+) = syncOrNull(ReadFilePart(fileId, offset, count))
 
 fun TdHandler.readFilePartWith(
     fileId: Int,
@@ -264,11 +282,17 @@ fun TdHandler.readFilePartWith(
  */
 suspend fun TdHandler.deleteFile(
     fileId: Int
-) = sync<Ok>(DeleteFile(fileId))
+){
+    sync(DeleteFile(fileId))
+}
 
-suspend fun TdHandler.deleteFileOrNull(
+
+suspend fun TdHandler.deleteFileIgnoreException(
     fileId: Int
-) = syncOrNull<Ok>(DeleteFile(fileId))
+){
+    syncOrNull(DeleteFile(fileId))
+}
+
 
 fun TdHandler.deleteFileWith(
     fileId: Int,
@@ -288,12 +312,12 @@ fun TdHandler.deleteFileWith(
 suspend fun TdHandler.uploadStickerFile(
     userId: Int,
     pngSticker: InputFile? = null
-) = sync<File>(UploadStickerFile(userId, pngSticker))
+) = sync(UploadStickerFile(userId, pngSticker))
 
 suspend fun TdHandler.uploadStickerFileOrNull(
     userId: Int,
     pngSticker: InputFile? = null
-) = syncOrNull<File>(UploadStickerFile(userId, pngSticker))
+) = syncOrNull(UploadStickerFile(userId, pngSticker))
 
 fun TdHandler.uploadStickerFileWith(
     userId: Int,
@@ -321,7 +345,7 @@ suspend fun TdHandler.getMapThumbnailFile(
     height: Int,
     scale: Int,
     chatId: Long
-) = sync<File>(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
+) = sync(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
 
 suspend fun TdHandler.getMapThumbnailFileOrNull(
     location: Location? = null,
@@ -330,7 +354,7 @@ suspend fun TdHandler.getMapThumbnailFileOrNull(
     height: Int,
     scale: Int,
     chatId: Long
-) = syncOrNull<File>(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
+) = syncOrNull(GetMapThumbnailFile(location, zoom, width, height, scale, chatId))
 
 fun TdHandler.getMapThumbnailFileWith(
     location: Location? = null,

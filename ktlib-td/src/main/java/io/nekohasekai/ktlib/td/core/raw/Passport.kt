@@ -14,12 +14,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.getPassportElement(
     type: PassportElementType? = null,
     password: String? = null
-) = sync<PassportElement>(GetPassportElement(type, password))
+) = sync(GetPassportElement(type, password))
 
 suspend fun TdHandler.getPassportElementOrNull(
     type: PassportElementType? = null,
     password: String? = null
-) = syncOrNull<PassportElement>(GetPassportElement(type, password))
+) = syncOrNull(GetPassportElement(type, password))
 
 fun TdHandler.getPassportElementWith(
     type: PassportElementType? = null,
@@ -35,11 +35,11 @@ fun TdHandler.getPassportElementWith(
  */
 suspend fun TdHandler.getAllPassportElements(
     password: String? = null
-) = sync<PassportElements>(GetAllPassportElements(password))
+) = sync(GetAllPassportElements(password))
 
 suspend fun TdHandler.getAllPassportElementsOrNull(
     password: String? = null
-) = syncOrNull<PassportElements>(GetAllPassportElements(password))
+) = syncOrNull(GetAllPassportElements(password))
 
 fun TdHandler.getAllPassportElementsWith(
     password: String? = null,
@@ -57,12 +57,12 @@ fun TdHandler.getAllPassportElementsWith(
 suspend fun TdHandler.setPassportElement(
     element: InputPassportElement? = null,
     password: String? = null
-) = sync<PassportElement>(SetPassportElement(element, password))
+) = sync(SetPassportElement(element, password))
 
 suspend fun TdHandler.setPassportElementOrNull(
     element: InputPassportElement? = null,
     password: String? = null
-) = syncOrNull<PassportElement>(SetPassportElement(element, password))
+) = syncOrNull(SetPassportElement(element, password))
 
 fun TdHandler.setPassportElementWith(
     element: InputPassportElement? = null,
@@ -78,11 +78,17 @@ fun TdHandler.setPassportElementWith(
  */
 suspend fun TdHandler.deletePassportElement(
     type: PassportElementType? = null
-) = sync<Ok>(DeletePassportElement(type))
+){
+    sync(DeletePassportElement(type))
+}
 
-suspend fun TdHandler.deletePassportElementOrNull(
+
+suspend fun TdHandler.deletePassportElementIgnoreException(
     type: PassportElementType? = null
-) = syncOrNull<Ok>(DeletePassportElement(type))
+){
+    syncOrNull(DeletePassportElement(type))
+}
+
 
 fun TdHandler.deletePassportElementWith(
     type: PassportElementType? = null,
@@ -101,12 +107,18 @@ fun TdHandler.deletePassportElementWith(
 suspend fun TdHandler.setPassportElementErrors(
     userId: Int,
     errors: Array<InputPassportElementError>
-) = sync<Ok>(SetPassportElementErrors(userId, errors))
+){
+    sync(SetPassportElementErrors(userId, errors))
+}
 
-suspend fun TdHandler.setPassportElementErrorsOrNull(
+
+suspend fun TdHandler.setPassportElementErrorsIgnoreException(
     userId: Int,
     errors: Array<InputPassportElementError>
-) = syncOrNull<Ok>(SetPassportElementErrors(userId, errors))
+){
+    syncOrNull(SetPassportElementErrors(userId, errors))
+}
+
 
 fun TdHandler.setPassportElementErrorsWith(
     userId: Int,
@@ -128,14 +140,14 @@ suspend fun TdHandler.getPassportAuthorizationForm(
     scope: String? = null,
     publicKey: String? = null,
     nonce: String? = null
-) = sync<PassportAuthorizationForm>(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
+) = sync(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
 
 suspend fun TdHandler.getPassportAuthorizationFormOrNull(
     botUserId: Int,
     scope: String? = null,
     publicKey: String? = null,
     nonce: String? = null
-) = syncOrNull<PassportAuthorizationForm>(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
+) = syncOrNull(GetPassportAuthorizationForm(botUserId, scope, publicKey, nonce))
 
 fun TdHandler.getPassportAuthorizationFormWith(
     botUserId: Int,
@@ -156,12 +168,12 @@ fun TdHandler.getPassportAuthorizationFormWith(
 suspend fun TdHandler.getPassportAuthorizationFormAvailableElements(
     autorizationFormId: Int,
     password: String? = null
-) = sync<PassportElementsWithErrors>(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
+) = sync(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
 
 suspend fun TdHandler.getPassportAuthorizationFormAvailableElementsOrNull(
     autorizationFormId: Int,
     password: String? = null
-) = syncOrNull<PassportElementsWithErrors>(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
+) = syncOrNull(GetPassportAuthorizationFormAvailableElements(autorizationFormId, password))
 
 fun TdHandler.getPassportAuthorizationFormAvailableElementsWith(
     autorizationFormId: Int,
@@ -180,12 +192,18 @@ fun TdHandler.getPassportAuthorizationFormAvailableElementsWith(
 suspend fun TdHandler.sendPassportAuthorizationForm(
     autorizationFormId: Int,
     types: Array<PassportElementType>
-) = sync<Ok>(SendPassportAuthorizationForm(autorizationFormId, types))
+){
+    sync(SendPassportAuthorizationForm(autorizationFormId, types))
+}
 
-suspend fun TdHandler.sendPassportAuthorizationFormOrNull(
+
+suspend fun TdHandler.sendPassportAuthorizationFormIgnoreException(
     autorizationFormId: Int,
     types: Array<PassportElementType>
-) = syncOrNull<Ok>(SendPassportAuthorizationForm(autorizationFormId, types))
+){
+    syncOrNull(SendPassportAuthorizationForm(autorizationFormId, types))
+}
+
 
 fun TdHandler.sendPassportAuthorizationFormWith(
     autorizationFormId: Int,

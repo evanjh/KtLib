@@ -18,13 +18,19 @@ suspend fun TdHandler.editInlineMessageText(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Ok>(EditInlineMessageText(inlineMessageId, replyMarkup, inputMessageContent))
+){
+    sync(EditInlineMessageText(inlineMessageId, replyMarkup, inputMessageContent))
+}
 
-suspend fun TdHandler.editInlineMessageTextOrNull(
+
+suspend fun TdHandler.editInlineMessageTextIgnoreException(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Ok>(EditInlineMessageText(inlineMessageId, replyMarkup, inputMessageContent))
+){
+    syncOrNull(EditInlineMessageText(inlineMessageId, replyMarkup, inputMessageContent))
+}
+
 
 fun TdHandler.editInlineMessageTextWith(
     inlineMessageId: String? = null,
@@ -53,15 +59,21 @@ suspend fun TdHandler.editInlineMessageLiveLocation(
     location: Location? = null,
     heading: Int,
     proximityAlertRadius: Int
-) = sync<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
+){
+    sync(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
+}
 
-suspend fun TdHandler.editInlineMessageLiveLocationOrNull(
+
+suspend fun TdHandler.editInlineMessageLiveLocationIgnoreException(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     location: Location? = null,
     heading: Int,
     proximityAlertRadius: Int
-) = syncOrNull<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
+){
+    syncOrNull(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
+}
+
 
 fun TdHandler.editInlineMessageLiveLocationWith(
     inlineMessageId: String? = null,
@@ -87,13 +99,19 @@ suspend fun TdHandler.editInlineMessageMedia(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = sync<Ok>(EditInlineMessageMedia(inlineMessageId, replyMarkup, inputMessageContent))
+){
+    sync(EditInlineMessageMedia(inlineMessageId, replyMarkup, inputMessageContent))
+}
 
-suspend fun TdHandler.editInlineMessageMediaOrNull(
+
+suspend fun TdHandler.editInlineMessageMediaIgnoreException(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Ok>(EditInlineMessageMedia(inlineMessageId, replyMarkup, inputMessageContent))
+){
+    syncOrNull(EditInlineMessageMedia(inlineMessageId, replyMarkup, inputMessageContent))
+}
+
 
 fun TdHandler.editInlineMessageMediaWith(
     inlineMessageId: String? = null,
@@ -116,13 +134,19 @@ suspend fun TdHandler.editInlineMessageCaption(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     caption: FormattedText? = null
-) = sync<Ok>(EditInlineMessageCaption(inlineMessageId, replyMarkup, caption))
+){
+    sync(EditInlineMessageCaption(inlineMessageId, replyMarkup, caption))
+}
 
-suspend fun TdHandler.editInlineMessageCaptionOrNull(
+
+suspend fun TdHandler.editInlineMessageCaptionIgnoreException(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     caption: FormattedText? = null
-) = syncOrNull<Ok>(EditInlineMessageCaption(inlineMessageId, replyMarkup, caption))
+){
+    syncOrNull(EditInlineMessageCaption(inlineMessageId, replyMarkup, caption))
+}
+
 
 fun TdHandler.editInlineMessageCaptionWith(
     inlineMessageId: String? = null,
@@ -142,12 +166,18 @@ fun TdHandler.editInlineMessageCaptionWith(
 suspend fun TdHandler.editInlineMessageReplyMarkup(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null
-) = sync<Ok>(EditInlineMessageReplyMarkup(inlineMessageId, replyMarkup))
+){
+    sync(EditInlineMessageReplyMarkup(inlineMessageId, replyMarkup))
+}
 
-suspend fun TdHandler.editInlineMessageReplyMarkupOrNull(
+
+suspend fun TdHandler.editInlineMessageReplyMarkupIgnoreException(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null
-) = syncOrNull<Ok>(EditInlineMessageReplyMarkup(inlineMessageId, replyMarkup))
+){
+    syncOrNull(EditInlineMessageReplyMarkup(inlineMessageId, replyMarkup))
+}
+
 
 fun TdHandler.editInlineMessageReplyMarkupWith(
     inlineMessageId: String? = null,
@@ -172,7 +202,7 @@ suspend fun TdHandler.getInlineQueryResults(
     userLocation: Location? = null,
     query: String? = null,
     offset: String? = null
-) = sync<InlineQueryResults>(GetInlineQueryResults(botUserId, chatId, userLocation, query, offset))
+) = sync(GetInlineQueryResults(botUserId, chatId, userLocation, query, offset))
 
 suspend fun TdHandler.getInlineQueryResultsOrNull(
     botUserId: Int,
@@ -180,7 +210,7 @@ suspend fun TdHandler.getInlineQueryResultsOrNull(
     userLocation: Location? = null,
     query: String? = null,
     offset: String? = null
-) = syncOrNull<InlineQueryResults>(GetInlineQueryResults(botUserId, chatId, userLocation, query, offset))
+) = syncOrNull(GetInlineQueryResults(botUserId, chatId, userLocation, query, offset))
 
 fun TdHandler.getInlineQueryResultsWith(
     botUserId: Int,
@@ -213,9 +243,12 @@ suspend fun TdHandler.answerInlineQuery(
     nextOffset: String? = null,
     switchPmText: String? = null,
     switchPmParameter: String? = null
-) = sync<Ok>(AnswerInlineQuery(inlineQueryId, isPersonal, results, cacheTime, nextOffset, switchPmText, switchPmParameter))
+){
+    sync(AnswerInlineQuery(inlineQueryId, isPersonal, results, cacheTime, nextOffset, switchPmText, switchPmParameter))
+}
 
-suspend fun TdHandler.answerInlineQueryOrNull(
+
+suspend fun TdHandler.answerInlineQueryIgnoreException(
     inlineQueryId: Long,
     isPersonal: Boolean,
     results: Array<InputInlineQueryResult>,
@@ -223,7 +256,10 @@ suspend fun TdHandler.answerInlineQueryOrNull(
     nextOffset: String? = null,
     switchPmText: String? = null,
     switchPmParameter: String? = null
-) = syncOrNull<Ok>(AnswerInlineQuery(inlineQueryId, isPersonal, results, cacheTime, nextOffset, switchPmText, switchPmParameter))
+){
+    syncOrNull(AnswerInlineQuery(inlineQueryId, isPersonal, results, cacheTime, nextOffset, switchPmText, switchPmParameter))
+}
+
 
 fun TdHandler.answerInlineQueryWith(
     inlineQueryId: Long,
@@ -254,15 +290,21 @@ suspend fun TdHandler.setInlineGameScore(
     userId: Int,
     score: Int,
     force: Boolean
-) = sync<Ok>(SetInlineGameScore(inlineMessageId, editMessage, userId, score, force))
+){
+    sync(SetInlineGameScore(inlineMessageId, editMessage, userId, score, force))
+}
 
-suspend fun TdHandler.setInlineGameScoreOrNull(
+
+suspend fun TdHandler.setInlineGameScoreIgnoreException(
     inlineMessageId: String? = null,
     editMessage: Boolean,
     userId: Int,
     score: Int,
     force: Boolean
-) = syncOrNull<Ok>(SetInlineGameScore(inlineMessageId, editMessage, userId, score, force))
+){
+    syncOrNull(SetInlineGameScore(inlineMessageId, editMessage, userId, score, force))
+}
+
 
 fun TdHandler.setInlineGameScoreWith(
     inlineMessageId: String? = null,

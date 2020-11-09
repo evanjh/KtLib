@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns recommended chat filters for the current user
  */
-suspend fun TdHandler.getRecommendedChatFilters() = sync<RecommendedChatFilters>(GetRecommendedChatFilters())
+suspend fun TdHandler.getRecommendedChatFilters() = sync(GetRecommendedChatFilters())
 
-suspend fun TdHandler.getRecommendedChatFiltersOrNull() = syncOrNull<RecommendedChatFilters>(GetRecommendedChatFilters())
+suspend fun TdHandler.getRecommendedChatFiltersOrNull() = syncOrNull(GetRecommendedChatFilters())
 
 fun TdHandler.getRecommendedChatFiltersWith(
     stackIgnore: Int = 0,

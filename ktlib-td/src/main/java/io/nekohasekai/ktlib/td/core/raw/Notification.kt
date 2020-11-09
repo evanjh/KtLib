@@ -15,12 +15,18 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.removeNotification(
     notificationGroupId: Int,
     notificationId: Int
-) = sync<Ok>(RemoveNotification(notificationGroupId, notificationId))
+){
+    sync(RemoveNotification(notificationGroupId, notificationId))
+}
 
-suspend fun TdHandler.removeNotificationOrNull(
+
+suspend fun TdHandler.removeNotificationIgnoreException(
     notificationGroupId: Int,
     notificationId: Int
-) = syncOrNull<Ok>(RemoveNotification(notificationGroupId, notificationId))
+){
+    syncOrNull(RemoveNotification(notificationGroupId, notificationId))
+}
+
 
 fun TdHandler.removeNotificationWith(
     notificationGroupId: Int,
@@ -39,12 +45,18 @@ fun TdHandler.removeNotificationWith(
 suspend fun TdHandler.removeNotificationGroup(
     notificationGroupId: Int,
     maxNotificationId: Int
-) = sync<Ok>(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
+){
+    sync(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
+}
 
-suspend fun TdHandler.removeNotificationGroupOrNull(
+
+suspend fun TdHandler.removeNotificationGroupIgnoreException(
     notificationGroupId: Int,
     maxNotificationId: Int
-) = syncOrNull<Ok>(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
+){
+    syncOrNull(RemoveNotificationGroup(notificationGroupId, maxNotificationId))
+}
+
 
 fun TdHandler.removeNotificationGroupWith(
     notificationGroupId: Int,
@@ -60,11 +72,11 @@ fun TdHandler.removeNotificationGroupWith(
  */
 suspend fun TdHandler.getScopeNotificationSettings(
     scope: NotificationSettingsScope? = null
-) = sync<ScopeNotificationSettings>(GetScopeNotificationSettings(scope))
+) = sync(GetScopeNotificationSettings(scope))
 
 suspend fun TdHandler.getScopeNotificationSettingsOrNull(
     scope: NotificationSettingsScope? = null
-) = syncOrNull<ScopeNotificationSettings>(GetScopeNotificationSettings(scope))
+) = syncOrNull(GetScopeNotificationSettings(scope))
 
 fun TdHandler.getScopeNotificationSettingsWith(
     scope: NotificationSettingsScope? = null,
@@ -81,12 +93,18 @@ fun TdHandler.getScopeNotificationSettingsWith(
 suspend fun TdHandler.setScopeNotificationSettings(
     scope: NotificationSettingsScope? = null,
     notificationSettings: ScopeNotificationSettings? = null
-) = sync<Ok>(SetScopeNotificationSettings(scope, notificationSettings))
+){
+    sync(SetScopeNotificationSettings(scope, notificationSettings))
+}
 
-suspend fun TdHandler.setScopeNotificationSettingsOrNull(
+
+suspend fun TdHandler.setScopeNotificationSettingsIgnoreException(
     scope: NotificationSettingsScope? = null,
     notificationSettings: ScopeNotificationSettings? = null
-) = syncOrNull<Ok>(SetScopeNotificationSettings(scope, notificationSettings))
+){
+    syncOrNull(SetScopeNotificationSettings(scope, notificationSettings))
+}
+
 
 fun TdHandler.setScopeNotificationSettingsWith(
     scope: NotificationSettingsScope? = null,
@@ -99,9 +117,15 @@ fun TdHandler.setScopeNotificationSettingsWith(
  * Resets all notification settings to their default values
  * By default, all chats are unmuted, the sound is set to "default" and message previews are shown
  */
-suspend fun TdHandler.resetAllNotificationSettings() = sync<Ok>(ResetAllNotificationSettings())
+suspend fun TdHandler.resetAllNotificationSettings(){
+    sync(ResetAllNotificationSettings())
+}
 
-suspend fun TdHandler.resetAllNotificationSettingsOrNull() = syncOrNull<Ok>(ResetAllNotificationSettings())
+
+suspend fun TdHandler.resetAllNotificationSettingsIgnoreException(){
+    syncOrNull(ResetAllNotificationSettings())
+}
+
 
 fun TdHandler.resetAllNotificationSettingsWith(
     stackIgnore: Int = 0,
@@ -117,11 +141,17 @@ fun TdHandler.resetAllNotificationSettingsWith(
  */
 suspend fun TdHandler.processPushNotification(
     payload: String? = null
-) = sync<Ok>(ProcessPushNotification(payload))
+){
+    sync(ProcessPushNotification(payload))
+}
 
-suspend fun TdHandler.processPushNotificationOrNull(
+
+suspend fun TdHandler.processPushNotificationIgnoreException(
     payload: String? = null
-) = syncOrNull<Ok>(ProcessPushNotification(payload))
+){
+    syncOrNull(ProcessPushNotification(payload))
+}
+
 
 fun TdHandler.processPushNotificationWith(
     payload: String? = null,

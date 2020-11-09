@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns auto-download settings presets for the current user
  */
-suspend fun TdHandler.getAutoDownloadSettingsPresets() = sync<AutoDownloadSettingsPresets>(GetAutoDownloadSettingsPresets())
+suspend fun TdHandler.getAutoDownloadSettingsPresets() = sync(GetAutoDownloadSettingsPresets())
 
-suspend fun TdHandler.getAutoDownloadSettingsPresetsOrNull() = syncOrNull<AutoDownloadSettingsPresets>(GetAutoDownloadSettingsPresets())
+suspend fun TdHandler.getAutoDownloadSettingsPresetsOrNull() = syncOrNull(GetAutoDownloadSettingsPresets())
 
 fun TdHandler.getAutoDownloadSettingsPresetsWith(
     stackIgnore: Int = 0,
@@ -26,12 +26,18 @@ fun TdHandler.getAutoDownloadSettingsPresetsWith(
 suspend fun TdHandler.setAutoDownloadSettings(
     settings: AutoDownloadSettings? = null,
     type: NetworkType? = null
-) = sync<Ok>(SetAutoDownloadSettings(settings, type))
+){
+    sync(SetAutoDownloadSettings(settings, type))
+}
 
-suspend fun TdHandler.setAutoDownloadSettingsOrNull(
+
+suspend fun TdHandler.setAutoDownloadSettingsIgnoreException(
     settings: AutoDownloadSettings? = null,
     type: NetworkType? = null
-) = syncOrNull<Ok>(SetAutoDownloadSettings(settings, type))
+){
+    syncOrNull(SetAutoDownloadSettings(settings, type))
+}
+
 
 fun TdHandler.setAutoDownloadSettingsWith(
     settings: AutoDownloadSettings? = null,

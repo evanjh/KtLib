@@ -17,13 +17,19 @@ suspend fun TdHandler.answerShippingQuery(
     shippingQueryId: Long,
     shippingOptions: Array<ShippingOption>,
     errorMessage: String? = null
-) = sync<Ok>(AnswerShippingQuery(shippingQueryId, shippingOptions, errorMessage))
+){
+    sync(AnswerShippingQuery(shippingQueryId, shippingOptions, errorMessage))
+}
 
-suspend fun TdHandler.answerShippingQueryOrNull(
+
+suspend fun TdHandler.answerShippingQueryIgnoreException(
     shippingQueryId: Long,
     shippingOptions: Array<ShippingOption>,
     errorMessage: String? = null
-) = syncOrNull<Ok>(AnswerShippingQuery(shippingQueryId, shippingOptions, errorMessage))
+){
+    syncOrNull(AnswerShippingQuery(shippingQueryId, shippingOptions, errorMessage))
+}
+
 
 fun TdHandler.answerShippingQueryWith(
     shippingQueryId: Long,

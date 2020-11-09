@@ -15,12 +15,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.getPaymentForm(
     chatId: Long,
     messageId: Long
-) = sync<PaymentForm>(GetPaymentForm(chatId, messageId))
+) = sync(GetPaymentForm(chatId, messageId))
 
 suspend fun TdHandler.getPaymentFormOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<PaymentForm>(GetPaymentForm(chatId, messageId))
+) = syncOrNull(GetPaymentForm(chatId, messageId))
 
 fun TdHandler.getPaymentFormWith(
     chatId: Long,
@@ -44,7 +44,7 @@ suspend fun TdHandler.sendPaymentForm(
     orderInfoId: String? = null,
     shippingOptionId: String? = null,
     credentials: InputCredentials? = null
-) = sync<PaymentResult>(SendPaymentForm(chatId, messageId, orderInfoId, shippingOptionId, credentials))
+) = sync(SendPaymentForm(chatId, messageId, orderInfoId, shippingOptionId, credentials))
 
 suspend fun TdHandler.sendPaymentFormOrNull(
     chatId: Long,
@@ -52,7 +52,7 @@ suspend fun TdHandler.sendPaymentFormOrNull(
     orderInfoId: String? = null,
     shippingOptionId: String? = null,
     credentials: InputCredentials? = null
-) = syncOrNull<PaymentResult>(SendPaymentForm(chatId, messageId, orderInfoId, shippingOptionId, credentials))
+) = syncOrNull(SendPaymentForm(chatId, messageId, orderInfoId, shippingOptionId, credentials))
 
 fun TdHandler.sendPaymentFormWith(
     chatId: Long,
@@ -73,12 +73,12 @@ fun TdHandler.sendPaymentFormWith(
 suspend fun TdHandler.getPaymentReceipt(
     chatId: Long,
     messageId: Long
-) = sync<PaymentReceipt>(GetPaymentReceipt(chatId, messageId))
+) = sync(GetPaymentReceipt(chatId, messageId))
 
 suspend fun TdHandler.getPaymentReceiptOrNull(
     chatId: Long,
     messageId: Long
-) = syncOrNull<PaymentReceipt>(GetPaymentReceipt(chatId, messageId))
+) = syncOrNull(GetPaymentReceipt(chatId, messageId))
 
 fun TdHandler.getPaymentReceiptWith(
     chatId: Long,
@@ -90,9 +90,15 @@ fun TdHandler.getPaymentReceiptWith(
 /**
  * Deletes saved credentials for all payment provider bots
  */
-suspend fun TdHandler.deleteSavedCredentials() = sync<Ok>(DeleteSavedCredentials())
+suspend fun TdHandler.deleteSavedCredentials(){
+    sync(DeleteSavedCredentials())
+}
 
-suspend fun TdHandler.deleteSavedCredentialsOrNull() = syncOrNull<Ok>(DeleteSavedCredentials())
+
+suspend fun TdHandler.deleteSavedCredentialsIgnoreException(){
+    syncOrNull(DeleteSavedCredentials())
+}
+
 
 fun TdHandler.deleteSavedCredentialsWith(
     stackIgnore: Int = 0,

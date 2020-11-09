@@ -17,13 +17,13 @@ suspend fun TdHandler.getMessageEmbeddingCode(
     chatId: Long,
     messageId: Long,
     forAlbum: Boolean
-) = sync<Text>(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
+) = sync(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
 
 suspend fun TdHandler.getMessageEmbeddingCodeOrNull(
     chatId: Long,
     messageId: Long,
     forAlbum: Boolean
-) = syncOrNull<Text>(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
+) = syncOrNull(GetMessageEmbeddingCode(chatId, messageId, forAlbum))
 
 fun TdHandler.getMessageEmbeddingCodeWith(
     chatId: Long,
@@ -41,11 +41,11 @@ fun TdHandler.getMessageEmbeddingCodeWith(
  */
 suspend fun TdHandler.getPreferredCountryLanguage(
     countryCode: String? = null
-) = sync<Text>(GetPreferredCountryLanguage(countryCode))
+) = sync(GetPreferredCountryLanguage(countryCode))
 
 suspend fun TdHandler.getPreferredCountryLanguageOrNull(
     countryCode: String? = null
-) = syncOrNull<Text>(GetPreferredCountryLanguage(countryCode))
+) = syncOrNull(GetPreferredCountryLanguage(countryCode))
 
 fun TdHandler.getPreferredCountryLanguageWith(
     countryCode: String? = null,
@@ -58,9 +58,9 @@ fun TdHandler.getPreferredCountryLanguageWith(
  * Returns two-letter ISO 3166-1 alpha-2 country code
  * Can be called before authorization
  */
-suspend fun TdHandler.getCountryCode() = sync<Text>(GetCountryCode())
+suspend fun TdHandler.getCountryCode() = sync(GetCountryCode())
 
-suspend fun TdHandler.getCountryCodeOrNull() = syncOrNull<Text>(GetCountryCode())
+suspend fun TdHandler.getCountryCodeOrNull() = syncOrNull(GetCountryCode())
 
 fun TdHandler.getCountryCodeWith(
     stackIgnore: Int = 0,
@@ -70,9 +70,9 @@ fun TdHandler.getCountryCodeWith(
 /**
  * Returns the default text for invitation messages to be used as a placeholder when the current user invites friends to Telegram
  */
-suspend fun TdHandler.getInviteText() = sync<Text>(GetInviteText())
+suspend fun TdHandler.getInviteText() = sync(GetInviteText())
 
-suspend fun TdHandler.getInviteTextOrNull() = syncOrNull<Text>(GetInviteText())
+suspend fun TdHandler.getInviteTextOrNull() = syncOrNull(GetInviteText())
 
 fun TdHandler.getInviteTextWith(
     stackIgnore: Int = 0,
@@ -88,11 +88,11 @@ fun TdHandler.getInviteTextWith(
  */
 suspend fun TdHandler.getProxyLink(
     proxyId: Int
-) = sync<Text>(GetProxyLink(proxyId))
+) = sync(GetProxyLink(proxyId))
 
 suspend fun TdHandler.getProxyLinkOrNull(
     proxyId: Int
-) = syncOrNull<Text>(GetProxyLink(proxyId))
+) = syncOrNull(GetProxyLink(proxyId))
 
 fun TdHandler.getProxyLinkWith(
     proxyId: Int,

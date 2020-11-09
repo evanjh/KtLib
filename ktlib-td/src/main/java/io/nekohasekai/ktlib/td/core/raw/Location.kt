@@ -13,11 +13,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.setLocation(
     location: Location? = null
-) = sync<Ok>(SetLocation(location))
+){
+    sync(SetLocation(location))
+}
 
-suspend fun TdHandler.setLocationOrNull(
+
+suspend fun TdHandler.setLocationIgnoreException(
     location: Location? = null
-) = syncOrNull<Ok>(SetLocation(location))
+){
+    syncOrNull(SetLocation(location))
+}
+
 
 fun TdHandler.setLocationWith(
     location: Location? = null,

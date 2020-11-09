@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns saved animations
  */
-suspend fun TdHandler.getSavedAnimations() = sync<Animations>(GetSavedAnimations())
+suspend fun TdHandler.getSavedAnimations() = sync(GetSavedAnimations())
 
-suspend fun TdHandler.getSavedAnimationsOrNull() = syncOrNull<Animations>(GetSavedAnimations())
+suspend fun TdHandler.getSavedAnimationsOrNull() = syncOrNull(GetSavedAnimations())
 
 fun TdHandler.getSavedAnimationsWith(
     stackIgnore: Int = 0,
@@ -29,11 +29,17 @@ fun TdHandler.getSavedAnimationsWith(
  */
 suspend fun TdHandler.addSavedAnimation(
     animation: InputFile? = null
-) = sync<Ok>(AddSavedAnimation(animation))
+){
+    sync(AddSavedAnimation(animation))
+}
 
-suspend fun TdHandler.addSavedAnimationOrNull(
+
+suspend fun TdHandler.addSavedAnimationIgnoreException(
     animation: InputFile? = null
-) = syncOrNull<Ok>(AddSavedAnimation(animation))
+){
+    syncOrNull(AddSavedAnimation(animation))
+}
+
 
 fun TdHandler.addSavedAnimationWith(
     animation: InputFile? = null,
@@ -48,11 +54,17 @@ fun TdHandler.addSavedAnimationWith(
  */
 suspend fun TdHandler.removeSavedAnimation(
     animation: InputFile? = null
-) = sync<Ok>(RemoveSavedAnimation(animation))
+){
+    sync(RemoveSavedAnimation(animation))
+}
 
-suspend fun TdHandler.removeSavedAnimationOrNull(
+
+suspend fun TdHandler.removeSavedAnimationIgnoreException(
     animation: InputFile? = null
-) = syncOrNull<Ok>(RemoveSavedAnimation(animation))
+){
+    syncOrNull(RemoveSavedAnimation(animation))
+}
+
 
 fun TdHandler.removeSavedAnimationWith(
     animation: InputFile? = null,

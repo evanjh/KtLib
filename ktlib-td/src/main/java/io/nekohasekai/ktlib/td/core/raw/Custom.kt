@@ -14,11 +14,17 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.addCustomServerLanguagePack(
     languagePackId: String? = null
-) = sync<Ok>(AddCustomServerLanguagePack(languagePackId))
+){
+    sync(AddCustomServerLanguagePack(languagePackId))
+}
 
-suspend fun TdHandler.addCustomServerLanguagePackOrNull(
+
+suspend fun TdHandler.addCustomServerLanguagePackIgnoreException(
     languagePackId: String? = null
-) = syncOrNull<Ok>(AddCustomServerLanguagePack(languagePackId))
+){
+    syncOrNull(AddCustomServerLanguagePack(languagePackId))
+}
+
 
 fun TdHandler.addCustomServerLanguagePackWith(
     languagePackId: String? = null,
@@ -37,12 +43,18 @@ fun TdHandler.addCustomServerLanguagePackWith(
 suspend fun TdHandler.setCustomLanguagePack(
     info: LanguagePackInfo? = null,
     strings: Array<LanguagePackString>
-) = sync<Ok>(SetCustomLanguagePack(info, strings))
+){
+    sync(SetCustomLanguagePack(info, strings))
+}
 
-suspend fun TdHandler.setCustomLanguagePackOrNull(
+
+suspend fun TdHandler.setCustomLanguagePackIgnoreException(
     info: LanguagePackInfo? = null,
     strings: Array<LanguagePackString>
-) = syncOrNull<Ok>(SetCustomLanguagePack(info, strings))
+){
+    syncOrNull(SetCustomLanguagePack(info, strings))
+}
+
 
 fun TdHandler.setCustomLanguagePackWith(
     info: LanguagePackInfo? = null,
@@ -59,11 +71,17 @@ fun TdHandler.setCustomLanguagePackWith(
  */
 suspend fun TdHandler.editCustomLanguagePackInfo(
     info: LanguagePackInfo? = null
-) = sync<Ok>(EditCustomLanguagePackInfo(info))
+){
+    sync(EditCustomLanguagePackInfo(info))
+}
 
-suspend fun TdHandler.editCustomLanguagePackInfoOrNull(
+
+suspend fun TdHandler.editCustomLanguagePackInfoIgnoreException(
     info: LanguagePackInfo? = null
-) = syncOrNull<Ok>(EditCustomLanguagePackInfo(info))
+){
+    syncOrNull(EditCustomLanguagePackInfo(info))
+}
+
 
 fun TdHandler.editCustomLanguagePackInfoWith(
     info: LanguagePackInfo? = null,
@@ -81,12 +99,18 @@ fun TdHandler.editCustomLanguagePackInfoWith(
 suspend fun TdHandler.setCustomLanguagePackString(
     languagePackId: String? = null,
     newString: LanguagePackString? = null
-) = sync<Ok>(SetCustomLanguagePackString(languagePackId, newString))
+){
+    sync(SetCustomLanguagePackString(languagePackId, newString))
+}
 
-suspend fun TdHandler.setCustomLanguagePackStringOrNull(
+
+suspend fun TdHandler.setCustomLanguagePackStringIgnoreException(
     languagePackId: String? = null,
     newString: LanguagePackString? = null
-) = syncOrNull<Ok>(SetCustomLanguagePackString(languagePackId, newString))
+){
+    syncOrNull(SetCustomLanguagePackString(languagePackId, newString))
+}
+
 
 fun TdHandler.setCustomLanguagePackStringWith(
     languagePackId: String? = null,
@@ -105,12 +129,12 @@ fun TdHandler.setCustomLanguagePackStringWith(
 suspend fun TdHandler.sendCustomRequest(
     method: String? = null,
     parameters: String? = null
-) = sync<CustomRequestResult>(SendCustomRequest(method, parameters))
+) = sync(SendCustomRequest(method, parameters))
 
 suspend fun TdHandler.sendCustomRequestOrNull(
     method: String? = null,
     parameters: String? = null
-) = syncOrNull<CustomRequestResult>(SendCustomRequest(method, parameters))
+) = syncOrNull(SendCustomRequest(method, parameters))
 
 fun TdHandler.sendCustomRequestWith(
     method: String? = null,
@@ -129,12 +153,18 @@ fun TdHandler.sendCustomRequestWith(
 suspend fun TdHandler.answerCustomQuery(
     customQueryId: Long,
     data: String? = null
-) = sync<Ok>(AnswerCustomQuery(customQueryId, data))
+){
+    sync(AnswerCustomQuery(customQueryId, data))
+}
 
-suspend fun TdHandler.answerCustomQueryOrNull(
+
+suspend fun TdHandler.answerCustomQueryIgnoreException(
     customQueryId: Long,
     data: String? = null
-) = syncOrNull<Ok>(AnswerCustomQuery(customQueryId, data))
+){
+    syncOrNull(AnswerCustomQuery(customQueryId, data))
+}
+
 
 fun TdHandler.answerCustomQueryWith(
     customQueryId: Long,

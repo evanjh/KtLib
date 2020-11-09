@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Checks whether the current session can be used to transfer a chat ownership to another user
  */
-suspend fun TdHandler.canTransferOwnership() = sync<CanTransferOwnershipResult>(CanTransferOwnership())
+suspend fun TdHandler.canTransferOwnership() = sync(CanTransferOwnership())
 
-suspend fun TdHandler.canTransferOwnershipOrNull() = syncOrNull<CanTransferOwnershipResult>(CanTransferOwnership())
+suspend fun TdHandler.canTransferOwnershipOrNull() = syncOrNull(CanTransferOwnership())
 
 fun TdHandler.canTransferOwnershipWith(
     stackIgnore: Int = 0,
@@ -28,12 +28,18 @@ fun TdHandler.canTransferOwnershipWith(
 suspend fun TdHandler.cancelDownloadFile(
     fileId: Int,
     onlyIfPending: Boolean
-) = sync<Ok>(CancelDownloadFile(fileId, onlyIfPending))
+){
+    sync(CancelDownloadFile(fileId, onlyIfPending))
+}
 
-suspend fun TdHandler.cancelDownloadFileOrNull(
+
+suspend fun TdHandler.cancelDownloadFileIgnoreException(
     fileId: Int,
     onlyIfPending: Boolean
-) = syncOrNull<Ok>(CancelDownloadFile(fileId, onlyIfPending))
+){
+    syncOrNull(CancelDownloadFile(fileId, onlyIfPending))
+}
+
 
 fun TdHandler.cancelDownloadFileWith(
     fileId: Int,
@@ -51,11 +57,17 @@ fun TdHandler.cancelDownloadFileWith(
  */
 suspend fun TdHandler.cancelUploadFile(
     fileId: Int
-) = sync<Ok>(CancelUploadFile(fileId))
+){
+    sync(CancelUploadFile(fileId))
+}
 
-suspend fun TdHandler.cancelUploadFileOrNull(
+
+suspend fun TdHandler.cancelUploadFileIgnoreException(
     fileId: Int
-) = syncOrNull<Ok>(CancelUploadFile(fileId))
+){
+    syncOrNull(CancelUploadFile(fileId))
+}
+
 
 fun TdHandler.cancelUploadFileWith(
     fileId: Int,

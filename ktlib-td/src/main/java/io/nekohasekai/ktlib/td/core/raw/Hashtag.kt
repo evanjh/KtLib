@@ -14,12 +14,12 @@ import io.nekohasekai.ktlib.td.core.*
 suspend fun TdHandler.searchHashtags(
     prefix: String? = null,
     limit: Int
-) = sync<Hashtags>(SearchHashtags(prefix, limit))
+) = sync(SearchHashtags(prefix, limit))
 
 suspend fun TdHandler.searchHashtagsOrNull(
     prefix: String? = null,
     limit: Int
-) = syncOrNull<Hashtags>(SearchHashtags(prefix, limit))
+) = syncOrNull(SearchHashtags(prefix, limit))
 
 fun TdHandler.searchHashtagsWith(
     prefix: String? = null,
@@ -35,11 +35,17 @@ fun TdHandler.searchHashtagsWith(
  */
 suspend fun TdHandler.removeRecentHashtag(
     hashtag: String? = null
-) = sync<Ok>(RemoveRecentHashtag(hashtag))
+){
+    sync(RemoveRecentHashtag(hashtag))
+}
 
-suspend fun TdHandler.removeRecentHashtagOrNull(
+
+suspend fun TdHandler.removeRecentHashtagIgnoreException(
     hashtag: String? = null
-) = syncOrNull<Ok>(RemoveRecentHashtag(hashtag))
+){
+    syncOrNull(RemoveRecentHashtag(hashtag))
+}
+
 
 fun TdHandler.removeRecentHashtagWith(
     hashtag: String? = null,

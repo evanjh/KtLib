@@ -14,11 +14,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.confirmQrCodeAuthentication(
     link: String? = null
-) = sync<Session>(ConfirmQrCodeAuthentication(link))
+) = sync(ConfirmQrCodeAuthentication(link))
 
 suspend fun TdHandler.confirmQrCodeAuthenticationOrNull(
     link: String? = null
-) = syncOrNull<Session>(ConfirmQrCodeAuthentication(link))
+) = syncOrNull(ConfirmQrCodeAuthentication(link))
 
 fun TdHandler.confirmQrCodeAuthenticationWith(
     link: String? = null,
@@ -29,9 +29,9 @@ fun TdHandler.confirmQrCodeAuthenticationWith(
 /**
  * Returns all active sessions of the current user
  */
-suspend fun TdHandler.getActiveSessions() = sync<Sessions>(GetActiveSessions())
+suspend fun TdHandler.getActiveSessions() = sync(GetActiveSessions())
 
-suspend fun TdHandler.getActiveSessionsOrNull() = syncOrNull<Sessions>(GetActiveSessions())
+suspend fun TdHandler.getActiveSessionsOrNull() = syncOrNull(GetActiveSessions())
 
 fun TdHandler.getActiveSessionsWith(
     stackIgnore: Int = 0,
@@ -45,11 +45,17 @@ fun TdHandler.getActiveSessionsWith(
  */
 suspend fun TdHandler.terminateSession(
     sessionId: Long
-) = sync<Ok>(TerminateSession(sessionId))
+){
+    sync(TerminateSession(sessionId))
+}
 
-suspend fun TdHandler.terminateSessionOrNull(
+
+suspend fun TdHandler.terminateSessionIgnoreException(
     sessionId: Long
-) = syncOrNull<Ok>(TerminateSession(sessionId))
+){
+    syncOrNull(TerminateSession(sessionId))
+}
+
 
 fun TdHandler.terminateSessionWith(
     sessionId: Long,
@@ -60,9 +66,15 @@ fun TdHandler.terminateSessionWith(
 /**
  * Terminates all other sessions of the current user
  */
-suspend fun TdHandler.terminateAllOtherSessions() = sync<Ok>(TerminateAllOtherSessions())
+suspend fun TdHandler.terminateAllOtherSessions(){
+    sync(TerminateAllOtherSessions())
+}
 
-suspend fun TdHandler.terminateAllOtherSessionsOrNull() = syncOrNull<Ok>(TerminateAllOtherSessions())
+
+suspend fun TdHandler.terminateAllOtherSessionsIgnoreException(){
+    syncOrNull(TerminateAllOtherSessions())
+}
+
 
 fun TdHandler.terminateAllOtherSessionsWith(
     stackIgnore: Int = 0,

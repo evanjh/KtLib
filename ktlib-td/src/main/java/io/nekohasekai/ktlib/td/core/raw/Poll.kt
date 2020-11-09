@@ -18,13 +18,19 @@ suspend fun TdHandler.setPollAnswer(
     chatId: Long,
     messageId: Long,
     optionIds: IntArray
-) = sync<Ok>(SetPollAnswer(chatId, messageId, optionIds))
+){
+    sync(SetPollAnswer(chatId, messageId, optionIds))
+}
 
-suspend fun TdHandler.setPollAnswerOrNull(
+
+suspend fun TdHandler.setPollAnswerIgnoreException(
     chatId: Long,
     messageId: Long,
     optionIds: IntArray
-) = syncOrNull<Ok>(SetPollAnswer(chatId, messageId, optionIds))
+){
+    syncOrNull(SetPollAnswer(chatId, messageId, optionIds))
+}
+
 
 fun TdHandler.setPollAnswerWith(
     chatId: Long,
@@ -47,13 +53,19 @@ suspend fun TdHandler.stopPoll(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null
-) = sync<Ok>(StopPoll(chatId, messageId, replyMarkup))
+){
+    sync(StopPoll(chatId, messageId, replyMarkup))
+}
 
-suspend fun TdHandler.stopPollOrNull(
+
+suspend fun TdHandler.stopPollIgnoreException(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null
-) = syncOrNull<Ok>(StopPoll(chatId, messageId, replyMarkup))
+){
+    syncOrNull(StopPoll(chatId, messageId, replyMarkup))
+}
+
 
 fun TdHandler.stopPollWith(
     chatId: Long,

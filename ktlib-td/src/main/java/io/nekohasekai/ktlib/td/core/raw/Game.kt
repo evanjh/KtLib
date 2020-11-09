@@ -17,13 +17,13 @@ suspend fun TdHandler.getGameHighScores(
     chatId: Long,
     messageId: Long,
     userId: Int
-) = sync<GameHighScores>(GetGameHighScores(chatId, messageId, userId))
+) = sync(GetGameHighScores(chatId, messageId, userId))
 
 suspend fun TdHandler.getGameHighScoresOrNull(
     chatId: Long,
     messageId: Long,
     userId: Int
-) = syncOrNull<GameHighScores>(GetGameHighScores(chatId, messageId, userId))
+) = syncOrNull(GetGameHighScores(chatId, messageId, userId))
 
 fun TdHandler.getGameHighScoresWith(
     chatId: Long,
@@ -43,12 +43,12 @@ fun TdHandler.getGameHighScoresWith(
 suspend fun TdHandler.getInlineGameHighScores(
     inlineMessageId: String? = null,
     userId: Int
-) = sync<GameHighScores>(GetInlineGameHighScores(inlineMessageId, userId))
+) = sync(GetInlineGameHighScores(inlineMessageId, userId))
 
 suspend fun TdHandler.getInlineGameHighScoresOrNull(
     inlineMessageId: String? = null,
     userId: Int
-) = syncOrNull<GameHighScores>(GetInlineGameHighScores(inlineMessageId, userId))
+) = syncOrNull(GetInlineGameHighScores(inlineMessageId, userId))
 
 fun TdHandler.getInlineGameHighScoresWith(
     inlineMessageId: String? = null,

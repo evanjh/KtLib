@@ -8,9 +8,9 @@ import io.nekohasekai.ktlib.td.core.*
 /**
  * Returns all website where the current user used Telegram to log in
  */
-suspend fun TdHandler.getConnectedWebsites() = sync<ConnectedWebsites>(GetConnectedWebsites())
+suspend fun TdHandler.getConnectedWebsites() = sync(GetConnectedWebsites())
 
-suspend fun TdHandler.getConnectedWebsitesOrNull() = syncOrNull<ConnectedWebsites>(GetConnectedWebsites())
+suspend fun TdHandler.getConnectedWebsitesOrNull() = syncOrNull(GetConnectedWebsites())
 
 fun TdHandler.getConnectedWebsitesWith(
     stackIgnore: Int = 0,

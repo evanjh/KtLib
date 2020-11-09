@@ -9,9 +9,9 @@ import io.nekohasekai.ktlib.td.core.*
  * Returns information about existing countries
  * Can be called before authorization
  */
-suspend fun TdHandler.getCountries() = sync<Countries>(GetCountries())
+suspend fun TdHandler.getCountries() = sync(GetCountries())
 
-suspend fun TdHandler.getCountriesOrNull() = syncOrNull<Countries>(GetCountries())
+suspend fun TdHandler.getCountriesOrNull() = syncOrNull(GetCountries())
 
 fun TdHandler.getCountriesWith(
     stackIgnore: Int = 0,

@@ -11,9 +11,15 @@ import io.nekohasekai.ktlib.td.core.*
  * All local data will be destroyed
  * After the logout completes, updateAuthorizationState with authorizationStateClosed will be sent
  */
-suspend fun TdHandler.logOut() = sync<Ok>(LogOut())
+suspend fun TdHandler.logOut(){
+    sync(LogOut())
+}
 
-suspend fun TdHandler.logOutOrNull() = syncOrNull<Ok>(LogOut())
+
+suspend fun TdHandler.logOutIgnoreException(){
+    syncOrNull(LogOut())
+}
+
 
 fun TdHandler.logOutWith(
     stackIgnore: Int = 0,
@@ -32,13 +38,19 @@ suspend fun TdHandler.saveApplicationLogEvent(
     type: String? = null,
     chatId: Long,
     data: JsonValue? = null
-) = sync<Ok>(SaveApplicationLogEvent(type, chatId, data))
+){
+    sync(SaveApplicationLogEvent(type, chatId, data))
+}
 
-suspend fun TdHandler.saveApplicationLogEventOrNull(
+
+suspend fun TdHandler.saveApplicationLogEventIgnoreException(
     type: String? = null,
     chatId: Long,
     data: JsonValue? = null
-) = syncOrNull<Ok>(SaveApplicationLogEvent(type, chatId, data))
+){
+    syncOrNull(SaveApplicationLogEvent(type, chatId, data))
+}
+
 
 fun TdHandler.saveApplicationLogEventWith(
     type: String? = null,

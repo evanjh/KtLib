@@ -13,11 +13,11 @@ import io.nekohasekai.ktlib.td.core.*
  */
 suspend fun TdHandler.getBasicGroup(
     basicGroupId: Int
-) = sync<BasicGroup>(GetBasicGroup(basicGroupId))
+) = sync(GetBasicGroup(basicGroupId))
 
 suspend fun TdHandler.getBasicGroupOrNull(
     basicGroupId: Int
-) = syncOrNull<BasicGroup>(GetBasicGroup(basicGroupId))
+) = syncOrNull(GetBasicGroup(basicGroupId))
 
 fun TdHandler.getBasicGroupWith(
     basicGroupId: Int,
@@ -32,11 +32,11 @@ fun TdHandler.getBasicGroupWith(
  */
 suspend fun TdHandler.getBasicGroupFullInfo(
     basicGroupId: Int
-) = sync<BasicGroupFullInfo>(GetBasicGroupFullInfo(basicGroupId))
+) = sync(GetBasicGroupFullInfo(basicGroupId))
 
 suspend fun TdHandler.getBasicGroupFullInfoOrNull(
     basicGroupId: Int
-) = syncOrNull<BasicGroupFullInfo>(GetBasicGroupFullInfo(basicGroupId))
+) = syncOrNull(GetBasicGroupFullInfo(basicGroupId))
 
 fun TdHandler.getBasicGroupFullInfoWith(
     basicGroupId: Int,
