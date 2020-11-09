@@ -4,6 +4,7 @@ package io.nekohasekai.ktlib.db
 
 import cn.hutool.cache.impl.LFUCache
 import cn.hutool.core.io.FileUtil
+import cn.hutool.core.util.ArrayUtil
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.nekohasekai.ktlib.core.defaultLog
@@ -167,8 +168,13 @@ abstract class DatabaseCache<ID, T>(
     fun remove() = set(null)
 
     fun set(value: T?) {
-        if (this.value == value) return
+        if (this.value == value ||
+                ArrayUtil.isArray(value) && ArrayUtil.isArray(this.value) && ArrayUtil.equals(value, this.value)) return
         write(value)
+    }
+
+    fun notifyChanged() {
+        changed = true
     }
 
     fun write(value: T? = this.value) {
