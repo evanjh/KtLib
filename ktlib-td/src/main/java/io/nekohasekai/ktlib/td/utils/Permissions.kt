@@ -6,6 +6,8 @@ package io.nekohasekai.ktlib.td.utils
 
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.getChatMember
+import io.nekohasekai.ktlib.td.extensions.senderChatId
+import io.nekohasekai.ktlib.td.extensions.senderUserId
 import io.nekohasekai.ktlib.td.i18n.*
 import td.TdApi
 import java.util.*
@@ -32,6 +34,8 @@ suspend fun TdHandler.isChatFullAdmin(chatId: Long, userId: Int): Boolean {
 
 
 suspend fun TdHandler.checkChatAdmin(message: TdApi.Message): Boolean {
+
+    if (message.senderUserId == 0) return message.senderChatId == message.chatId
 
     return checkChatAdmin(message.chatId, message.senderUserId, message)
 

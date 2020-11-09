@@ -1,5 +1,7 @@
 package td
 
+import td.TdApi.*
+
 @Suppress("unused")
 object TdNative {
 
@@ -7,13 +9,13 @@ object TdNative {
     external fun createNativeClient(): Long
 
     @JvmStatic
-    external fun nativeClientSend(nativeClientId: Long, eventId: Long, function: td.TdApi.Function)
+    external fun nativeClientSend(nativeClientId: Long, eventId: Long, function: TdApi.Function<out Object>)
 
     @JvmStatic
-    external fun nativeClientReceive(nativeClientId: Long, eventIds: LongArray, events: Array<td.TdApi.Object?>, timeout: Double): Int
+    external fun nativeClientReceive(nativeClientId: Long, eventIds: LongArray, events: Array<Object?>, timeout: Double): Int
 
     @JvmStatic
-    external fun nativeClientExecute(function: td.TdApi.Function): td.TdApi.Object
+    external fun <T: Object> nativeClientExecute(function: TdApi.Function<T>): T
 
     @JvmStatic
     external fun destroyNativeClient(nativeClientId: Long)

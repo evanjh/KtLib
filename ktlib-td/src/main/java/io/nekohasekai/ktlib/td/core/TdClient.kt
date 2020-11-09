@@ -14,6 +14,7 @@ import io.nekohasekai.ktlib.td.utils.confirmTo
 import io.nekohasekai.ktlib.td.utils.make
 import kotlinx.coroutines.*
 import td.TdApi.*
+import td.TdApi.Function
 import td.TdNative
 import java.math.BigInteger
 import java.util.*
@@ -235,7 +236,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     override suspend fun handleNewMessage(message: Message) {
 
-        val userId = message.senderUserId
+        val userId = (message.sender as? MessageSenderUser)?.userId ?: 0
 
         val chatId = message.chatId
 
@@ -657,7 +658,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun <T : Object> sync(function: td.TdApi.Function): T {
+    override suspend fun <T : Object> sync(function: Function<T>): T {
 
         val stackTrace = ThreadUtil.getStackTrace().shift(3)
 
@@ -665,7 +666,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             suspendCancellableCoroutine { continuation ->
 
-                send<T>(function, 1) {
+                send(function, 1) {
 
                     onSuccess { result ->
 
@@ -702,7 +703,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     class SendMessageFailedException(cause: TdException) : TdException(cause)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Object> send(function: td.TdApi.Function, stackIgnore: Int, submit: (TdCallback<T>.() -> Unit)?) {
+    override fun <T : Object> send(function: Function<T>, stackIgnore: Int, submit: (TdCallback<T>.() -> Unit)?) {
 
         val callback: TdCallback<T>
 
@@ -800,7 +801,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override fun sendRaw(function: td.TdApi.Function) {
+    override fun sendRaw(function: Function<*>) {
 
         val requestId = requestId.getAndIncrement()
 
@@ -808,7 +809,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    private fun sendRaw(requestId: Long, function: td.TdApi.Function) {
+    private fun sendRaw(requestId: Long, function: Function<*>) {
 
         check(!closed) { "Client closed" }
 
@@ -1078,7 +1079,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                     if (!client.waitForAuth()) return
 
-                    val senderUserId = update.message.senderUserId
+                    val senderUserId = (update.message.sender as? MessageSenderUser)?.userId ?: 0
 
                     val lastMessage = messagesMap[senderUserId]
 

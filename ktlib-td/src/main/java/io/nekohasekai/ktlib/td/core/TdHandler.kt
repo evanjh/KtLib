@@ -10,6 +10,7 @@ import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.ktlib.td.utils.delete
 import td.TdApi.*
+import td.TdApi.Function
 import java.util.*
 
 open class TdHandler : AbsEvents {
@@ -41,13 +42,13 @@ open class TdHandler : AbsEvents {
 
     open suspend fun onDestroy() = Unit
 
-    open fun <T : Object> send(function: td.TdApi.Function, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
+    open fun <T : Object> send(function: Function<T>, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
 
-    open infix fun sendRaw(function: td.TdApi.Function) = sudo.sendRaw(function)
+    open infix fun sendRaw(function: Function<*>) = sudo.sendRaw(function)
 
-    open suspend infix fun <T : Object> sync(function: td.TdApi.Function): T = sudo.sync(function)
+    open suspend infix fun <T : Object> sync(function: Function<T>): T = sudo.sync(function)
 
-    suspend infix fun <T : Object> syncOrNull(function: td.TdApi.Function): T? {
+    suspend infix fun <T : Object> syncOrNull(function: Function<T>): T? {
 
         return try {
 
@@ -61,7 +62,9 @@ open class TdHandler : AbsEvents {
 
     }
 
-    suspend infix fun syncUnit(function: td.TdApi.Function) = sudo.sync<Object>(function)
+    suspend infix fun syncUnit(function: Function<out Object>) {
+        sudo.sync(function)
+    }
 
     val Message.delete get() = DeleteMessages(chatId, longArrayOf(id), true)
     val Message.deleteForSelf get() = DeleteMessages(chatId, longArrayOf(id), false)

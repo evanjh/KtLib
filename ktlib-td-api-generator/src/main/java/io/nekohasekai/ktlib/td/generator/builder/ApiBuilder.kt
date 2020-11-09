@@ -21,7 +21,7 @@ fun StringBuilder.buildApi(scheme: TlScheme) {
             append("public abstract int getConstructor();\n")
         }
         append("\n")
-        append("public static abstract class Function extends Object")
+        append("public static abstract class Function<T extends Object> extends Object ")
         withCurlyBrackets {
             append("\npublic native String toString();\n")
         }

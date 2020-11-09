@@ -13,7 +13,7 @@ public class TdApi {
 
     }
 
-    public static abstract class Function extends Object{
+    public static abstract class Function<T extends Object> extends Object {
 
         public native String toString();
 
@@ -1667,23 +1667,28 @@ public class TdApi {
      *             As defined by the sender
      * @longitude - Longitude of the location, in degrees
      *              As defined by the sender
+     * @horizontalAccuracy - The estimated horizontal accuracy of the location, in meters
+     *                       As defined by the sender
+     *                       0 if unknown
      */
     public static class Location extends Object {
 
         public double latitude;
         public double longitude;
+        public double horizontalAccuracy;
 
         public Location() {}
 
-        public Location(double latitude, double longitude) {
+        public Location(double latitude, double longitude, double horizontalAccuracy) {
 
             this.latitude = latitude;
             this.longitude = longitude;
+            this.horizontalAccuracy = horizontalAccuracy;
 
         }
 
         @Override
-        public int getConstructor() { return 749028016; }
+        public int getConstructor() { return -443392141; }
 
     }
 
@@ -2293,6 +2298,7 @@ public class TdApi {
      * Contains full information about a user
      *
      * @photo - User profile photo
+     * @isBlocked - True, if the user is blocked by the current user
      * @canBeCalled - True, if the user can be called
      * @supportsVideoCalls - True, if a video call can be created with the user
      * @hasPrivateCalls - True, if the user can't be called due to their privacy settings
@@ -2306,6 +2312,7 @@ public class TdApi {
     public static class UserFullInfo extends Object {
 
         @Nullable public ChatPhoto photo;
+        public boolean isBlocked;
         public boolean canBeCalled;
         public boolean supportsVideoCalls;
         public boolean hasPrivateCalls;
@@ -2317,9 +2324,10 @@ public class TdApi {
 
         public UserFullInfo() {}
 
-        public UserFullInfo(@Nullable ChatPhoto photo, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean needPhoneNumberPrivacyException, String bio, String shareText, int groupInCommonCount, @Nullable BotInfo botInfo) {
+        public UserFullInfo(@Nullable ChatPhoto photo, boolean isBlocked, boolean canBeCalled, boolean supportsVideoCalls, boolean hasPrivateCalls, boolean needPhoneNumberPrivacyException, String bio, String shareText, int groupInCommonCount, @Nullable BotInfo botInfo) {
 
             this.photo = photo;
+            this.isBlocked = isBlocked;
             this.canBeCalled = canBeCalled;
             this.supportsVideoCalls = supportsVideoCalls;
             this.hasPrivateCalls = hasPrivateCalls;
@@ -2332,7 +2340,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1067749716; }
+        public int getConstructor() { return -710655904; }
 
     }
 
@@ -2741,6 +2749,29 @@ public class TdApi {
 
 
     /**
+     * Returns users which can be mentioned in the chat
+     *
+     * @messageThreadId - If non-zero, the identifier of the current message thread
+     */
+    public static class ChatMembersFilterMention extends ChatMembersFilter {
+
+        public long messageThreadId;
+
+        public ChatMembersFilterMention() {}
+
+        public ChatMembersFilterMention(long messageThreadId) {
+
+            this.messageThreadId = messageThreadId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 856419831; }
+
+    }
+
+
+    /**
      * Returns users under certain restrictions in the chat
      * Can be used only by administrators in a supergroup
      */
@@ -2892,6 +2923,32 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -1210621683; }
+
+    }
+
+
+    /**
+     * Returns users which can be mentioned in the supergroup
+     *
+     * @query - Query to search for
+     * @messageThreadId - If non-zero, the identifier of the current message thread
+     */
+    public static class SupergroupMembersFilterMention extends SupergroupMembersFilter {
+
+        public String query;
+        public long messageThreadId;
+
+        public SupergroupMembersFilterMention() {}
+
+        public SupergroupMembersFilterMention(String query, long messageThreadId) {
+
+            this.query = query;
+            this.messageThreadId = messageThreadId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 947915036; }
 
     }
 
@@ -3226,12 +3283,89 @@ public class TdApi {
 
 
     /**
+     * Contains information about the sender of a message
+     */
+    public static abstract class MessageSender extends Object {}
+
+    /**
+     * The message was sent by a known user
+     *
+     * @userId - Identifier of the user that sent the message
+     */
+    public static class MessageSenderUser extends MessageSender {
+
+        public int userId;
+
+        public MessageSenderUser() {}
+
+        public MessageSenderUser(int userId) {
+
+            this.userId = userId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1647122213; }
+
+    }
+
+
+    /**
+     * The message was sent on behalf of a chat
+     *
+     * @chatId - Identifier of the chat that sent the message
+     */
+    public static class MessageSenderChat extends MessageSender {
+
+        public long chatId;
+
+        public MessageSenderChat() {}
+
+        public MessageSenderChat(long chatId) {
+
+            this.chatId = chatId;
+
+        }
+
+        @Override
+        public int getConstructor() { return -239660751; }
+
+    }
+
+
+    /**
+     * Represents a list of message senders
+     *
+     * @totalCount - Approximate total count of messages senders found
+     * @senders - List of message senders
+     */
+    public static class MessageSenders extends Object {
+
+        public int totalCount;
+        public MessageSender[] senders;
+
+        public MessageSenders() {}
+
+        public MessageSenders(int totalCount, MessageSender[] senders) {
+
+            this.totalCount = totalCount;
+            this.senders = senders;
+
+        }
+
+        @Override
+        public int getConstructor() { return -690158467; }
+
+    }
+
+
+    /**
      * Contains information about the origin of a forwarded message
      */
     public static abstract class MessageForwardOrigin extends Object {}
 
     /**
-     * The message was originally written by a known user
+     * The message was originally sent by a known user
      *
      * @senderUserId - Identifier of the user that originally sent the message
      */
@@ -3254,30 +3388,33 @@ public class TdApi {
 
 
     /**
-     * The message was originally written by an anonymous chat administrator on behalf of the chat
+     * The message was originally sent by an anonymous chat administrator on behalf of the chat
      *
      * @senderChatId - Identifier of the chat that originally sent the message
+     * @authorSignature - Original message author signature
      */
     public static class MessageForwardOriginChat extends MessageForwardOrigin {
 
         public long senderChatId;
+        public String authorSignature;
 
         public MessageForwardOriginChat() {}
 
-        public MessageForwardOriginChat(long senderChatId) {
+        public MessageForwardOriginChat(long senderChatId, String authorSignature) {
 
             this.senderChatId = senderChatId;
+            this.authorSignature = authorSignature;
 
         }
 
         @Override
-        public int getConstructor() { return 872598889; }
+        public int getConstructor() { return 1526010724; }
 
     }
 
 
     /**
-     * The message was originally written by a user, which is hidden by their privacy settings
+     * The message was originally sent by a user, which is hidden by their privacy settings
      *
      * @senderName - Name of the sender
      */
@@ -3370,8 +3507,8 @@ public class TdApi {
      * Contains information about message replies
      *
      * @replyCount - Number of times the message was directly or indirectly replied
-     * @recentReplierUserIds - User identifiers of the recent repliers to the message
-     *                         Available in channels with a discussion supergroup
+     * @recentRepliers - Recent repliers to the message
+     *                   Available in channels with a discussion supergroup
      * @lastReadInboxMessageId - Identifier of the last read incoming reply to the message
      * @lastReadOutboxMessageId - Identifier of the last read outgoing reply to the message
      * @lastMessageId - Identifier of the last reply to the message
@@ -3379,17 +3516,17 @@ public class TdApi {
     public static class MessageReplyInfo extends Object {
 
         public int replyCount;
-        public int[] recentReplierUserIds;
+        public MessageSender[] recentRepliers;
         public long lastReadInboxMessageId;
         public long lastReadOutboxMessageId;
         public long lastMessageId;
 
         public MessageReplyInfo() {}
 
-        public MessageReplyInfo(int replyCount, int[] recentReplierUserIds, long lastReadInboxMessageId, long lastReadOutboxMessageId, long lastMessageId) {
+        public MessageReplyInfo(int replyCount, MessageSender[] recentRepliers, long lastReadInboxMessageId, long lastReadOutboxMessageId, long lastMessageId) {
 
             this.replyCount = replyCount;
-            this.recentReplierUserIds = recentReplierUserIds;
+            this.recentRepliers = recentRepliers;
             this.lastReadInboxMessageId = lastReadInboxMessageId;
             this.lastReadOutboxMessageId = lastReadOutboxMessageId;
             this.lastMessageId = lastMessageId;
@@ -3397,7 +3534,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -67189409; }
+        public int getConstructor() { return -1443221826; }
 
     }
 
@@ -3487,15 +3624,12 @@ public class TdApi {
      *
      * @id - Message identifier
      *       Unique for the chat to which the message belongs
-     * @senderUserId - Identifier of the user who sent the message
-     *                 0 if unknown
-     *                 Currently, it is unknown for channel posts, for channel posts automatically forwarded to discussion group and for anonymously sent supergroup messages
-     * @senderChatId - Identifier of the chat on behalf of which the message was sent
-     *                 0 if none
+     * @sender - The sender of the message
      * @chatId - Chat identifier
      * @sendingState - Information about the sending state of the message
      * @schedulingState - Information about the scheduling state of the message
      * @isOutgoing - True, if the message is outgoing
+     * @isPinned - True, if the message is pinned
      * @canBeEdited - True, if the message can be edited
      *                For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application
      * @canBeForwarded - True, if the message can be forwarded
@@ -3521,7 +3655,7 @@ public class TdApi {
      *        TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
      * @ttlExpiresIn - Time left before the message expires, in seconds
      * @viaBotUserId - If non-zero, the user identifier of the bot through which this message was sent
-     * @authorSignature - For channel posts, optional author signature
+     * @authorSignature - For channel posts and anonymous administrator messages, optional author signature
      * @mediaAlbumId - Unique identifier of an album this message belongs to
      *                 Only photos and videos can be grouped together in albums
      * @restrictionReason - If non-empty, contains a human-readable description of the reason why access to this message must be restricted
@@ -3531,12 +3665,12 @@ public class TdApi {
     public static class Message extends Object {
 
         public long id;
-        public int senderUserId;
-        public long senderChatId;
+        public MessageSender sender;
         public long chatId;
         @Nullable public MessageSendingState sendingState;
         @Nullable public MessageSchedulingState schedulingState;
         public boolean isOutgoing;
+        public boolean isPinned;
         public boolean canBeEdited;
         public boolean canBeForwarded;
         public boolean canBeDeletedOnlyForSelf;
@@ -3563,15 +3697,15 @@ public class TdApi {
 
         public Message() {}
 
-        public Message(long id, int senderUserId, long senderChatId, long chatId, @Nullable MessageSendingState sendingState, @Nullable MessageSchedulingState schedulingState, boolean isOutgoing, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, @Nullable MessageForwardInfo forwardInfo, @Nullable MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, @Nullable ReplyMarkup replyMarkup) {
+        public Message(long id, MessageSender sender, long chatId, @Nullable MessageSendingState sendingState, @Nullable MessageSchedulingState schedulingState, boolean isOutgoing, boolean isPinned, boolean canBeEdited, boolean canBeForwarded, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canGetStatistics, boolean canGetMessageThread, boolean isChannelPost, boolean containsUnreadMention, int date, int editDate, @Nullable MessageForwardInfo forwardInfo, @Nullable MessageInteractionInfo interactionInfo, long replyInChatId, long replyToMessageId, long messageThreadId, int ttl, double ttlExpiresIn, int viaBotUserId, String authorSignature, long mediaAlbumId, String restrictionReason, MessageContent content, @Nullable ReplyMarkup replyMarkup) {
 
             this.id = id;
-            this.senderUserId = senderUserId;
-            this.senderChatId = senderChatId;
+            this.sender = sender;
             this.chatId = chatId;
             this.sendingState = sendingState;
             this.schedulingState = schedulingState;
             this.isOutgoing = isOutgoing;
+            this.isPinned = isPinned;
             this.canBeEdited = canBeEdited;
             this.canBeForwarded = canBeForwarded;
             this.canBeDeletedOnlyForSelf = canBeDeletedOnlyForSelf;
@@ -3599,7 +3733,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 81067037; }
+        public int getConstructor() { return -1370136327; }
 
     }
 
@@ -4235,8 +4369,6 @@ public class TdApi {
      * @unreadMentionCount - Number of unread messages with a mention/reply in the chat
      * @notificationSettings - Notification settings for this chat
      * @actionBar - Describes actions which should be possible to do through a chat action bar
-     * @pinnedMessageId - Identifier of the pinned message in the chat
-     *                    0 if none
      * @replyMarkupMessageId - Identifier of the message from which reply markup needs to be used
      *                         0 if there is no default custom reply markup in the chat
      * @draftMessage - A draft of a message in the chat
@@ -4265,14 +4397,13 @@ public class TdApi {
         public int unreadMentionCount;
         public ChatNotificationSettings notificationSettings;
         @Nullable public ChatActionBar actionBar;
-        public long pinnedMessageId;
         public long replyMarkupMessageId;
         @Nullable public DraftMessage draftMessage;
         public String clientData;
 
         public Chat() {}
 
-        public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, long pinnedMessageId, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
+        public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
 
             this.id = id;
             this.type = type;
@@ -4294,7 +4425,6 @@ public class TdApi {
             this.unreadMentionCount = unreadMentionCount;
             this.notificationSettings = notificationSettings;
             this.actionBar = actionBar;
-            this.pinnedMessageId = pinnedMessageId;
             this.replyMarkupMessageId = replyMarkupMessageId;
             this.draftMessage = draftMessage;
             this.clientData = clientData;
@@ -4302,7 +4432,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1881489172; }
+        public int getConstructor() { return 1811058223; }
 
     }
 
@@ -4337,7 +4467,7 @@ public class TdApi {
      * Describes a chat located nearby
      *
      * @chatId - Chat identifier
-     * @distance - Distance to the chat location in meters
+     * @distance - Distance to the chat location, in meters
      */
     public static class ChatNearby extends Object {
 
@@ -9104,28 +9234,37 @@ public class TdApi {
      * A message with a location
      *
      * @location - The location description
-     * @livePeriod - Time relative to the message sent date until which the location can be updated, in seconds
+     * @livePeriod - Time relative to the message send date, for which the location can be updated, in seconds
      * @expiresIn - Left time for which the location can be updated, in seconds
      *              UpdateMessageContent is not sent when this field changes
+     * @heading - For live locations, a direction in which the location moves, in degrees
+     *            If 0 the direction is unknown
+     * @proximityAlertRadius - For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+     *                         0 if the notification is disabled
+     *                         Available only for the message sender
      */
     public static class MessageLocation extends MessageContent {
 
         public Location location;
         public int livePeriod;
         public int expiresIn;
+        public int heading;
+        public int proximityAlertRadius;
 
         public MessageLocation() {}
 
-        public MessageLocation(Location location, int livePeriod, int expiresIn) {
+        public MessageLocation(Location location, int livePeriod, int expiresIn, int heading, int proximityAlertRadius) {
 
             this.location = location;
             this.livePeriod = livePeriod;
             this.expiresIn = expiresIn;
+            this.heading = heading;
+            this.proximityAlertRadius = proximityAlertRadius;
 
         }
 
         @Override
-        public int getConstructor() { return -1301887786; }
+        public int getConstructor() { return 303973492; }
 
     }
 
@@ -9180,12 +9319,12 @@ public class TdApi {
      * A dice message
      * The dice value is randomly generated by the server
      *
-     * @initialStateSticker - The animated sticker with the initial dice animation
-     *                        May be null if unknown
-     *                        UpdateMessageContent will be sent when the sticker became known
-     * @finalStateSticker - The animated sticker with the final dice animation
-     *                      May be null if unknown
-     *                      UpdateMessageContent will be sent when the sticker became known
+     * @initialState - The animated stickers with the initial dice animation
+     *                 May be null if unknown
+     *                 UpdateMessageContent will be sent when the sticker became known
+     * @finalState - The animated stickers with the final dice animation
+     *               May be null if unknown
+     *               UpdateMessageContent will be sent when the sticker became known
      * @emoji - Emoji on which the dice throw animation is based
      * @value - The dice value
      *          If the value is 0, the dice don't have final state yet
@@ -9193,18 +9332,18 @@ public class TdApi {
      */
     public static class MessageDice extends MessageContent {
 
-        public Sticker initialStateSticker;
-        public Sticker finalStateSticker;
+        public DiceStickers initialState;
+        public DiceStickers finalState;
         public String emoji;
         public int value;
         public int successAnimationFrameNumber;
 
         public MessageDice() {}
 
-        public MessageDice(Sticker initialStateSticker, Sticker finalStateSticker, String emoji, int value, int successAnimationFrameNumber) {
+        public MessageDice(DiceStickers initialState, DiceStickers finalState, String emoji, int value, int successAnimationFrameNumber) {
 
-            this.initialStateSticker = initialStateSticker;
-            this.finalStateSticker = finalStateSticker;
+            this.initialState = initialState;
+            this.finalState = finalState;
             this.emoji = emoji;
             this.value = value;
             this.successAnimationFrameNumber = successAnimationFrameNumber;
@@ -9212,7 +9351,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1350654849; }
+        public int getConstructor() { return 1115779641; }
 
     }
 
@@ -9819,6 +9958,35 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -1367863624; }
+
+    }
+
+
+    /**
+     * A user in the chat came within proximity alert range
+     *
+     * @traveler - The user or chat, which triggered the proximity alert
+     * @watcher - The user or chat, which subscribed for the proximity alert
+     * @distance - The distance between the users
+     */
+    public static class MessageProximityAlertTriggered extends MessageContent {
+
+        public MessageSender traveler;
+        public MessageSender watcher;
+        public int distance;
+
+        public MessageProximityAlertTriggered() {}
+
+        public MessageProximityAlertTriggered(MessageSender traveler, MessageSender watcher, int distance) {
+
+            this.traveler = traveler;
+            this.watcher = watcher;
+            this.distance = distance;
+
+        }
+
+        @Override
+        public int getConstructor() { return -1311617562; }
 
     }
 
@@ -10553,23 +10721,32 @@ public class TdApi {
      * @location - Location to be sent
      * @livePeriod - Period for which the location can be updated, in seconds
      *               Should be between 60 and 86400 for a live location and 0 otherwise
+     * @heading - For live locations, a direction in which the location moves, in degrees
+     *            Pass 0 if unknown
+     * @proximityAlertRadius - For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+     *                         Pass 0 if the notification is disabled
+     *                         Can't be enabled in channels and Saved Messages
      */
     public static class InputMessageLocation extends InputMessageContent {
 
         public Location location;
         public int livePeriod;
+        public int heading;
+        public int proximityAlertRadius;
 
         public InputMessageLocation() {}
 
-        public InputMessageLocation(Location location, int livePeriod) {
+        public InputMessageLocation(Location location, int livePeriod, int heading, int proximityAlertRadius) {
 
             this.location = location;
             this.livePeriod = livePeriod;
+            this.heading = heading;
+            this.proximityAlertRadius = proximityAlertRadius;
 
         }
 
         @Override
-        public int getConstructor() { return -1624179655; }
+        public int getConstructor() { return 648735088; }
 
     }
 
@@ -10997,6 +11174,17 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -596322564; }
+
+    }
+
+
+    /**
+     * Returns only pinned messages
+     */
+    public static class SearchMessagesFilterPinned extends SearchMessagesFilter {
+
+        @Override
+        public int getConstructor() { return 371805512; }
 
     }
 
@@ -12041,6 +12229,71 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return 344216945; }
+
+    }
+
+
+    /**
+     * Contains animated stickers which should be used for dice animation rendering
+     */
+    public static abstract class DiceStickers extends Object {}
+
+    /**
+     * A regular animated sticker
+     *
+     * @sticker - The animated sticker with the dice animation
+     */
+    public static class DiceStickersRegular extends DiceStickers {
+
+        public Sticker sticker;
+
+        public DiceStickersRegular() {}
+
+        public DiceStickersRegular(Sticker sticker) {
+
+            this.sticker = sticker;
+
+        }
+
+        @Override
+        public int getConstructor() { return -740299570; }
+
+    }
+
+
+    /**
+     * Animated stickers to be combined into a slot machine
+     *
+     * @background - The animated sticker with the slot machine background
+     *               The background animation must start playing after all reel animations finish
+     * @lever - The animated sticker with the lever animation
+     *          The lever animation must play once in the initial dice state
+     * @leftReel - The animated sticker with the left reel
+     * @centerReel - The animated sticker with the center reel
+     * @rightReel - The animated sticker with the right reel
+     */
+    public static class DiceStickersSlotMachine extends DiceStickers {
+
+        public Sticker background;
+        public Sticker lever;
+        public Sticker leftReel;
+        public Sticker centerReel;
+        public Sticker rightReel;
+
+        public DiceStickersSlotMachine() {}
+
+        public DiceStickersSlotMachine(Sticker background, Sticker lever, Sticker leftReel, Sticker centerReel, Sticker rightReel) {
+
+            this.background = background;
+            this.lever = lever;
+            this.leftReel = leftReel;
+            this.centerReel = centerReel;
+            this.rightReel = rightReel;
+
+        }
+
+        @Override
+        public int getConstructor() { return -375223124; }
 
     }
 
@@ -13345,11 +13598,23 @@ public class TdApi {
 
     /**
      * A message was unpinned
+     *
+     * @message - Unpinned message
      */
     public static class ChatEventMessageUnpinned extends ChatEventAction {
 
+        public Message message;
+
+        public ChatEventMessageUnpinned() {}
+
+        public ChatEventMessageUnpinned(Message message) {
+
+            this.message = message;
+
+        }
+
         @Override
-        public int getConstructor() { return 2002594849; }
+        public int getConstructor() { return -376161513; }
 
     }
 
@@ -15413,25 +15678,31 @@ public class TdApi {
      * @totalCount - Number of messages in the album
      * @hasPhotos - True, if the album has at least one photo
      * @hasVideos - True, if the album has at least one video
+     * @hasAudios - True, if the album has at least one audio file
+     * @hasDocuments - True, if the album has at least one document
      */
     public static class PushMessageContentMediaAlbum extends PushMessageContent {
 
         public int totalCount;
         public boolean hasPhotos;
         public boolean hasVideos;
+        public boolean hasAudios;
+        public boolean hasDocuments;
 
         public PushMessageContentMediaAlbum() {}
 
-        public PushMessageContentMediaAlbum(int totalCount, boolean hasPhotos, boolean hasVideos) {
+        public PushMessageContentMediaAlbum(int totalCount, boolean hasPhotos, boolean hasVideos, boolean hasAudios, boolean hasDocuments) {
 
             this.totalCount = totalCount;
             this.hasPhotos = hasPhotos;
             this.hasVideos = hasVideos;
+            this.hasAudios = hasAudios;
+            this.hasDocuments = hasDocuments;
 
         }
 
         @Override
-        public int getConstructor() { return -874278109; }
+        public int getConstructor() { return -748426897; }
 
     }
 
@@ -15503,11 +15774,8 @@ public class TdApi {
      *
      * @messageId - The message identifier
      *              The message will not be available in the chat history, but the ID can be used in viewMessages, or as reply_to_message_id
-     * @senderUserId - Sender of the message
-     *                 0 if unknown
-     *                 Corresponding user may be inaccessible
-     * @senderChatId - Sender chat of the message
-     *                 0 if none
+     * @sender - The sender of the message
+     *           Corresponding user or chat may be inaccessible
      * @senderName - Name of the sender
      *               Can be different from the name of the sender user
      * @isOutgoing - True, if the message is outgoing
@@ -15516,19 +15784,17 @@ public class TdApi {
     public static class NotificationTypeNewPushMessage extends NotificationType {
 
         public long messageId;
-        public int senderUserId;
-        public long senderChatId;
+        public MessageSender sender;
         public String senderName;
         public boolean isOutgoing;
         public PushMessageContent content;
 
         public NotificationTypeNewPushMessage() {}
 
-        public NotificationTypeNewPushMessage(long messageId, int senderUserId, long senderChatId, String senderName, boolean isOutgoing, PushMessageContent content) {
+        public NotificationTypeNewPushMessage(long messageId, MessageSender sender, String senderName, boolean isOutgoing, PushMessageContent content) {
 
             this.messageId = messageId;
-            this.senderUserId = senderUserId;
-            this.senderChatId = senderChatId;
+            this.sender = sender;
             this.senderName = senderName;
             this.isOutgoing = isOutgoing;
             this.content = content;
@@ -15536,7 +15802,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -728846585; }
+        public int getConstructor() { return -1999850882; }
 
     }
 
@@ -18357,6 +18623,35 @@ public class TdApi {
 
 
     /**
+     * The message pinned state was changed
+     *
+     * @chatId - Chat identifier
+     * @messageId - The message identifier
+     * @isPinned - True, if the message is pinned
+     */
+    public static class UpdateMessageIsPinned extends Update {
+
+        public long chatId;
+        public long messageId;
+        public boolean isPinned;
+
+        public UpdateMessageIsPinned() {}
+
+        public UpdateMessageIsPinned(long chatId, long messageId, boolean isPinned) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.isPinned = isPinned;
+
+        }
+
+        @Override
+        public int getConstructor() { return 1102848829; }
+
+    }
+
+
+    /**
      * The information about interactions with a message has changed
      *
      * @chatId - Chat identifier
@@ -18889,33 +19184,6 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -643671870; }
-
-    }
-
-
-    /**
-     * The chat pinned message was changed
-     *
-     * @chatId - Chat identifier
-     * @pinnedMessageId - The new identifier of the pinned message
-     *                    0 if there is no pinned message in the chat
-     */
-    public static class UpdateChatPinnedMessage extends Update {
-
-        public long chatId;
-        public long pinnedMessageId;
-
-        public UpdateChatPinnedMessage() {}
-
-        public UpdateChatPinnedMessage(long chatId, long pinnedMessageId) {
-
-            this.chatId = chatId;
-            this.pinnedMessageId = pinnedMessageId;
-
-        }
-
-        @Override
-        public int getConstructor() { return 802160507; }
 
     }
 
@@ -20678,7 +20946,7 @@ public class TdApi {
      * Use updateAuthorizationState instead to maintain the current authorization state
      * Can be called before initialization
      */
-    public static class GetAuthorizationState extends Function {
+    public static class GetAuthorizationState extends Function<AuthorizationState> {
 
         @Override
         public int getConstructor() { return 1949154877; }
@@ -20692,7 +20960,7 @@ public class TdApi {
      *
      * @parameters - Parameters
      */
-    public static class SetTdlibParameters extends Function {
+    public static class SetTdlibParameters extends Function<Ok> {
 
         public TdlibParameters parameters;
 
@@ -20716,7 +20984,7 @@ public class TdApi {
      *
      * @encryptionKey - Encryption key to check or set up
      */
-    public static class CheckDatabaseEncryptionKey extends Function {
+    public static class CheckDatabaseEncryptionKey extends Function<Ok> {
 
         public byte[] encryptionKey;
 
@@ -20741,7 +21009,7 @@ public class TdApi {
      * @phoneNumber - The phone number of the user, in international format
      * @settings - Settings for the authentication of the user's phone number
      */
-    public static class SetAuthenticationPhoneNumber extends Function {
+    public static class SetAuthenticationPhoneNumber extends Function<Ok> {
 
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
@@ -20765,7 +21033,7 @@ public class TdApi {
      * Re-sends an authentication code to the user
      * Works only when the current authorization state is authorizationStateWaitCode and the next_code_type of the result is not null
      */
-    public static class ResendAuthenticationCode extends Function {
+    public static class ResendAuthenticationCode extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -814377191; }
@@ -20779,7 +21047,7 @@ public class TdApi {
      *
      * @code - The verification code received via SMS, Telegram message, phone call, or flash call
      */
-    public static class CheckAuthenticationCode extends Function {
+    public static class CheckAuthenticationCode extends Function<Ok> {
 
         public String code;
 
@@ -20803,7 +21071,7 @@ public class TdApi {
      *
      * @otherUserIds - List of user identifiers of other users currently using the application
      */
-    public static class RequestQrCodeAuthentication extends Function {
+    public static class RequestQrCodeAuthentication extends Function<Ok> {
 
         public int[] otherUserIds;
 
@@ -20828,7 +21096,7 @@ public class TdApi {
      * @firstName - The first name of the user
      * @lastName - The last name of the user
      */
-    public static class RegisterUser extends Function {
+    public static class RegisterUser extends Function<Ok> {
 
         public String firstName;
         public String lastName;
@@ -20854,7 +21122,7 @@ public class TdApi {
      *
      * @password - The password to check
      */
-    public static class CheckAuthenticationPassword extends Function {
+    public static class CheckAuthenticationPassword extends Function<Ok> {
 
         public String password;
 
@@ -20876,7 +21144,7 @@ public class TdApi {
      * Requests to send a password recovery code to an email address that was previously set up
      * Works only when the current authorization state is authorizationStateWaitPassword
      */
-    public static class RequestAuthenticationPasswordRecovery extends Function {
+    public static class RequestAuthenticationPasswordRecovery extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 1393896118; }
@@ -20890,7 +21158,7 @@ public class TdApi {
      *
      * @recoveryCode - Recovery code to check
      */
-    public static class RecoverAuthenticationPassword extends Function {
+    public static class RecoverAuthenticationPassword extends Function<Ok> {
 
         public String recoveryCode;
 
@@ -20916,7 +21184,7 @@ public class TdApi {
      *
      * @token - The bot token
      */
-    public static class CheckAuthenticationBotToken extends Function {
+    public static class CheckAuthenticationBotToken extends Function<Ok> {
 
         public String token;
 
@@ -20940,7 +21208,7 @@ public class TdApi {
      * All local data will be destroyed
      * After the logout completes, updateAuthorizationState with authorizationStateClosed will be sent
      */
-    public static class LogOut extends Function {
+    public static class LogOut extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -1581923301; }
@@ -20954,7 +21222,7 @@ public class TdApi {
      * After the close completes, updateAuthorizationState with authorizationStateClosed will be sent
      * Can be called before initialization
      */
-    public static class Close extends Function {
+    public static class Close extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -1187782273; }
@@ -20969,7 +21237,7 @@ public class TdApi {
      * After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent
      * Can be called before authorization
      */
-    public static class Destroy extends Function {
+    public static class Destroy extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 685331274; }
@@ -20984,7 +21252,7 @@ public class TdApi {
      * @link - A link from a QR code
      *         The link must be scanned by the in-app camera
      */
-    public static class ConfirmQrCodeAuthentication extends Function {
+    public static class ConfirmQrCodeAuthentication extends Function<Session> {
 
         public String link;
 
@@ -21008,7 +21276,7 @@ public class TdApi {
      * This is especially useful if TDLib is run in a separate process
      * Can be called before initialization
      */
-    public static class GetCurrentState extends Function {
+    public static class GetCurrentState extends Function<Updates> {
 
         @Override
         public int getConstructor() { return -1191417719; }
@@ -21022,7 +21290,7 @@ public class TdApi {
      *
      * @newEncryptionKey - New encryption key
      */
-    public static class SetDatabaseEncryptionKey extends Function {
+    public static class SetDatabaseEncryptionKey extends Function<Ok> {
 
         public byte[] newEncryptionKey;
 
@@ -21043,7 +21311,7 @@ public class TdApi {
     /**
      * Returns the current state of 2-step verification
      */
-    public static class GetPasswordState extends Function {
+    public static class GetPasswordState extends Function<PasswordState> {
 
         @Override
         public int getConstructor() { return -174752904; }
@@ -21062,7 +21330,7 @@ public class TdApi {
      * @setRecoveryEmailAddress - Pass true if the recovery email address should be changed
      * @newRecoveryEmailAddress - New recovery email address
      */
-    public static class SetPassword extends Function {
+    public static class SetPassword extends Function<PasswordState> {
 
         public String oldPassword;
         public String newPassword;
@@ -21094,7 +21362,7 @@ public class TdApi {
      *
      * @password - The password for the current user
      */
-    public static class GetRecoveryEmailAddress extends Function {
+    public static class GetRecoveryEmailAddress extends Function<RecoveryEmailAddress> {
 
         public String password;
 
@@ -21120,7 +21388,7 @@ public class TdApi {
      * @password - Password of the current user
      * @newRecoveryEmailAddress - New recovery email address
      */
-    public static class SetRecoveryEmailAddress extends Function {
+    public static class SetRecoveryEmailAddress extends Function<PasswordState> {
 
         public String password;
         public String newRecoveryEmailAddress;
@@ -21145,7 +21413,7 @@ public class TdApi {
      *
      * @code - Verification code
      */
-    public static class CheckRecoveryEmailAddressCode extends Function {
+    public static class CheckRecoveryEmailAddressCode extends Function<PasswordState> {
 
         public String code;
 
@@ -21166,7 +21434,7 @@ public class TdApi {
     /**
      * Resends the 2-step verification recovery email address verification code
      */
-    public static class ResendRecoveryEmailAddressCode extends Function {
+    public static class ResendRecoveryEmailAddressCode extends Function<PasswordState> {
 
         @Override
         public int getConstructor() { return 433483548; }
@@ -21177,7 +21445,7 @@ public class TdApi {
     /**
      * Requests to send a password recovery code to an email address that was previously set up
      */
-    public static class RequestPasswordRecovery extends Function {
+    public static class RequestPasswordRecovery extends Function<EmailAddressAuthenticationCodeInfo> {
 
         @Override
         public int getConstructor() { return -13777582; }
@@ -21190,7 +21458,7 @@ public class TdApi {
      *
      * @recoveryCode - Recovery code to check
      */
-    public static class RecoverPassword extends Function {
+    public static class RecoverPassword extends Function<PasswordState> {
 
         public String recoveryCode;
 
@@ -21215,7 +21483,7 @@ public class TdApi {
      * @validFor - Time during which the temporary password will be valid, in seconds
      *             Should be between 60 and 86400
      */
-    public static class CreateTemporaryPassword extends Function {
+    public static class CreateTemporaryPassword extends Function<TemporaryPasswordState> {
 
         public String password;
         public int validFor;
@@ -21238,7 +21506,7 @@ public class TdApi {
     /**
      * Returns information about the current temporary password
      */
-    public static class GetTemporaryPasswordState extends Function {
+    public static class GetTemporaryPasswordState extends Function<TemporaryPasswordState> {
 
         @Override
         public int getConstructor() { return -12670830; }
@@ -21249,7 +21517,7 @@ public class TdApi {
     /**
      * Returns the current user
      */
-    public static class GetMe extends Function {
+    public static class GetMe extends Function<User> {
 
         @Override
         public int getConstructor() { return -191516033; }
@@ -21263,7 +21531,7 @@ public class TdApi {
      *
      * @userId - User identifier
      */
-    public static class GetUser extends Function {
+    public static class GetUser extends Function<User> {
 
         public int userId;
 
@@ -21286,7 +21554,7 @@ public class TdApi {
      *
      * @userId - User identifier
      */
-    public static class GetUserFullInfo extends Function {
+    public static class GetUserFullInfo extends Function<UserFullInfo> {
 
         public int userId;
 
@@ -21310,7 +21578,7 @@ public class TdApi {
      *
      * @basicGroupId - Basic group identifier
      */
-    public static class GetBasicGroup extends Function {
+    public static class GetBasicGroup extends Function<BasicGroup> {
 
         public int basicGroupId;
 
@@ -21333,7 +21601,7 @@ public class TdApi {
      *
      * @basicGroupId - Basic group identifier
      */
-    public static class GetBasicGroupFullInfo extends Function {
+    public static class GetBasicGroupFullInfo extends Function<BasicGroupFullInfo> {
 
         public int basicGroupId;
 
@@ -21357,7 +21625,7 @@ public class TdApi {
      *
      * @supergroupId - Supergroup or channel identifier
      */
-    public static class GetSupergroup extends Function {
+    public static class GetSupergroup extends Function<Supergroup> {
 
         public int supergroupId;
 
@@ -21380,7 +21648,7 @@ public class TdApi {
      *
      * @supergroupId - Supergroup or channel identifier
      */
-    public static class GetSupergroupFullInfo extends Function {
+    public static class GetSupergroupFullInfo extends Function<SupergroupFullInfo> {
 
         public int supergroupId;
 
@@ -21404,7 +21672,7 @@ public class TdApi {
      *
      * @secretChatId - Secret chat identifier
      */
-    public static class GetSecretChat extends Function {
+    public static class GetSecretChat extends Function<SecretChat> {
 
         public int secretChatId;
 
@@ -21427,7 +21695,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class GetChat extends Function {
+    public static class GetChat extends Function<Chat> {
 
         public long chatId;
 
@@ -21451,7 +21719,7 @@ public class TdApi {
      * @chatId - Identifier of the chat the message belongs to
      * @messageId - Identifier of the message to get
      */
-    public static class GetMessage extends Function {
+    public static class GetMessage extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -21478,7 +21746,7 @@ public class TdApi {
      * @chatId - Identifier of the chat the message belongs to
      * @messageId - Identifier of the message to get
      */
-    public static class GetMessageLocally extends Function {
+    public static class GetMessageLocally extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -21505,7 +21773,7 @@ public class TdApi {
      * @chatId - Identifier of the chat the message belongs to
      * @messageId - Identifier of the message reply to which to get
      */
-    public static class GetRepliedMessage extends Function {
+    public static class GetRepliedMessage extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -21526,11 +21794,11 @@ public class TdApi {
 
 
     /**
-     * Returns information about a pinned chat message
+     * Returns information about a newest pinned chat message
      *
      * @chatId - Identifier of the chat the message belongs to
      */
-    public static class GetChatPinnedMessage extends Function {
+    public static class GetChatPinnedMessage extends Function<Message> {
 
         public long chatId;
 
@@ -21549,13 +21817,43 @@ public class TdApi {
 
 
     /**
+     * Returns information about a message with the callback button that originated a callback query
+     * For bots only
+     *
+     * @chatId - Identifier of the chat the message belongs to
+     * @messageId - Message identifier
+     * @callbackQueryId - Identifier of the callback query
+     */
+    public static class GetCallbackQueryMessage extends Function<Message> {
+
+        public long chatId;
+        public long messageId;
+        public long callbackQueryId;
+
+        public GetCallbackQueryMessage() {}
+
+        public GetCallbackQueryMessage(long chatId, long messageId, long callbackQueryId) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+            this.callbackQueryId = callbackQueryId;
+
+        }
+
+        @Override
+        public int getConstructor() { return -1121939086; }
+
+    }
+
+
+    /**
      * Returns information about messages
      * If a message is not found, returns null on the corresponding position of the result
      *
      * @chatId - Identifier of the chat the messages belong to
      * @messageIds - Identifiers of the messages to get
      */
-    public static class GetMessages extends Function {
+    public static class GetMessages extends Function<Messages> {
 
         public long chatId;
         public long[] messageIds;
@@ -21582,7 +21880,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @messageId - Identifier of the message
      */
-    public static class GetMessageThread extends Function {
+    public static class GetMessageThread extends Function<MessageThreadInfo> {
 
         public long chatId;
         public long messageId;
@@ -21608,7 +21906,7 @@ public class TdApi {
      *
      * @fileId - Identifier of the file to get
      */
-    public static class GetFile extends Function {
+    public static class GetFile extends Function<File> {
 
         public int fileId;
 
@@ -21637,7 +21935,7 @@ public class TdApi {
      * @remoteFileId - Remote identifier of the file to get
      * @fileType - File type, if known
      */
-    public static class GetRemoteFile extends Function {
+    public static class GetRemoteFile extends Function<File> {
 
         public String remoteFileId;
         public FileType fileType;
@@ -21669,7 +21967,7 @@ public class TdApi {
      * @limit - The maximum number of chats to be returned
      *          It is possible that fewer chats than the limit are returned even if the end of the list is not reached
      */
-    public static class GetChats extends Function {
+    public static class GetChats extends Function<Chats> {
 
         public ChatList chatList;
         public long offsetOrder;
@@ -21701,7 +21999,7 @@ public class TdApi {
      *
      * @username - Username to be resolved
      */
-    public static class SearchPublicChat extends Function {
+    public static class SearchPublicChat extends Function<Chat> {
 
         public String username;
 
@@ -21728,7 +22026,7 @@ public class TdApi {
      *
      * @query - Query to search for
      */
-    public static class SearchPublicChats extends Function {
+    public static class SearchPublicChats extends Function<Chats> {
 
         public String query;
 
@@ -21754,7 +22052,7 @@ public class TdApi {
      *          If the query is empty, returns up to 20 recently found chats
      * @limit - The maximum number of chats to be returned
      */
-    public static class SearchChats extends Function {
+    public static class SearchChats extends Function<Chats> {
 
         public String query;
         public int limit;
@@ -21781,7 +22079,7 @@ public class TdApi {
      * @query - Query to search for
      * @limit - The maximum number of chats to be returned
      */
-    public static class SearchChatsOnServer extends Function {
+    public static class SearchChatsOnServer extends Function<Chats> {
 
         public String query;
         public int limit;
@@ -21808,7 +22106,7 @@ public class TdApi {
      *
      * @location - Current user location
      */
-    public static class SearchChatsNearby extends Function {
+    public static class SearchChatsNearby extends Function<ChatsNearby> {
 
         public Location location;
 
@@ -21834,7 +22132,7 @@ public class TdApi {
      * @limit - The maximum number of chats to be returned
      *          Up to 30
      */
-    public static class GetTopChats extends Function {
+    public static class GetTopChats extends Function<Chats> {
 
         public TopChatCategory category;
         public int limit;
@@ -21861,7 +22159,7 @@ public class TdApi {
      * @category - Category of frequently used chats
      * @chatId - Chat identifier
      */
-    public static class RemoveTopChat extends Function {
+    public static class RemoveTopChat extends Function<Ok> {
 
         public TopChatCategory category;
         public long chatId;
@@ -21888,7 +22186,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat to add
      */
-    public static class AddRecentlyFoundChat extends Function {
+    public static class AddRecentlyFoundChat extends Function<Ok> {
 
         public long chatId;
 
@@ -21911,7 +22209,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat to be removed
      */
-    public static class RemoveRecentlyFoundChat extends Function {
+    public static class RemoveRecentlyFoundChat extends Function<Ok> {
 
         public long chatId;
 
@@ -21932,7 +22230,7 @@ public class TdApi {
     /**
      * Clears the list of recently found chats
      */
-    public static class ClearRecentlyFoundChats extends Function {
+    public static class ClearRecentlyFoundChats extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -285582542; }
@@ -21947,7 +22245,7 @@ public class TdApi {
      *           Should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created
      * @username - Username to be checked
      */
-    public static class CheckChatUsername extends Function {
+    public static class CheckChatUsername extends Function<CheckChatUsernameResult> {
 
         public long chatId;
         public String username;
@@ -21972,7 +22270,7 @@ public class TdApi {
      *
      * @type - Type of the public chats to return
      */
-    public static class GetCreatedPublicChats extends Function {
+    public static class GetCreatedPublicChats extends Function<Chats> {
 
         public PublicChatType type;
 
@@ -21996,7 +22294,7 @@ public class TdApi {
      *
      * @type - Type of the public chats, for which to check the limit
      */
-    public static class CheckCreatedPublicChatsLimit extends Function {
+    public static class CheckCreatedPublicChatsLimit extends Function<Ok> {
 
         public PublicChatType type;
 
@@ -22016,9 +22314,10 @@ public class TdApi {
 
     /**
      * Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel
-     * Basic group chats need to be first upgraded to supergroups before they can be set as a discussion group
+     * Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group
+     * To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first
      */
-    public static class GetSuitableDiscussionChats extends Function {
+    public static class GetSuitableDiscussionChats extends Function<Chats> {
 
         @Override
         public int getConstructor() { return 49044982; }
@@ -22030,7 +22329,7 @@ public class TdApi {
      * Returns a list of recently inactive supergroups and channels
      * Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error
      */
-    public static class GetInactiveSupergroupChats extends Function {
+    public static class GetInactiveSupergroupChats extends Function<Chats> {
 
         @Override
         public int getConstructor() { return -657720907; }
@@ -22047,7 +22346,7 @@ public class TdApi {
      *                 Use 0 for the first request
      * @limit - The maximum number of chats to be returned
      */
-    public static class GetGroupsInCommon extends Function {
+    public static class GetGroupsInCommon extends Function<Chats> {
 
         public int userId;
         public long offsetChatId;
@@ -22085,7 +22384,7 @@ public class TdApi {
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @onlyLocal - If true, returns only messages that are available locally without sending network requests
      */
-    public static class GetChatHistory extends Function {
+    public static class GetChatHistory extends Function<Messages> {
 
         public long chatId;
         public long fromMessageId;
@@ -22128,7 +22427,7 @@ public class TdApi {
      *          If the offset is negative, the limit must be greater than or equal to -offset
      *          Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached
      */
-    public static class GetMessageThreadHistory extends Function {
+    public static class GetMessageThreadHistory extends Function<Messages> {
 
         public long chatId;
         public long messageId;
@@ -22162,7 +22461,7 @@ public class TdApi {
      * @removeFromChatList - Pass true if the chat should be removed from the chat list
      * @revoke - Pass true to try to delete chat history for all users
      */
-    public static class DeleteChatHistory extends Function {
+    public static class DeleteChatHistory extends Function<Ok> {
 
         public long chatId;
         public boolean removeFromChatList;
@@ -22193,8 +22492,8 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat in which to search messages
      * @query - Query to search for
-     * @senderUserId - If not 0, only messages sent by the specified user will be returned
-     *                 Not supported in secret chats
+     * @sender - If not null, only messages sent by the specified sender will be returned
+     *           Not supported in secret chats
      * @fromMessageId - Identifier of the message starting from which history must be fetched
      *                  Use 0 to get results from the last message
      * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages
@@ -22206,11 +22505,11 @@ public class TdApi {
      * @messageThreadId - If not 0, only messages in the specified thread will be returned
      *                    Supergroups only
      */
-    public static class SearchChatMessages extends Function {
+    public static class SearchChatMessages extends Function<Messages> {
 
         public long chatId;
         public String query;
-        public int senderUserId;
+        public MessageSender sender;
         public long fromMessageId;
         public int offset;
         public int limit;
@@ -22219,11 +22518,11 @@ public class TdApi {
 
         public SearchChatMessages() {}
 
-        public SearchChatMessages(long chatId, String query, int senderUserId, long fromMessageId, int offset, int limit, SearchMessagesFilter filter, long messageThreadId) {
+        public SearchChatMessages(long chatId, String query, MessageSender sender, long fromMessageId, int offset, int limit, SearchMessagesFilter filter, long messageThreadId) {
 
             this.chatId = chatId;
             this.query = query;
-            this.senderUserId = senderUserId;
+            this.sender = sender;
             this.fromMessageId = fromMessageId;
             this.offset = offset;
             this.limit = limit;
@@ -22233,7 +22532,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1445943052; }
+        public int getConstructor() { return -1700459472; }
 
     }
 
@@ -22253,11 +22552,11 @@ public class TdApi {
      * @limit - The maximum number of messages to be returned
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @filter - Filter for message content in the search results
-     *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention and searchMessagesFilterFailedToSend are unsupported in this function
+     *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function
      * @minDate - If not 0, the minimum date of the messages to return
      * @maxDate - If not 0, the maximum date of the messages to return
      */
-    public static class SearchMessages extends Function {
+    public static class SearchMessages extends Function<Messages> {
 
         public ChatList chatList;
         public String query;
@@ -22306,7 +22605,7 @@ public class TdApi {
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @filter - A filter for message content in the search results
      */
-    public static class SearchSecretMessages extends Function {
+    public static class SearchSecretMessages extends Function<FoundMessages> {
 
         public long chatId;
         public String query;
@@ -22344,7 +22643,7 @@ public class TdApi {
      *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
      * @onlyMissed - If true, returns only messages with missed calls
      */
-    public static class SearchCallMessages extends Function {
+    public static class SearchCallMessages extends Function<Messages> {
 
         public long fromMessageId;
         public int limit;
@@ -22373,7 +22672,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @limit - The maximum number of messages to be returned
      */
-    public static class SearchChatRecentLocationMessages extends Function {
+    public static class SearchChatRecentLocationMessages extends Function<Messages> {
 
         public long chatId;
         public int limit;
@@ -22397,7 +22696,7 @@ public class TdApi {
      * Returns all active live locations that should be updated by the application
      * The list is persistent across application restarts only if the message database is used
      */
-    public static class GetActiveLiveLocationMessages extends Function {
+    public static class GetActiveLiveLocationMessages extends Function<Messages> {
 
         @Override
         public int getConstructor() { return -1425459567; }
@@ -22411,7 +22710,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @date - Point in time (Unix timestamp) relative to which to search for messages
      */
-    public static class GetChatMessageByDate extends Function {
+    public static class GetChatMessageByDate extends Function<Message> {
 
         public long chatId;
         public int date;
@@ -22439,7 +22738,7 @@ public class TdApi {
      *           SearchMessagesFilterEmpty is unsupported in this function
      * @returnLocal - If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown
      */
-    public static class GetChatMessageCount extends Function {
+    public static class GetChatMessageCount extends Function<Count> {
 
         public long chatId;
         public SearchMessagesFilter filter;
@@ -22467,7 +22766,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class GetChatScheduledMessages extends Function {
+    public static class GetChatScheduledMessages extends Function<Messages> {
 
         public long chatId;
 
@@ -22486,9 +22785,8 @@ public class TdApi {
 
 
     /**
-     * Returns forwarded copies of a channel message to another public channels
+     * Returns forwarded copies of a channel message to different public channels
      * For optimal performance the number of returned messages is chosen by the library
-     * The method is under development and may or may not work
      *
      * @chatId - Chat identifier of the message
      * @messageId - Message identifier
@@ -22498,7 +22796,7 @@ public class TdApi {
      *          Must be positive and can't be greater than 100
      *          Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached
      */
-    public static class GetMessagePublicForwards extends Function {
+    public static class GetMessagePublicForwards extends Function<FoundMessages> {
 
         public long chatId;
         public long messageId;
@@ -22529,7 +22827,7 @@ public class TdApi {
      * @notificationGroupId - Identifier of notification group to which the notification belongs
      * @notificationId - Identifier of removed notification
      */
-    public static class RemoveNotification extends Function {
+    public static class RemoveNotification extends Function<Ok> {
 
         public int notificationGroupId;
         public int notificationId;
@@ -22556,7 +22854,7 @@ public class TdApi {
      * @notificationGroupId - Notification group identifier
      * @maxNotificationId - The maximum identifier of removed notifications
      */
-    public static class RemoveNotificationGroup extends Function {
+    public static class RemoveNotificationGroup extends Function<Ok> {
 
         public int notificationGroupId;
         public int maxNotificationId;
@@ -22586,7 +22884,7 @@ public class TdApi {
      * @forAlbum - Pass true to create a link for the whole media album
      * @forComment - Pass true to create a link to the message as a channel post comment, or from a message thread
      */
-    public static class GetMessageLink extends Function {
+    public static class GetMessageLink extends Function<MessageLink> {
 
         public long chatId;
         public long messageId;
@@ -22618,7 +22916,7 @@ public class TdApi {
      * @messageId - Identifier of the message
      * @forAlbum - Pass true to return an HTML code for embedding of the whole media album
      */
-    public static class GetMessageEmbeddingCode extends Function {
+    public static class GetMessageEmbeddingCode extends Function<Text> {
 
         public long chatId;
         public long messageId;
@@ -22645,7 +22943,7 @@ public class TdApi {
      *
      * @url - The message link in the format "https://t.me/c/...", or "tg://privatepost?...", or "https://t.me/username/...", or "tg://resolve?..."
      */
-    public static class GetMessageLinkInfo extends Function {
+    public static class GetMessageLinkInfo extends Function<MessageLinkInfo> {
 
         public String url;
 
@@ -22675,7 +22973,7 @@ public class TdApi {
      *                For bots only
      * @inputMessageContent - The content of the message to be sent
      */
-    public static class SendMessage extends Function {
+    public static class SendMessage extends Function<Message> {
 
         public long chatId;
         public long messageThreadId;
@@ -22714,7 +23012,7 @@ public class TdApi {
      * @options - Options to be used to send the messages
      * @inputMessageContents - Contents of messages to be sent
      */
-    public static class SendMessageAlbum extends Function {
+    public static class SendMessageAlbum extends Function<Messages> {
 
         public long chatId;
         public long messageThreadId;
@@ -22750,7 +23048,7 @@ public class TdApi {
      * @chatId - Identifier of the target chat
      * @parameter - A hidden parameter sent to the bot for deep linking purposes (https://core.telegram.org/bots#deep-linking)
      */
-    public static class SendBotStartMessage extends Function {
+    public static class SendBotStartMessage extends Function<Message> {
 
         public int botUserId;
         public long chatId;
@@ -22786,7 +23084,7 @@ public class TdApi {
      * @hideViaBot - If true, there will be no mention of a bot, via which the message is sent
      *               Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username")
      */
-    public static class SendInlineQueryResultMessage extends Function {
+    public static class SendInlineQueryResultMessage extends Function<Message> {
 
         public long chatId;
         public long messageThreadId;
@@ -22831,7 +23129,7 @@ public class TdApi {
      * @removeCaption - True, if media caption of message copies needs to be removed
      *                  Ignored if send_copy is false
      */
-    public static class ForwardMessages extends Function {
+    public static class ForwardMessages extends Function<Messages> {
 
         public long chatId;
         public long fromChatId;
@@ -22870,7 +23168,7 @@ public class TdApi {
      * @messageIds - Identifiers of the messages to resend
      *               Message identifiers must be in a strictly increasing order
      */
-    public static class ResendMessages extends Function {
+    public static class ResendMessages extends Function<Messages> {
 
         public long chatId;
         public long[] messageIds;
@@ -22896,7 +23194,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @ttl - New TTL value, in seconds
      */
-    public static class SendChatSetTtlMessage extends Function {
+    public static class SendChatSetTtlMessage extends Function<Message> {
 
         public long chatId;
         public int ttl;
@@ -22922,7 +23220,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class SendChatScreenshotTakenNotification extends Function {
+    public static class SendChatScreenshotTakenNotification extends Function<Ok> {
 
         public long chatId;
 
@@ -22946,26 +23244,25 @@ public class TdApi {
      * Returns the added message
      *
      * @chatId - Target chat
-     * @senderUserId - Identifier of the user who will be shown as the sender of the message
-     *                 May be 0 for channel posts
+     * @sender - The sender sender of the message
      * @replyToMessageId - Identifier of the message to reply to or 0
      * @disableNotification - Pass true to disable notification for the message
      * @inputMessageContent - The content of the message to be added
      */
-    public static class AddLocalMessage extends Function {
+    public static class AddLocalMessage extends Function<Message> {
 
         public long chatId;
-        public int senderUserId;
+        public MessageSender sender;
         public long replyToMessageId;
         public boolean disableNotification;
         public InputMessageContent inputMessageContent;
 
         public AddLocalMessage() {}
 
-        public AddLocalMessage(long chatId, int senderUserId, long replyToMessageId, boolean disableNotification, InputMessageContent inputMessageContent) {
+        public AddLocalMessage(long chatId, MessageSender sender, long replyToMessageId, boolean disableNotification, InputMessageContent inputMessageContent) {
 
             this.chatId = chatId;
-            this.senderUserId = senderUserId;
+            this.sender = sender;
             this.replyToMessageId = replyToMessageId;
             this.disableNotification = disableNotification;
             this.inputMessageContent = inputMessageContent;
@@ -22973,7 +23270,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -348943149; }
+        public int getConstructor() { return 856399322; }
 
     }
 
@@ -22986,7 +23283,7 @@ public class TdApi {
      * @revoke - Pass true to try to delete messages for all chat members
      *           Always true for supergroups, channels and secret chats
      */
-    public static class DeleteMessages extends Function {
+    public static class DeleteMessages extends Function<Ok> {
 
         public long chatId;
         public long[] messageIds;
@@ -23016,7 +23313,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @userId - User identifier
      */
-    public static class DeleteChatMessagesFromUser extends Function {
+    public static class DeleteChatMessagesFromUser extends Function<Ok> {
 
         public long chatId;
         public int userId;
@@ -23047,7 +23344,7 @@ public class TdApi {
      * @inputMessageContent - New text content of the message
      *                        Should be of type InputMessageText
      */
-    public static class EditMessageText extends Function {
+    public static class EditMessageText extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -23082,27 +23379,35 @@ public class TdApi {
      *                For bots only
      * @location - New location content of the message
      *             Pass null to stop sharing the live location
+     * @heading - The new direction in which the location moves, in degrees
+     *            Pass 0 if unknown
+     * @proximityAlertRadius - The new maximum distance for proximity alerts, in meters (0-100000)
+     *                         Pass 0 if the notification is disabled
      */
-    public static class EditMessageLiveLocation extends Function {
+    public static class EditMessageLiveLocation extends Function<Message> {
 
         public long chatId;
         public long messageId;
         public ReplyMarkup replyMarkup;
         @Nullable public Location location;
+        public int heading;
+        public int proximityAlertRadius;
 
         public EditMessageLiveLocation() {}
 
-        public EditMessageLiveLocation(long chatId, long messageId, ReplyMarkup replyMarkup, @Nullable Location location) {
+        public EditMessageLiveLocation(long chatId, long messageId, ReplyMarkup replyMarkup, @Nullable Location location, int heading, int proximityAlertRadius) {
 
             this.chatId = chatId;
             this.messageId = messageId;
             this.replyMarkup = replyMarkup;
             this.location = location;
+            this.heading = heading;
+            this.proximityAlertRadius = proximityAlertRadius;
 
         }
 
         @Override
-        public int getConstructor() { return -1146772745; }
+        public int getConstructor() { return -14047982; }
 
     }
 
@@ -23121,7 +23426,7 @@ public class TdApi {
      * @inputMessageContent - New content of the message
      *                        Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
      */
-    public static class EditMessageMedia extends Function {
+    public static class EditMessageMedia extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -23156,7 +23461,7 @@ public class TdApi {
      * @caption - New message content caption
      *            0-GetOption("message_caption_length_max") characters
      */
-    public static class EditMessageCaption extends Function {
+    public static class EditMessageCaption extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -23189,7 +23494,7 @@ public class TdApi {
      * @messageId - Identifier of the message
      * @replyMarkup - The new message reply markup
      */
-    public static class EditMessageReplyMarkup extends Function {
+    public static class EditMessageReplyMarkup extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -23220,7 +23525,7 @@ public class TdApi {
      * @inputMessageContent - New text content of the message
      *                        Should be of type InputMessageText
      */
-    public static class EditInlineMessageText extends Function {
+    public static class EditInlineMessageText extends Function<Ok> {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
@@ -23250,25 +23555,33 @@ public class TdApi {
      * @replyMarkup - The new message reply markup
      * @location - New location content of the message
      *             Pass null to stop sharing the live location
+     * @heading - The new direction in which the location moves, in degrees
+     *            Pass 0 if unknown
+     * @proximityAlertRadius - The new maximum distance for proximity alerts, in meters (0-100000)
+     *                         Pass 0 if the notification is disabled
      */
-    public static class EditInlineMessageLiveLocation extends Function {
+    public static class EditInlineMessageLiveLocation extends Function<Ok> {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
         @Nullable public Location location;
+        public int heading;
+        public int proximityAlertRadius;
 
         public EditInlineMessageLiveLocation() {}
 
-        public EditInlineMessageLiveLocation(String inlineMessageId, ReplyMarkup replyMarkup, @Nullable Location location) {
+        public EditInlineMessageLiveLocation(String inlineMessageId, ReplyMarkup replyMarkup, @Nullable Location location, int heading, int proximityAlertRadius) {
 
             this.inlineMessageId = inlineMessageId;
             this.replyMarkup = replyMarkup;
             this.location = location;
+            this.heading = heading;
+            this.proximityAlertRadius = proximityAlertRadius;
 
         }
 
         @Override
-        public int getConstructor() { return 655046316; }
+        public int getConstructor() { return -156902912; }
 
     }
 
@@ -23283,7 +23596,7 @@ public class TdApi {
      * @inputMessageContent - New content of the message
      *                        Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo
      */
-    public static class EditInlineMessageMedia extends Function {
+    public static class EditInlineMessageMedia extends Function<Ok> {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
@@ -23314,7 +23627,7 @@ public class TdApi {
      * @caption - New message content caption
      *            0-GetOption("message_caption_length_max") characters
      */
-    public static class EditInlineMessageCaption extends Function {
+    public static class EditInlineMessageCaption extends Function<Ok> {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
@@ -23343,7 +23656,7 @@ public class TdApi {
      * @inlineMessageId - Inline message identifier
      * @replyMarkup - The new message reply markup
      */
-    public static class EditInlineMessageReplyMarkup extends Function {
+    public static class EditInlineMessageReplyMarkup extends Function<Ok> {
 
         public String inlineMessageId;
         public ReplyMarkup replyMarkup;
@@ -23372,7 +23685,7 @@ public class TdApi {
      * @schedulingState - The new message scheduling state
      *                    Pass null to send the message immediately
      */
-    public static class EditMessageSchedulingState extends Function {
+    public static class EditMessageSchedulingState extends Function<Ok> {
 
         public long chatId;
         public long messageId;
@@ -23400,7 +23713,7 @@ public class TdApi {
      *
      * @text - The text in which to look for entites
      */
-    public static class GetTextEntities extends Function {
+    public static class GetTextEntities extends Function<TextEntities> {
 
         public String text;
 
@@ -23425,7 +23738,7 @@ public class TdApi {
      * @text - The text to parse
      * @parseMode - Text parse mode
      */
-    public static class ParseTextEntities extends Function {
+    public static class ParseTextEntities extends Function<FormattedText> {
 
         public String text;
         public TextParseMode parseMode;
@@ -23452,7 +23765,7 @@ public class TdApi {
      * @text - The text to parse
      *         For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**"
      */
-    public static class ParseMarkdown extends Function {
+    public static class ParseMarkdown extends Function<FormattedText> {
 
         public FormattedText text;
 
@@ -23477,7 +23790,7 @@ public class TdApi {
      *
      * @text - The text
      */
-    public static class GetMarkdownText extends Function {
+    public static class GetMarkdownText extends Function<FormattedText> {
 
         public FormattedText text;
 
@@ -23502,7 +23815,7 @@ public class TdApi {
      *
      * @fileName - The name of the file or path to the file
      */
-    public static class GetFileMimeType extends Function {
+    public static class GetFileMimeType extends Function<Text> {
 
         public String fileName;
 
@@ -23527,7 +23840,7 @@ public class TdApi {
      *
      * @mimeType - The MIME type of the file
      */
-    public static class GetFileExtension extends Function {
+    public static class GetFileExtension extends Function<Text> {
 
         public String mimeType;
 
@@ -23553,7 +23866,7 @@ public class TdApi {
      *
      * @fileName - File name or path to the file
      */
-    public static class CleanFileName extends Function {
+    public static class CleanFileName extends Function<Text> {
 
         public String fileName;
 
@@ -23581,7 +23894,7 @@ public class TdApi {
      * @languagePackId - Language pack identifier
      * @key - Language pack key of the string to be returned
      */
-    public static class GetLanguagePackString extends Function {
+    public static class GetLanguagePackString extends Function<LanguagePackStringValue> {
 
         public String languagePackDatabasePath;
         public String localizationTarget;
@@ -23611,7 +23924,7 @@ public class TdApi {
      *
      * @json - The JSON-serialized string
      */
-    public static class GetJsonValue extends Function {
+    public static class GetJsonValue extends Function<JsonValue> {
 
         public String json;
 
@@ -23635,7 +23948,7 @@ public class TdApi {
      *
      * @jsonValue - The JsonValue object
      */
-    public static class GetJsonString extends Function {
+    public static class GetJsonString extends Function<Text> {
 
         public JsonValue jsonValue;
 
@@ -23662,7 +23975,7 @@ public class TdApi {
      * @optionIds - 0-based identifiers of answer options, chosen by the user
      *              User can choose more than 1 answer option only is the poll allows multiple answers
      */
-    public static class SetPollAnswer extends Function {
+    public static class SetPollAnswer extends Function<Ok> {
 
         public long chatId;
         public long messageId;
@@ -23696,7 +24009,7 @@ public class TdApi {
      *          Must be positive and can't be greater than 50
      *          Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached
      */
-    public static class GetPollVoters extends Function {
+    public static class GetPollVoters extends Function<Users> {
 
         public long chatId;
         public long messageId;
@@ -23731,7 +24044,7 @@ public class TdApi {
      * @replyMarkup - The new message reply markup
      *                For bots only
      */
-    public static class StopPoll extends Function {
+    public static class StopPoll extends Function<Ok> {
 
         public long chatId;
         public long messageId;
@@ -23758,7 +24071,7 @@ public class TdApi {
      *
      * @action - Suggested action to hide
      */
-    public static class HideSuggestedAction extends Function {
+    public static class HideSuggestedAction extends Function<Ok> {
 
         public SuggestedAction action;
 
@@ -23784,7 +24097,7 @@ public class TdApi {
      * @messageId - Message identifier of the message with the button
      * @buttonId - Button identifier
      */
-    public static class GetLoginUrlInfo extends Function {
+    public static class GetLoginUrlInfo extends Function<LoginUrlInfo> {
 
         public long chatId;
         public long messageId;
@@ -23816,7 +24129,7 @@ public class TdApi {
      * @buttonId - Button identifier
      * @allowWriteAccess - True, if the user allowed the bot to send them messages
      */
-    public static class GetLoginUrl extends Function {
+    public static class GetLoginUrl extends Function<HttpUrl> {
 
         public long chatId;
         public long messageId;
@@ -23850,7 +24163,7 @@ public class TdApi {
      * @query - Text of the query
      * @offset - Offset of the first entry to return
      */
-    public static class GetInlineQueryResults extends Function {
+    public static class GetInlineQueryResults extends Function<InlineQueryResults> {
 
         public int botUserId;
         public long chatId;
@@ -23889,7 +24202,7 @@ public class TdApi {
      * @switchPmText - If non-empty, this text should be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switch_pm_parameter
      * @switchPmParameter - The parameter for the bot start message
      */
-    public static class AnswerInlineQuery extends Function {
+    public static class AnswerInlineQuery extends Function<Ok> {
 
         public long inlineQueryId;
         public boolean isPersonal;
@@ -23927,7 +24240,7 @@ public class TdApi {
      * @messageId - Identifier of the message from which the query originated
      * @payload - Query payload
      */
-    public static class GetCallbackQueryAnswer extends Function {
+    public static class GetCallbackQueryAnswer extends Function<CallbackQueryAnswer> {
 
         public long chatId;
         public long messageId;
@@ -23959,7 +24272,7 @@ public class TdApi {
      * @url - URL to be opened
      * @cacheTime - Time during which the result of the query can be cached, in seconds
      */
-    public static class AnswerCallbackQuery extends Function {
+    public static class AnswerCallbackQuery extends Function<Ok> {
 
         public long callbackQueryId;
         public String text;
@@ -23993,7 +24306,7 @@ public class TdApi {
      * @shippingOptions - Available shipping options
      * @errorMessage - An error message, empty on success
      */
-    public static class AnswerShippingQuery extends Function {
+    public static class AnswerShippingQuery extends Function<Ok> {
 
         public long shippingQueryId;
         public ShippingOption[] shippingOptions;
@@ -24022,7 +24335,7 @@ public class TdApi {
      * @preCheckoutQueryId - Identifier of the pre-checkout query
      * @errorMessage - An error message, empty on success
      */
-    public static class AnswerPreCheckoutQuery extends Function {
+    public static class AnswerPreCheckoutQuery extends Function<Ok> {
 
         public long preCheckoutQueryId;
         public String errorMessage;
@@ -24054,7 +24367,7 @@ public class TdApi {
      * @force - Pass true to update the score even if it decreases
      *          If the score is 0, the user will be deleted from the high score table
      */
-    public static class SetGameScore extends Function {
+    public static class SetGameScore extends Function<Message> {
 
         public long chatId;
         public long messageId;
@@ -24093,7 +24406,7 @@ public class TdApi {
      * @force - Pass true to update the score even if it decreases
      *          If the score is 0, the user will be deleted from the high score table
      */
-    public static class SetInlineGameScore extends Function {
+    public static class SetInlineGameScore extends Function<Ok> {
 
         public String inlineMessageId;
         public boolean editMessage;
@@ -24127,7 +24440,7 @@ public class TdApi {
      * @messageId - Identifier of the message
      * @userId - User identifier
      */
-    public static class GetGameHighScores extends Function {
+    public static class GetGameHighScores extends Function<GameHighScores> {
 
         public long chatId;
         public long messageId;
@@ -24156,7 +24469,7 @@ public class TdApi {
      * @inlineMessageId - Inline message identifier
      * @userId - User identifier
      */
-    public static class GetInlineGameHighScores extends Function {
+    public static class GetInlineGameHighScores extends Function<GameHighScores> {
 
         public String inlineMessageId;
         public int userId;
@@ -24184,7 +24497,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @messageId - The message identifier of the used keyboard
      */
-    public static class DeleteChatReplyMarkup extends Function {
+    public static class DeleteChatReplyMarkup extends Function<Ok> {
 
         public long chatId;
         public long messageId;
@@ -24211,7 +24524,7 @@ public class TdApi {
      * @messageThreadId - If not 0, a message thread identifier in which the action was performed
      * @action - The action description
      */
-    public static class SendChatAction extends Function {
+    public static class SendChatAction extends Function<Ok> {
 
         public long chatId;
         public long messageThreadId;
@@ -24239,7 +24552,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class OpenChat extends Function {
+    public static class OpenChat extends Function<Ok> {
 
         public long chatId;
 
@@ -24263,7 +24576,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class CloseChat extends Function {
+    public static class CloseChat extends Function<Ok> {
 
         public long chatId;
 
@@ -24290,7 +24603,7 @@ public class TdApi {
      * @messageIds - The identifiers of the messages being viewed
      * @forceRead - True, if messages in closed chats should be marked as read by the request
      */
-    public static class ViewMessages extends Function {
+    public static class ViewMessages extends Function<Ok> {
 
         public long chatId;
         public long messageThreadId;
@@ -24321,7 +24634,7 @@ public class TdApi {
      * @chatId - Chat identifier of the message
      * @messageId - Identifier of the message with the opened content
      */
-    public static class OpenMessageContent extends Function {
+    public static class OpenMessageContent extends Function<Ok> {
 
         public long chatId;
         public long messageId;
@@ -24346,7 +24659,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class ReadAllChatMentions extends Function {
+    public static class ReadAllChatMentions extends Function<Ok> {
 
         public long chatId;
 
@@ -24371,7 +24684,7 @@ public class TdApi {
      * @force - If true, the chat will be created without network request
      *          In this case all information about the chat except its type, title and photo can be incorrect
      */
-    public static class CreatePrivateChat extends Function {
+    public static class CreatePrivateChat extends Function<Chat> {
 
         public int userId;
         public boolean force;
@@ -24398,7 +24711,7 @@ public class TdApi {
      * @force - If true, the chat will be created without network request
      *          In this case all information about the chat except its type, title and photo can be incorrect
      */
-    public static class CreateBasicGroupChat extends Function {
+    public static class CreateBasicGroupChat extends Function<Chat> {
 
         public int basicGroupId;
         public boolean force;
@@ -24425,7 +24738,7 @@ public class TdApi {
      * @force - If true, the chat will be created without network request
      *          In this case all information about the chat except its type, title and photo can be incorrect
      */
-    public static class CreateSupergroupChat extends Function {
+    public static class CreateSupergroupChat extends Function<Chat> {
 
         public int supergroupId;
         public boolean force;
@@ -24450,7 +24763,7 @@ public class TdApi {
      *
      * @secretChatId - Secret chat identifier
      */
-    public static class CreateSecretChat extends Function {
+    public static class CreateSecretChat extends Function<Chat> {
 
         public int secretChatId;
 
@@ -24475,7 +24788,7 @@ public class TdApi {
      * @userIds - Identifiers of users to be added to the basic group
      * @title - Title of the new basic group
      */
-    public static class CreateNewBasicGroupChat extends Function {
+    public static class CreateNewBasicGroupChat extends Function<Chat> {
 
         public int[] userIds;
         public String title;
@@ -24504,7 +24817,7 @@ public class TdApi {
      * @description - Chat description
      * @location - Chat location if a location-based supergroup is being created
      */
-    public static class CreateNewSupergroupChat extends Function {
+    public static class CreateNewSupergroupChat extends Function<Chat> {
 
         public String title;
         public boolean isChannel;
@@ -24534,7 +24847,7 @@ public class TdApi {
      *
      * @userId - Identifier of the target user
      */
-    public static class CreateNewSecretChat extends Function {
+    public static class CreateNewSecretChat extends Function<Chat> {
 
         public int userId;
 
@@ -24559,7 +24872,7 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat to upgrade
      */
-    public static class UpgradeBasicGroupChatToSupergroupChat extends Function {
+    public static class UpgradeBasicGroupChatToSupergroupChat extends Function<Chat> {
 
         public long chatId;
 
@@ -24583,7 +24896,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class GetChatListsToAddChat extends Function {
+    public static class GetChatListsToAddChat extends Function<ChatLists> {
 
         public long chatId;
 
@@ -24609,7 +24922,7 @@ public class TdApi {
      * @chatList - The chat list
      *             Use getChatListsToAddChat to get suitable chat lists
      */
-    public static class AddChatToList extends Function {
+    public static class AddChatToList extends Function<Ok> {
 
         public long chatId;
         public ChatList chatList;
@@ -24634,7 +24947,7 @@ public class TdApi {
      *
      * @chatFilterId - Chat filter identifier
      */
-    public static class GetChatFilter extends Function {
+    public static class GetChatFilter extends Function<ChatFilter> {
 
         public int chatFilterId;
 
@@ -24658,7 +24971,7 @@ public class TdApi {
      *
      * @filter - Chat filter
      */
-    public static class CreateChatFilter extends Function {
+    public static class CreateChatFilter extends Function<ChatFilterInfo> {
 
         public ChatFilter filter;
 
@@ -24683,7 +24996,7 @@ public class TdApi {
      * @chatFilterId - Chat filter identifier
      * @filter - The edited chat filter
      */
-    public static class EditChatFilter extends Function {
+    public static class EditChatFilter extends Function<ChatFilterInfo> {
 
         public int chatFilterId;
         public ChatFilter filter;
@@ -24708,7 +25021,7 @@ public class TdApi {
      *
      * @chatFilterId - Chat filter identifier
      */
-    public static class DeleteChatFilter extends Function {
+    public static class DeleteChatFilter extends Function<Ok> {
 
         public int chatFilterId;
 
@@ -24731,7 +25044,7 @@ public class TdApi {
      *
      * @chatFilterIds - Identifiers of chat filters in the new correct order
      */
-    public static class ReorderChatFilters extends Function {
+    public static class ReorderChatFilters extends Function<Ok> {
 
         public int[] chatFilterIds;
 
@@ -24752,7 +25065,7 @@ public class TdApi {
     /**
      * Returns recommended chat filters for the current user
      */
-    public static class GetRecommendedChatFilters extends Function {
+    public static class GetRecommendedChatFilters extends Function<RecommendedChatFilters> {
 
         @Override
         public int getConstructor() { return -779390746; }
@@ -24766,7 +25079,7 @@ public class TdApi {
      *
      * @filter - Chat filter
      */
-    public static class GetChatFilterDefaultIconName extends Function {
+    public static class GetChatFilterDefaultIconName extends Function<Text> {
 
         public ChatFilter filter;
 
@@ -24792,7 +25105,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @title - New title of the chat
      */
-    public static class SetChatTitle extends Function {
+    public static class SetChatTitle extends Function<Ok> {
 
         public long chatId;
         public String title;
@@ -24821,7 +25134,7 @@ public class TdApi {
      * @photo - New chat photo
      *          Pass null to delete the chat photo
      */
-    public static class SetChatPhoto extends Function {
+    public static class SetChatPhoto extends Function<Ok> {
 
         public long chatId;
         public InputChatPhoto photo;
@@ -24849,7 +25162,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @permissions - New non-administrator members permissions in the chat
      */
-    public static class SetChatPermissions extends Function {
+    public static class SetChatPermissions extends Function<Ok> {
 
         public long chatId;
         public ChatPermissions permissions;
@@ -24876,7 +25189,7 @@ public class TdApi {
      * @messageThreadId - If not 0, a message thread identifier in which the draft was changed
      * @draftMessage - New draft message
      */
-    public static class SetChatDraftMessage extends Function {
+    public static class SetChatDraftMessage extends Function<Ok> {
 
         public long chatId;
         public long messageThreadId;
@@ -24906,7 +25219,7 @@ public class TdApi {
      * @notificationSettings - New notification settings for the chat
      *                         If the chat is muted for more than 1 week, it is considered to be muted forever
      */
-    public static class SetChatNotificationSettings extends Function {
+    public static class SetChatNotificationSettings extends Function<Ok> {
 
         public long chatId;
         public ChatNotificationSettings notificationSettings;
@@ -24932,7 +25245,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @isMarkedAsUnread - New value of is_marked_as_unread
      */
-    public static class ToggleChatIsMarkedAsUnread extends Function {
+    public static class ToggleChatIsMarkedAsUnread extends Function<Ok> {
 
         public long chatId;
         public boolean isMarkedAsUnread;
@@ -24953,39 +25266,12 @@ public class TdApi {
 
 
     /**
-     * Changes the block state of a chat
-     * Currently, only private chats and supergroups can be blocked
-     *
-     * @chatId - Chat identifier
-     * @isBlocked - New value of is_blocked
-     */
-    public static class ToggleChatIsBlocked extends Function {
-
-        public long chatId;
-        public boolean isBlocked;
-
-        public ToggleChatIsBlocked() {}
-
-        public ToggleChatIsBlocked(long chatId, boolean isBlocked) {
-
-            this.chatId = chatId;
-            this.isBlocked = isBlocked;
-
-        }
-
-        @Override
-        public int getConstructor() { return 202580115; }
-
-    }
-
-
-    /**
      * Changes the value of the default disable_notification parameter, used when a message is sent to a chat
      *
      * @chatId - Chat identifier
      * @defaultDisableNotification - New value of default_disable_notification
      */
-    public static class ToggleChatDefaultDisableNotification extends Function {
+    public static class ToggleChatDefaultDisableNotification extends Function<Ok> {
 
         public long chatId;
         public boolean defaultDisableNotification;
@@ -25011,7 +25297,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @clientData - New value of client_data
      */
-    public static class SetChatClientData extends Function {
+    public static class SetChatClientData extends Function<Ok> {
 
         public long chatId;
         public String clientData;
@@ -25039,7 +25325,7 @@ public class TdApi {
      * @chatId - Identifier of the chat
      * @description - New chat description
      */
-    public static class SetChatDescription extends Function {
+    public static class SetChatDescription extends Function<Ok> {
 
         public long chatId;
         public String description;
@@ -25069,9 +25355,9 @@ public class TdApi {
      *                     Use 0 to remove the discussion group
      *                     Use the method getSuitableDiscussionChats to find all suitable groups
      *                     Basic group chats need to be first upgraded to supergroup chats
-     *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
+     *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that
      */
-    public static class SetChatDiscussionGroup extends Function {
+    public static class SetChatDiscussionGroup extends Function<Ok> {
 
         public long chatId;
         public long discussionChatId;
@@ -25099,7 +25385,7 @@ public class TdApi {
      * @location - New location for the chat
      *             Must be valid and not null
      */
-    public static class SetChatLocation extends Function {
+    public static class SetChatLocation extends Function<Ok> {
 
         public long chatId;
         public ChatLocation location;
@@ -25128,7 +25414,7 @@ public class TdApi {
      * @slowModeDelay - New slow mode delay for the chat
      *                  Must be one of 0, 10, 30, 60, 300, 900, 3600
      */
-    public static class SetChatSlowModeDelay extends Function {
+    public static class SetChatSlowModeDelay extends Function<Ok> {
 
         public long chatId;
         public int slowModeDelay;
@@ -25150,54 +25436,86 @@ public class TdApi {
 
     /**
      * Pins a message in a chat
-     * Requires can_pin_messages rights
+     * Requires can_pin_messages rights or can_edit_messages rights in the channel
      *
      * @chatId - Identifier of the chat
      * @messageId - Identifier of the new pinned message
      * @disableNotification - True, if there should be no notification about the pinned message
+     *                        Notifications are always disabled in channels and private chats
+     * @onlyForSelf - True, if the message needs to be pinned only for self
+     *                Private chats only
      */
-    public static class PinChatMessage extends Function {
+    public static class PinChatMessage extends Function<Ok> {
 
         public long chatId;
         public long messageId;
         public boolean disableNotification;
+        public boolean onlyForSelf;
 
         public PinChatMessage() {}
 
-        public PinChatMessage(long chatId, long messageId, boolean disableNotification) {
+        public PinChatMessage(long chatId, long messageId, boolean disableNotification, boolean onlyForSelf) {
 
             this.chatId = chatId;
             this.messageId = messageId;
             this.disableNotification = disableNotification;
+            this.onlyForSelf = onlyForSelf;
 
         }
 
         @Override
-        public int getConstructor() { return -554712351; }
+        public int getConstructor() { return 2034719663; }
 
     }
 
 
     /**
-     * Removes the pinned message from a chat
-     * Requires can_pin_messages rights in the group or channel
+     * Removes a pinned message from a chat
+     * Requires can_pin_messages rights in the group or can_edit_messages rights in the channel
      *
      * @chatId - Identifier of the chat
+     * @messageId - Identifier of the removed pinned message
      */
-    public static class UnpinChatMessage extends Function {
+    public static class UnpinChatMessage extends Function<Ok> {
 
         public long chatId;
+        public long messageId;
 
         public UnpinChatMessage() {}
 
-        public UnpinChatMessage(long chatId) {
+        public UnpinChatMessage(long chatId, long messageId) {
+
+            this.chatId = chatId;
+            this.messageId = messageId;
+
+        }
+
+        @Override
+        public int getConstructor() { return 2065448670; }
+
+    }
+
+
+    /**
+     * Removes all pinned messages from a chat
+     * Requires can_pin_messages rights in the group or can_edit_messages rights in the channel
+     *
+     * @chatId - Identifier of the chat
+     */
+    public static class UnpinAllChatMessages extends Function<Ok> {
+
+        public long chatId;
+
+        public UnpinAllChatMessages() {}
+
+        public UnpinAllChatMessages(long chatId) {
 
             this.chatId = chatId;
 
         }
 
         @Override
-        public int getConstructor() { return 277557690; }
+        public int getConstructor() { return -1437805385; }
 
     }
 
@@ -25208,7 +25526,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class JoinChat extends Function {
+    public static class JoinChat extends Function<Ok> {
 
         public long chatId;
 
@@ -25232,7 +25550,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class LeaveChat extends Function {
+    public static class LeaveChat extends Function<Ok> {
 
         public long chatId;
 
@@ -25260,7 +25578,7 @@ public class TdApi {
      * @forwardLimit - The number of earlier messages from the chat to be forwarded to the new member
      *                 Ignored for supergroups and channels
      */
-    public static class AddChatMember extends Function {
+    public static class AddChatMember extends Function<Ok> {
 
         public long chatId;
         public int userId;
@@ -25292,7 +25610,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @userIds - Identifiers of the users to be added to the chat
      */
-    public static class AddChatMembers extends Function {
+    public static class AddChatMembers extends Function<Ok> {
 
         public long chatId;
         public int[] userIds;
@@ -25322,7 +25640,7 @@ public class TdApi {
      * @userId - User identifier
      * @status - The new status of the member in the chat
      */
-    public static class SetChatMemberStatus extends Function {
+    public static class SetChatMemberStatus extends Function<Ok> {
 
         public long chatId;
         public int userId;
@@ -25347,7 +25665,7 @@ public class TdApi {
     /**
      * Checks whether the current session can be used to transfer a chat ownership to another user
      */
-    public static class CanTransferOwnership extends Function {
+    public static class CanTransferOwnership extends Function<CanTransferOwnershipResult> {
 
         @Override
         public int getConstructor() { return 634602508; }
@@ -25366,7 +25684,7 @@ public class TdApi {
      *           The ownership can't be transferred to a bot or to a deleted user
      * @password - The password of the current user
      */
-    public static class TransferChatOwnership extends Function {
+    public static class TransferChatOwnership extends Function<Ok> {
 
         public long chatId;
         public int userId;
@@ -25394,7 +25712,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @userId - User identifier
      */
-    public static class GetChatMember extends Function {
+    public static class GetChatMember extends Function<ChatMember> {
 
         public long chatId;
         public int userId;
@@ -25424,7 +25742,7 @@ public class TdApi {
      * @filter - The type of users to return
      *           By default, chatMembersFilterMembers
      */
-    public static class SearchChatMembers extends Function {
+    public static class SearchChatMembers extends Function<ChatMembers> {
 
         public long chatId;
         public String query;
@@ -25453,7 +25771,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class GetChatAdministrators extends Function {
+    public static class GetChatAdministrators extends Function<ChatAdministrators> {
 
         public long chatId;
 
@@ -25476,7 +25794,7 @@ public class TdApi {
      *
      * @excludeSecretChats - If true, local draft messages in secret chats will not be cleared
      */
-    public static class ClearAllDraftMessages extends Function {
+    public static class ClearAllDraftMessages extends Function<Ok> {
 
         public boolean excludeSecretChats;
 
@@ -25500,7 +25818,7 @@ public class TdApi {
      * @scope - If specified, only chats from the specified scope will be returned
      * @compareSound - If true, also chats with non-default sound will be returned
      */
-    public static class GetChatNotificationSettingsExceptions extends Function {
+    public static class GetChatNotificationSettingsExceptions extends Function<Chats> {
 
         public NotificationSettingsScope scope;
         public boolean compareSound;
@@ -25525,7 +25843,7 @@ public class TdApi {
      *
      * @scope - Types of chats for which to return the notification settings information
      */
-    public static class GetScopeNotificationSettings extends Function {
+    public static class GetScopeNotificationSettings extends Function<ScopeNotificationSettings> {
 
         public NotificationSettingsScope scope;
 
@@ -25549,7 +25867,7 @@ public class TdApi {
      * @scope - Types of chats for which to change the notification settings
      * @notificationSettings - The new notification settings for the given scope
      */
-    public static class SetScopeNotificationSettings extends Function {
+    public static class SetScopeNotificationSettings extends Function<Ok> {
 
         public NotificationSettingsScope scope;
         public ScopeNotificationSettings notificationSettings;
@@ -25573,7 +25891,7 @@ public class TdApi {
      * Resets all notification settings to their default values
      * By default, all chats are unmuted, the sound is set to "default" and message previews are shown
      */
-    public static class ResetAllNotificationSettings extends Function {
+    public static class ResetAllNotificationSettings extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -174020359; }
@@ -25589,7 +25907,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @isPinned - True, if the chat is pinned
      */
-    public static class ToggleChatIsPinned extends Function {
+    public static class ToggleChatIsPinned extends Function<Ok> {
 
         public ChatList chatList;
         public long chatId;
@@ -25617,7 +25935,7 @@ public class TdApi {
      * @chatList - Chat list in which to change the order of pinned chats
      * @chatIds - The new list of pinned chats
      */
-    public static class SetPinnedChats extends Function {
+    public static class SetPinnedChats extends Function<Ok> {
 
         public ChatList chatList;
         public long[] chatIds;
@@ -25651,7 +25969,7 @@ public class TdApi {
      * @synchronous - If false, this request returns file state just after the download has been started
      *                If true, this request returns file state only after the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent
      */
-    public static class DownloadFile extends Function {
+    public static class DownloadFile extends Function<File> {
 
         public int fileId;
         public int priority;
@@ -25683,7 +26001,7 @@ public class TdApi {
      * @fileId - Identifier of the file
      * @offset - Offset from which downloaded prefix size should be calculated
      */
-    public static class GetFileDownloadedPrefixSize extends Function {
+    public static class GetFileDownloadedPrefixSize extends Function<Count> {
 
         public int fileId;
         public int offset;
@@ -25711,7 +26029,7 @@ public class TdApi {
      * @onlyIfPending - Pass true to stop downloading only if it hasn't been started, i.e
      *                  Request hasn't been sent to server
      */
-    public static class CancelDownloadFile extends Function {
+    public static class CancelDownloadFile extends Function<Ok> {
 
         public int fileId;
         public boolean onlyIfPending;
@@ -25742,7 +26060,7 @@ public class TdApi {
      *             The higher the priority, the earlier the file will be uploaded
      *             If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first
      */
-    public static class UploadFile extends Function {
+    public static class UploadFile extends Function<File> {
 
         public InputFile file;
         public FileType fileType;
@@ -25771,7 +26089,7 @@ public class TdApi {
      *
      * @fileId - Identifier of the file to stop uploading
      */
-    public static class CancelUploadFile extends Function {
+    public static class CancelUploadFile extends Function<Ok> {
 
         public int fileId;
 
@@ -25797,7 +26115,7 @@ public class TdApi {
      * @offset - The offset from which to write the data to the file
      * @data - The data to write
      */
-    public static class WriteGeneratedFilePart extends Function {
+    public static class WriteGeneratedFilePart extends Function<Ok> {
 
         public long generationId;
         public int offset;
@@ -25827,7 +26145,7 @@ public class TdApi {
      *                 0 if unknown
      * @localPrefixSize - The number of bytes already generated
      */
-    public static class SetFileGenerationProgress extends Function {
+    public static class SetFileGenerationProgress extends Function<Ok> {
 
         public long generationId;
         public int expectedSize;
@@ -25855,7 +26173,7 @@ public class TdApi {
      * @generationId - The identifier of the generation process
      * @error - If set, means that file generation has failed and should be terminated
      */
-    public static class FinishFileGeneration extends Function {
+    public static class FinishFileGeneration extends Function<Ok> {
 
         public long generationId;
         public Error error;
@@ -25886,7 +26204,7 @@ public class TdApi {
      *          An error will be returned if there are not enough bytes available in the file from the specified position
      *          Pass 0 to read all available data from the specified position
      */
-    public static class ReadFilePart extends Function {
+    public static class ReadFilePart extends Function<FilePart> {
 
         public int fileId;
         public int offset;
@@ -25913,7 +26231,7 @@ public class TdApi {
      *
      * @fileId - Identifier of the file to delete
      */
-    public static class DeleteFile extends Function {
+    public static class DeleteFile extends Function<Ok> {
 
         public int fileId;
 
@@ -25939,7 +26257,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class GenerateChatInviteLink extends Function {
+    public static class GenerateChatInviteLink extends Function<ChatInviteLink> {
 
         public long chatId;
 
@@ -25962,7 +26280,7 @@ public class TdApi {
      *
      * @inviteLink - Invite link to be checked
      */
-    public static class CheckChatInviteLink extends Function {
+    public static class CheckChatInviteLink extends Function<ChatInviteLinkInfo> {
 
         public String inviteLink;
 
@@ -25986,7 +26304,7 @@ public class TdApi {
      *
      * @inviteLink - Invite link to import
      */
-    public static class JoinChatByInviteLink extends Function {
+    public static class JoinChatByInviteLink extends Function<Chat> {
 
         public String inviteLink;
 
@@ -26011,7 +26329,7 @@ public class TdApi {
      * @protocol - Description of the call protocols supported by the application
      * @isVideo - True, if a video call needs to be created
      */
-    public static class CreateCall extends Function {
+    public static class CreateCall extends Function<CallId> {
 
         public int userId;
         public CallProtocol protocol;
@@ -26039,7 +26357,7 @@ public class TdApi {
      * @callId - Call identifier
      * @protocol - Description of the call protocols supported by the application
      */
-    public static class AcceptCall extends Function {
+    public static class AcceptCall extends Function<Ok> {
 
         public int callId;
         public CallProtocol protocol;
@@ -26065,7 +26383,7 @@ public class TdApi {
      * @callId - Call identifier
      * @data - The data
      */
-    public static class SendCallSignalingData extends Function {
+    public static class SendCallSignalingData extends Function<Ok> {
 
         public int callId;
         public byte[] data;
@@ -26094,7 +26412,7 @@ public class TdApi {
      * @isVideo - True, if the call was a video call
      * @connectionId - Identifier of the connection used during the call
      */
-    public static class DiscardCall extends Function {
+    public static class DiscardCall extends Function<Ok> {
 
         public int callId;
         public boolean isDisconnected;
@@ -26128,7 +26446,7 @@ public class TdApi {
      * @comment - An optional user comment if the rating is less than 5
      * @problems - List of the exact types of problems with the call, specified by the user
      */
-    public static class SendCallRating extends Function {
+    public static class SendCallRating extends Function<Ok> {
 
         public int callId;
         public int rating;
@@ -26158,7 +26476,7 @@ public class TdApi {
      * @callId - Call identifier
      * @debugInformation - Debug information in application-specific format
      */
-    public static class SendCallDebugInformation extends Function {
+    public static class SendCallDebugInformation extends Function<Ok> {
 
         public int callId;
         public String debugInformation;
@@ -26179,6 +26497,33 @@ public class TdApi {
 
 
     /**
+     * Changes the block state of a message sender
+     * Currently, only users and supergroup chats can be blocked
+     *
+     * @sender - Message Sender
+     * @isBlocked - New value of is_blocked
+     */
+    public static class ToggleMessageSenderIsBlocked extends Function<Ok> {
+
+        public MessageSender sender;
+        public boolean isBlocked;
+
+        public ToggleMessageSenderIsBlocked() {}
+
+        public ToggleMessageSenderIsBlocked(MessageSender sender, boolean isBlocked) {
+
+            this.sender = sender;
+            this.isBlocked = isBlocked;
+
+        }
+
+        @Override
+        public int getConstructor() { return -760132705; }
+
+    }
+
+
+    /**
      * Blocks an original sender of a message in the Replies chat
      *
      * @messageId - The identifier of an incoming message in the Replies chat
@@ -26186,16 +26531,16 @@ public class TdApi {
      * @deleteAllMessages - Pass true if all messages from the same sender must be deleted
      * @reportSpam - Pass true if the sender must be reported to the Telegram moderators
      */
-    public static class BlockChatFromReplies extends Function {
+    public static class BlockMessageSenderFromReplies extends Function<Ok> {
 
         public long messageId;
         public boolean deleteMessage;
         public boolean deleteAllMessages;
         public boolean reportSpam;
 
-        public BlockChatFromReplies() {}
+        public BlockMessageSenderFromReplies() {}
 
-        public BlockChatFromReplies(long messageId, boolean deleteMessage, boolean deleteAllMessages, boolean reportSpam) {
+        public BlockMessageSenderFromReplies(long messageId, boolean deleteMessage, boolean deleteAllMessages, boolean reportSpam) {
 
             this.messageId = messageId;
             this.deleteMessage = deleteMessage;
@@ -26205,25 +26550,25 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -869244252; }
+        public int getConstructor() { return -1214384757; }
 
     }
 
 
     /**
-     * Returns chats that were blocked by the current user
+     * Returns users and chats that were blocked by the current user
      *
-     * @offset - Number of chats to skip in the result
-     * @limit - The maximum number of chats to return
+     * @offset - Number of users and chats to skip in the result
+     * @limit - The maximum number of users and chats to return
      */
-    public static class GetBlockedChats extends Function {
+    public static class GetBlockedMessageSenders extends Function<MessageSenders> {
 
         public int offset;
         public int limit;
 
-        public GetBlockedChats() {}
+        public GetBlockedMessageSenders() {}
 
-        public GetBlockedChats(int offset, int limit) {
+        public GetBlockedMessageSenders(int offset, int limit) {
 
             this.offset = offset;
             this.limit = limit;
@@ -26231,7 +26576,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -733106443; }
+        public int getConstructor() { return 1947079776; }
 
     }
 
@@ -26245,7 +26590,7 @@ public class TdApi {
      *                     A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed
      *                     Use the field UserFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number
      */
-    public static class AddContact extends Function {
+    public static class AddContact extends Function<Ok> {
 
         public Contact contact;
         public boolean sharePhoneNumber;
@@ -26272,7 +26617,7 @@ public class TdApi {
      * @contacts - The list of contacts to import or edit
      *             Contacts' vCard are ignored and are not imported
      */
-    public static class ImportContacts extends Function {
+    public static class ImportContacts extends Function<ImportedContacts> {
 
         public Contact[] contacts;
 
@@ -26293,7 +26638,7 @@ public class TdApi {
     /**
      * Returns all user contacts
      */
-    public static class GetContacts extends Function {
+    public static class GetContacts extends Function<Users> {
 
         @Override
         public int getConstructor() { return -1417722768; }
@@ -26308,7 +26653,7 @@ public class TdApi {
      *          May be empty to return all contacts
      * @limit - The maximum number of users to be returned
      */
-    public static class SearchContacts extends Function {
+    public static class SearchContacts extends Function<Users> {
 
         public String query;
         public int limit;
@@ -26333,7 +26678,7 @@ public class TdApi {
      *
      * @userIds - Identifiers of users to be deleted
      */
-    public static class RemoveContacts extends Function {
+    public static class RemoveContacts extends Function<Ok> {
 
         public int[] userIds;
 
@@ -26354,7 +26699,7 @@ public class TdApi {
     /**
      * Returns the total number of imported contacts
      */
-    public static class GetImportedContactCount extends Function {
+    public static class GetImportedContactCount extends Function<Count> {
 
         @Override
         public int getConstructor() { return -656336346; }
@@ -26369,7 +26714,7 @@ public class TdApi {
      *
      * @contacts - The new list of contacts, contact's vCard are ignored and are not imported
      */
-    public static class ChangeImportedContacts extends Function {
+    public static class ChangeImportedContacts extends Function<ImportedContacts> {
 
         public Contact[] contacts;
 
@@ -26390,7 +26735,7 @@ public class TdApi {
     /**
      * Clears all imported contacts, contact list remains unchanged
      */
-    public static class ClearImportedContacts extends Function {
+    public static class ClearImportedContacts extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 869503298; }
@@ -26405,7 +26750,7 @@ public class TdApi {
      * @userId - Identifier of the user with whom to share the phone number
      *           The user must be a mutual contact
      */
-    public static class SharePhoneNumber extends Function {
+    public static class SharePhoneNumber extends Function<Ok> {
 
         public int userId;
 
@@ -26431,7 +26776,7 @@ public class TdApi {
      * @offset - The number of photos to skip
      * @limit - The maximum number of photos to be returned
      */
-    public static class GetUserProfilePhotos extends Function {
+    public static class GetUserProfilePhotos extends Function<ChatPhotos> {
 
         public int userId;
         public int offset;
@@ -26461,7 +26806,7 @@ public class TdApi {
      *          If empty, returns all known installed stickers
      * @limit - The maximum number of stickers to be returned
      */
-    public static class GetStickers extends Function {
+    public static class GetStickers extends Function<Stickers> {
 
         public String emoji;
         public int limit;
@@ -26487,7 +26832,7 @@ public class TdApi {
      * @emoji - String representation of emoji
      * @limit - The maximum number of stickers to be returned
      */
-    public static class SearchStickers extends Function {
+    public static class SearchStickers extends Function<Stickers> {
 
         public String emoji;
         public int limit;
@@ -26513,7 +26858,7 @@ public class TdApi {
      * @isMasks - Pass true to return mask sticker sets
      *            Pass false to return ordinary sticker sets
      */
-    public static class GetInstalledStickerSets extends Function {
+    public static class GetInstalledStickerSets extends Function<StickerSets> {
 
         public boolean isMasks;
 
@@ -26539,7 +26884,7 @@ public class TdApi {
      * @offsetStickerSetId - Identifier of the sticker set from which to return the result
      * @limit - The maximum number of sticker sets to return
      */
-    public static class GetArchivedStickerSets extends Function {
+    public static class GetArchivedStickerSets extends Function<StickerSets> {
 
         public boolean isMasks;
         public long offsetStickerSetId;
@@ -26569,7 +26914,7 @@ public class TdApi {
      * @limit - The maximum number of sticker sets to be returned
      *          Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached
      */
-    public static class GetTrendingStickerSets extends Function {
+    public static class GetTrendingStickerSets extends Function<StickerSets> {
 
         public int offset;
         public int limit;
@@ -26595,7 +26940,7 @@ public class TdApi {
      *
      * @fileId - File identifier
      */
-    public static class GetAttachedStickerSets extends Function {
+    public static class GetAttachedStickerSets extends Function<StickerSets> {
 
         public int fileId;
 
@@ -26618,7 +26963,7 @@ public class TdApi {
      *
      * @setId - Identifier of the sticker set
      */
-    public static class GetStickerSet extends Function {
+    public static class GetStickerSet extends Function<StickerSet> {
 
         public long setId;
 
@@ -26641,7 +26986,7 @@ public class TdApi {
      *
      * @name - Name of the sticker set
      */
-    public static class SearchStickerSet extends Function {
+    public static class SearchStickerSet extends Function<StickerSet> {
 
         public String name;
 
@@ -26667,7 +27012,7 @@ public class TdApi {
      * @query - Query to search for
      * @limit - The maximum number of sticker sets to return
      */
-    public static class SearchInstalledStickerSets extends Function {
+    public static class SearchInstalledStickerSets extends Function<StickerSets> {
 
         public boolean isMasks;
         public String query;
@@ -26695,7 +27040,7 @@ public class TdApi {
      *
      * @query - Query to search for
      */
-    public static class SearchStickerSets extends Function {
+    public static class SearchStickerSets extends Function<StickerSets> {
 
         public String query;
 
@@ -26721,7 +27066,7 @@ public class TdApi {
      * @isArchived - The new value of is_archived
      *               A sticker set can't be installed and archived simultaneously
      */
-    public static class ChangeStickerSet extends Function {
+    public static class ChangeStickerSet extends Function<Ok> {
 
         public long setId;
         public boolean isInstalled;
@@ -26748,7 +27093,7 @@ public class TdApi {
      *
      * @stickerSetIds - Identifiers of viewed trending sticker sets
      */
-    public static class ViewTrendingStickerSets extends Function {
+    public static class ViewTrendingStickerSets extends Function<Ok> {
 
         public long[] stickerSetIds;
 
@@ -26773,7 +27118,7 @@ public class TdApi {
      *            Pass false to change the order of ordinary sticker sets
      * @stickerSetIds - Identifiers of installed sticker sets in the new correct order
      */
-    public static class ReorderInstalledStickerSets extends Function {
+    public static class ReorderInstalledStickerSets extends Function<Ok> {
 
         public boolean isMasks;
         public long[] stickerSetIds;
@@ -26799,7 +27144,7 @@ public class TdApi {
      * @isAttached - Pass true to return stickers and masks that were recently attached to photos or video files
      *               Pass false to return recently sent stickers
      */
-    public static class GetRecentStickers extends Function {
+    public static class GetRecentStickers extends Function<Stickers> {
 
         public boolean isAttached;
 
@@ -26827,7 +27172,7 @@ public class TdApi {
      *               Pass false to add the sticker to the list of recently sent stickers
      * @sticker - Sticker file to add
      */
-    public static class AddRecentSticker extends Function {
+    public static class AddRecentSticker extends Function<Stickers> {
 
         public boolean isAttached;
         public InputFile sticker;
@@ -26854,7 +27199,7 @@ public class TdApi {
      *               Pass false to remove the sticker from the list of recently sent stickers
      * @sticker - Sticker file to delete
      */
-    public static class RemoveRecentSticker extends Function {
+    public static class RemoveRecentSticker extends Function<Ok> {
 
         public boolean isAttached;
         public InputFile sticker;
@@ -26880,7 +27225,7 @@ public class TdApi {
      * @isAttached - Pass true to clear the list of stickers recently attached to photo or video files
      *               Pass false to clear the list of recently sent stickers
      */
-    public static class ClearRecentStickers extends Function {
+    public static class ClearRecentStickers extends Function<Ok> {
 
         public boolean isAttached;
 
@@ -26901,7 +27246,7 @@ public class TdApi {
     /**
      * Returns favorite stickers
      */
-    public static class GetFavoriteStickers extends Function {
+    public static class GetFavoriteStickers extends Function<Stickers> {
 
         @Override
         public int getConstructor() { return -338964672; }
@@ -26917,7 +27262,7 @@ public class TdApi {
      *
      * @sticker - Sticker file to add
      */
-    public static class AddFavoriteSticker extends Function {
+    public static class AddFavoriteSticker extends Function<Ok> {
 
         public InputFile sticker;
 
@@ -26940,7 +27285,7 @@ public class TdApi {
      *
      * @sticker - Sticker file to delete from the list
      */
-    public static class RemoveFavoriteSticker extends Function {
+    public static class RemoveFavoriteSticker extends Function<Ok> {
 
         public InputFile sticker;
 
@@ -26964,7 +27309,7 @@ public class TdApi {
      *
      * @sticker - Sticker file identifier
      */
-    public static class GetStickerEmojis extends Function {
+    public static class GetStickerEmojis extends Function<Emojis> {
 
         public InputFile sticker;
 
@@ -26991,7 +27336,7 @@ public class TdApi {
      * @inputLanguageCodes - List of possible IETF language tags of the user's input language
      *                       May be empty if unknown
      */
-    public static class SearchEmojis extends Function {
+    public static class SearchEmojis extends Function<Emojis> {
 
         public String text;
         public boolean exactMatch;
@@ -27019,7 +27364,7 @@ public class TdApi {
      *
      * @languageCode - Language code for which the emoji replacements will be suggested
      */
-    public static class GetEmojiSuggestionsUrl extends Function {
+    public static class GetEmojiSuggestionsUrl extends Function<HttpUrl> {
 
         public String languageCode;
 
@@ -27040,7 +27385,7 @@ public class TdApi {
     /**
      * Returns saved animations
      */
-    public static class GetSavedAnimations extends Function {
+    public static class GetSavedAnimations extends Function<Animations> {
 
         @Override
         public int getConstructor() { return 7051032; }
@@ -27058,7 +27403,7 @@ public class TdApi {
      *              Only animations known to the server (i.e
      *              Successfully sent via a message) can be added to the list
      */
-    public static class AddSavedAnimation extends Function {
+    public static class AddSavedAnimation extends Function<Ok> {
 
         public InputFile animation;
 
@@ -27081,7 +27426,7 @@ public class TdApi {
      *
      * @animation - Animation file to be removed
      */
-    public static class RemoveSavedAnimation extends Function {
+    public static class RemoveSavedAnimation extends Function<Ok> {
 
         public InputFile animation;
 
@@ -27102,7 +27447,7 @@ public class TdApi {
     /**
      * Returns up to 20 recently used inline bots in the order of their last usage
      */
-    public static class GetRecentInlineBots extends Function {
+    public static class GetRecentInlineBots extends Function<Users> {
 
         @Override
         public int getConstructor() { return 1437823548; }
@@ -27116,7 +27461,7 @@ public class TdApi {
      * @prefix - Hashtag prefix to search for
      * @limit - The maximum number of hashtags to be returned
      */
-    public static class SearchHashtags extends Function {
+    public static class SearchHashtags extends Function<Hashtags> {
 
         public String prefix;
         public int limit;
@@ -27141,7 +27486,7 @@ public class TdApi {
      *
      * @hashtag - Hashtag to delete
      */
-    public static class RemoveRecentHashtag extends Function {
+    public static class RemoveRecentHashtag extends Function<Ok> {
 
         public String hashtag;
 
@@ -27166,7 +27511,7 @@ public class TdApi {
      *
      * @text - Message text with formatting
      */
-    public static class GetWebPagePreview extends Function {
+    public static class GetWebPagePreview extends Function<WebPage> {
 
         public FormattedText text;
 
@@ -27191,7 +27536,7 @@ public class TdApi {
      * @url - The web page URL
      * @forceFull - If true, the full instant view for the web page will be returned
      */
-    public static class GetWebPageInstantView extends Function {
+    public static class GetWebPageInstantView extends Function<WebPageInstantView> {
 
         public String url;
         public boolean forceFull;
@@ -27216,7 +27561,7 @@ public class TdApi {
      *
      * @photo - Profile photo to set
      */
-    public static class SetProfilePhoto extends Function {
+    public static class SetProfilePhoto extends Function<Ok> {
 
         public InputChatPhoto photo;
 
@@ -27239,7 +27584,7 @@ public class TdApi {
      *
      * @profilePhotoId - Identifier of the profile photo to delete
      */
-    public static class DeleteProfilePhoto extends Function {
+    public static class DeleteProfilePhoto extends Function<Ok> {
 
         public long profilePhotoId;
 
@@ -27263,7 +27608,7 @@ public class TdApi {
      * @firstName - The new value of the first name for the user
      * @lastName - The new value of the optional last name for the user
      */
-    public static class SetName extends Function {
+    public static class SetName extends Function<Ok> {
 
         public String firstName;
         public String lastName;
@@ -27288,7 +27633,7 @@ public class TdApi {
      *
      * @bio - The new value of the user bio
      */
-    public static class SetBio extends Function {
+    public static class SetBio extends Function<Ok> {
 
         public String bio;
 
@@ -27312,7 +27657,7 @@ public class TdApi {
      * @username - The new value of the username
      *             Use an empty string to remove the username
      */
-    public static class SetUsername extends Function {
+    public static class SetUsername extends Function<Ok> {
 
         public String username;
 
@@ -27336,7 +27681,7 @@ public class TdApi {
      *
      * @location - The new location of the user
      */
-    public static class SetLocation extends Function {
+    public static class SetLocation extends Function<Ok> {
 
         public Location location;
 
@@ -27361,7 +27706,7 @@ public class TdApi {
      * @phoneNumber - The new phone number of the user in international format
      * @settings - Settings for the authentication of the user's phone number
      */
-    public static class ChangePhoneNumber extends Function {
+    public static class ChangePhoneNumber extends Function<AuthenticationCodeInfo> {
 
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
@@ -27385,7 +27730,7 @@ public class TdApi {
      * Re-sends the authentication code sent to confirm a new phone number for the user
      * Works only if the previously received authenticationCodeInfo next_code_type was not null
      */
-    public static class ResendChangePhoneNumberCode extends Function {
+    public static class ResendChangePhoneNumberCode extends Function<AuthenticationCodeInfo> {
 
         @Override
         public int getConstructor() { return -786772060; }
@@ -27398,7 +27743,7 @@ public class TdApi {
      *
      * @code - Verification code received by SMS, phone call or flash call
      */
-    public static class CheckChangePhoneNumberCode extends Function {
+    public static class CheckChangePhoneNumberCode extends Function<Ok> {
 
         public String code;
 
@@ -27422,7 +27767,7 @@ public class TdApi {
      *
      * @commands - List of the bot's commands
      */
-    public static class SetCommands extends Function {
+    public static class SetCommands extends Function<Ok> {
 
         public BotCommand[] commands;
 
@@ -27443,7 +27788,7 @@ public class TdApi {
     /**
      * Returns all active sessions of the current user
      */
-    public static class GetActiveSessions extends Function {
+    public static class GetActiveSessions extends Function<Sessions> {
 
         @Override
         public int getConstructor() { return 1119710526; }
@@ -27456,7 +27801,7 @@ public class TdApi {
      *
      * @sessionId - Session identifier
      */
-    public static class TerminateSession extends Function {
+    public static class TerminateSession extends Function<Ok> {
 
         public long sessionId;
 
@@ -27477,7 +27822,7 @@ public class TdApi {
     /**
      * Terminates all other sessions of the current user
      */
-    public static class TerminateAllOtherSessions extends Function {
+    public static class TerminateAllOtherSessions extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 1874485523; }
@@ -27488,7 +27833,7 @@ public class TdApi {
     /**
      * Returns all website where the current user used Telegram to log in
      */
-    public static class GetConnectedWebsites extends Function {
+    public static class GetConnectedWebsites extends Function<ConnectedWebsites> {
 
         @Override
         public int getConstructor() { return -170536110; }
@@ -27501,7 +27846,7 @@ public class TdApi {
      *
      * @websiteId - Website identifier
      */
-    public static class DisconnectWebsite extends Function {
+    public static class DisconnectWebsite extends Function<Ok> {
 
         public long websiteId;
 
@@ -27522,7 +27867,7 @@ public class TdApi {
     /**
      * Disconnects all websites from the current user's Telegram account
      */
-    public static class DisconnectAllWebsites extends Function {
+    public static class DisconnectAllWebsites extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -1082985981; }
@@ -27537,7 +27882,7 @@ public class TdApi {
      * @username - New value of the username
      *             Use an empty string to remove the username
      */
-    public static class SetSupergroupUsername extends Function {
+    public static class SetSupergroupUsername extends Function<Ok> {
 
         public int supergroupId;
         public String username;
@@ -27565,7 +27910,7 @@ public class TdApi {
      * @stickerSetId - New value of the supergroup sticker set identifier
      *                 Use 0 to remove the supergroup sticker set
      */
-    public static class SetSupergroupStickerSet extends Function {
+    public static class SetSupergroupStickerSet extends Function<Ok> {
 
         public int supergroupId;
         public long stickerSetId;
@@ -27592,7 +27937,7 @@ public class TdApi {
      * @supergroupId - Identifier of the channel
      * @signMessages - New value of sign_messages
      */
-    public static class ToggleSupergroupSignMessages extends Function {
+    public static class ToggleSupergroupSignMessages extends Function<Ok> {
 
         public int supergroupId;
         public boolean signMessages;
@@ -27619,7 +27964,7 @@ public class TdApi {
      * @supergroupId - The identifier of the supergroup
      * @isAllHistoryAvailable - The new value of is_all_history_available
      */
-    public static class ToggleSupergroupIsAllHistoryAvailable extends Function {
+    public static class ToggleSupergroupIsAllHistoryAvailable extends Function<Ok> {
 
         public int supergroupId;
         public boolean isAllHistoryAvailable;
@@ -27648,7 +27993,7 @@ public class TdApi {
      * @messageIds - Identifiers of messages sent in the supergroup by the user
      *               This list must be non-empty
      */
-    public static class ReportSupergroupSpam extends Function {
+    public static class ReportSupergroupSpam extends Function<Ok> {
 
         public int supergroupId;
         public int userId;
@@ -27682,7 +28027,7 @@ public class TdApi {
      * @limit - The maximum number of users be returned
      *          Up to 200
      */
-    public static class GetSupergroupMembers extends Function {
+    public static class GetSupergroupMembers extends Function<ChatMembers> {
 
         public int supergroupId;
         public SupergroupMembersFilter filter;
@@ -27714,7 +28059,7 @@ public class TdApi {
      *
      * @supergroupId - Identifier of the supergroup or channel
      */
-    public static class DeleteSupergroup extends Function {
+    public static class DeleteSupergroup extends Function<Ok> {
 
         public int supergroupId;
 
@@ -27737,7 +28082,7 @@ public class TdApi {
      *
      * @secretChatId - Secret chat identifier
      */
-    public static class CloseSecretChat extends Function {
+    public static class CloseSecretChat extends Function<Ok> {
 
         public int secretChatId;
 
@@ -27772,7 +28117,7 @@ public class TdApi {
      * @userIds - User identifiers by which to filter events
      *            By default, events relating to all users will be returned
      */
-    public static class GetChatEventLog extends Function {
+    public static class GetChatEventLog extends Function<ChatEvents> {
 
         public long chatId;
         public String query;
@@ -27807,7 +28152,7 @@ public class TdApi {
      * @chatId - Chat identifier of the Invoice message
      * @messageId - Message identifier
      */
-    public static class GetPaymentForm extends Function {
+    public static class GetPaymentForm extends Function<PaymentForm> {
 
         public long chatId;
         public long messageId;
@@ -27835,7 +28180,7 @@ public class TdApi {
      * @orderInfo - The order information, provided by the user
      * @allowSave - True, if the order information can be saved
      */
-    public static class ValidateOrderInfo extends Function {
+    public static class ValidateOrderInfo extends Function<ValidatedOrderInfo> {
 
         public long chatId;
         public long messageId;
@@ -27868,7 +28213,7 @@ public class TdApi {
      * @shippingOptionId - Identifier of a chosen shipping option, if applicable
      * @credentials - The credentials chosen by user for payment
      */
-    public static class SendPaymentForm extends Function {
+    public static class SendPaymentForm extends Function<PaymentResult> {
 
         public long chatId;
         public long messageId;
@@ -27900,7 +28245,7 @@ public class TdApi {
      * @chatId - Chat identifier of the PaymentSuccessful message
      * @messageId - Message identifier
      */
-    public static class GetPaymentReceipt extends Function {
+    public static class GetPaymentReceipt extends Function<PaymentReceipt> {
 
         public long chatId;
         public long messageId;
@@ -27923,7 +28268,7 @@ public class TdApi {
     /**
      * Returns saved order info, if any
      */
-    public static class GetSavedOrderInfo extends Function {
+    public static class GetSavedOrderInfo extends Function<OrderInfo> {
 
         @Override
         public int getConstructor() { return -1152016675; }
@@ -27934,7 +28279,7 @@ public class TdApi {
     /**
      * Deletes saved order info
      */
-    public static class DeleteSavedOrderInfo extends Function {
+    public static class DeleteSavedOrderInfo extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 1629058164; }
@@ -27945,7 +28290,7 @@ public class TdApi {
     /**
      * Deletes saved credentials for all payment provider bots
      */
-    public static class DeleteSavedCredentials extends Function {
+    public static class DeleteSavedCredentials extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 826300114; }
@@ -27956,7 +28301,7 @@ public class TdApi {
     /**
      * Returns a user that can be contacted to get support
      */
-    public static class GetSupportUser extends Function {
+    public static class GetSupportUser extends Function<User> {
 
         @Override
         public int getConstructor() { return -1733497700; }
@@ -27969,7 +28314,7 @@ public class TdApi {
      *
      * @forDarkTheme - True, if the backgrounds need to be ordered for dark theme
      */
-    public static class GetBackgrounds extends Function {
+    public static class GetBackgrounds extends Function<Backgrounds> {
 
         public boolean forDarkTheme;
 
@@ -27993,7 +28338,7 @@ public class TdApi {
      * @name - Background name
      * @type - Background type
      */
-    public static class GetBackgroundUrl extends Function {
+    public static class GetBackgroundUrl extends Function<HttpUrl> {
 
         public String name;
         public BackgroundType type;
@@ -28018,7 +28363,7 @@ public class TdApi {
      *
      * @name - The name of the background
      */
-    public static class SearchBackground extends Function {
+    public static class SearchBackground extends Function<Background> {
 
         public String name;
 
@@ -28046,7 +28391,7 @@ public class TdApi {
      *         The method will return error 404 if type is null
      * @forDarkTheme - True, if the background is chosen for dark theme
      */
-    public static class SetBackground extends Function {
+    public static class SetBackground extends Function<Background> {
 
         public InputBackground background;
         public BackgroundType type;
@@ -28073,7 +28418,7 @@ public class TdApi {
      *
      * @backgroundId - The background identifier
      */
-    public static class RemoveBackground extends Function {
+    public static class RemoveBackground extends Function<Ok> {
 
         public long backgroundId;
 
@@ -28094,7 +28439,7 @@ public class TdApi {
     /**
      * Resets list of installed backgrounds to its default value
      */
-    public static class ResetBackgrounds extends Function {
+    public static class ResetBackgrounds extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 204852088; }
@@ -28109,7 +28454,7 @@ public class TdApi {
      *
      * @onlyLocal - If true, returns only locally available information without sending network requests
      */
-    public static class GetLocalizationTargetInfo extends Function {
+    public static class GetLocalizationTargetInfo extends Function<LocalizationTargetInfo> {
 
         public boolean onlyLocal;
 
@@ -28134,7 +28479,7 @@ public class TdApi {
      *
      * @languagePackId - Language pack identifier
      */
-    public static class GetLanguagePackInfo extends Function {
+    public static class GetLanguagePackInfo extends Function<LanguagePackInfo> {
 
         public String languagePackId;
 
@@ -28160,7 +28505,7 @@ public class TdApi {
      * @keys - Language pack keys of the strings to be returned
      *         Leave empty to request all available strings
      */
-    public static class GetLanguagePackStrings extends Function {
+    public static class GetLanguagePackStrings extends Function<LanguagePackStrings> {
 
         public String languagePackId;
         public String[] keys;
@@ -28187,7 +28532,7 @@ public class TdApi {
      *
      * @languagePackId - Language pack identifier
      */
-    public static class SynchronizeLanguagePack extends Function {
+    public static class SynchronizeLanguagePack extends Function<Ok> {
 
         public String languagePackId;
 
@@ -28212,7 +28557,7 @@ public class TdApi {
      * @languagePackId - Identifier of a language pack to be added
      *                   May be different from a name that is used in an "https://t.me/setlanguage/" link
      */
-    public static class AddCustomServerLanguagePack extends Function {
+    public static class AddCustomServerLanguagePack extends Function<Ok> {
 
         public String languagePackId;
 
@@ -28238,7 +28583,7 @@ public class TdApi {
      *         Can be called before authorization
      * @strings - Strings of the new language pack
      */
-    public static class SetCustomLanguagePack extends Function {
+    public static class SetCustomLanguagePack extends Function<Ok> {
 
         public LanguagePackInfo info;
         public LanguagePackString[] strings;
@@ -28264,7 +28609,7 @@ public class TdApi {
      *
      * @info - New information about the custom local language pack
      */
-    public static class EditCustomLanguagePackInfo extends Function {
+    public static class EditCustomLanguagePackInfo extends Function<Ok> {
 
         public LanguagePackInfo info;
 
@@ -28289,7 +28634,7 @@ public class TdApi {
      * @languagePackId - Identifier of a previously added custom local language pack in the current localization target
      * @newString - New language pack string
      */
-    public static class SetCustomLanguagePackString extends Function {
+    public static class SetCustomLanguagePackString extends Function<Ok> {
 
         public String languagePackId;
         public LanguagePackString newString;
@@ -28316,7 +28661,7 @@ public class TdApi {
      *
      * @languagePackId - Identifier of the language pack to delete
      */
-    public static class DeleteLanguagePack extends Function {
+    public static class DeleteLanguagePack extends Function<Ok> {
 
         public String languagePackId;
 
@@ -28341,7 +28686,7 @@ public class TdApi {
      * @deviceToken - Device token
      * @otherUserIds - List of user identifiers of other users currently using the application
      */
-    public static class RegisterDevice extends Function {
+    public static class RegisterDevice extends Function<PushReceiverId> {
 
         public DeviceToken deviceToken;
         public int[] otherUserIds;
@@ -28368,7 +28713,7 @@ public class TdApi {
      *
      * @payload - JSON-encoded push notification payload with all fields sent by the server, and "google.sent_time" and "google.notification.sound" fields added
      */
-    public static class ProcessPushNotification extends Function {
+    public static class ProcessPushNotification extends Function<Ok> {
 
         public String payload;
 
@@ -28392,7 +28737,7 @@ public class TdApi {
      *
      * @payload - JSON-encoded push notification payload
      */
-    public static class GetPushReceiverId extends Function {
+    public static class GetPushReceiverId extends Function<PushReceiverId> {
 
         public String payload;
 
@@ -28415,7 +28760,7 @@ public class TdApi {
      *
      * @referrer - Google Play referrer to identify the user
      */
-    public static class GetRecentlyVisitedTMeUrls extends Function {
+    public static class GetRecentlyVisitedTMeUrls extends Function<TMeUrls> {
 
         public String referrer;
 
@@ -28439,7 +28784,7 @@ public class TdApi {
      * @setting - The privacy setting
      * @rules - The new privacy rules
      */
-    public static class SetUserPrivacySettingRules extends Function {
+    public static class SetUserPrivacySettingRules extends Function<Ok> {
 
         public UserPrivacySetting setting;
         public UserPrivacySettingRules rules;
@@ -28464,7 +28809,7 @@ public class TdApi {
      *
      * @setting - The privacy setting
      */
-    public static class GetUserPrivacySettingRules extends Function {
+    public static class GetUserPrivacySettingRules extends Function<UserPrivacySettingRules> {
 
         public UserPrivacySetting setting;
 
@@ -28488,7 +28833,7 @@ public class TdApi {
      *
      * @name - The name of the option
      */
-    public static class GetOption extends Function {
+    public static class GetOption extends Function<OptionValue> {
 
         public String name;
 
@@ -28514,7 +28859,7 @@ public class TdApi {
      * @name - The name of the option
      * @value - The new value of the option
      */
-    public static class SetOption extends Function {
+    public static class SetOption extends Function<Ok> {
 
         public String name;
         public OptionValue value;
@@ -28539,7 +28884,7 @@ public class TdApi {
      *
      * @ttl - New account TTL
      */
-    public static class SetAccountTtl extends Function {
+    public static class SetAccountTtl extends Function<Ok> {
 
         public AccountTtl ttl;
 
@@ -28560,7 +28905,7 @@ public class TdApi {
     /**
      * Returns the period of inactivity after which the account of the current user will automatically be deleted
      */
-    public static class GetAccountTtl extends Function {
+    public static class GetAccountTtl extends Function<AccountTtl> {
 
         @Override
         public int getConstructor() { return -443905161; }
@@ -28575,7 +28920,7 @@ public class TdApi {
      *
      * @reason - The reason why the account was deleted
      */
-    public static class DeleteAccount extends Function {
+    public static class DeleteAccount extends Function<Ok> {
 
         @Nullable public String reason;
 
@@ -28598,7 +28943,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier
      */
-    public static class RemoveChatActionBar extends Function {
+    public static class RemoveChatActionBar extends Function<Ok> {
 
         public long chatId;
 
@@ -28624,7 +28969,7 @@ public class TdApi {
      * @reason - The reason for reporting the chat
      * @messageIds - Identifiers of reported messages, if any
      */
-    public static class ReportChat extends Function {
+    public static class ReportChat extends Function<Ok> {
 
         public long chatId;
         public ChatReportReason reason;
@@ -28654,7 +28999,7 @@ public class TdApi {
      * @parameters - Parameters from "tg://statsrefresh?params=******" link
      * @isDark - Pass true if a URL with the dark theme must be returned
      */
-    public static class GetChatStatisticsUrl extends Function {
+    public static class GetChatStatisticsUrl extends Function<HttpUrl> {
 
         public long chatId;
         public String parameters;
@@ -28684,7 +29029,7 @@ public class TdApi {
      * @chatId - Chat identifier
      * @isDark - Pass true if a dark theme is used by the application
      */
-    public static class GetChatStatistics extends Function {
+    public static class GetChatStatistics extends Function<ChatStatistics> {
 
         public long chatId;
         public boolean isDark;
@@ -28707,13 +29052,12 @@ public class TdApi {
     /**
      * Returns detailed statistics about a message
      * Can be used only if Message.can_get_statistics == true
-     * The method is under development and may or may not work
      *
      * @chatId - Chat identifier
      * @messageId - Message identifier
      * @isDark - Pass true if a dark theme is used by the application
      */
-    public static class GetMessageStatistics extends Function {
+    public static class GetMessageStatistics extends Function<MessageStatistics> {
 
         public long chatId;
         public long messageId;
@@ -28742,7 +29086,7 @@ public class TdApi {
      * @token - The token for graph loading
      * @x - X-value for zoomed in graph or 0 otherwise
      */
-    public static class GetStatisticsGraph extends Function {
+    public static class GetStatisticsGraph extends Function<StatisticsGraph> {
 
         public long chatId;
         public String token;
@@ -28772,7 +29116,7 @@ public class TdApi {
      *              All other chats will be grouped in entries with chat_id == 0
      *              If the chat info database is not used, the chat_limit is ignored and is always set to 0
      */
-    public static class GetStorageStatistics extends Function {
+    public static class GetStorageStatistics extends Function<StorageStatistics> {
 
         public int chatLimit;
 
@@ -28794,7 +29138,7 @@ public class TdApi {
      * Quickly returns approximate storage usage statistics
      * Can be called before authorization
      */
-    public static class GetStorageStatisticsFast extends Function {
+    public static class GetStorageStatisticsFast extends Function<StorageStatisticsFast> {
 
         @Override
         public int getConstructor() { return 61368066; }
@@ -28805,7 +29149,7 @@ public class TdApi {
     /**
      * Returns database statistics
      */
-    public static class GetDatabaseStatistics extends Function {
+    public static class GetDatabaseStatistics extends Function<DatabaseStatistics> {
 
         @Override
         public int getConstructor() { return -1942760263; }
@@ -28837,7 +29181,7 @@ public class TdApi {
      * @chatLimit - Same as in getStorageStatistics
      *              Affects only returned statistics
      */
-    public static class OptimizeStorage extends Function {
+    public static class OptimizeStorage extends Function<StorageStatistics> {
 
         public long size;
         public int ttl;
@@ -28880,7 +29224,7 @@ public class TdApi {
      * @type - The new network type
      *         By default, networkTypeOther
      */
-    public static class SetNetworkType extends Function {
+    public static class SetNetworkType extends Function<Ok> {
 
         public NetworkType type;
 
@@ -28904,7 +29248,7 @@ public class TdApi {
      *
      * @onlyCurrent - If true, returns only data for the current library launch
      */
-    public static class GetNetworkStatistics extends Function {
+    public static class GetNetworkStatistics extends Function<NetworkStatistics> {
 
         public boolean onlyCurrent;
 
@@ -28928,7 +29272,7 @@ public class TdApi {
      *
      * @entry - The network statistics entry with the data to be added to statistics
      */
-    public static class AddNetworkStatistics extends Function {
+    public static class AddNetworkStatistics extends Function<Ok> {
 
         public NetworkStatisticsEntry entry;
 
@@ -28950,7 +29294,7 @@ public class TdApi {
      * Resets all network data usage statistics to zero
      * Can be called before authorization
      */
-    public static class ResetNetworkStatistics extends Function {
+    public static class ResetNetworkStatistics extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 1646452102; }
@@ -28961,7 +29305,7 @@ public class TdApi {
     /**
      * Returns auto-download settings presets for the current user
      */
-    public static class GetAutoDownloadSettingsPresets extends Function {
+    public static class GetAutoDownloadSettingsPresets extends Function<AutoDownloadSettingsPresets> {
 
         @Override
         public int getConstructor() { return -1721088201; }
@@ -28975,7 +29319,7 @@ public class TdApi {
      * @settings - New user auto-download settings
      * @type - Type of the network for which the new settings are applied
      */
-    public static class SetAutoDownloadSettings extends Function {
+    public static class SetAutoDownloadSettings extends Function<Ok> {
 
         public AutoDownloadSettings settings;
         public NetworkType type;
@@ -29000,7 +29344,7 @@ public class TdApi {
      *
      * @bankCardNumber - The bank card number
      */
-    public static class GetBankCardInfo extends Function {
+    public static class GetBankCardInfo extends Function<BankCardInfo> {
 
         public String bankCardNumber;
 
@@ -29024,7 +29368,7 @@ public class TdApi {
      * @type - Telegram Passport element type
      * @password - Password of the current user
      */
-    public static class GetPassportElement extends Function {
+    public static class GetPassportElement extends Function<PassportElement> {
 
         public PassportElementType type;
         public String password;
@@ -29049,7 +29393,7 @@ public class TdApi {
      *
      * @password - Password of the current user
      */
-    public static class GetAllPassportElements extends Function {
+    public static class GetAllPassportElements extends Function<PassportElements> {
 
         public String password;
 
@@ -29074,7 +29418,7 @@ public class TdApi {
      * @element - Input Telegram Passport element
      * @password - Password of the current user
      */
-    public static class SetPassportElement extends Function {
+    public static class SetPassportElement extends Function<PassportElement> {
 
         public InputPassportElement element;
         public String password;
@@ -29099,7 +29443,7 @@ public class TdApi {
      *
      * @type - Element type
      */
-    public static class DeletePassportElement extends Function {
+    public static class DeletePassportElement extends Function<Ok> {
 
         public PassportElementType type;
 
@@ -29125,7 +29469,7 @@ public class TdApi {
      * @userId - User identifier
      * @errors - The errors
      */
-    public static class SetPassportElementErrors extends Function {
+    public static class SetPassportElementErrors extends Function<Ok> {
 
         public int userId;
         public InputPassportElementError[] errors;
@@ -29151,7 +29495,7 @@ public class TdApi {
      *
      * @countryCode - A two-letter ISO 3166-1 alpha-2 country code
      */
-    public static class GetPreferredCountryLanguage extends Function {
+    public static class GetPreferredCountryLanguage extends Function<Text> {
 
         public String countryCode;
 
@@ -29175,7 +29519,7 @@ public class TdApi {
      * @phoneNumber - The phone number of the user, in international format
      * @settings - Settings for the authentication of the user's phone number
      */
-    public static class SendPhoneNumberVerificationCode extends Function {
+    public static class SendPhoneNumberVerificationCode extends Function<AuthenticationCodeInfo> {
 
         public String phoneNumber;
         public PhoneNumberAuthenticationSettings settings;
@@ -29198,7 +29542,7 @@ public class TdApi {
     /**
      * Re-sends the code to verify a phone number to be added to a user's Telegram Passport
      */
-    public static class ResendPhoneNumberVerificationCode extends Function {
+    public static class ResendPhoneNumberVerificationCode extends Function<AuthenticationCodeInfo> {
 
         @Override
         public int getConstructor() { return 1367629820; }
@@ -29211,7 +29555,7 @@ public class TdApi {
      *
      * @code - Verification code
      */
-    public static class CheckPhoneNumberVerificationCode extends Function {
+    public static class CheckPhoneNumberVerificationCode extends Function<Ok> {
 
         public String code;
 
@@ -29234,7 +29578,7 @@ public class TdApi {
      *
      * @emailAddress - Email address
      */
-    public static class SendEmailAddressVerificationCode extends Function {
+    public static class SendEmailAddressVerificationCode extends Function<EmailAddressAuthenticationCodeInfo> {
 
         public String emailAddress;
 
@@ -29255,7 +29599,7 @@ public class TdApi {
     /**
      * Re-sends the code to verify an email address to be added to a user's Telegram Passport
      */
-    public static class ResendEmailAddressVerificationCode extends Function {
+    public static class ResendEmailAddressVerificationCode extends Function<EmailAddressAuthenticationCodeInfo> {
 
         @Override
         public int getConstructor() { return -1872416732; }
@@ -29268,7 +29612,7 @@ public class TdApi {
      *
      * @code - Verification code
      */
-    public static class CheckEmailAddressVerificationCode extends Function {
+    public static class CheckEmailAddressVerificationCode extends Function<Ok> {
 
         public String code;
 
@@ -29294,7 +29638,7 @@ public class TdApi {
      * @publicKey - Service's public_key
      * @nonce - Authorization form nonce provided by the service
      */
-    public static class GetPassportAuthorizationForm extends Function {
+    public static class GetPassportAuthorizationForm extends Function<PassportAuthorizationForm> {
 
         public int botUserId;
         public String scope;
@@ -29325,7 +29669,7 @@ public class TdApi {
      * @autorizationFormId - Authorization form identifier
      * @password - Password of the current user
      */
-    public static class GetPassportAuthorizationFormAvailableElements extends Function {
+    public static class GetPassportAuthorizationFormAvailableElements extends Function<PassportElementsWithErrors> {
 
         public int autorizationFormId;
         public String password;
@@ -29352,7 +29696,7 @@ public class TdApi {
      * @autorizationFormId - Authorization form identifier
      * @types - Types of Telegram Passport elements chosen by user to complete the authorization form
      */
-    public static class SendPassportAuthorizationForm extends Function {
+    public static class SendPassportAuthorizationForm extends Function<Ok> {
 
         public int autorizationFormId;
         public PassportElementType[] types;
@@ -29380,7 +29724,7 @@ public class TdApi {
      * @phoneNumber - Value of the "phone" parameter from the link
      * @settings - Settings for the authentication of the user's phone number
      */
-    public static class SendPhoneNumberConfirmationCode extends Function {
+    public static class SendPhoneNumberConfirmationCode extends Function<AuthenticationCodeInfo> {
 
         public String hash;
         public String phoneNumber;
@@ -29405,7 +29749,7 @@ public class TdApi {
     /**
      * Resends phone number confirmation code
      */
-    public static class ResendPhoneNumberConfirmationCode extends Function {
+    public static class ResendPhoneNumberConfirmationCode extends Function<AuthenticationCodeInfo> {
 
         @Override
         public int getConstructor() { return 2069068522; }
@@ -29418,7 +29762,7 @@ public class TdApi {
      *
      * @code - The phone number confirmation code
      */
-    public static class CheckPhoneNumberConfirmationCode extends Function {
+    public static class CheckPhoneNumberConfirmationCode extends Function<Ok> {
 
         public String code;
 
@@ -29443,7 +29787,7 @@ public class TdApi {
      * @pendingUpdateCount - The number of pending updates
      * @errorMessage - The last error message
      */
-    public static class SetBotUpdatesStatus extends Function {
+    public static class SetBotUpdatesStatus extends Function<Ok> {
 
         public int pendingUpdateCount;
         public String errorMessage;
@@ -29472,7 +29816,7 @@ public class TdApi {
      * @pngSticker - PNG image with the sticker
      *               Must be up to 512 KB in size and fit in 512x512 square
      */
-    public static class UploadStickerFile extends Function {
+    public static class UploadStickerFile extends Function<File> {
 
         public int userId;
         public InputFile pngSticker;
@@ -29507,7 +29851,7 @@ public class TdApi {
      * @stickers - List of stickers to be added to the set
      *             All stickers must be of the same type
      */
-    public static class CreateNewStickerSet extends Function {
+    public static class CreateNewStickerSet extends Function<StickerSet> {
 
         public int userId;
         public String title;
@@ -29542,7 +29886,7 @@ public class TdApi {
      * @name - Sticker set name
      * @sticker - Sticker to add to the set
      */
-    public static class AddStickerToSet extends Function {
+    public static class AddStickerToSet extends Function<StickerSet> {
 
         public int userId;
         public String name;
@@ -29575,7 +29919,7 @@ public class TdApi {
      *              Animated thumbnail must be set for animated sticker sets and only for them
      *              Pass a zero InputFileId to delete the thumbnail
      */
-    public static class SetStickerSetThumbnail extends Function {
+    public static class SetStickerSetThumbnail extends Function<StickerSet> {
 
         public int userId;
         public String name;
@@ -29605,7 +29949,7 @@ public class TdApi {
      * @sticker - Sticker
      * @position - New position of the sticker in the set, zero-based
      */
-    public static class SetStickerPositionInSet extends Function {
+    public static class SetStickerPositionInSet extends Function<Ok> {
 
         public InputFile sticker;
         public int position;
@@ -29632,7 +29976,7 @@ public class TdApi {
      *
      * @sticker - Sticker
      */
-    public static class RemoveStickerFromSet extends Function {
+    public static class RemoveStickerFromSet extends Function<Ok> {
 
         public InputFile sticker;
 
@@ -29662,7 +30006,7 @@ public class TdApi {
      * @chatId - Identifier of a chat, in which the thumbnail will be shown
      *           Use 0 if unknown
      */
-    public static class GetMapThumbnailFile extends Function {
+    public static class GetMapThumbnailFile extends Function<File> {
 
         public Location location;
         public int zoom;
@@ -29695,7 +30039,7 @@ public class TdApi {
      *
      * @termsOfServiceId - Terms of service identifier
      */
-    public static class AcceptTermsOfService extends Function {
+    public static class AcceptTermsOfService extends Function<Ok> {
 
         public String termsOfServiceId;
 
@@ -29720,7 +30064,7 @@ public class TdApi {
      * @method - The method name
      * @parameters - JSON-serialized method parameters
      */
-    public static class SendCustomRequest extends Function {
+    public static class SendCustomRequest extends Function<CustomRequestResult> {
 
         public String method;
         public String parameters;
@@ -29747,7 +30091,7 @@ public class TdApi {
      * @customQueryId - Identifier of a custom query
      * @data - JSON-serialized answer to the query
      */
-    public static class AnswerCustomQuery extends Function {
+    public static class AnswerCustomQuery extends Function<Ok> {
 
         public long customQueryId;
         public String data;
@@ -29773,7 +30117,7 @@ public class TdApi {
      *
      * @seconds - Number of seconds before the function returns
      */
-    public static class SetAlarm extends Function {
+    public static class SetAlarm extends Function<Ok> {
 
         public double seconds;
 
@@ -29795,7 +30139,7 @@ public class TdApi {
      * Returns information about existing countries
      * Can be called before authorization
      */
-    public static class GetCountries extends Function {
+    public static class GetCountries extends Function<Countries> {
 
         @Override
         public int getConstructor() { return -51902050; }
@@ -29808,7 +30152,7 @@ public class TdApi {
      * Returns two-letter ISO 3166-1 alpha-2 country code
      * Can be called before authorization
      */
-    public static class GetCountryCode extends Function {
+    public static class GetCountryCode extends Function<Text> {
 
         @Override
         public int getConstructor() { return 1540593906; }
@@ -29822,7 +30166,7 @@ public class TdApi {
      *
      * @phoneNumberPrefix - The phone number prefix
      */
-    public static class GetPhoneNumberInfo extends Function {
+    public static class GetPhoneNumberInfo extends Function<PhoneNumberInfo> {
 
         public String phoneNumberPrefix;
 
@@ -29843,7 +30187,7 @@ public class TdApi {
     /**
      * Returns the default text for invitation messages to be used as a placeholder when the current user invites friends to Telegram
      */
-    public static class GetInviteText extends Function {
+    public static class GetInviteText extends Function<Text> {
 
         @Override
         public int getConstructor() { return 794573512; }
@@ -29859,7 +30203,7 @@ public class TdApi {
      *
      * @link - The link
      */
-    public static class GetDeepLinkInfo extends Function {
+    public static class GetDeepLinkInfo extends Function<DeepLinkInfo> {
 
         public String link;
 
@@ -29881,7 +30225,7 @@ public class TdApi {
      * Returns application config, provided by the server
      * Can be called before authorization
      */
-    public static class GetApplicationConfig extends Function {
+    public static class GetApplicationConfig extends Function<JsonValue> {
 
         @Override
         public int getConstructor() { return -1823144318; }
@@ -29897,7 +30241,7 @@ public class TdApi {
      * @chatId - Optional chat identifier, associated with the event
      * @data - The log event data
      */
-    public static class SaveApplicationLogEvent extends Function {
+    public static class SaveApplicationLogEvent extends Function<Ok> {
 
         public String type;
         public long chatId;
@@ -29928,7 +30272,7 @@ public class TdApi {
      * @enable - True, if the proxy should be enabled
      * @type - Proxy type
      */
-    public static class AddProxy extends Function {
+    public static class AddProxy extends Function<Proxy> {
 
         public String server;
         public int port;
@@ -29962,7 +30306,7 @@ public class TdApi {
      * @enable - True, if the proxy should be enabled
      * @type - Proxy type
      */
-    public static class EditProxy extends Function {
+    public static class EditProxy extends Function<Proxy> {
 
         public int proxyId;
         public String server;
@@ -29995,7 +30339,7 @@ public class TdApi {
      *
      * @proxyId - Proxy identifier
      */
-    public static class EnableProxy extends Function {
+    public static class EnableProxy extends Function<Ok> {
 
         public int proxyId;
 
@@ -30017,7 +30361,7 @@ public class TdApi {
      * Disables the currently enabled proxy
      * Can be called before authorization
      */
-    public static class DisableProxy extends Function {
+    public static class DisableProxy extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -2100095102; }
@@ -30031,7 +30375,7 @@ public class TdApi {
      *
      * @proxyId - Proxy identifier
      */
-    public static class RemoveProxy extends Function {
+    public static class RemoveProxy extends Function<Ok> {
 
         public int proxyId;
 
@@ -30053,7 +30397,7 @@ public class TdApi {
      * Returns list of proxies that are currently set up
      * Can be called before authorization
      */
-    public static class GetProxies extends Function {
+    public static class GetProxies extends Function<Proxies> {
 
         @Override
         public int getConstructor() { return -95026381; }
@@ -30068,7 +30412,7 @@ public class TdApi {
      *
      * @proxyId - Proxy identifier
      */
-    public static class GetProxyLink extends Function {
+    public static class GetProxyLink extends Function<Text> {
 
         public int proxyId;
 
@@ -30093,7 +30437,7 @@ public class TdApi {
      * @proxyId - Proxy identifier
      *            Use 0 to ping a Telegram server without a proxy
      */
-    public static class PingProxy extends Function {
+    public static class PingProxy extends Function<Seconds> {
 
         public int proxyId;
 
@@ -30117,7 +30461,7 @@ public class TdApi {
      *
      * @logStream - New log stream
      */
-    public static class SetLogStream extends Function {
+    public static class SetLogStream extends Function<Ok> {
 
         public LogStream logStream;
 
@@ -30139,7 +30483,7 @@ public class TdApi {
      * Returns information about currently used log stream for internal logging of TDLib
      * Can be called synchronously
      */
-    public static class GetLogStream extends Function {
+    public static class GetLogStream extends Function<LogStream> {
 
         @Override
         public int getConstructor() { return 1167608667; }
@@ -30154,7 +30498,7 @@ public class TdApi {
      * @newVerbosityLevel - New value of the verbosity level for logging
      *                      Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging
      */
-    public static class SetLogVerbosityLevel extends Function {
+    public static class SetLogVerbosityLevel extends Function<Ok> {
 
         public int newVerbosityLevel;
 
@@ -30176,7 +30520,7 @@ public class TdApi {
      * Returns current verbosity level of the internal logging of TDLib
      * Can be called synchronously
      */
-    public static class GetLogVerbosityLevel extends Function {
+    public static class GetLogVerbosityLevel extends Function<LogVerbosityLevel> {
 
         @Override
         public int getConstructor() { return 594057956; }
@@ -30188,7 +30532,7 @@ public class TdApi {
      * Returns list of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]
      * Can be called synchronously
      */
-    public static class GetLogTags extends Function {
+    public static class GetLogTags extends Function<LogTags> {
 
         @Override
         public int getConstructor() { return -254449190; }
@@ -30203,7 +30547,7 @@ public class TdApi {
      * @tag - Logging tag to change verbosity level
      * @newVerbosityLevel - New verbosity level
      */
-    public static class SetLogTagVerbosityLevel extends Function {
+    public static class SetLogTagVerbosityLevel extends Function<Ok> {
 
         public String tag;
         public int newVerbosityLevel;
@@ -30229,7 +30573,7 @@ public class TdApi {
      *
      * @tag - Logging tag to change verbosity level
      */
-    public static class GetLogTagVerbosityLevel extends Function {
+    public static class GetLogTagVerbosityLevel extends Function<LogVerbosityLevel> {
 
         public String tag;
 
@@ -30254,7 +30598,7 @@ public class TdApi {
      * @verbosityLevel - The minimum verbosity level needed for the message to be logged, 0-1023
      * @text - Text of a message to log
      */
-    public static class AddLogMessage extends Function {
+    public static class AddLogMessage extends Function<Ok> {
 
         public int verbosityLevel;
         public String text;
@@ -30280,7 +30624,7 @@ public class TdApi {
      * This is an offline method
      * Can be called before authorization
      */
-    public static class TestCallEmpty extends Function {
+    public static class TestCallEmpty extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -627291626; }
@@ -30296,7 +30640,7 @@ public class TdApi {
      *
      * @x - String to return
      */
-    public static class TestCallString extends Function {
+    public static class TestCallString extends Function<TestString> {
 
         public String x;
 
@@ -30322,7 +30666,7 @@ public class TdApi {
      *
      * @x - Bytes to return
      */
-    public static class TestCallBytes extends Function {
+    public static class TestCallBytes extends Function<TestBytes> {
 
         public byte[] x;
 
@@ -30348,7 +30692,7 @@ public class TdApi {
      *
      * @x - Vector of numbers to return
      */
-    public static class TestCallVectorInt extends Function {
+    public static class TestCallVectorInt extends Function<TestVectorInt> {
 
         public int[] x;
 
@@ -30374,7 +30718,7 @@ public class TdApi {
      *
      * @x - Vector of objects to return
      */
-    public static class TestCallVectorIntObject extends Function {
+    public static class TestCallVectorIntObject extends Function<TestVectorIntObject> {
 
         public TestInt[] x;
 
@@ -30400,7 +30744,7 @@ public class TdApi {
      *
      * @x - Vector of strings to return
      */
-    public static class TestCallVectorString extends Function {
+    public static class TestCallVectorString extends Function<TestVectorString> {
 
         public String[] x;
 
@@ -30426,7 +30770,7 @@ public class TdApi {
      *
      * @x - Vector of objects to return
      */
-    public static class TestCallVectorStringObject extends Function {
+    public static class TestCallVectorStringObject extends Function<TestVectorStringObject> {
 
         public TestString[] x;
 
@@ -30452,7 +30796,7 @@ public class TdApi {
      *
      * @x - Number to square
      */
-    public static class TestSquareInt extends Function {
+    public static class TestSquareInt extends Function<TestInt> {
 
         public int x;
 
@@ -30475,7 +30819,7 @@ public class TdApi {
      * For testing only
      * Can be called before authorization
      */
-    public static class TestNetwork extends Function {
+    public static class TestNetwork extends Function<Ok> {
 
         @Override
         public int getConstructor() { return -1343998901; }
@@ -30494,7 +30838,7 @@ public class TdApi {
      * @dcId - Identifier of a datacenter, with which to test connection
      * @timeout - The maximum overall timeout for the request
      */
-    public static class TestProxy extends Function {
+    public static class TestProxy extends Function<Ok> {
 
         public String server;
         public int port;
@@ -30524,7 +30868,7 @@ public class TdApi {
      * Forces an updates.getDifference call to the Telegram servers
      * For testing only
      */
-    public static class TestGetDifference extends Function {
+    public static class TestGetDifference extends Function<Ok> {
 
         @Override
         public int getConstructor() { return 1747084069; }
@@ -30538,7 +30882,7 @@ public class TdApi {
      * This is an offline method
      * Can be called before authorization
      */
-    public static class TestUseUpdate extends Function {
+    public static class TestUseUpdate extends Function<Update> {
 
         @Override
         public int getConstructor() { return 717094686; }
@@ -30553,7 +30897,7 @@ public class TdApi {
      *
      * @error - The error to be returned
      */
-    public static class TestReturnError extends Function {
+    public static class TestReturnError extends Function<Error> {
 
         public Error error;
 

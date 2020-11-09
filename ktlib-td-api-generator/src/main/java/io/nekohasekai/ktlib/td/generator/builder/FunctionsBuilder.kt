@@ -80,27 +80,49 @@ fun StringBuilder.buildFunction(function: TlFunction, metadata: TlDataMetadata) 
     buildAnnotations(function.metadata.additions)
     append("suspend fun TdHandler.").append(function.type.decapitalize())
     buildParameters(function.metadata.properties.map { it.toParameter(metadata) }, addEmptyBrackets = true)
-    append(" = sync<${function.returnType.capitalize()}>")
-    withRoundBrackets {
+    fun StringBuilder.buildContent() =  withRoundBrackets {
         append(function.type.capitalize())
         if (function.metadata.properties.isNotEmpty()) withRoundBrackets {
             function.metadata.properties.joinTo(this, ", ") { it.name.snakeToCamel() }
         } else append("()")
     }
+    if (function.returnType == "Ok") {
+        withCurlyBrackets {
+            append("sync")
+            buildContent()
+        }
+    } else {
+        append(" = sync")
+        buildContent()
+    }
+
     append("\n")
 }
 
 fun StringBuilder.buildNullaableFunction(function: TlFunction, metadata: TlDataMetadata) {
     //buildDescription(function.descriptionsWithProperties())
     buildAnnotations(function.metadata.additions)
-    append("suspend fun TdHandler.").append(function.type.decapitalize()).append("OrNull")
+    append("suspend fun TdHandler.").append(function.type.decapitalize())
+    if (function.returnType == "Ok") {
+        append("IgnoreException")
+    } else {
+        append("OrNull")
+    }
     buildParameters(function.metadata.properties.map { it.toParameter(metadata) }, addEmptyBrackets = true)
-    append(" = syncOrNull<${function.returnType.capitalize()}>")
-    withRoundBrackets {
+    fun StringBuilder.buildContent() =  withRoundBrackets {
         append(function.type.capitalize())
         if (function.metadata.properties.isNotEmpty()) withRoundBrackets {
             function.metadata.properties.joinTo(this, ", ") { it.name.snakeToCamel() }
         } else append("()")
+    }
+    if (function.returnType == "Ok") {
+        withCurlyBrackets {
+            append("syncOrNull")
+            buildContent()
+        }
+    } else {
+        append(" = syncOrNull")
+        buildContent()
     }
     append("\n")
 }

@@ -42,26 +42,36 @@ fun TdHandler.editInlineMessageTextWith(
  * @replyMarkup - The new message reply markup
  * @location - New location content of the message
  *             Pass null to stop sharing the live location
+ * @heading - The new direction in which the location moves, in degrees
+ *            Pass 0 if unknown
+ * @proximityAlertRadius - The new maximum distance for proximity alerts, in meters (0-100000)
+ *                         Pass 0 if the notification is disabled
  */
 suspend fun TdHandler.editInlineMessageLiveLocation(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
-    location: Location? = null
-) = sync<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location))
+    location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int
+) = sync<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
 
 suspend fun TdHandler.editInlineMessageLiveLocationOrNull(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
-    location: Location? = null
-) = syncOrNull<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location))
+    location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int
+) = syncOrNull<Ok>(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius))
 
 fun TdHandler.editInlineMessageLiveLocationWith(
     inlineMessageId: String? = null,
     replyMarkup: ReplyMarkup? = null,
     location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location), stackIgnore + 1, submit)
+) = send(EditInlineMessageLiveLocation(inlineMessageId, replyMarkup, location, heading, proximityAlertRadius), stackIgnore + 1, submit)
 
 /**
  * Edits the content of a message with an animation, an audio, a document, a photo or a video in an inline message sent via a bot

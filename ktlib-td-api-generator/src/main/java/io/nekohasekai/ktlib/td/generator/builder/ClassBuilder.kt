@@ -14,7 +14,16 @@ fun StringBuilder.buildClass(data: TlData, metadata: TlDataMetadata, paramNullab
     buildDescription(data.descriptionsWithProperties())
     // buildAnnotations(listOf(TlAddition.JvmOverloads))
     append(declaration).append(className)
-    append(" extends ").append(data.parentType.capitalize()).append(spaceToken)
+
+    if (data is TlFunction) {
+
+        append(" extends ").append(data.parentType.capitalize()).append("<${data.returnType.capitalize()}>").append(spaceToken)
+
+    } else {
+
+        append(" extends ").append(data.parentType.capitalize()).append(spaceToken)
+
+    }
 
     if (data is TlClass) {
 

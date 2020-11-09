@@ -21,7 +21,7 @@ object TdLoader {
     /**
      * TDLib 当前使用的 TDLib 版本 ( commit )
      */
-    const val version = "fd285dd"
+    const val version = "ea8c57f"
 
     @JvmStatic
     fun main(args: Array<String>) {

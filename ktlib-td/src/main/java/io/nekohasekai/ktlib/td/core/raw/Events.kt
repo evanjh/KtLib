@@ -71,6 +71,15 @@ interface AbsEvents {
     suspend fun onMessageEdited(chatId: Long, messageId: Long, editDate: Int, replyMarkup: ReplyMarkup?) = Unit
 
     /**
+     * The message pinned state was changed
+     *
+     * @chatId - Chat identifier
+     * @messageId - The message identifier
+     * @isPinned - True, if the message is pinned
+     */
+    suspend fun onMessageIsPinned(chatId: Long, messageId: Long, isPinned: Boolean) = Unit
+
+    /**
      * The information about interactions with a message has changed
      *
      * @chatId - Chat identifier
@@ -240,15 +249,6 @@ interface AbsEvents {
      * @actionBar - The new value of the action bar
      */
     suspend fun onChatActionBar(chatId: Long, actionBar: ChatActionBar?) = Unit
-
-    /**
-     * The chat pinned message was changed
-     *
-     * @chatId - Chat identifier
-     * @pinnedMessageId - The new identifier of the pinned message
-     *                    0 if there is no pinned message in the chat
-     */
-    suspend fun onChatPinnedMessage(chatId: Long, pinnedMessageId: Long) = Unit
 
     /**
      * The default chat reply markup was changed
@@ -743,6 +743,8 @@ interface AbsEvents {
 
             is UpdateMessageEdited -> onMessageEdited(eventObj.chatId, eventObj.messageId, eventObj.editDate, eventObj.replyMarkup)
 
+            is UpdateMessageIsPinned -> onMessageIsPinned(eventObj.chatId, eventObj.messageId, eventObj.isPinned)
+
             is UpdateMessageInteractionInfo -> onMessageInteractionInfo(eventObj.chatId, eventObj.messageId, eventObj.interactionInfo)
 
             is UpdateMessageContentOpened -> onMessageContentOpened(eventObj.chatId, eventObj.messageId)
@@ -782,8 +784,6 @@ interface AbsEvents {
             is UpdateScopeNotificationSettings -> onScopeNotificationSettings(eventObj.scope, eventObj.notificationSettings)
 
             is UpdateChatActionBar -> onChatActionBar(eventObj.chatId, eventObj.actionBar)
-
-            is UpdateChatPinnedMessage -> onChatPinnedMessage(eventObj.chatId, eventObj.pinnedMessageId)
 
             is UpdateChatReplyMarkup -> onChatReplyMarkup(eventObj.chatId, eventObj.replyMarkupMessageId)
 

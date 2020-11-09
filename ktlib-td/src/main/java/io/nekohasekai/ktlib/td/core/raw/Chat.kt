@@ -296,7 +296,8 @@ fun TdHandler.getCreatedPublicChatsWith(
 
 /**
  * Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel
- * Basic group chats need to be first upgraded to supergroups before they can be set as a discussion group
+ * Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group
+ * To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first
  */
 suspend fun TdHandler.getSuitableDiscussionChats() = sync<Chats>(GetSuitableDiscussionChats())
 
@@ -1047,30 +1048,6 @@ fun TdHandler.toggleChatIsMarkedAsUnreadWith(
 ) = send(ToggleChatIsMarkedAsUnread(chatId, isMarkedAsUnread), stackIgnore + 1, submit)
 
 /**
- * Changes the block state of a chat
- * Currently, only private chats and supergroups can be blocked
- *
- * @chatId - Chat identifier
- * @isBlocked - New value of is_blocked
- */
-suspend fun TdHandler.toggleChatIsBlocked(
-    chatId: Long,
-    isBlocked: Boolean
-) = sync<Ok>(ToggleChatIsBlocked(chatId, isBlocked))
-
-suspend fun TdHandler.toggleChatIsBlockedOrNull(
-    chatId: Long,
-    isBlocked: Boolean
-) = syncOrNull<Ok>(ToggleChatIsBlocked(chatId, isBlocked))
-
-fun TdHandler.toggleChatIsBlockedWith(
-    chatId: Long,
-    isBlocked: Boolean,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(ToggleChatIsBlocked(chatId, isBlocked), stackIgnore + 1, submit)
-
-/**
  * Changes the value of the default disable_notification parameter, used when a message is sent to a chat
  *
  * @chatId - Chat identifier
@@ -1151,7 +1128,7 @@ fun TdHandler.setChatDescriptionWith(
  *                     Use 0 to remove the discussion group
  *                     Use the method getSuitableDiscussionChats to find all suitable groups
  *                     Basic group chats need to be first upgraded to supergroup chats
- *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable needs to be used first to change that
+ *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that
  */
 suspend fun TdHandler.setChatDiscussionGroup(
     chatId: Long,
@@ -1223,51 +1200,81 @@ fun TdHandler.setChatSlowModeDelayWith(
 
 /**
  * Pins a message in a chat
- * Requires can_pin_messages rights
+ * Requires can_pin_messages rights or can_edit_messages rights in the channel
  *
  * @chatId - Identifier of the chat
  * @messageId - Identifier of the new pinned message
  * @disableNotification - True, if there should be no notification about the pinned message
+ *                        Notifications are always disabled in channels and private chats
+ * @onlyForSelf - True, if the message needs to be pinned only for self
+ *                Private chats only
  */
 suspend fun TdHandler.pinChatMessage(
     chatId: Long,
     messageId: Long,
-    disableNotification: Boolean
-) = sync<Ok>(PinChatMessage(chatId, messageId, disableNotification))
+    disableNotification: Boolean,
+    onlyForSelf: Boolean
+) = sync<Ok>(PinChatMessage(chatId, messageId, disableNotification, onlyForSelf))
 
 suspend fun TdHandler.pinChatMessageOrNull(
     chatId: Long,
     messageId: Long,
-    disableNotification: Boolean
-) = syncOrNull<Ok>(PinChatMessage(chatId, messageId, disableNotification))
+    disableNotification: Boolean,
+    onlyForSelf: Boolean
+) = syncOrNull<Ok>(PinChatMessage(chatId, messageId, disableNotification, onlyForSelf))
 
 fun TdHandler.pinChatMessageWith(
     chatId: Long,
     messageId: Long,
     disableNotification: Boolean,
+    onlyForSelf: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(PinChatMessage(chatId, messageId, disableNotification), stackIgnore + 1, submit)
+) = send(PinChatMessage(chatId, messageId, disableNotification, onlyForSelf), stackIgnore + 1, submit)
 
 /**
- * Removes the pinned message from a chat
- * Requires can_pin_messages rights in the group or channel
+ * Removes a pinned message from a chat
+ * Requires can_pin_messages rights in the group or can_edit_messages rights in the channel
  *
  * @chatId - Identifier of the chat
+ * @messageId - Identifier of the removed pinned message
  */
 suspend fun TdHandler.unpinChatMessage(
-    chatId: Long
-) = sync<Ok>(UnpinChatMessage(chatId))
+    chatId: Long,
+    messageId: Long
+) = sync<Ok>(UnpinChatMessage(chatId, messageId))
 
 suspend fun TdHandler.unpinChatMessageOrNull(
-    chatId: Long
-) = syncOrNull<Ok>(UnpinChatMessage(chatId))
+    chatId: Long,
+    messageId: Long
+) = syncOrNull<Ok>(UnpinChatMessage(chatId, messageId))
 
 fun TdHandler.unpinChatMessageWith(
     chatId: Long,
+    messageId: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(UnpinChatMessage(chatId), stackIgnore + 1, submit)
+) = send(UnpinChatMessage(chatId, messageId), stackIgnore + 1, submit)
+
+/**
+ * Removes all pinned messages from a chat
+ * Requires can_pin_messages rights in the group or can_edit_messages rights in the channel
+ *
+ * @chatId - Identifier of the chat
+ */
+suspend fun TdHandler.unpinAllChatMessages(
+    chatId: Long
+) = sync<Ok>(UnpinAllChatMessages(chatId))
+
+suspend fun TdHandler.unpinAllChatMessagesOrNull(
+    chatId: Long
+) = syncOrNull<Ok>(UnpinAllChatMessages(chatId))
+
+fun TdHandler.unpinAllChatMessagesWith(
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(UnpinAllChatMessages(chatId), stackIgnore + 1, submit)
 
 /**
  * Adds current user as a new member to a chat
@@ -1636,60 +1643,6 @@ fun TdHandler.joinChatByInviteLinkWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Chat>.() -> Unit)? = null
 ) = send(JoinChatByInviteLink(inviteLink), stackIgnore + 1, submit)
-
-/**
- * Blocks an original sender of a message in the Replies chat
- *
- * @messageId - The identifier of an incoming message in the Replies chat
- * @deleteMessage - Pass true if the message must be deleted
- * @deleteAllMessages - Pass true if all messages from the same sender must be deleted
- * @reportSpam - Pass true if the sender must be reported to the Telegram moderators
- */
-suspend fun TdHandler.blockChatFromReplies(
-    messageId: Long,
-    deleteMessage: Boolean,
-    deleteAllMessages: Boolean,
-    reportSpam: Boolean
-) = sync<Ok>(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
-
-suspend fun TdHandler.blockChatFromRepliesOrNull(
-    messageId: Long,
-    deleteMessage: Boolean,
-    deleteAllMessages: Boolean,
-    reportSpam: Boolean
-) = syncOrNull<Ok>(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
-
-fun TdHandler.blockChatFromRepliesWith(
-    messageId: Long,
-    deleteMessage: Boolean,
-    deleteAllMessages: Boolean,
-    reportSpam: Boolean,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(BlockChatFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam), stackIgnore + 1, submit)
-
-/**
- * Returns chats that were blocked by the current user
- *
- * @offset - Number of chats to skip in the result
- * @limit - The maximum number of chats to return
- */
-suspend fun TdHandler.getBlockedChats(
-    offset: Int,
-    limit: Int
-) = sync<Chats>(GetBlockedChats(offset, limit))
-
-suspend fun TdHandler.getBlockedChatsOrNull(
-    offset: Int,
-    limit: Int
-) = syncOrNull<Chats>(GetBlockedChats(offset, limit))
-
-fun TdHandler.getBlockedChatsWith(
-    offset: Int,
-    limit: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Chats>.() -> Unit)? = null
-) = send(GetBlockedChats(offset, limit), stackIgnore + 1, submit)
 
 /**
  * Returns the profile photos of a user

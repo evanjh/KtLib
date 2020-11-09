@@ -77,7 +77,7 @@ fun TdHandler.getRepliedMessageWith(
 ) = send(GetRepliedMessage(chatId, messageId), stackIgnore + 1, submit)
 
 /**
- * Returns information about a pinned chat message
+ * Returns information about a newest pinned chat message
  *
  * @chatId - Identifier of the chat the message belongs to
  */
@@ -94,6 +94,34 @@ fun TdHandler.getChatPinnedMessageWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Message>.() -> Unit)? = null
 ) = send(GetChatPinnedMessage(chatId), stackIgnore + 1, submit)
+
+/**
+ * Returns information about a message with the callback button that originated a callback query
+ * For bots only
+ *
+ * @chatId - Identifier of the chat the message belongs to
+ * @messageId - Message identifier
+ * @callbackQueryId - Identifier of the callback query
+ */
+suspend fun TdHandler.getCallbackQueryMessage(
+    chatId: Long,
+    messageId: Long,
+    callbackQueryId: Long
+) = sync<Message>(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
+
+suspend fun TdHandler.getCallbackQueryMessageOrNull(
+    chatId: Long,
+    messageId: Long,
+    callbackQueryId: Long
+) = syncOrNull<Message>(GetCallbackQueryMessage(chatId, messageId, callbackQueryId))
+
+fun TdHandler.getCallbackQueryMessageWith(
+    chatId: Long,
+    messageId: Long,
+    callbackQueryId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Message>.() -> Unit)? = null
+) = send(GetCallbackQueryMessage(chatId, messageId, callbackQueryId), stackIgnore + 1, submit)
 
 /**
  * Returns information about messages
@@ -237,8 +265,8 @@ fun TdHandler.getMessageThreadHistoryWith(
  *
  * @chatId - Identifier of the chat in which to search messages
  * @query - Query to search for
- * @senderUserId - If not 0, only messages sent by the specified user will be returned
- *                 Not supported in secret chats
+ * @sender - If not null, only messages sent by the specified sender will be returned
+ *           Not supported in secret chats
  * @fromMessageId - Identifier of the message starting from which history must be fetched
  *                  Use 0 to get results from the last message
  * @offset - Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages
@@ -253,29 +281,29 @@ fun TdHandler.getMessageThreadHistoryWith(
 suspend fun TdHandler.searchChatMessages(
     chatId: Long,
     query: String? = null,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     fromMessageId: Long,
     offset: Int,
     limit: Int,
     filter: SearchMessagesFilter? = null,
     messageThreadId: Long
-) = sync<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId))
+) = sync<Messages>(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
 
 suspend fun TdHandler.searchChatMessagesOrNull(
     chatId: Long,
     query: String? = null,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     fromMessageId: Long,
     offset: Int,
     limit: Int,
     filter: SearchMessagesFilter? = null,
     messageThreadId: Long
-) = syncOrNull<Messages>(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId))
+) = syncOrNull<Messages>(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId))
 
 fun TdHandler.searchChatMessagesWith(
     chatId: Long,
     query: String? = null,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     fromMessageId: Long,
     offset: Int,
     limit: Int,
@@ -283,7 +311,7 @@ fun TdHandler.searchChatMessagesWith(
     messageThreadId: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<Messages>.() -> Unit)? = null
-) = send(SearchChatMessages(chatId, query, senderUserId, fromMessageId, offset, limit, filter, messageThreadId), stackIgnore + 1, submit)
+) = send(SearchChatMessages(chatId, query, sender, fromMessageId, offset, limit, filter, messageThreadId), stackIgnore + 1, submit)
 
 /**
  * Searches for messages in all chats except secret chats
@@ -300,7 +328,7 @@ fun TdHandler.searchChatMessagesWith(
  * @limit - The maximum number of messages to be returned
  *          Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached
  * @filter - Filter for message content in the search results
- *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention and searchMessagesFilterFailedToSend are unsupported in this function
+ *           SearchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function
  * @minDate - If not 0, the minimum date of the messages to return
  * @maxDate - If not 0, the maximum date of the messages to return
  */
@@ -496,9 +524,8 @@ fun TdHandler.getChatScheduledMessagesWith(
 ) = send(GetChatScheduledMessages(chatId), stackIgnore + 1, submit)
 
 /**
- * Returns forwarded copies of a channel message to another public channels
+ * Returns forwarded copies of a channel message to different public channels
  * For optimal performance the number of returned messages is chosen by the library
- * The method is under development and may or may not work
  *
  * @chatId - Chat identifier of the message
  * @messageId - Message identifier
@@ -838,37 +865,36 @@ fun TdHandler.sendChatSetTtlMessageWith(
  * Returns the added message
  *
  * @chatId - Target chat
- * @senderUserId - Identifier of the user who will be shown as the sender of the message
- *                 May be 0 for channel posts
+ * @sender - The sender sender of the message
  * @replyToMessageId - Identifier of the message to reply to or 0
  * @disableNotification - Pass true to disable notification for the message
  * @inputMessageContent - The content of the message to be added
  */
 suspend fun TdHandler.addLocalMessage(
     chatId: Long,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     replyToMessageId: Long,
     disableNotification: Boolean,
     inputMessageContent: InputMessageContent? = null
-) = sync<Message>(AddLocalMessage(chatId, senderUserId, replyToMessageId, disableNotification, inputMessageContent))
+) = sync<Message>(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
 
 suspend fun TdHandler.addLocalMessageOrNull(
     chatId: Long,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     replyToMessageId: Long,
     disableNotification: Boolean,
     inputMessageContent: InputMessageContent? = null
-) = syncOrNull<Message>(AddLocalMessage(chatId, senderUserId, replyToMessageId, disableNotification, inputMessageContent))
+) = syncOrNull<Message>(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent))
 
 fun TdHandler.addLocalMessageWith(
     chatId: Long,
-    senderUserId: Int,
+    sender: MessageSender? = null,
     replyToMessageId: Long,
     disableNotification: Boolean,
     inputMessageContent: InputMessageContent? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<Message>.() -> Unit)? = null
-) = send(AddLocalMessage(chatId, senderUserId, replyToMessageId, disableNotification, inputMessageContent), stackIgnore + 1, submit)
+) = send(AddLocalMessage(chatId, sender, replyToMessageId, disableNotification, inputMessageContent), stackIgnore + 1, submit)
 
 /**
  * Deletes messages
@@ -943,29 +969,39 @@ fun TdHandler.editMessageTextWith(
  *                For bots only
  * @location - New location content of the message
  *             Pass null to stop sharing the live location
+ * @heading - The new direction in which the location moves, in degrees
+ *            Pass 0 if unknown
+ * @proximityAlertRadius - The new maximum distance for proximity alerts, in meters (0-100000)
+ *                         Pass 0 if the notification is disabled
  */
 suspend fun TdHandler.editMessageLiveLocation(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
-    location: Location? = null
-) = sync<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location))
+    location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int
+) = sync<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
 
 suspend fun TdHandler.editMessageLiveLocationOrNull(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
-    location: Location? = null
-) = syncOrNull<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location))
+    location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int
+) = syncOrNull<Message>(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius))
 
 fun TdHandler.editMessageLiveLocationWith(
     chatId: Long,
     messageId: Long,
     replyMarkup: ReplyMarkup? = null,
     location: Location? = null,
+    heading: Int,
+    proximityAlertRadius: Int,
     stackIgnore: Int = 0,
     submit: (TdCallback<Message>.() -> Unit)? = null
-) = send(EditMessageLiveLocation(chatId, messageId, replyMarkup, location), stackIgnore + 1, submit)
+) = send(EditMessageLiveLocation(chatId, messageId, replyMarkup, location, heading, proximityAlertRadius), stackIgnore + 1, submit)
 
 /**
  * Edits the content of a message with an animation, an audio, a document, a photo or a video
@@ -1213,9 +1249,86 @@ fun TdHandler.clearAllDraftMessagesWith(
 ) = send(ClearAllDraftMessages(excludeSecretChats), stackIgnore + 1, submit)
 
 /**
+ * Changes the block state of a message sender
+ * Currently, only users and supergroup chats can be blocked
+ *
+ * @sender - Message Sender
+ * @isBlocked - New value of is_blocked
+ */
+suspend fun TdHandler.toggleMessageSenderIsBlocked(
+    sender: MessageSender? = null,
+    isBlocked: Boolean
+) = sync<Ok>(ToggleMessageSenderIsBlocked(sender, isBlocked))
+
+suspend fun TdHandler.toggleMessageSenderIsBlockedOrNull(
+    sender: MessageSender? = null,
+    isBlocked: Boolean
+) = syncOrNull<Ok>(ToggleMessageSenderIsBlocked(sender, isBlocked))
+
+fun TdHandler.toggleMessageSenderIsBlockedWith(
+    sender: MessageSender? = null,
+    isBlocked: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ToggleMessageSenderIsBlocked(sender, isBlocked), stackIgnore + 1, submit)
+
+/**
+ * Blocks an original sender of a message in the Replies chat
+ *
+ * @messageId - The identifier of an incoming message in the Replies chat
+ * @deleteMessage - Pass true if the message must be deleted
+ * @deleteAllMessages - Pass true if all messages from the same sender must be deleted
+ * @reportSpam - Pass true if the sender must be reported to the Telegram moderators
+ */
+suspend fun TdHandler.blockMessageSenderFromReplies(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean
+) = sync<Ok>(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+
+suspend fun TdHandler.blockMessageSenderFromRepliesOrNull(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean
+) = syncOrNull<Ok>(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam))
+
+fun TdHandler.blockMessageSenderFromRepliesWith(
+    messageId: Long,
+    deleteMessage: Boolean,
+    deleteAllMessages: Boolean,
+    reportSpam: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(BlockMessageSenderFromReplies(messageId, deleteMessage, deleteAllMessages, reportSpam), stackIgnore + 1, submit)
+
+/**
+ * Returns users and chats that were blocked by the current user
+ *
+ * @offset - Number of users and chats to skip in the result
+ * @limit - The maximum number of users and chats to return
+ */
+suspend fun TdHandler.getBlockedMessageSenders(
+    offset: Int,
+    limit: Int
+) = sync<MessageSenders>(GetBlockedMessageSenders(offset, limit))
+
+suspend fun TdHandler.getBlockedMessageSendersOrNull(
+    offset: Int,
+    limit: Int
+) = syncOrNull<MessageSenders>(GetBlockedMessageSenders(offset, limit))
+
+fun TdHandler.getBlockedMessageSendersWith(
+    offset: Int,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<MessageSenders>.() -> Unit)? = null
+) = send(GetBlockedMessageSenders(offset, limit), stackIgnore + 1, submit)
+
+/**
  * Returns detailed statistics about a message
  * Can be used only if Message.can_get_statistics == true
- * The method is under development and may or may not work
  *
  * @chatId - Chat identifier
  * @messageId - Message identifier

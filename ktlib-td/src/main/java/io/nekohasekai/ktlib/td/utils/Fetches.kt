@@ -6,11 +6,13 @@ import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
+import td.TdApi
+import td.TdApi.*
 import java.util.*
 
-suspend fun TdHandler.getChats(): List<td.TdApi.Chat> {
+suspend fun TdHandler.getChats(): List<Chat> {
 
-    return LinkedList<td.TdApi.Chat>().apply {
+    return LinkedList<Chat>().apply {
 
         fetchChats {
 
@@ -28,7 +30,7 @@ suspend fun TdHandler.getChats(): List<td.TdApi.Chat> {
  * 遍历聊天对话
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend CoroutineScope.(List<td.TdApi.Chat>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend CoroutineScope.(List<Chat>) -> Boolean) = coroutineScope {
 
     var chatId = startsAt
 
@@ -37,11 +39,11 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
     while (true) {
 
-        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(td.TdApi.ChatListMain(), Long.MAX_VALUE, chatId, 114514).chatIds
+        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(ChatListMain(), Long.MAX_VALUE, chatId, 114514).chatIds
 
         chatId = chatIds[chatIds.size - 1]
 
-        nextChats = getChats(td.TdApi.ChatListMain(), getChat(chatId).positions.filter { it.list is td.TdApi.ChatListMain }[0].order, chatId, 114514).chatIds
+        nextChats = getChats(ChatListMain(), getChat(chatId).positions.filter { it.list is ChatListMain }[0].order, chatId, 114514).chatIds
 
         if (!listener(chatIds.map { getChat(it) })) break
 
@@ -55,11 +57,11 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
     while (true) {
 
-        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(td.TdApi.ChatListArchive(), Long.MAX_VALUE, chatId, 114514).chatIds
+        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(ChatListArchive(), Long.MAX_VALUE, chatId, 114514).chatIds
 
         chatId = chatIds[chatIds.size - 1]
 
-        nextChats = getChats(td.TdApi.ChatListArchive(), getChat(chatId).positions.filter { it.list is td.TdApi.ChatListArchive }[0].order, chatId, 114514).chatIds
+        nextChats = getChats(ChatListArchive(), getChat(chatId).positions.filter { it.list is ChatListArchive }[0].order, chatId, 114514).chatIds
 
         if (!listener(chatIds.map { getChat(it) })) break
 
@@ -69,9 +71,9 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
 }
 
-suspend fun TdHandler.getGroupsInCommon(userId: Int): List<td.TdApi.Chat> {
+suspend fun TdHandler.getGroupsInCommon(userId: Int): List<Chat> {
 
-    return LinkedList<td.TdApi.Chat>().apply {
+    return LinkedList<Chat>().apply {
 
         fetchGroupsInCommon(userId) {
 
@@ -89,7 +91,7 @@ suspend fun TdHandler.getGroupsInCommon(userId: Int): List<td.TdApi.Chat> {
  * 遍历聊天对话
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(List<td.TdApi.Chat>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(List<Chat>) -> Boolean) = coroutineScope {
 
     var chatId = startsAt
 
@@ -116,12 +118,12 @@ suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, list
  * 遍历聊天所有消息
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchMessages(chatId: Long, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<td.TdApi.Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchMessages(chatId: Long, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
 
     var messageId = startsAt
 
-    var messages: Array<td.TdApi.Message>
-    var nextMessages: Array<td.TdApi.Message> = arrayOf()
+    var messages: Array<Message>
+    var nextMessages: Array<Message> = arrayOf()
 
     while (true) {
 
@@ -143,20 +145,20 @@ suspend fun TdHandler.fetchMessages(chatId: Long, startsAt: Long = 0L, listener:
  * 遍历聊天用户消息
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchUserMessages(chatId: Long, userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<td.TdApi.Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchUserMessages(chatId: Long, userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
 
     var messageId = startsAt
 
-    var messages: Array<td.TdApi.Message>
-    var nextMessages: Array<td.TdApi.Message> = arrayOf()
+    var messages: Array<Message>
+    var nextMessages: Array<Message> = arrayOf()
 
     while (true) {
 
-        messages = if (nextMessages.isNotEmpty()) nextMessages else searchChatMessages(chatId, "", userId, messageId, 0, 100, null, 0).messages
+        messages = if (nextMessages.isNotEmpty()) nextMessages else searchChatMessages(chatId, "", MessageSenderUser(userId), messageId, 0, 100, null, 0).messages
 
         messageId = messages[messages.size - 1].id
 
-        nextMessages = searchChatMessages(chatId, "", userId, messageId, 0, 100, null, 0).messages
+        nextMessages = searchChatMessages(chatId, "", MessageSenderUser(userId), messageId, 0, 100, null, 0).messages
 
         if (!listener(messages)) break
 
@@ -166,12 +168,12 @@ suspend fun TdHandler.fetchUserMessages(chatId: Long, userId: Int, startsAt: Lon
 
 }
 
-suspend fun TdHandler.fetchSupergroupUsers(chatId: Long, listener: suspend CoroutineScope.(Array<td.TdApi.ChatMember>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchSupergroupUsers(chatId: Long, listener: suspend CoroutineScope.(Array<ChatMember>) -> Boolean) = coroutineScope {
 
-    val supergroupId = (getChat(chatId).type as td.TdApi.ChatTypeSupergroup).supergroupId
+    val supergroupId = (getChat(chatId).type as ChatTypeSupergroup).supergroupId
 
     var offset = 0
-    var members: Array<td.TdApi.ChatMember>
+    var members: Array<ChatMember>
 
     while (true) {
 

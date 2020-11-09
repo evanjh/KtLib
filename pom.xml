@@ -29,6 +29,7 @@
         <module>ktlib-compress</module>
         <module>ktlib-db</module>
         <module>ktlib-td</module>
+        <module>ktlib-td-api-generator</module>
         <module>ktlib-td-cli</module>
         <module>ktlib-td-http-api</module>
         <module>ktlib-td-proxy</module>
