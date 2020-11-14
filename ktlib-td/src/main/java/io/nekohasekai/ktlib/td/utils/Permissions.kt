@@ -6,7 +6,7 @@ package io.nekohasekai.ktlib.td.utils
 
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.getChatMember
-import io.nekohasekai.ktlib.td.extensions.senderChatId
+import io.nekohasekai.ktlib.td.extensions.fromAnonymous
 import io.nekohasekai.ktlib.td.extensions.senderUserId
 import io.nekohasekai.ktlib.td.i18n.*
 import td.TdApi
@@ -35,14 +35,14 @@ suspend fun TdHandler.isChatFullAdmin(chatId: Long, userId: Int): Boolean {
 
 suspend fun TdHandler.checkChatAdmin(message: TdApi.Message): Boolean {
 
-    if (message.senderUserId == 0) return message.senderChatId == message.chatId
-
-    return checkChatAdmin(message.chatId, message.senderUserId, message)
+    return message.fromAnonymous || checkChatAdmin(message.chatId, message.senderUserId, message)
 
 }
 
 
 suspend fun TdHandler.checkChatAdmin(chatId: Long, userId: Int, message: TdApi.Message? = null): Boolean {
+
+    if (message != null && message.chatId == chatId && message.fromAnonymous) return false
 
     if (isChatAdmin(chatId, userId)) return false
 

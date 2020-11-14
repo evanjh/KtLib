@@ -5,6 +5,7 @@ package io.nekohasekai.ktlib.td.extensions
 import td.TdApi.*
 
 val User.displayName get() = "$firstName $lastName".trim()
+val Contact.displayName get() = "$firstName $lastName".trim()
 val User.displayNameFormatted get() = if (username.isNullOrBlank()) "$displayName ($id)" else "$displayName ($id @$username)"
 
 val User.isUser get() = type is UserTypeRegular

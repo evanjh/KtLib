@@ -4,7 +4,7 @@ import io.nekohasekai.ktlib.td.core.raw.checkAuthenticationBotTokenWith
 import kotlinx.coroutines.coroutineScope
 import td.TdApi.*
 
-open class TdBot(final override var botToken: String) : TdCli() {
+open class TdBot(var botToken: String) : TdCli() {
 
     val botUserId = botToken.substringBefore(':').toInt()
 

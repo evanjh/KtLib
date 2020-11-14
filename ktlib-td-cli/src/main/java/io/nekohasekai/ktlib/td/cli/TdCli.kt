@@ -113,8 +113,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
     private val binlogInEnv get() = stringConfig("BINLONG")
     override val defaultLang get() = stringConfig("BOT_LANG")
 
-    var dataDir = File("data").canonicalFile
-    var cacheDir = File("cache").canonicalFile
+    open var dataDir = File("data").canonicalFile
+    open var cacheDir = File("cache").canonicalFile
 
     open fun onArgument(argument: String, value: String?) {
 
@@ -434,12 +434,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             checkAuthenticationBotToken(phoneNumberOrBotToken)
 
-                            botToken = phoneNumberOrBotToken
-
-                            val botTkn = File("${sudo.options.databaseDirectory}/botToken")
-
-                            botTkn.writeText(botToken)
-
                             break
 
                         } catch (e: TdException) {
@@ -478,12 +472,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                         checkAuthenticationBotToken(botTokenInEnv)
 
-                        botToken = botTokenInEnv
-
-                        val botTkn = File("${sudo.options.databaseDirectory}/botToken")
-
-                        botTkn.writeText(botToken)
-
                         return@withContext
 
                     } catch (e: TdException) {
@@ -491,6 +479,10 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
                         println(clientLocale.INVALID_ENV_VARIABLE_BOT_TOKEN.input(e))
 
                     }
+
+                } else if (loginType != LoginType.BOT && options.apiId == 21724) {
+
+                    clientLog.warn("No custom API_ID and HASH are specified, login with a new account may be banned!")
 
                 }
 
@@ -616,14 +608,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                 super.onAuthorizationState(authorizationState)
 
-                if (isBot) {
-
-                    val botTkn = File("${sudo.options.databaseDirectory}/botToken")
-
-                    if (botTkn.isFile) botToken = botTkn.readText()
-
-                }
-
                 clientLog.info("Login User ${me.displayNameFormatted}")
 
             } else {
@@ -643,8 +627,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         }
 
     }
-
-    open var botToken = ""
 
     override suspend fun onTermsOfService(termsOfServiceId: String, termsOfService: TdApi.TermsOfService) {
 

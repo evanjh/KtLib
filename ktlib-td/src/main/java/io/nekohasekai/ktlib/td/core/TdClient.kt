@@ -685,6 +685,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                             continuation.resumeWithException(TdException(exception).also {
 
                                 it.stackTrace = stackTrace
+                                it.request = function
 
                             })
 
