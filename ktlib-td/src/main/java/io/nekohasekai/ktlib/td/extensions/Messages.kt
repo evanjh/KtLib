@@ -33,14 +33,22 @@ val Message.isServiceMessage
 
 
 val Message.text get() = with(content) { if (this is MessageText) text.text else null }
-val Message.textOrCaption
+
+val Message.textOrCaptionObj
     get() = with(content) {
         when (this) {
-            is MessageText -> text.text
-            is MessagePhoto -> caption.text
-            is MessageVideo -> caption.text
-            is MessageDocument -> caption.text
-            is MessageVoiceNote -> caption.text
+            is MessageText -> text
+            is MessagePhoto -> caption
+            is MessageVideo -> caption
+            is MessageDocument -> caption
+            is MessageVoiceNote -> caption
+            else -> null
+        }
+    }
+
+val Message.textOrCaption
+    get() = textOrCaptionObj?.text ?: with(content) {
+        when (this) {
             is MessageContact -> contact.displayName
             else -> null
         }

@@ -2,13 +2,11 @@
 
 package io.nekohasekai.ktlib.td.utils
 
+import io.nekohasekai.ktlib.td.core.TdClient
 import io.nekohasekai.ktlib.td.core.TdHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import td.TdApi.DeleteMessages
-import td.TdApi.Message
+import kotlinx.coroutines.*
+import td.TdApi.*
+import kotlin.concurrent.timerTask
 
 infix fun TdHandler.delete(message: Message) = delete(message.chatId, message.id)
 
@@ -43,11 +41,11 @@ suspend fun TdHandler.delayDelete(chatId: Number, messageId: Long, timeMs: Long 
 fun TdHandler.withDelay(timeMs: Long = 3000L, listener: suspend CoroutineScope.(Message) -> Unit): suspend CoroutineScope.(Message) -> Unit {
 
     return {
-
-        delay(timeMs)
-
-        listener(it)
-
+        TdClient.timer.schedule(timerTask {
+            GlobalScope.launch(Dispatchers.Unconfined) {
+                listener(it)
+            }
+        }, timeMs)
     }
 
 }

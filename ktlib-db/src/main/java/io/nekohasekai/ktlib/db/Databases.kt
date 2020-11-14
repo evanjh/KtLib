@@ -245,6 +245,42 @@ open class IdTableCacheMap<ID : Comparable<ID>, T : Entity<ID>>(database: Databa
 }
 
 @Suppress("UNCHECKED_CAST")
+open class TwoIndexExistsCacheMap<IX, IY>(
+        database: DatabaseDispatcher,
+        val table: Table,
+        val xColumn: Column<IX>,
+        val yColumn: Column<IY>,
+        capacity: Int = -1,
+        timeout: Long = 0) : DatabaseCacheMap<Pair<IX, IY>, Boolean>(database, capacity, timeout) {
+
+    override fun read(id: Pair<IX, IY>) = table.select { (xColumn eq id.first) and (yColumn eq id.second) }.count() > 0L
+
+    override fun write(id: Pair<IX, IY>, value: Boolean) {
+
+        val filter = (xColumn eq id.first) and (yColumn eq id.second)
+
+        if (!value) {
+            table.deleteWhere { filter }
+        } else try {
+            table.insert {
+                it[xColumn] = id.first
+                it[yColumn] = id.second
+            }
+        } catch (ex: ExposedSQLException) {
+            defaultLog.debug("insert failed", ex)
+        }
+
+    }
+
+    override fun delete(id: Pair<IX, IY>) {
+
+        table.deleteWhere { (xColumn eq id.first) and (yColumn eq id.second) }
+
+    }
+
+}
+
+@Suppress("UNCHECKED_CAST")
 open class TwoIndexCacheMap<IX, IY, T>(
         database: DatabaseDispatcher,
         val table: Table,
