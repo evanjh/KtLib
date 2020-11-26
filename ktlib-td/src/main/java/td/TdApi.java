@@ -3504,7 +3504,7 @@ public class TdApi {
 
 
     /**
-     * Contains information about message replies
+     * Contains information about replies to a message
      *
      * @replyCount - Number of times the message was directly or indirectly replied
      * @recentRepliers - Recent repliers to the message
@@ -3655,7 +3655,7 @@ public class TdApi {
      *        TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires
      * @ttlExpiresIn - Time left before the message expires, in seconds
      * @viaBotUserId - If non-zero, the user identifier of the bot through which this message was sent
-     * @authorSignature - For channel posts and anonymous administrator messages, optional author signature
+     * @authorSignature - For channel posts and anonymous group messages, optional author signature
      * @mediaAlbumId - Unique identifier of an album this message belongs to
      *                 Only photos and videos can be grouped together in albums
      * @restrictionReason - If non-empty, contains a human-readable description of the reason why access to this message must be restricted
@@ -4066,7 +4066,7 @@ public class TdApi {
      * @pinnedChatIds - The chat identifiers of pinned chats in the filtered chat list
      * @includedChatIds - The chat identifiers of always included chats in the filtered chat list
      * @excludedChatIds - The chat identifiers of always excluded chats in the filtered chat list
-     * @excludeMuted - True, if the muted chats need to be excluded
+     * @excludeMuted - True, if muted chats need to be excluded
      * @excludeRead - True, if read chats need to be excluded
      * @excludeArchived - True, if archived chats need to be excluded
      * @includeContacts - True, if contacts need to be included
@@ -4543,7 +4543,7 @@ public class TdApi {
      *
      * @chatId - Chat identifier of the invite link
      *           0 if the user has no access to the chat before joining
-     * @accessibleFor - If non-zero, the remaining time for which read access is granted to the chat, in seconds
+     * @accessibleFor - If non-zero, the amount of time for which read access to the chat will remain available, in seconds
      * @type - Contains information about the type of the chat
      * @title - Title of the chat
      * @photo - Chat photo
@@ -5505,30 +5505,30 @@ public class TdApi {
 
 
     /**
-     * A rich text reference of a text on the same web page
+     * A reference to a richTexts object on the same web page
      *
      * @text - The text
-     * @referenceText - The text to show on click
+     * @anchorName - The name of a richTextAnchor object, which is the first element of the target richTexts object
      * @url - An HTTP URL, opening the reference
      */
     public static class RichTextReference extends RichText {
 
         public RichText text;
-        public RichText referenceText;
+        public String anchorName;
         public String url;
 
         public RichTextReference() {}
 
-        public RichTextReference(RichText text, RichText referenceText, String url) {
+        public RichTextReference(RichText text, String anchorName, String url) {
 
             this.text = text;
-            this.referenceText = referenceText;
+            this.anchorName = anchorName;
             this.url = url;
 
         }
 
         @Override
-        public int getConstructor() { return -144433301; }
+        public int getConstructor() { return -1147530634; }
 
     }
 
@@ -5560,28 +5560,28 @@ public class TdApi {
      * A link to an anchor on the same web page
      *
      * @text - The link text
-     * @name - The anchor name
-     *         If the name is empty, the link should bring back to top
+     * @anchorName - The anchor name
+     *               If the name is empty, the link should bring back to top
      * @url - An HTTP URL, opening the anchor
      */
     public static class RichTextAnchorLink extends RichText {
 
         public RichText text;
-        public String name;
+        public String anchorName;
         public String url;
 
         public RichTextAnchorLink() {}
 
-        public RichTextAnchorLink(RichText text, String name, String url) {
+        public RichTextAnchorLink(RichText text, String anchorName, String url) {
 
             this.text = text;
-            this.name = name;
+            this.anchorName = anchorName;
             this.url = url;
 
         }
 
         @Override
-        public int getConstructor() { return -367827961; }
+        public int getConstructor() { return -1541418282; }
 
     }
 
@@ -8574,7 +8574,7 @@ public class TdApi {
      * Contains information about a Telegram Passport authorization form that was requested
      *
      * @id - Unique identifier of the authorization form
-     * @requiredElements - Information about the Telegram Passport elements that need to be provided to complete the form
+     * @requiredElements - Information about the Telegram Passport elements that must be provided to complete the form
      * @privacyPolicyUrl - URL for the privacy policy of the service
      */
     public static class PassportAuthorizationForm extends Object {
@@ -15777,7 +15777,6 @@ public class TdApi {
      * @sender - The sender of the message
      *           Corresponding user or chat may be inaccessible
      * @senderName - Name of the sender
-     *               Can be different from the name of the sender user
      * @isOutgoing - True, if the message is outgoing
      * @content - Push message content
      */
@@ -18037,21 +18036,21 @@ public class TdApi {
 
 
     /**
-     * A statistics value
+     * A value with information about its recent changes
      *
-     * @value - The value
+     * @value - The current value
      * @previousValue - The value for the previous day
      * @growthRatePercentage - The growth rate of the value, as a percentage
      */
-    public static class StatisticsValue extends Object {
+    public static class StatisticalValue extends Object {
 
         public double value;
         public double previousValue;
         public double growthRatePercentage;
 
-        public StatisticsValue() {}
+        public StatisticalValue() {}
 
-        public StatisticsValue(double value, double previousValue, double growthRatePercentage) {
+        public StatisticalValue(double value, double previousValue, double growthRatePercentage) {
 
             this.value = value;
             this.previousValue = previousValue;
@@ -18060,15 +18059,15 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1147508964; }
+        public int getConstructor() { return 1651337846; }
 
     }
 
 
     /**
-     * Describes a statistics graph
+     * Describes a statistical graph
      */
-    public static abstract class StatisticsGraph extends Object {}
+    public static abstract class StatisticalGraph extends Object {}
 
     /**
      * A graph data
@@ -18076,14 +18075,14 @@ public class TdApi {
      * @jsonData - Graph data in JSON format
      * @zoomToken - If non-empty, a token which can be used to receive a zoomed in graph
      */
-    public static class StatisticsGraphData extends StatisticsGraph {
+    public static class StatisticalGraphData extends StatisticalGraph {
 
         public String jsonData;
         public String zoomToken;
 
-        public StatisticsGraphData() {}
+        public StatisticalGraphData() {}
 
-        public StatisticsGraphData(String jsonData, String zoomToken) {
+        public StatisticalGraphData(String jsonData, String zoomToken) {
 
             this.jsonData = jsonData;
             this.zoomToken = zoomToken;
@@ -18091,30 +18090,30 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1756117226; }
+        public int getConstructor() { return -1988940244; }
 
     }
 
 
     /**
-     * The graph data to be asynchronously loaded through getStatisticsGraph
+     * The graph data to be asynchronously loaded through getStatisticalGraph
      *
      * @token - The token to use for data loading
      */
-    public static class StatisticsGraphAsync extends StatisticsGraph {
+    public static class StatisticalGraphAsync extends StatisticalGraph {
 
         public String token;
 
-        public StatisticsGraphAsync() {}
+        public StatisticalGraphAsync() {}
 
-        public StatisticsGraphAsync(String token) {
+        public StatisticalGraphAsync(String token) {
 
             this.token = token;
 
         }
 
         @Override
-        public int getConstructor() { return 1064479337; }
+        public int getConstructor() { return 435891103; }
 
     }
 
@@ -18124,20 +18123,20 @@ public class TdApi {
      *
      * @errorMessage - The error message
      */
-    public static class StatisticsGraphError extends StatisticsGraph {
+    public static class StatisticalGraphError extends StatisticalGraph {
 
         public String errorMessage;
 
-        public StatisticsGraphError() {}
+        public StatisticalGraphError() {}
 
-        public StatisticsGraphError(String errorMessage) {
+        public StatisticalGraphError(String errorMessage) {
 
             this.errorMessage = errorMessage;
 
         }
 
         @Override
-        public int getConstructor() { return -61804431; }
+        public int getConstructor() { return -1006788526; }
 
     }
 
@@ -18286,25 +18285,25 @@ public class TdApi {
     public static class ChatStatisticsSupergroup extends ChatStatistics {
 
         public DateRange period;
-        public StatisticsValue memberCount;
-        public StatisticsValue messageCount;
-        public StatisticsValue viewerCount;
-        public StatisticsValue senderCount;
-        public StatisticsGraph memberCountGraph;
-        public StatisticsGraph joinGraph;
-        public StatisticsGraph joinBySourceGraph;
-        public StatisticsGraph languageGraph;
-        public StatisticsGraph messageContentGraph;
-        public StatisticsGraph actionGraph;
-        public StatisticsGraph dayGraph;
-        public StatisticsGraph weekGraph;
+        public StatisticalValue memberCount;
+        public StatisticalValue messageCount;
+        public StatisticalValue viewerCount;
+        public StatisticalValue senderCount;
+        public StatisticalGraph memberCountGraph;
+        public StatisticalGraph joinGraph;
+        public StatisticalGraph joinBySourceGraph;
+        public StatisticalGraph languageGraph;
+        public StatisticalGraph messageContentGraph;
+        public StatisticalGraph actionGraph;
+        public StatisticalGraph dayGraph;
+        public StatisticalGraph weekGraph;
         public ChatStatisticsMessageSenderInfo[] topSenders;
         public ChatStatisticsAdministratorActionsInfo[] topAdministrators;
         public ChatStatisticsInviterInfo[] topInviters;
 
         public ChatStatisticsSupergroup() {}
 
-        public ChatStatisticsSupergroup(DateRange period, StatisticsValue memberCount, StatisticsValue messageCount, StatisticsValue viewerCount, StatisticsValue senderCount, StatisticsGraph memberCountGraph, StatisticsGraph joinGraph, StatisticsGraph joinBySourceGraph, StatisticsGraph languageGraph, StatisticsGraph messageContentGraph, StatisticsGraph actionGraph, StatisticsGraph dayGraph, StatisticsGraph weekGraph, ChatStatisticsMessageSenderInfo[] topSenders, ChatStatisticsAdministratorActionsInfo[] topAdministrators, ChatStatisticsInviterInfo[] topInviters) {
+        public ChatStatisticsSupergroup(DateRange period, StatisticalValue memberCount, StatisticalValue messageCount, StatisticalValue viewerCount, StatisticalValue senderCount, StatisticalGraph memberCountGraph, StatisticalGraph joinGraph, StatisticalGraph joinBySourceGraph, StatisticalGraph languageGraph, StatisticalGraph messageContentGraph, StatisticalGraph actionGraph, StatisticalGraph dayGraph, StatisticalGraph weekGraph, ChatStatisticsMessageSenderInfo[] topSenders, ChatStatisticsAdministratorActionsInfo[] topAdministrators, ChatStatisticsInviterInfo[] topInviters) {
 
             this.period = period;
             this.memberCount = memberCount;
@@ -18326,7 +18325,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1234327223; }
+        public int getConstructor() { return -17244633; }
 
     }
 
@@ -18353,24 +18352,24 @@ public class TdApi {
     public static class ChatStatisticsChannel extends ChatStatistics {
 
         public DateRange period;
-        public StatisticsValue memberCount;
-        public StatisticsValue meanViewCount;
-        public StatisticsValue meanShareCount;
+        public StatisticalValue memberCount;
+        public StatisticalValue meanViewCount;
+        public StatisticalValue meanShareCount;
         public double enabledNotificationsPercentage;
-        public StatisticsGraph memberCountGraph;
-        public StatisticsGraph joinGraph;
-        public StatisticsGraph muteGraph;
-        public StatisticsGraph viewCountByHourGraph;
-        public StatisticsGraph viewCountBySourceGraph;
-        public StatisticsGraph joinBySourceGraph;
-        public StatisticsGraph languageGraph;
-        public StatisticsGraph messageInteractionGraph;
-        public StatisticsGraph instantViewInteractionGraph;
+        public StatisticalGraph memberCountGraph;
+        public StatisticalGraph joinGraph;
+        public StatisticalGraph muteGraph;
+        public StatisticalGraph viewCountByHourGraph;
+        public StatisticalGraph viewCountBySourceGraph;
+        public StatisticalGraph joinBySourceGraph;
+        public StatisticalGraph languageGraph;
+        public StatisticalGraph messageInteractionGraph;
+        public StatisticalGraph instantViewInteractionGraph;
         public ChatStatisticsMessageInteractionInfo[] recentMessageInteractions;
 
         public ChatStatisticsChannel() {}
 
-        public ChatStatisticsChannel(DateRange period, StatisticsValue memberCount, StatisticsValue meanViewCount, StatisticsValue meanShareCount, double enabledNotificationsPercentage, StatisticsGraph memberCountGraph, StatisticsGraph joinGraph, StatisticsGraph muteGraph, StatisticsGraph viewCountByHourGraph, StatisticsGraph viewCountBySourceGraph, StatisticsGraph joinBySourceGraph, StatisticsGraph languageGraph, StatisticsGraph messageInteractionGraph, StatisticsGraph instantViewInteractionGraph, ChatStatisticsMessageInteractionInfo[] recentMessageInteractions) {
+        public ChatStatisticsChannel(DateRange period, StatisticalValue memberCount, StatisticalValue meanViewCount, StatisticalValue meanShareCount, double enabledNotificationsPercentage, StatisticalGraph memberCountGraph, StatisticalGraph joinGraph, StatisticalGraph muteGraph, StatisticalGraph viewCountByHourGraph, StatisticalGraph viewCountBySourceGraph, StatisticalGraph joinBySourceGraph, StatisticalGraph languageGraph, StatisticalGraph messageInteractionGraph, StatisticalGraph instantViewInteractionGraph, ChatStatisticsMessageInteractionInfo[] recentMessageInteractions) {
 
             this.period = period;
             this.memberCount = memberCount;
@@ -18391,7 +18390,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -326982581; }
+        public int getConstructor() { return -825434183; }
 
     }
 
@@ -18403,18 +18402,18 @@ public class TdApi {
      */
     public static class MessageStatistics extends Object {
 
-        public StatisticsGraph messageInteractionGraph;
+        public StatisticalGraph messageInteractionGraph;
 
         public MessageStatistics() {}
 
-        public MessageStatistics(StatisticsGraph messageInteractionGraph) {
+        public MessageStatistics(StatisticalGraph messageInteractionGraph) {
 
             this.messageInteractionGraph = messageInteractionGraph;
 
         }
 
         @Override
-        public int getConstructor() { return 1148915634; }
+        public int getConstructor() { return -1011383888; }
 
     }
 
@@ -20164,7 +20163,7 @@ public class TdApi {
 
     /**
      * The connection state has changed
-     * This update must be used only to show the user a human-readable description of the connection state
+     * This update must be used only to show a human-readable description of the connection state
      *
      * @state - The new connection state
      */
@@ -21794,7 +21793,7 @@ public class TdApi {
 
 
     /**
-     * Returns information about a newest pinned chat message
+     * Returns information about a newest pinned message in the chat
      *
      * @chatId - Identifier of the chat the message belongs to
      */
@@ -23003,7 +23002,8 @@ public class TdApi {
 
     /**
      * Sends messages grouped together into an album
-     * Currently only photo and video messages can be grouped into an album
+     * Currently only audio, document, photo and video messages can be grouped into an album
+     * Documents and audio files can be only grouped in an album with messages of the same type
      * Returns sent messages
      *
      * @chatId - Target chat
@@ -25354,7 +25354,7 @@ public class TdApi {
      * @discussionChatId - Identifier of a new channel's discussion group
      *                     Use 0 to remove the discussion group
      *                     Use the method getSuitableDiscussionChats to find all suitable groups
-     *                     Basic group chats need to be first upgraded to supergroup chats
+     *                     Basic group chats must be first upgraded to supergroup chats
      *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that
      */
     public static class SetChatDiscussionGroup extends Function<Ok> {
@@ -25442,7 +25442,7 @@ public class TdApi {
      * @messageId - Identifier of the new pinned message
      * @disableNotification - True, if there should be no notification about the pinned message
      *                        Notifications are always disabled in channels and private chats
-     * @onlyForSelf - True, if the message needs to be pinned only for self
+     * @onlyForSelf - True, if the message needs to be pinned for one side only
      *                Private chats only
      */
     public static class PinChatMessage extends Function<Ok> {
@@ -28022,7 +28022,7 @@ public class TdApi {
      *
      * @supergroupId - Identifier of the supergroup or channel
      * @filter - The type of users to return
-     *           By default, supergroupMembersRecent
+     *           By default, supergroupMembersFilterRecent
      * @offset - Number of users to skip
      * @limit - The maximum number of users be returned
      *          Up to 200
@@ -28312,7 +28312,7 @@ public class TdApi {
     /**
      * Returns backgrounds installed by the user
      *
-     * @forDarkTheme - True, if the backgrounds need to be ordered for dark theme
+     * @forDarkTheme - True, if the backgrounds must be ordered for dark theme
      */
     public static class GetBackgrounds extends Function<Backgrounds> {
 
@@ -28527,7 +28527,7 @@ public class TdApi {
 
     /**
      * Fetches the latest versions of all strings from a language pack in the current localization target from the server
-     * This method doesn't need to be called explicitly for the current used/base language packs
+     * This method shouldn't be called explicitly for the current used/base language packs
      * Can be called before authorization
      *
      * @languagePackId - Language pack identifier
@@ -29080,21 +29080,21 @@ public class TdApi {
 
 
     /**
-     * Loads asynchronous or zoomed in chat or message statistics graph
+     * Loads an asynchronous or a zoomed in statistical graph
      *
      * @chatId - Chat identifier
      * @token - The token for graph loading
      * @x - X-value for zoomed in graph or 0 otherwise
      */
-    public static class GetStatisticsGraph extends Function<StatisticsGraph> {
+    public static class GetStatisticalGraph extends Function<StatisticalGraph> {
 
         public long chatId;
         public String token;
         public long x;
 
-        public GetStatisticsGraph() {}
+        public GetStatisticalGraph() {}
 
-        public GetStatisticsGraph(long chatId, String token, long x) {
+        public GetStatisticalGraph(long chatId, String token, long x) {
 
             this.chatId = chatId;
             this.token = token;
@@ -29103,7 +29103,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 687537922; }
+        public int getConstructor() { return 1100975515; }
 
     }
 
@@ -29176,7 +29176,7 @@ public class TdApi {
      *            Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos)
      * @excludeChatIds - If not empty, files from the given chats are excluded
      *                   Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos)
-     * @returnDeletedFileStatistics - Pass true if deleted file statistics need to be returned instead of the whole storage usage statistics
+     * @returnDeletedFileStatistics - Pass true if statistics about the files that were deleted must be returned instead of the whole storage usage statistics
      *                                Affects only returned statistics
      * @chatLimit - Same as in getStorageStatistics
      *              Affects only returned statistics
@@ -29691,7 +29691,7 @@ public class TdApi {
 
     /**
      * Sends a Telegram Passport authorization form, effectively sharing data with the service
-     * This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements need to be used
+     * This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements are going to be reused
      *
      * @autorizationFormId - Authorization form identifier
      * @types - Types of Telegram Passport elements chosen by user to complete the authorization form

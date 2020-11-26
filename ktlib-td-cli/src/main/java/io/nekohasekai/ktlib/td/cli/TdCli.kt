@@ -266,7 +266,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
             cacheDir = File(cacheDirStr)
 
-            if (!cacheDir.isDirectory || cacheDir.mkdirs()) {
+            if (!cacheDir.isDirectory && !cacheDir.mkdirs()) {
 
                 clientLog.error("Unable to create cache directory: $cacheDir")
 

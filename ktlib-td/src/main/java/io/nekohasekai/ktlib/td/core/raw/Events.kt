@@ -566,7 +566,7 @@ interface AbsEvents {
 
     /**
      * The connection state has changed
-     * This update must be used only to show the user a human-readable description of the connection state
+     * This update must be used only to show a human-readable description of the connection state
      *
      * @state - The new connection state
      */

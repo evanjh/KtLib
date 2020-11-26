@@ -184,7 +184,7 @@ fun TdHandler.getPassportAuthorizationFormAvailableElementsWith(
 
 /**
  * Sends a Telegram Passport authorization form, effectively sharing data with the service
- * This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements need to be used
+ * This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements are going to be reused
  *
  * @autorizationFormId - Authorization form identifier
  * @types - Types of Telegram Passport elements chosen by user to complete the authorization form

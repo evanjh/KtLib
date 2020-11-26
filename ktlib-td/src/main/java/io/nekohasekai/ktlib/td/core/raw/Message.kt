@@ -77,7 +77,7 @@ fun TdHandler.getRepliedMessageWith(
 ) = send(GetRepliedMessage(chatId, messageId), stackIgnore + 1, submit)
 
 /**
- * Returns information about a newest pinned chat message
+ * Returns information about a newest pinned message in the chat
  *
  * @chatId - Identifier of the chat the message belongs to
  */
@@ -653,7 +653,8 @@ fun TdHandler.sendMessageWith(
 
 /**
  * Sends messages grouped together into an album
- * Currently only photo and video messages can be grouped into an album
+ * Currently only audio, document, photo and video messages can be grouped into an album
+ * Documents and audio files can be only grouped in an album with messages of the same type
  * Returns sent messages
  *
  * @chatId - Target chat

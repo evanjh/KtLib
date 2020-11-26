@@ -1271,7 +1271,7 @@ fun TdHandler.setChatDescriptionWith(
  * @discussionChatId - Identifier of a new channel's discussion group
  *                     Use 0 to remove the discussion group
  *                     Use the method getSuitableDiscussionChats to find all suitable groups
- *                     Basic group chats need to be first upgraded to supergroup chats
+ *                     Basic group chats must be first upgraded to supergroup chats
  *                     If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that
  */
 suspend fun TdHandler.setChatDiscussionGroup(
@@ -1368,7 +1368,7 @@ fun TdHandler.setChatSlowModeDelayWith(
  * @messageId - Identifier of the new pinned message
  * @disableNotification - True, if there should be no notification about the pinned message
  *                        Notifications are always disabled in channels and private chats
- * @onlyForSelf - True, if the message needs to be pinned only for self
+ * @onlyForSelf - True, if the message needs to be pinned for one side only
  *                Private chats only
  */
 suspend fun TdHandler.pinChatMessage(
@@ -1907,7 +1907,7 @@ fun TdHandler.getUserProfilePhotosWith(
  *
  * @supergroupId - Identifier of the supergroup or channel
  * @filter - The type of users to return
- *           By default, supergroupMembersRecent
+ *           By default, supergroupMembersFilterRecent
  * @offset - Number of users to skip
  * @limit - The maximum number of users be returned
  *          Up to 200
