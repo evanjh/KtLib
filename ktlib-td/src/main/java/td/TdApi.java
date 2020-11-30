@@ -3441,7 +3441,6 @@ public class TdApi {
      *
      * @chatId - Identifier of the chat from which the message was originally forwarded
      * @messageId - Message identifier of the original message
-     *              0 if unknown
      * @authorSignature - Original post author signature
      */
     public static class MessageForwardOriginChannel extends MessageForwardOrigin {

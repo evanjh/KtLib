@@ -9,6 +9,7 @@ import io.nekohasekai.ktlib.td.core.raw.downloadFile
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.ktlib.td.utils.delete
+import td.TdApi
 import td.TdApi.*
 import td.TdApi.Function
 import java.util.*

@@ -13,8 +13,8 @@ import io.nekohasekai.ktlib.td.extensions.*
 import io.nekohasekai.ktlib.td.utils.confirmTo
 import io.nekohasekai.ktlib.td.utils.make
 import kotlinx.coroutines.*
+import td.TdApi
 import td.TdApi.*
-import td.TdApi.Function
 import td.TdNative
 import java.math.BigInteger
 import java.util.*
@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.collections.HashMap
 import kotlin.concurrent.withLock
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -144,7 +145,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                 defaultLog.info("Stopping...")
 
-                val clients = clients.toLinkedList()
+                val clients = clients.values.toLinkedList()
 
                 clients.forEach { it.stop() }
 
@@ -658,7 +659,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun <T : Object> sync(function: Function<T>): T {
+    override suspend fun <T : Object> sync(function: TdApi.Function<T>): T {
 
         val stackTrace = ThreadUtil.getStackTrace().shift(3)
 
@@ -704,7 +705,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     class SendMessageFailedException(cause: TdException) : TdException(cause)
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : Object> send(function: Function<T>, stackIgnore: Int, submit: (TdCallback<T>.() -> Unit)?) {
+    override fun <T : Object> send(function: TdApi.Function<T>, stackIgnore: Int, submit: (TdCallback<T>.() -> Unit)?) {
 
         val callback: TdCallback<T>
 
@@ -802,7 +803,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override fun sendRaw(function: Function<*>) {
+    override fun sendRaw(function: TdApi.Function<*>) {
 
         val requestId = requestId.getAndIncrement()
 
@@ -810,7 +811,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    private fun sendRaw(requestId: Long, function: Function<*>) {
+    private fun sendRaw(requestId: Long, function: TdApi.Function<*>) {
 
         check(!closed) { "Client closed" }
 
@@ -850,13 +851,15 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         private val postAdd = LinkedList<TdClient>()
         private val postDestroy = LinkedList<TdClient>()
-        val clients = LinkedList<TdClient>()
+        val clients = HashMap<Long, TdClient>()
 
         private const val MAX_EVENTS = 1000
 
-        lateinit var loopThread: Thread
+        private val clientIds = LongArray(MAX_EVENTS)
+        private val eventIds = LongArray(MAX_EVENTS)
+        private val eventObjs = arrayOfNulls<Object>(MAX_EVENTS)
 
-        var STOPPING by AtomicBoolean()
+        lateinit var loopThread: Thread
 
         val loopThreadInitiated get() = Companion::loopThread.isInitialized
 
@@ -878,7 +881,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                                     val toAdd = iterator.next()
 
-                                    clients.add(toAdd)
+                                    clients[toAdd.clientId] = toAdd
 
                                     iterator.remove()
 
@@ -896,9 +899,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                                     val toDestroy = iterator.next()
 
-                                    clients.remove(toDestroy)
-
-                                    TdNative.destroyNativeClient(toDestroy.clientId)
+                                    clients.remove(toDestroy.clientId)
 
                                     toDestroy.stop = true
                                     toDestroy.closed = true
@@ -919,65 +920,49 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                             val start = SystemClock.now()
 
-                            for (client in clients) {
+                            val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 100000.0)
 
-                                val eventIds = LongArray(MAX_EVENTS)
-                                val events = arrayOfNulls<Object>(MAX_EVENTS)
+                            if (resultCount == 0) continue
 
-                                val resultCount = TdNative.nativeClientReceive(client.clientId, eventIds, events, 0.0)
+                            for (index in 0 until resultCount) {
 
-                                if (resultCount == 0) continue
+                                val client = clients[clientIds[index]]!!
+                                val requestId = eventIds[index]
+                                val event = eventObjs[index]!!
 
-                                for (index in 0 until resultCount) {
+                                if (requestId != 0L) {
 
-                                    val requestId = eventIds[index]
-                                    val event = events[index]!!
+                                    if (!client.callbacks.containsKey(requestId)) continue
 
-                                    if (requestId != 0L) {
+                                    val callback = client.callbacks.remove(requestId)!!
 
-                                        if (!client.callbacks.containsKey(requestId)) continue
+                                    launch(Dispatchers.Unconfined) {
 
-                                        val callback = client.callbacks.remove(requestId)!!
+                                        runCatching {
 
-                                        launch(Dispatchers.Unconfined) {
+                                            if (event is Error) {
 
-                                            runCatching {
+                                                callback.postError(TdException(event))
 
-                                                if (event is Error) {
+                                            } else {
 
-                                                    callback.postError(TdException(event))
-
-                                                } else {
-
-                                                    callback.postResult(event)
-
-                                                }
-
-                                            }.onFailure {
-
-                                                defaultLog.error(it, "TdError - Sync\n\nIn callback$event")
+                                                callback.postResult(event)
 
                                             }
 
+                                        }.onFailure {
+
+                                            defaultLog.error(it, "TdError - Sync\n\nIn callback$event")
+
                                         }
-
-                                    } else {
-
-                                        postUpdate(client, event as Update)
 
                                     }
 
+                                } else {
+
+                                    postUpdate(client, event as Update)
+
                                 }
-
-                            }
-
-                            if (clients.isEmpty()) break
-
-                            val useTime = SystemClock.now() - start
-
-                            if (useTime < 100L) {
-
-                                delay(100L - useTime)
 
                             }
 

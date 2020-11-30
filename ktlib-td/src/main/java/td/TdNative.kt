@@ -12,12 +12,9 @@ object TdNative {
     external fun nativeClientSend(nativeClientId: Long, eventId: Long, function: TdApi.Function<out Object>)
 
     @JvmStatic
-    external fun nativeClientReceive(nativeClientId: Long, eventIds: LongArray, events: Array<Object?>, timeout: Double): Int
+    external fun nativeClientReceive(nativeClientId: LongArray, eventIds: LongArray, events: Array<Object?>, timeout: Double): Int
 
     @JvmStatic
     external fun <T: Object> nativeClientExecute(function: TdApi.Function<T>): T
-
-    @JvmStatic
-    external fun destroyNativeClient(nativeClientId: Long)
 
 }
