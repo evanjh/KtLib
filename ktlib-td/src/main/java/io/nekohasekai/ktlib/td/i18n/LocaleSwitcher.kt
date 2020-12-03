@@ -11,7 +11,7 @@ import io.nekohasekai.ktlib.td.utils.*
 import kotlinx.coroutines.delay
 import td.TdApi.*
 
-class LocaleSwitcher(private val dataId: Long, private val setupWizard: (suspend (userId: Int, chatId: Long, message: Message) -> Unit)? = null) : TdHandler() {
+class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend (userId: Int, chatId: Long, message: Message) -> Unit)? = null) : TdHandler() {
 
     companion object {
 

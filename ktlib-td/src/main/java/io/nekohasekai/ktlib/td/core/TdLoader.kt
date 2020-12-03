@@ -2,8 +2,10 @@ package io.nekohasekai.ktlib.td.core
 
 import cn.hutool.log.level.Level
 import io.nekohasekai.ktlib.core.*
+import io.nekohasekai.ktlib.td.core.raw.setLogStream
 import io.nekohasekai.ktlib.td.core.raw.setLogTagVerbosityLevel
 import io.nekohasekai.ktlib.td.core.raw.setLogVerbosityLevel
+import td.TdApi
 import java.io.File
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -21,7 +23,7 @@ object TdLoader {
     /**
      * TDLib 当前使用的 TDLib 版本 ( commit )
      */
-    const val version = "5686652"
+    const val version = "eb80924"
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -329,7 +331,6 @@ object TdLoader {
         }
 
         setLogVerbosityLevel(logLevel)
-
         setLogTagVerbosityLevel("td_requests", 1023)
 
     }

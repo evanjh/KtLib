@@ -44,8 +44,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     val payloads = HashMap<String, TdHandler>()
     val functions = HashMap<String, TdHandler>()
-    val callbackQueries = HashMap<Long, TdHandler>()
 
+    val callbackQueries = HashMap<Int, TdHandler>()
     val persistHandlers = HashMap<Int, TdHandler>()
     val persists by lazy { PersistStore.Interface(this) }
 
@@ -170,6 +170,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             }
 
         }
+
+        sendRaw(GetOption("version"))
 
     }
 
@@ -355,7 +357,17 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                         userCalled(userId, "persist function /$function")
 
-                        handler.onPersistFunction(userId, chatId, message, persist.subId, persist.data, function, param, params, originParams)
+                        handler.onPersistFunction(
+                            userId,
+                            chatId,
+                            message,
+                            persist.subId,
+                            persist.data,
+                            function,
+                            param,
+                            params,
+                            originParams
+                        )
 
                         finishEvent()
 
@@ -465,7 +477,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     open suspend fun onLaunch(userId: Int, chatId: Long, message: Message) = Unit
 
-    override suspend fun handleNewInlineCallbackQuery(id: Long, senderUserId: Int, inlineMessageId: String, chatInstance: Long, payload: CallbackQueryPayload) {
+    override suspend fun handleNewInlineCallbackQuery(
+        id: Long,
+        senderUserId: Int,
+        inlineMessageId: String,
+        chatInstance: Long,
+        payload: CallbackQueryPayload
+    ) {
 
         if (!waitForAuth() || userBlocked(senderUserId)) return
 
@@ -487,7 +505,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         }
 
-        val dataId = BigInteger(dataArray[0]).toLong()
+        val dataId = BigInteger(dataArray[0]).toInt()
 
         dataArray = dataArray.shift()
 
@@ -509,7 +527,14 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun handleNewCallbackQuery(id: Long, senderUserId: Int, chatId: Long, messageId: Long, chatInstance: Long, payload: CallbackQueryPayload) {
+    override suspend fun handleNewCallbackQuery(
+        id: Long,
+        senderUserId: Int,
+        chatId: Long,
+        messageId: Long,
+        chatInstance: Long,
+        payload: CallbackQueryPayload
+    ) {
 
         if (!waitForAuth() || userBlocked(senderUserId)) return
 
@@ -531,9 +556,9 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         }
 
-        val dataId = dataArray[0].toLong()
+        val dataId = dataArray[0].toInt()
 
-        if (dataId == -1L) {
+        if (dataId == -1) {
 
             sudo confirmTo id
 
@@ -561,7 +586,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun onUndefinedPayload(userId: Int, chatId: Long, message: Message, payload: String, params: Array<String>) {
+    override suspend fun onUndefinedPayload(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        payload: String,
+        params: Array<String>
+    ) {
 
         if (!message.fromPrivate) return
 
@@ -571,7 +602,15 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+    override suspend fun onUndefinedFunction(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        function: String,
+        param: String,
+        params: Array<String>,
+        originParams: Array<String>
+    ) {
 
         if (!message.fromPrivate) return
 
@@ -651,7 +690,12 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    override suspend fun onMessageSendFailed(message: Message, oldMessageId: Long, errorCode: Int, errorMessage: String) {
+    override suspend fun onMessageSendFailed(
+        message: Message,
+        oldMessageId: Long,
+        errorCode: Int,
+        errorMessage: String
+    ) {
 
         val callback = messageCallbacks.remove(oldMessageId) ?: return
 
@@ -851,11 +895,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         private val postAdd = LinkedList<TdClient>()
         private val postDestroy = LinkedList<TdClient>()
-        val clients = HashMap<Long, TdClient>()
+        val clients = HashMap<Int, TdClient>()
 
         private const val MAX_EVENTS = 1000
 
-        private val clientIds = LongArray(MAX_EVENTS)
+        private val clientIds = IntArray(MAX_EVENTS)
         private val eventIds = LongArray(MAX_EVENTS)
         private val eventObjs = arrayOfNulls<Object>(MAX_EVENTS)
 
@@ -918,9 +962,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                             }
 
-                            val start = SystemClock.now()
-
-                            val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 100000.0)
+                            val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 0.2)
 
                             if (resultCount == 0) continue
 
@@ -978,8 +1020,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         }
 
         class MessageNode(
-                val message: Deferred<Pair<Long, Long>>,
-                val outdated: Boolean
+            val message: Deferred<Pair<Long, Long>>,
+            val outdated: Boolean
         ) {
 
             val isCompleted get() = message.isCompleted
@@ -1079,7 +1121,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                         activeCount = lastMessage.activeCount()
                         count = lastMessage.count()
 
-                        if (senderUserId == 0 || senderUserId == client.me.id || client.skipFloodCheck(senderUserId, update.message)) {
+                        if (senderUserId == 0 || senderUserId == client.me.id || client.skipFloodCheck(
+                                senderUserId,
+                                update.message
+                            )
+                        ) {
 
                             // 跳过检查
 

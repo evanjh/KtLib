@@ -2,7 +2,7 @@ package io.nekohasekai.ktlib.td.core
 
 import cn.hutool.core.thread.ThreadUtil
 import td.TdApi
-import td.TdApi.*
+import td.TdApi.Error
 
 open class TdException(val error: Error, override val cause: Throwable? = null) : RuntimeException() {
 
@@ -23,7 +23,7 @@ open class TdException(val error: Error, override val cause: Throwable? = null) 
     override fun toString(): String {
         var message = "$code : $message"
         if (::request.isInitialized) {
-            message += "\n\nRequest = $request"
+            message += "\n\nRequest = $request\n"
         }
         return message
     }

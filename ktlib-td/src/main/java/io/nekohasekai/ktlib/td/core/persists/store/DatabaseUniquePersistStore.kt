@@ -7,9 +7,9 @@ import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.db.DatabaseCacheMap
 import io.nekohasekai.ktlib.db.DatabaseDispatcher
 import io.nekohasekai.ktlib.td.core.TdClient
+import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import io.nekohasekai.ktlib.td.extensions.mkData
 import io.nekohasekai.ktlib.td.extensions.readData
-import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import kotlinx.coroutines.launch
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.api.ExposedBlob
@@ -51,7 +51,7 @@ class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDis
 
                 val dataArray = row[table.data].bytes.readData()
 
-                val dataId = if (dataArray.isEmpty()) 0L else dataArray[0].asLong
+                val dataId = if (dataArray.isEmpty()) 0 else dataArray[0].asInt
 
                 TdPersist(
                         row[table.userId],
@@ -140,7 +140,7 @@ class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDis
 
                 val dataArray = row[table.data].bytes.readData()
 
-                val dataId = BigInteger(dataArray[0]).toLong()
+                val dataId = BigInteger(dataArray[0]).toInt()
 
                 val persist = TdPersist(
                         row[table.userId],

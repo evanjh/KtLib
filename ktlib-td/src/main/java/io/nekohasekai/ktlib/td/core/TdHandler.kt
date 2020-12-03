@@ -11,7 +11,6 @@ import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.ktlib.td.utils.delete
 import td.TdApi
 import td.TdApi.*
-import td.TdApi.Function
 import java.util.*
 
 open class TdHandler : AbsEvents {
@@ -43,13 +42,13 @@ open class TdHandler : AbsEvents {
 
     open suspend fun onDestroy() = Unit
 
-    open fun <T : Object> send(function: Function<T>, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
+    open fun <T : Object> send(function: TdApi.Function<T>, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
 
-    open infix fun sendRaw(function: Function<*>) = sudo.sendRaw(function)
+    open infix fun sendRaw(function: TdApi.Function<*>) = sudo.sendRaw(function)
 
-    open suspend infix fun <T : Object> sync(function: Function<T>): T = sudo.sync(function)
+    open suspend infix fun <T : Object> sync(function: TdApi.Function<T>): T = sudo.sync(function)
 
-    suspend infix fun <T : Object> syncOrNull(function: Function<T>): T? {
+    suspend infix fun <T : Object> syncOrNull(function: TdApi.Function<T>): T? {
 
         return try {
 
@@ -63,7 +62,7 @@ open class TdHandler : AbsEvents {
 
     }
 
-    suspend infix fun syncUnit(function: Function<out Object>) {
+    suspend infix fun syncUnit(function: TdApi.Function<out Object>) {
         sudo.sync(function)
     }
 
@@ -256,7 +255,7 @@ open class TdHandler : AbsEvents {
 
     }
 
-    open fun initData(dataId: Long) {
+    open fun initData(dataId: Int) {
 
         sudo.callbackQueries.put(dataId, this)?.apply {
 
@@ -286,7 +285,7 @@ open class TdHandler : AbsEvents {
 
     }
 
-    open fun writePersist(userId: Int, persistId: Int, subId: Long, vararg data: Any?, allowFunction: Boolean = false, allowCancel: Boolean = true, dontSave: Boolean = false) {
+    open fun writePersist(userId: Int, persistId: Int, subId: Int, vararg data: Any?, allowFunction: Boolean = false, allowCancel: Boolean = true, dontSave: Boolean = false) {
 
         sudo.persists.save(TdPersist(userId, persistId, subId, arrayOf(* data), allowFunction, allowCancel, dontSave = dontSave))
 
@@ -309,19 +308,19 @@ open class TdHandler : AbsEvents {
     open suspend fun onNewCallbackQuery(userId: Int, chatId: Long, messageId: Long, queryId: Long, data: Array<ByteArray>) = Unit
     open suspend fun onNewInlineCallbackQuery(userId: Int, inlineMessageId: String, queryId: Long, data: Array<ByteArray>) = Unit
 
-    open suspend fun onPersistMessage(userId: Int, chatId: Long, message: Message, subId: Long, data: Array<Any?>) = Unit
+    open suspend fun onPersistMessage(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>) = Unit
 
-    open suspend fun onPersistFunction(userId: Int, chatId: Long, message: Message, subId: Long, data: Array<Any?>, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+    open suspend fun onPersistFunction(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>, function: String, param: String, params: Array<String>, originParams: Array<String>) {
 
         rejectFunction()
 
     }
 
-    open suspend fun onPersistRemove(userId: Int, chatId: Long, subId: Long, data: Array<Any?>) = Unit
+    open suspend fun onPersistRemove(userId: Int, chatId: Long, subId: Int, data: Array<Any?>) = Unit
 
-    open suspend fun onPersistRemoveOrCancel(userId: Int, chatId: Long, subId: Long, data: Array<Any?>) = Unit
-    open suspend fun onPersistCancel(userId: Int, chatId: Long, message: Message, subId: Long, data: Array<Any?>) = Unit
-    open suspend fun onPersistTimeout(userId: Int, chatId: Long, subId: Long, data: Array<Any?>) = Unit
+    open suspend fun onPersistRemoveOrCancel(userId: Int, chatId: Long, subId: Int, data: Array<Any?>) = Unit
+    open suspend fun onPersistCancel(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>) = Unit
+    open suspend fun onPersistTimeout(userId: Int, chatId: Long, subId: Int, data: Array<Any?>) = Unit
 
     open suspend fun onSendCanceledMessage(userId: Int, chatId: Long) {
 

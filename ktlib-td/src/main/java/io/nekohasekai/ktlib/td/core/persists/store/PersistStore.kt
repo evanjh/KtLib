@@ -17,7 +17,7 @@ interface PersistStore {
 
     class Interface(val client: TdClient) {
 
-        private var store: PersistStore = InMemoryPersistStore()
+        var store: PersistStore = InMemoryPersistStore()
 
         fun setImplement(implement: PersistStore) {
 

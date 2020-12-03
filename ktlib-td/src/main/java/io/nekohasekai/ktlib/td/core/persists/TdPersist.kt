@@ -6,7 +6,7 @@ data class TdPersist(
 
         var userId: Int,
         var persistId: Int,
-        var subId: Long,
+        var subId: Int,
         var data: Array<Any?>,
         var allowFunction: Boolean,
         var allowCancel: Boolean,
@@ -15,6 +15,6 @@ data class TdPersist(
 
 ) {
 
-    constructor() : this(0, 0, 0L, arrayOf(), false, true, 0)
+    constructor() : this(0, 0, 0, arrayOf(), false, true, 0)
 
 }

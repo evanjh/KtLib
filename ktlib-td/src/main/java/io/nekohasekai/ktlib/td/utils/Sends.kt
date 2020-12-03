@@ -14,7 +14,9 @@ import kotlinx.coroutines.CoroutineScope
 import td.TdApi.*
 import java.io.File
 import java.util.*
-import kotlin.coroutines.*
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import kotlin.properties.Delegates
 
 val String.asText: FormattedText get() = FormattedText(this, arrayOf())
@@ -153,7 +155,7 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
         }
 
-        fun dataButton(text: String, id: Long, vararg dataArray: ByteArray) {
+        fun dataButton(text: String, id: Int, vararg dataArray: ByteArray) {
 
             add(InlineKeyboardButton(text, InlineKeyboardButtonTypeCallback(mkData(id, *dataArray, randomSuffix = true))))
 
@@ -187,7 +189,7 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
     fun switchLine(text: String, query: String, inCurrentChat: Boolean = true) = newLine().switchButton(text, query, inCurrentChat)
 
-    fun dataLine(text: String, id: Long, vararg dataArray: ByteArray) = newLine().dataButton(text, id, * dataArray)
+    fun dataLine(text: String, id: Int, vararg dataArray: ByteArray) = newLine().dataButton(text, id, * dataArray)
 
     fun textLine(text: String) = newLine().textButton(text)
 

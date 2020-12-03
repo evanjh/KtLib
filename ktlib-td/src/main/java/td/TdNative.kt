@@ -1,18 +1,18 @@
 package td
 
-import td.TdApi.*
+import td.TdApi.Object
 
 @Suppress("unused")
 object TdNative {
 
     @JvmStatic
-    external fun createNativeClient(): Long
+    external fun createNativeClient(): Int
 
     @JvmStatic
-    external fun nativeClientSend(nativeClientId: Long, eventId: Long, function: TdApi.Function<out Object>)
+    external fun nativeClientSend(nativeClientId: Int, eventId: Long, function: TdApi.Function<out Object>)
 
     @JvmStatic
-    external fun nativeClientReceive(nativeClientId: LongArray, eventIds: LongArray, events: Array<Object?>, timeout: Double): Int
+    external fun nativeClientReceive(nativeClientId: IntArray, eventIds: LongArray, events: Array<Object?>, timeout: Double): Int
 
     @JvmStatic
     external fun <T: Object> nativeClientExecute(function: TdApi.Function<T>): T

@@ -98,7 +98,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             SystemUtils.getEnvironmentVariable(key, null)?.toInt()
         } else null
     }.onFailure {
-        defaultLog.warn(">> Invalid integer config item $key", it)
+        defaultLog.warn(">> Invalid integer config item $key")
     }.getOrNull()
 
     fun longConfig(key: String) = runCatching {
@@ -106,7 +106,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             SystemUtils.getEnvironmentVariable(key, null)?.toLong()
         } else null
     }.onFailure {
-        defaultLog.warn(">> Invalid long config item $key", it)
+        defaultLog.warn(">> Invalid long config item $key")
     }.getOrNull()
 
     private val botTokenInEnv get() = stringConfig("BOT_TOKEN")

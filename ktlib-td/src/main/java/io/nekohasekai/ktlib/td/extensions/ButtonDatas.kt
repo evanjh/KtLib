@@ -12,7 +12,7 @@ fun ByteArray.toLong() = BigInteger(this).toLong()
 fun ByteArray.toInt() = BigInteger(this).toInt()
 fun ByteArray.toBoolean() = this[0].toInt() == 1
 
-fun mkData(id: Long, vararg dataArray: ByteArray, randomSuffix: Boolean = false): ByteArray {
+fun mkData(id: Int, vararg dataArray: ByteArray, randomSuffix: Boolean = false): ByteArray {
 
     var data = arrayOf(id.asByteArray(), * dataArray).toByteArray()
 

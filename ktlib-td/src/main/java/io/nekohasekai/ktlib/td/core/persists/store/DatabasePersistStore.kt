@@ -4,13 +4,18 @@ package io.nekohasekai.ktlib.td.core.persists.store
 
 import cn.hutool.core.date.SystemClock
 import io.nekohasekai.ktlib.core.*
-import io.nekohasekai.ktlib.db.*
+import io.nekohasekai.ktlib.db.DatabaseCacheMap
+import io.nekohasekai.ktlib.db.DatabaseDispatcher
+import io.nekohasekai.ktlib.db.upsert
 import io.nekohasekai.ktlib.td.core.TdClient
+import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import io.nekohasekai.ktlib.td.extensions.mkData
 import io.nekohasekai.ktlib.td.extensions.readData
-import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import kotlinx.coroutines.launch
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.statements.api.ExposedBlob
 import java.math.BigInteger
 
@@ -47,7 +52,7 @@ class DatabasePersistStore @JvmOverloads constructor(database: DatabaseDispatche
 
                 val dataArray = row[table.data].bytes.readData()
 
-                val dataId = if (dataArray.isEmpty()) 0L else dataArray[0].asLong
+                val dataId = if (dataArray.isEmpty()) 0 else dataArray[0].asInt
 
                 TdPersist(
                         row[table.userId],
@@ -134,7 +139,7 @@ class DatabasePersistStore @JvmOverloads constructor(database: DatabaseDispatche
 
                 val dataArray = row[table.data].bytes.readData()
 
-                val dataId = BigInteger(dataArray[0]).toLong()
+                val dataId = BigInteger(dataArray[0]).toInt()
 
                 val persist = TdPersist(
                         row[table.userId],
