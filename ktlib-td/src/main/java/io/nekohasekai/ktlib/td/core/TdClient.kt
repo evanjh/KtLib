@@ -171,8 +171,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         }
 
-        sendRaw(GetOption("version"))
-
     }
 
     suspend fun waitForStart() {
@@ -931,6 +929,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                                     toAdd.started = true
 
+                                    toAdd.sendRaw(GetOption("version"))
+
                                 }
 
                             }
@@ -962,7 +962,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                             }
 
-                            val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 0.2)
+                            val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 1000000.0)
 
                             if (resultCount == 0) continue
 
