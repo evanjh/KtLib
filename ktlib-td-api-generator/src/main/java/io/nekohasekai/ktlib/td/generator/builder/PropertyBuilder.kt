@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER", "UNUSED_VARIABLE")
+
 package io.nekohasekai.ktlib.td.generator.builder
 
 import io.nekohasekai.ktlib.td.generator.tl.*
@@ -76,11 +78,11 @@ fun TlProperty.descriptionLines(): List<String> {
 
 
 fun TlProperty.inlineAnnotations(): String =
-        additions
-                .filterIsInstance<TlAddition.Annotation>()
-                .takeIf(List<*>::isNotEmpty)
-                ?.map(io.nekohasekai.ktlib.td.generator.tl.TlAddition.Annotation::annotation)
-                ?.distinct()
-                ?.sorted()
-                ?.joinToString(spaceToken + addressToken, addressToken, spaceToken)
-                ?: ""
+    additions
+        .filterIsInstance<TlAddition.Annotation>()
+        .takeIf(List<*>::isNotEmpty)
+        ?.map(io.nekohasekai.ktlib.td.generator.tl.TlAddition.Annotation::annotation)
+        ?.distinct()
+        ?.sorted()
+        ?.joinToString(spaceToken + addressToken, addressToken, spaceToken)
+        ?: ""

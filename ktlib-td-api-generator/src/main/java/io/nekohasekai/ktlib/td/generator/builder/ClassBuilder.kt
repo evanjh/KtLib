@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package io.nekohasekai.ktlib.td.generator.builder
 
 import io.nekohasekai.ktlib.td.generator.tl.*
@@ -120,7 +122,7 @@ fun StringBuilder.buildConstructorField(crc: Int) {
 fun TlData.descriptions(): List<String> = metadata.descriptions + metadata.additions.strings()
 
 fun TlData.descriptionsWithProperties(): List<String> =
-        descriptions() + (when (metadata.properties.isEmpty()) {
-            true -> emptyList()
-            false -> listOf("") + metadata.properties.flatMap(TlProperty::descriptionLines)
-        })
+    descriptions() + (when (metadata.properties.isEmpty()) {
+        true -> emptyList()
+        false -> listOf("") + metadata.properties.flatMap(TlProperty::descriptionLines)
+    })
