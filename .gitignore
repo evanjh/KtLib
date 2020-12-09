@@ -1,9 +1,9 @@
 *.iml
 .idea/
+/.gradle/
 target/
+build/
 /data/
 /cache/
 /libs/
-/config.yml
-dependency-reduced-pom.xml
 /*.jar

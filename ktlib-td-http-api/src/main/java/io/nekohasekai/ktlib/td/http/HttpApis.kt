@@ -37,11 +37,18 @@ private fun getFilePath(botToken: String, filePath: String): String? {
     val path = filePath.substring(0, slash)
     val fileName = filePath.substring(slash)
 
-    return API_URL + "/file/bot" + botToken + "/" + path + URLEncoder.DEFAULT.encode(fileName, CharsetUtil.CHARSET_UTF_8).replace("+", "%20")
+    return API_URL + "/file/bot" + botToken + "/" + path + URLEncoder.DEFAULT.encode(
+        fileName,
+        CharsetUtil.CHARSET_UTF_8
+    ).replace("+", "%20")
 
 }
 
-fun <T : BaseRequest<T, R>, R : BaseResponse> httpSend(botToken: String, request: BaseRequest<T, R>, submit: (TdCallback<R>.() -> Unit)? = null) {
+fun <T : BaseRequest<T, R>, R : BaseResponse> httpSend(
+    botToken: String,
+    request: BaseRequest<T, R>,
+    submit: (TdCallback<R>.() -> Unit)? = null
+) {
 
     TdCallback<R>(1).applyIf(submit != null, submit).apply {
 
@@ -65,42 +72,43 @@ fun <T : BaseRequest<T, R>, R : BaseResponse> httpSend(botToken: String, request
 
 }
 
-suspend fun <T : BaseRequest<T, R>, R : BaseResponse> httpSync(botToken: String, request: BaseRequest<T, R>): R = withContext(Dispatchers.IO) {
+suspend fun <T : BaseRequest<T, R>, R : BaseResponse> httpSync(botToken: String, request: BaseRequest<T, R>): R =
+    withContext(Dispatchers.IO) {
 
-    val httpRequest = HttpUtil.createPost(API_URL + "/bot" + botToken + "/" + request.method)
+        val httpRequest = HttpUtil.createPost(API_URL + "/bot" + botToken + "/" + request.method)
 
-    for ((name, value) in request.parameters) {
+        for ((name, value) in request.parameters) {
 
-        when (value) {
+            when (value) {
 
-            is ByteArray -> httpRequest.form(name, value, request.fileName)
+                is ByteArray -> httpRequest.form(name, value, request.fileName)
 
-            is File -> httpRequest.form(name, value, request.fileName)
+                is File -> httpRequest.form(name, value, request.fileName)
 
-            else -> httpRequest.form(name, value)
+                else -> httpRequest.form(name, value)
+
+            }
 
         }
 
+        val body = try {
+
+            httpRequest.execute().body()
+
+        } catch (ex: Exception) {
+
+            throw TdException(ex.message ?: ex.toString())
+
+        }
+
+        val response = GSON.fromJson<R>(body, request.responseType)!!
+
+        if (!response.isOk) {
+
+            throw TdException(response.errorCode(), response.description())
+
+        }
+
+        response
+
     }
-
-    val body = try {
-
-        httpRequest.execute().body()
-
-    } catch (ex: Exception) {
-
-        throw TdException(ex.message ?: ex.toString())
-
-    }
-
-    val response = GSON.fromJson<R>(body, request.responseType)!!
-
-    if (!response.isOk) {
-
-        throw TdException(response.errorCode(), response.description())
-
-    }
-
-    response
-
-}

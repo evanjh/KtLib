@@ -1,9 +1,5 @@
 @file:Suppress("unused")
 
-/**
- * 使用序列化框架 Kryo 在 EXposed 中使用任意类作为列
- */
-
 package io.nekohasekai.ktlib.core
 
 import com.esotericsoftware.kryo.Kryo

@@ -10,10 +10,6 @@ import java.util.*
 import java.util.concurrent.atomic.*
 import kotlin.reflect.*
 
-/**
- * 一些基于语言特性的全局函数
- */
-
 fun <T> T.applyIf(boolean: Boolean, block: (T.() -> Unit)?): T {
     if (boolean) block?.invoke(this)
     return this

@@ -11,7 +11,6 @@ import cn.hutool.log.Log
 import cn.hutool.log.LogFactory
 import cn.hutool.log.dialect.console.ConsoleLog
 import cn.hutool.log.level.Level
-import cn.hutool.setting.SettingLoader
 
 object NekoLogFactory : LogFactory("Neko Log") {
 
@@ -27,8 +26,7 @@ object NekoLogFactory : LogFactory("Neko Log") {
 
             when (clazz) {
 
-                GlobalLogFactory::class.java,
-                SettingLoader::class.java -> logLevel = Level.INFO
+                GlobalLogFactory::class.java -> logLevel = Level.INFO
 
             }
 
