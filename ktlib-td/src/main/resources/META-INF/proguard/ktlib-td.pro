@@ -1,0 +1,2 @@
+-keep class td.** { *; }
+-keep class org.yaml.snakeyaml.nodes.NodeId { *; }
