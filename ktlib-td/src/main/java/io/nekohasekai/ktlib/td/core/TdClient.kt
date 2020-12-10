@@ -129,9 +129,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         addHandler(this)
 
-        synchronized(postAdd) {
+        synchronized(clients) {
 
-            postAdd.add(this)
+            clients[clientId] = this
+
+            started = true
+
+            sendRaw(GetOption("version"))
 
         }
 
@@ -160,10 +164,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                     }.join()
 
                     eventsContext.close()
-
-                    loopThread.interrupt()
-
-                    loopThread.join()
 
                 }
 
@@ -210,12 +210,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             stop = true
 
             sendRaw(Close())
-
-        }
-
-        runBlocking {
-
-            handlers.toLinkedList().forEach { it.onDestroy() }
 
         }
 
@@ -666,11 +660,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             is AuthorizationStateClosed -> {
 
-                synchronized(postDestroy) {
+                closed = true
 
-                    postDestroy.add(sudo)
+                onDestroy()
 
-                }
+                handlers.filterNot { it == this }.toList().forEach { it.onDestroy() }
 
             }
         }
@@ -891,8 +885,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         val events = CoroutineScope(eventsContext)
 
-        private val postAdd = LinkedList<TdClient>()
-        private val postDestroy = LinkedList<TdClient>()
         val clients = HashMap<Int, TdClient>()
 
         private const val MAX_EVENTS = 1000
@@ -907,6 +899,10 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         class LoopThread : Thread("TDLib Loop Thread") {
 
+            init {
+                isDaemon = true
+            }
+
             override fun run() {
 
                 try {
@@ -915,44 +911,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                         while (!isInterrupted) {
 
-                            synchronized(postAdd) {
-
-                                val iterator = postAdd.iterator()
-
-                                while (iterator.hasNext()) {
-
-                                    val toAdd = iterator.next()
-
-                                    clients[toAdd.clientId] = toAdd
-
-                                    iterator.remove()
-
-                                    toAdd.started = true
-
-                                    toAdd.sendRaw(GetOption("version"))
-
-                                }
-
-                            }
-
-                            synchronized(postDestroy) {
-
-                                val iterator = postDestroy.iterator()
-
-                                while (iterator.hasNext()) {
-
-                                    val toDestroy = iterator.next()
-
-                                    clients.remove(toDestroy.clientId)
-
-                                    toDestroy.stop = true
-                                    toDestroy.closed = true
-
-                                    iterator.remove()
-
-                                }
-
-                            }
+                            val clients = synchronized(clients) { HashMap(clients) }
 
                             if (clients.isEmpty()) {
 

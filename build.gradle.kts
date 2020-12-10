@@ -20,6 +20,7 @@ allprojects {
 
     dependencies {
         implementation(kotlin("stdlib"))
+        implementation(kotlin("reflect"))
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
     }
 
@@ -29,5 +30,3 @@ allprojects {
         }
     }
 }
-
-

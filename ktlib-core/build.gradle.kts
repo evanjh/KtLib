@@ -5,7 +5,6 @@ dependencies {
     api("cn.hutool:hutool-log:$vHutool")
     api("cn.hutool:hutool-json:$vHutool")
     api("cn.hutool:hutool-http:$vHutool")
-   // api("cn.hutool:hutool-cache:$vHutool")
     api("org.apache.commons:commons-lang3:3.9")
 
     api("com.squareup.okhttp3:okhttp:4.10.0-RC1") {
