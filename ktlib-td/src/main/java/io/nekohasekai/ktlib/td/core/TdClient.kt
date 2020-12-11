@@ -911,23 +911,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                         while (!isInterrupted) {
 
-                            val clients = synchronized(clients) { HashMap(clients) }
-
-                            if (clients.isEmpty()) {
-
-                                delay(1000L)
-
-                                continue
-
-                            }
-
                             val resultCount = TdNative.nativeClientReceive(clientIds, eventIds, eventObjs, 1000000.0)
 
                             if (resultCount == 0) continue
 
                             for (index in 0 until resultCount) {
 
-                                val client = clients[clientIds[index]]!!
+                                val client = clients[clientIds[index]] ?: continue
                                 val requestId = eventIds[index]
                                 val event = eventObjs[index]!!
 
