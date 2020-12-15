@@ -10,7 +10,7 @@ import kotlin.system.exitProcess
 @Suppress("UNCHECKED_CAST")
 fun main() {
 
-    val projectDir = File("src")
+    val projectDir = File("../../src").canonicalFile
 
     val localesFile = projectDir.find { it.name == "LocaleDefs.kt" }
 
