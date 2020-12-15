@@ -1,85 +1,67 @@
 package io.nekohasekai.ktlib.td.i18n
 
-import io.nekohasekai.ktlib.core.*
+import io.nekohasekai.ktlib.core.defaultLog
+import io.nekohasekai.ktlib.core.find
+import io.nekohasekai.ktlib.core.readPackageName
 import org.yaml.snakeyaml.Yaml
 import java.io.File
 import kotlin.system.exitProcess
 
-object LocaleDefGenerator {
+@Suppress("UNCHECKED_CAST")
+fun main() {
 
-    @Suppress("UNCHECKED_CAST")
-    @JvmStatic
-    fun main(args: Array<String>) {
+    val projectDir = File("src")
 
-        val module = try {
+    val localesFile = projectDir.find { it.name == "LocaleDefs.kt" }
 
-            File("bot.sh").readLines()
-                    .filter { it.startsWith("MODULE=") }[0]
-                    .substringAfter("\"")
-                    .substringBefore("\"")
+    if (localesFile == null) {
 
-        } catch (e: Exception) {
+        System.err.println("LocaleDefs.kt not found.")
 
-            System.err.println("module not found.")
+        exitProcess(1)
 
-            exitProcess(1)
+    }
 
-        }
+    val i18nDirectory = projectDir.find { it.name.startsWith("i18n-") }
 
-        val projectDir = File(module)
+    if (i18nDirectory == null) {
 
-        val localesFile = projectDir.find { it.name == "LocaleDefs.kt" }
+        System.err.println("i18n directory not found.")
 
-        if (localesFile == null) {
+        exitProcess(1)
 
-            System.err.println("LocaleDefs.kt not found.")
+    }
 
-            exitProcess(1)
+    val moduleName = i18nDirectory.name.substringAfter("-")
 
-        }
+    val i18nSources = i18nDirectory.listFiles()
 
-        val i18nDirectory = projectDir.find { it.name.startsWith("i18n-") }
+    if (i18nSources.isNullOrEmpty()) {
 
-        if (i18nDirectory == null) {
+        System.err.println("empty i18n sources.")
 
-            System.err.println("i18n directory not found.")
+        exitProcess(1)
 
-            exitProcess(1)
+    }
 
-        }
+    val i18nMaps = i18nSources.map { it to Yaml().loadAs(it.readText(), Map::class.java) as Map<String, *> }
 
-        val moduleName = i18nDirectory.name.substringAfter("-")
+    if (i18nMaps.size > 1) {
 
-        val i18nSources = i18nDirectory.listFiles()
+        // 检查
 
-        if (i18nSources.isNullOrEmpty()) {
+        for (index in i18nMaps.indices) {
 
-            System.err.println("empty i18n sources.")
+            val currentMap = i18nMaps[index]
+            val otherMaps = i18nMaps.filterIndexed { it, _ -> it != index }
 
-            exitProcess(1)
+            for (key in currentMap.second.keys) {
 
-        }
+                otherMaps.forEach {
 
-        val i18nMaps = i18nSources.map { it to Yaml().loadAs(it.readText(), Map::class.java) as Map<String, *> }
+                    if (!it.second.containsKey(key)) {
 
-        if (i18nMaps.size > 1) {
-
-            // 检查
-
-            for (index in i18nMaps.indices) {
-
-                val currentMap = i18nMaps[index]
-                val otherMaps = i18nMaps.filterIndexed { it, _ -> it != index }
-
-                for (key in currentMap.second.keys) {
-
-                    otherMaps.forEach {
-
-                        if (!it.second.containsKey(key)) {
-
-                            defaultLog.warn("$key in ${currentMap.first.name} not found in ${it.first.name}")
-
-                        }
+                        defaultLog.warn("$key in ${currentMap.first.name} not found in ${it.first.name}")
 
                     }
 
@@ -89,9 +71,12 @@ object LocaleDefGenerator {
 
         }
 
-        val i18nKeys = i18nMaps[0].second.keys
+    }
 
-        localesFile.writeText("""
+    val i18nKeys = i18nMaps[0].second.keys
+
+    localesFile.writeText(
+        """
 package ${localesFile.readPackageName()}
 
 import ${LocaleController::class.java.name}
@@ -102,10 +87,9 @@ private val L.$moduleName by L.receiveLocaleSet("$moduleName")
 private val string = L.receiveLocaleString { $moduleName }
 
 ${i18nKeys.joinToString("\n") { "internal val L.$it by string" }}
-""")
+"""
+    )
 
-        println("Write ${localesFile.path}")
-
-    }
+    println("Write ${localesFile.path}")
 
 }
