@@ -205,7 +205,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             check(started) { "未启动." }
 
-            check(!stop) { "重复停止." }
+            if (stop) return
 
             stop = true
 
