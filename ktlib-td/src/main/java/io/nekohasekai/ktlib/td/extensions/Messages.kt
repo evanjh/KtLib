@@ -33,6 +33,7 @@ val Message.isServiceMessage
 
 
 val Message.text get() = with(content) { if (this is MessageText) text.text else null }
+val MessageContent.type get() = javaClass.simpleName.substring(7)
 
 val Message.textOrCaptionObj
     get() = with(content) {

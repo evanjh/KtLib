@@ -97,19 +97,3 @@ class NekoLog(name: String) : ConsoleLog(name) {
     }
 
 }
-
-fun initLogLevel(logLevel: String) {
-
-    runCatching {
-
-        LOG_LEVEL = Level.valueOf(logLevel)
-
-    }.onFailure {
-
-        LOG_LEVEL = Level.INFO
-
-        defaultLog.error("Invalid log level $logLevel, fallback to INFO.")
-
-    }
-
-}

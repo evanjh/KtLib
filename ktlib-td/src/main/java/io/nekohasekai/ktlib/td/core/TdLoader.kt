@@ -10,8 +10,6 @@ object TdLoader {
 
     private val log = mkLog("TdLoader")
 
-    const val docker = "docker.pkg.github.com/nekohasekai/ktlib/td-base"
-
     const val version = "1.7.0"
 
     var loaded by AtomicBoolean()
@@ -165,7 +163,7 @@ object TdLoader {
      * @param libsDir 从加载的目录
      * @param allowDownload 允许下载, 支持 Windows 32 64 / Linux x86 x86_64 arm64v8
      */
-    fun tryLoad(libsDir: File = File("libs"), allowDownload: Boolean = true) {
+    fun tryLoad(libsDir: File = File("cache/libs"), allowDownload: Boolean = true) {
 
         if (loaded) return
 

@@ -229,32 +229,42 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
             }
 
-            onLoadConfig()
-
         }
+
+        onLoadConfig()
 
     }
 
     fun loadLogLevel() {
 
-        val logLevel = stringConfig("LOG_LEVEL")?.toUpperCase()
+        val logLevel = stringConfig("LOG_LEVEL")?.toUpperCase() ?: "INFO"
 
-        if (logLevel != null) initLogLevel(logLevel)
+        runCatching {
 
-        val logLevelInt = when (LOG_LEVEL) {
+            LOG_LEVEL = Level.valueOf(logLevel)
 
-            Level.ALL -> 5
-            Level.TRACE -> 1
-            Level.DEBUG -> 1
-            Level.INFO -> 1
-            Level.WARN -> 1
-            Level.ERROR -> 0
-            Level.FATAL -> 0
-            Level.OFF -> 0
+        }.onFailure {
+
+            LOG_LEVEL = Level.INFO
+
+            defaultLog.error("Invalid log level $logLevel, fallback to INFO.")
 
         }
 
-        setLogVerbosityLevel(logLevelInt)
+        setLogVerbosityLevel(
+            when (LOG_LEVEL) {
+
+                Level.ALL -> 5
+                Level.TRACE -> 1
+                Level.DEBUG -> 1
+                Level.INFO -> 1
+                Level.WARN -> 1
+                Level.ERROR -> 0
+                Level.FATAL -> 0
+                Level.OFF -> 0
+
+            }
+        )
 
         if (LOG_LEVEL == Level.ALL) {
             setLogStream(TdApi.LogStreamFile("$cacheDir/tdlib.log", 100 * 1024 * 1024, true))
