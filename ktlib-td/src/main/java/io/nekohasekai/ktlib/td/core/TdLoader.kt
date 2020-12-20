@@ -1,9 +1,6 @@
 package io.nekohasekai.ktlib.td.core
 
-import cn.hutool.log.level.Level
 import io.nekohasekai.ktlib.core.*
-import io.nekohasekai.ktlib.td.core.raw.setLogTagVerbosityLevel
-import io.nekohasekai.ktlib.td.core.raw.setLogVerbosityLevel
 import java.io.File
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
@@ -189,8 +186,6 @@ object TdLoader {
 
             System.loadLibrary("tdjni")
 
-            postInit()
-
             return
 
         }.recoverCatching {
@@ -218,8 +213,6 @@ object TdLoader {
             runCatching {
 
                 System.load(jniFile.canonicalPath)
-
-                postInit()
 
             }.onFailure {
 
@@ -272,33 +265,6 @@ object TdLoader {
         }
 
         jniLoad()
-
-    }
-
-    /**
-     * 初始化 TDLib
-     */
-    fun postInit() {
-
-        if (loaded) error("loaded")
-
-        loaded = true
-
-        val logLevel = when (LOG_LEVEL) {
-
-            Level.ALL -> 5
-            Level.TRACE -> 1
-            Level.DEBUG -> 1
-            Level.INFO -> 1
-            Level.WARN -> 1
-            Level.ERROR -> 0
-            Level.FATAL -> 0
-            Level.OFF -> 0
-
-        }
-
-        setLogVerbosityLevel(logLevel)
-        setLogTagVerbosityLevel("td_requests", 1023)
 
     }
 

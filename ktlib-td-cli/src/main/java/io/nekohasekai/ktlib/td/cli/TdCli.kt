@@ -7,6 +7,7 @@ import cn.hutool.core.date.SystemClock
 import cn.hutool.core.io.FileUtil
 import cn.hutool.core.lang.Console
 import cn.hutool.core.util.StrUtil
+import cn.hutool.log.level.Level
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.db.*
 import io.nekohasekai.ktlib.td.core.*
@@ -80,18 +81,18 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
     } else null
 
     fun boolConfig(key: String, default: Boolean = false) = ((config[key]?.toString()
-            ?: if (readConfigFromEnvironment) {
-                SystemUtils.getEnvironmentVariable(key, null)
-            } else null)?.toLowerCase() == "true") xor default
+        ?: if (readConfigFromEnvironment) {
+            SystemUtils.getEnvironmentVariable(key, null)
+        } else null)?.toLowerCase() == "true") xor default
 
     fun listConfig(key: String) = (config[key] as? List<*>)?.map { it.toString() } ?: if (readConfigFromEnvironment) {
         SystemUtils.getEnvironmentVariable(key, null)?.split(" ")
     } else null
 
     fun stringConfig(key: String, default: Boolean = false) = (config[key]?.toString()
-            ?: if (readConfigFromEnvironment) {
-                SystemUtils.getEnvironmentVariable(key, "$default")
-            } else null)?.toUpperCase() == "true"
+        ?: if (readConfigFromEnvironment) {
+            SystemUtils.getEnvironmentVariable(key, "$default")
+        } else null)?.toUpperCase() == "true"
 
     fun intConfig(key: String) = runCatching {
         config[key]?.toString()?.toInt() ?: if (readConfigFromEnvironment) {
@@ -239,6 +240,27 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         val logLevel = stringConfig("LOG_LEVEL")?.toUpperCase()
 
         if (logLevel != null) initLogLevel(logLevel)
+
+        val logLevelInt = when (LOG_LEVEL) {
+
+            Level.ALL -> 5
+            Level.TRACE -> 1
+            Level.DEBUG -> 1
+            Level.INFO -> 1
+            Level.WARN -> 1
+            Level.ERROR -> 0
+            Level.FATAL -> 0
+            Level.OFF -> 0
+
+        }
+
+        setLogVerbosityLevel(logLevelInt)
+
+        if (LOG_LEVEL == Level.ALL) {
+            setLogStream(TdApi.LogStreamFile("$cacheDir/tdlib.log", 100 * 1024 * 1024, true))
+        } else {
+            setLogTagVerbosityLevel("td_requests", 1023)
+        }
 
     }
 
@@ -389,12 +411,14 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             runCatching {
 
                 val binlog = binlogInEnv
-                        .substringAfter("-----BEGIN TDLIB BINLOG BLOCK-----")
-                        .substringBefore("-----END TDLIB BINLOG BLOCK-----")
-                        .let { Base64.decode(it) }
+                    .substringAfter("-----BEGIN TDLIB BINLOG BLOCK-----")
+                    .substringBefore("-----END TDLIB BINLOG BLOCK-----")
+                    .let { Base64.decode(it) }
 
-                val binlogFile = File(options.databaseDirectory,
-                        if (options.useTestDc) "td_test.binlog" else "td.binlog")
+                val binlogFile = File(
+                    options.databaseDirectory,
+                    if (options.useTestDc) "td_test.binlog" else "td.binlog"
+                )
 
                 if (!binlogFile.isFile || !binlogFile.readBytes().contentEquals(binlog)) {
 
@@ -412,221 +436,222 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
-    override suspend fun onAuthorizationState(authorizationState: TdApi.AuthorizationState) = withContext(Dispatchers.IO) {
+    override suspend fun onAuthorizationState(authorizationState: TdApi.AuthorizationState) =
+        withContext(Dispatchers.IO) {
 
-        try {
+            try {
 
-            suspend fun inputPhone() {
+                suspend fun inputPhone() {
 
-                while (!stop) {
+                    while (!stop) {
 
-                    when (loginType) {
-                        LoginType.ALL -> print(clientLocale.INPUT_PHONE_NUMBER_OR_BOT_TOKEN)
-                        LoginType.USER -> print(clientLocale.INPUT_PHONE_NUMBER)
-                        LoginType.BOT -> print(clientLocale.INPUT_BOT_TOKEN)
-                    }
-
-                    val phoneNumberOrBotToken = Console.input()
-
-                    if ((loginType == LoginType.ALL && phoneNumberOrBotToken.contains(":")) || loginType == LoginType.BOT) {
-
-                        try {
-
-                            checkAuthenticationBotToken(phoneNumberOrBotToken)
-
-                            break
-
-                        } catch (e: TdException) {
-
-                            println(clientLocale.INVALID_BOT_TOKEN.input(e))
-
+                        when (loginType) {
+                            LoginType.ALL -> print(clientLocale.INPUT_PHONE_NUMBER_OR_BOT_TOKEN)
+                            LoginType.USER -> print(clientLocale.INPUT_PHONE_NUMBER)
+                            LoginType.BOT -> print(clientLocale.INPUT_BOT_TOKEN)
                         }
 
-                    } else {
+                        val phoneNumberOrBotToken = Console.input()
 
-                        try {
+                        if ((loginType == LoginType.ALL && phoneNumberOrBotToken.contains(":")) || loginType == LoginType.BOT) {
 
-                            setAuthenticationPhoneNumber(phoneNumberOrBotToken)
+                            try {
 
-                            break
+                                checkAuthenticationBotToken(phoneNumberOrBotToken)
 
-                        } catch (e: TdException) {
+                                break
 
-                            println(clientLocale.INVALID_PHONE_NUMBER.input(e))
+                            } catch (e: TdException) {
+
+                                println(clientLocale.INVALID_BOT_TOKEN.input(e))
+
+                            }
+
+                        } else {
+
+                            try {
+
+                                setAuthenticationPhoneNumber(phoneNumberOrBotToken)
+
+                                break
+
+                            } catch (e: TdException) {
+
+                                println(clientLocale.INVALID_PHONE_NUMBER.input(e))
+
+                            }
 
                         }
 
                     }
 
                 }
+
+                if (authorizationState is TdApi.AuthorizationStateWaitPhoneNumber) {
+
+                    val botTokenInEnv = botTokenInEnv
+
+                    if (botTokenInEnv != null && loginType != LoginType.USER) {
+
+                        try {
+
+                            checkAuthenticationBotToken(botTokenInEnv)
+
+                            return@withContext
+
+                        } catch (e: TdException) {
+
+                            println(clientLocale.INVALID_ENV_VARIABLE_BOT_TOKEN.input(e))
+
+                        }
+
+                    } else if (loginType != LoginType.BOT && options.apiId == 21724) {
+
+                        clientLog.warn("No custom API_ID and HASH are specified, login with a new account may be banned!")
+
+                    }
+
+                    inputPhone()
+
+                } else if (authorizationState is TdApi.AuthorizationStateWaitCode) {
+
+                    while (!stop) {
+
+                        print(clientLocale.INPUT_AUTH_CODE)
+
+                        val authenticationCode = Console.input()
+
+                        if (authenticationCode == "resend") {
+
+                            try {
+
+                                resendAuthenticationCode()
+
+                                println(clientLocale.AUTH_CODE_RESENT)
+
+                            } catch (e: TdException) {
+
+                                println(clientLocale.RESEND_FAILED.input(e))
+
+                            }
+
+                        } else if (authenticationCode == "reset") {
+
+                            inputPhone()
+
+                        } else {
+
+                            try {
+
+                                checkAuthenticationCode(authenticationCode)
+
+                                break
+
+                            } catch (e: TdException) {
+
+                                // TODO: 语言文件
+
+                                println("验证码无效 ($e), 使用 resend 重新发送, reset 重置手机号.")
+
+                            }
+
+                        }
+
+                    }
+
+                } else if (authorizationState is TdApi.AuthorizationStateWaitPassword) {
+
+                    while (!stop) {
+
+                        print("输入密码 (使用 destroy 删除账号.): ")
+
+                        val authenticationPassword = Console.input()
+
+                        if (authenticationPassword == "destroy") {
+
+                            try {
+
+                                deleteAccount("PASSWORD FORGOTTEN")
+
+                                println("已删除")
+
+                            } catch (e: TdException) {
+
+                                println("重新发送失败: $e")
+
+                            }
+
+                        } else if (authenticationPassword == "reset") {
+
+                            inputPhone()
+
+                        } else {
+
+                            try {
+
+                                checkAuthenticationPassword(authenticationPassword)
+
+                                break
+
+                            } catch (e: TdException) {
+
+                                println("密码错误 ($e), 使用 destroy 删除账号.")
+
+                            }
+
+                        }
+
+                    }
+
+                } else if (authorizationState is TdApi.AuthorizationStateWaitRegistration) {
+
+                    while (!stop) {
+
+                        print("输入名称以注册: ")
+
+                        val name = Console.input()
+
+                        try {
+
+                            registerUser(name)
+
+                            break
+
+                        } catch (e: TdException) {
+
+                            println("注册失败: $e")
+
+                        }
+
+                    }
+
+                } else if (authorizationState is TdApi.AuthorizationStateWaitOtherDeviceConfirmation) {
+
+                    println("请在其他设备确认登录.")
+
+                } else if (authorizationState is TdApi.AuthorizationStateReady) {
+
+                    super.onAuthorizationState(authorizationState)
+
+                    clientLog.info("Login User ${me.displayNameFormatted}")
+
+                } else {
+
+                    super.onAuthorizationState(authorizationState)
+
+                }
+
+            } catch (e: NoSuchElementException) {
+
+                clientLog.error("Login Failed")
+
+                waitForClose()
+
+                exitProcess(100)
 
             }
-
-            if (authorizationState is TdApi.AuthorizationStateWaitPhoneNumber) {
-
-                val botTokenInEnv = botTokenInEnv
-
-                if (botTokenInEnv != null && loginType != LoginType.USER) {
-
-                    try {
-
-                        checkAuthenticationBotToken(botTokenInEnv)
-
-                        return@withContext
-
-                    } catch (e: TdException) {
-
-                        println(clientLocale.INVALID_ENV_VARIABLE_BOT_TOKEN.input(e))
-
-                    }
-
-                } else if (loginType != LoginType.BOT && options.apiId == 21724) {
-
-                    clientLog.warn("No custom API_ID and HASH are specified, login with a new account may be banned!")
-
-                }
-
-                inputPhone()
-
-            } else if (authorizationState is TdApi.AuthorizationStateWaitCode) {
-
-                while (!stop) {
-
-                    print(clientLocale.INPUT_AUTH_CODE)
-
-                    val authenticationCode = Console.input()
-
-                    if (authenticationCode == "resend") {
-
-                        try {
-
-                            resendAuthenticationCode()
-
-                            println(clientLocale.AUTH_CODE_RESENT)
-
-                        } catch (e: TdException) {
-
-                            println(clientLocale.RESEND_FAILED.input(e))
-
-                        }
-
-                    } else if (authenticationCode == "reset") {
-
-                        inputPhone()
-
-                    } else {
-
-                        try {
-
-                            checkAuthenticationCode(authenticationCode)
-
-                            break
-
-                        } catch (e: TdException) {
-
-                            // TODO: 语言文件
-
-                            println("验证码无效 ($e), 使用 resend 重新发送, reset 重置手机号.")
-
-                        }
-
-                    }
-
-                }
-
-            } else if (authorizationState is TdApi.AuthorizationStateWaitPassword) {
-
-                while (!stop) {
-
-                    print("输入密码 (使用 destroy 删除账号.): ")
-
-                    val authenticationPassword = Console.input()
-
-                    if (authenticationPassword == "destroy") {
-
-                        try {
-
-                            deleteAccount("PASSWORD FORGOTTEN")
-
-                            println("已删除")
-
-                        } catch (e: TdException) {
-
-                            println("重新发送失败: $e")
-
-                        }
-
-                    } else if (authenticationPassword == "reset") {
-
-                        inputPhone()
-
-                    } else {
-
-                        try {
-
-                            checkAuthenticationPassword(authenticationPassword)
-
-                            break
-
-                        } catch (e: TdException) {
-
-                            println("密码错误 ($e), 使用 destroy 删除账号.")
-
-                        }
-
-                    }
-
-                }
-
-            } else if (authorizationState is TdApi.AuthorizationStateWaitRegistration) {
-
-                while (!stop) {
-
-                    print("输入名称以注册: ")
-
-                    val name = Console.input()
-
-                    try {
-
-                        registerUser(name)
-
-                        break
-
-                    } catch (e: TdException) {
-
-                        println("注册失败: $e")
-
-                    }
-
-                }
-
-            } else if (authorizationState is TdApi.AuthorizationStateWaitOtherDeviceConfirmation) {
-
-                println("请在其他设备确认登录.")
-
-            } else if (authorizationState is TdApi.AuthorizationStateReady) {
-
-                super.onAuthorizationState(authorizationState)
-
-                clientLog.info("Login User ${me.displayNameFormatted}")
-
-            } else {
-
-                super.onAuthorizationState(authorizationState)
-
-            }
-
-        } catch (e: NoSuchElementException) {
-
-            clientLog.error("Login Failed")
-
-            waitForClose()
-
-            exitProcess(100)
 
         }
-
-    }
 
     override suspend fun onTermsOfService(termsOfServiceId: String, termsOfService: TdApi.TermsOfService) {
 
@@ -634,7 +659,15 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
-    override suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: TdApi.Message, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+    override suspend fun onUndefinedFunction(
+        userId: Int,
+        chatId: Long,
+        message: TdApi.Message,
+        function: String,
+        param: String,
+        params: Array<String>,
+        originParams: Array<String>
+    ) {
 
         if (function == "cancel") {
 
