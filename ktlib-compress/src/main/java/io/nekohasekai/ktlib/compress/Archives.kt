@@ -3,12 +3,18 @@
 package io.nekohasekai.ktlib.compress
 
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream
+import org.apache.commons.compress.compressors.xz.XZCompressorInputStream
 import org.apache.commons.compress.compressors.xz.XZCompressorOutputStream
 import java.io.File
+import java.io.InputStream
+import java.io.OutputStream
 
-fun File.xz(level: Int = 9) = XZCompressorOutputStream(outputStream(), level)
-fun File.tarXz(level: Int = 9) = TarArchiveOutputStream(xz(level))
+fun InputStream.xz() = XZCompressorInputStream(this)
+fun InputStream.tar() = TarArchiveInputStream(this)
+fun OutputStream.xz(level: Int = 9) = XZCompressorOutputStream(this, level)
+fun OutputStream.tar() = TarArchiveOutputStream(this)
 
 fun TarArchiveOutputStream.writeDirectories(dir: File) {
 

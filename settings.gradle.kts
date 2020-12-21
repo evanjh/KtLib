@@ -4,6 +4,8 @@ include(
     ":ktlib-core",
     ":ktlib-compress",
     ":ktlib-db",
+    ":ktlib-nsfw",
+    ":ktlib-ocr",
     ":ktlib-td",
     ":ktlib-td-api-generator",
     ":ktlib-td-cli",
