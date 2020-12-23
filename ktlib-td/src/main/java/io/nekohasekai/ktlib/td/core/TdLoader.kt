@@ -14,7 +14,7 @@ object TdLoader {
 
     var loaded by AtomicBoolean()
 
-    private suspend fun downloadFile3(url: String, dist: File) {
+    private fun downloadFile3(url: String, dist: File) {
 
         lateinit var exception: Exception
 
@@ -163,7 +163,7 @@ object TdLoader {
      * @param libsDir 从加载的目录
      * @param allowDownload 允许下载, 支持 Windows 32 64 / Linux x86 x86_64 arm64v8
      */
-    suspend fun tryLoad(cacheDir: File, allowDownload: Boolean = true) {
+    fun tryLoad(cacheDir: File, allowDownload: Boolean = true) {
 
         if (loaded) return
 

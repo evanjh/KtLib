@@ -30,8 +30,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     fun launch(args: Array<String>) {
 
-        TdLoader.tryLoad()
-
         arguments = args
 
         var ctn = false
@@ -69,6 +67,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             }
 
         }
+
+        requireTdLoad()
 
     }
 
@@ -117,6 +117,12 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
     open var dataDir = File("data").canonicalFile
     open var cacheDir = File("cache").canonicalFile
 
+    fun requireTdLoad() {
+
+        if (!TdLoader.loaded) TdLoader.tryLoad(cacheDir)
+
+    }
+
     open fun onArgument(argument: String, value: String?) {
 
         if (::configFile.isInitialized && argument == "config") {
@@ -142,6 +148,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             this.configFile = configFile
 
         } else if (argument == "export") {
+
+            requireTdLoad()
 
             val fileName = value ?: "binlog.txt"
 
