@@ -3,7 +3,10 @@
 package io.nekohasekai.ktlib.td.utils
 
 import io.nekohasekai.ktlib.td.core.TdHandler
-import io.nekohasekai.ktlib.td.core.raw.*
+import io.nekohasekai.ktlib.td.core.raw.getChat
+import io.nekohasekai.ktlib.td.core.raw.getChats
+import io.nekohasekai.ktlib.td.core.raw.getGroupsInCommon
+import io.nekohasekai.ktlib.td.core.raw.getSupergroupMembers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import td.TdApi.*
@@ -33,11 +36,21 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
     while (true) {
 
-        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(ChatListMain(), Long.MAX_VALUE, chatId, 114514).chatIds
+        chatIds =
+            if (nextChats.isNotEmpty()) nextChats else getChats(ChatListMain(), Long.MAX_VALUE, chatId, 114514).chatIds
 
-        chatId = chatIds[chatIds.size - 1]
+        if (chatIds.isNotEmpty()) {
 
-        nextChats = getChats(ChatListMain(), getChat(chatId).positions.filter { it.list is ChatListMain }[0].order, chatId, 114514).chatIds
+            chatId = chatIds[chatIds.size - 1]
+
+            nextChats = getChats(
+                ChatListMain(),
+                getChat(chatId).positions.filter { it.list is ChatListMain }[0].order,
+                chatId,
+                114514
+            ).chatIds
+
+        }
 
         if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
 
@@ -51,11 +64,25 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
     while (true) {
 
-        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(ChatListArchive(), Long.MAX_VALUE, chatId, 114514).chatIds
+        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(
+            ChatListArchive(),
+            Long.MAX_VALUE,
+            chatId,
+            114514
+        ).chatIds
 
-        chatId = chatIds[chatIds.size - 1]
+        if (chatIds.isNotEmpty()) {
 
-        nextChats = getChats(ChatListArchive(), getChat(chatId).positions.filter { it.list is ChatListArchive }[0].order, chatId, 114514).chatIds
+            chatId = chatIds[chatIds.size - 1]
+
+            nextChats = getChats(
+                ChatListArchive(),
+                getChat(chatId).positions.filter { it.list is ChatListArchive }[0].order,
+                chatId,
+                114514
+            ).chatIds
+
+        }
 
         if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
 
@@ -96,9 +123,13 @@ suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, list
 
         chatIds = if (nextChats.isNotEmpty()) nextChats else getGroupsInCommon(userId, chatId, 114514).chatIds
 
-        chatId = chatIds[chatIds.size - 1]
+        if (chatIds.isNotEmpty()) {
 
-        nextChats = getGroupsInCommon(userId, chatId, 114514).chatIds
+            chatId = chatIds[chatIds.size - 1]
+
+            nextChats = getGroupsInCommon(userId, chatId, 114514).chatIds
+
+        }
 
         if (!listener(chatIds.map { getChat(it) })) break
 
@@ -121,9 +152,13 @@ suspend fun TdHandler.fetchMessages(query: GetChatHistory, listener: suspend Cor
 
         messages = if (nextMessages.isNotEmpty()) nextMessages else sync(query).messages
 
-        query.fromMessageId = messages[messages.size - 1].id
+        if (messages.isNotEmpty()) {
 
-        nextMessages = sync(query).messages
+            query.fromMessageId = messages[messages.size - 1].id
+
+            nextMessages = sync(query).messages
+
+        }
 
         if (!listener(messages)) break
 
@@ -142,9 +177,13 @@ suspend fun TdHandler.fetchMessages(query: SearchMessages, listener: suspend Cor
 
         messages = if (nextMessages.isNotEmpty()) nextMessages else sync(query).messages
 
-        query.offsetMessageId = messages[messages.size - 1].id
+        if (messages.isNotEmpty()) {
 
-        nextMessages = sync(query).messages
+            query.offsetMessageId = messages[messages.size - 1].id
+
+            nextMessages = sync(query).messages
+
+        }
 
         if (!listener(messages)) break
 
@@ -163,9 +202,13 @@ suspend fun TdHandler.fetchMessages(query: SearchChatMessages, listener: suspend
 
         messages = if (nextMessages.isNotEmpty()) nextMessages else sync(query).messages
 
-        query.fromMessageId = messages[messages.size - 1].id
+        if (messages.isNotEmpty()) {
 
-        nextMessages = sync(query).messages
+            query.fromMessageId = messages[messages.size - 1].id
+
+            nextMessages = sync(query).messages
+
+        }
 
         if (!listener(messages)) break
 
