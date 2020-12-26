@@ -3,7 +3,9 @@
 package io.nekohasekai.ktlib.td.utils.commands
 
 import io.nekohasekai.ktlib.td.core.TdHandler
-import io.nekohasekai.ktlib.td.core.raw.*
+import io.nekohasekai.ktlib.td.core.raw.getChat
+import io.nekohasekai.ktlib.td.core.raw.getMessageOrNull
+import io.nekohasekai.ktlib.td.core.raw.getUser
 import io.nekohasekai.ktlib.td.extensions.*
 import io.nekohasekai.ktlib.td.utils.isMyMessage
 import io.nekohasekai.ktlib.td.utils.make
@@ -11,9 +13,7 @@ import io.nekohasekai.ktlib.td.utils.make
 class GetIdCommand : TdHandler() {
 
     override fun onLoad() {
-
         initFunction("id")
-
     }
 
     override suspend fun onFunction(userId: Int, chatId: Long, message: td.TdApi.Message, function: String, param: String, params: Array<String>, originParams: Array<String>) {

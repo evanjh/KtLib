@@ -311,7 +311,10 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             } else {
 
                 originParams = param.split(' ').toTypedArray()
-                params = param.replace("  ", " ").split(' ').toTypedArray()
+
+                var paramNew = param
+                while (paramNew.contains("  ")) paramNew = paramNew.replace("  ", " ")
+                params = paramNew.split(' ').toTypedArray()
 
             }
 

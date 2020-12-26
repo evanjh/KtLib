@@ -229,13 +229,9 @@ suspend fun TdHandler.fetchMessages(
         messages = if (nextMessages.isNotEmpty()) nextMessages else sync(query).messages
 
         if (messages.isNotEmpty()) {
-
             defaultLog.trace("next search")
-
             query.fromMessageId = messages[messages.size - 1].id
-
             nextMessages = sync(query).messages
-
         }
 
         if (!listener(messages)) {
@@ -282,5 +278,14 @@ suspend fun TdHandler.fetchSupergroupUsers(
         offset += 200
 
     }
+
+}
+
+suspend fun TdHandler.fetchChatMember(
+    query: SearchChatMembers,
+    listener: suspend CoroutineScope.(Array<ChatMember>) -> Boolean
+) = coroutineScope {
+
+    val members = sync(query)
 
 }

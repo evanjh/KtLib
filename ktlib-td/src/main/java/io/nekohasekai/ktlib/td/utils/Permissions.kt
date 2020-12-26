@@ -8,7 +8,9 @@ import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.getChatMember
 import io.nekohasekai.ktlib.td.extensions.fromAnonymous
 import io.nekohasekai.ktlib.td.extensions.senderUserId
-import io.nekohasekai.ktlib.td.i18n.*
+import io.nekohasekai.ktlib.td.i18n.NO_PERMISSION
+import io.nekohasekai.ktlib.td.i18n.PERMISSION_DELETE_MESSAGES
+import io.nekohasekai.ktlib.td.i18n.localeFor
 import td.TdApi
 import java.util.*
 
@@ -68,16 +70,66 @@ suspend fun TdHandler.checkChatAdmin(chatId: Long, userId: Int, message: TdApi.M
 
 }
 
+suspend fun TdHandler.checkRequiredPermission(
+    chatId: Long, userId: Int, message: TdApi.Message? = null,
+    canChangeInfo: Boolean = false,
+    canPostMessages: Boolean = false,
+    canEditMessages: Boolean = false,
+    canDeleteMessages: Boolean = false,
+    canInviteUsers: Boolean = false,
+    canRestrictMembers: Boolean = false,
+    canPinMessages: Boolean = false,
+    canPromoteMembers: Boolean = false
+): Boolean {
+
+    if (message != null && message.chatId == chatId && message.fromAnonymous) return false
+
+    if (hasRequiredPermission(
+            chatId,
+            userId,
+            canChangeInfo,
+            canPostMessages,
+            canEditMessages,
+            canDeleteMessages,
+            canInviteUsers,
+            canRestrictMembers,
+            canPinMessages,
+            canPromoteMembers
+        )
+    ) return false
+
+    sudo make {
+
+        inputMarkdown = localeFor(userId).NO_PERMISSION
+
+        message?.id?.also { replyToMessageId = it }
+
+    } onSuccess withDelay {
+
+        if (hasRequiredPermission(chatId, me.id, canDeleteMessages = true)) {
+
+            delete(it);
+
+            message?.run { delete(this) }
+
+        }
+
+    } sendTo (message?.chatId ?: chatId)
+
+    return true
+
+}
+
 suspend fun TdHandler.hasRequiredPermission(
-        chatId: Long, userId: Int,
-        canChangeInfo: Boolean = false,
-        canPostMessages: Boolean = false,
-        canEditMessages: Boolean = false,
-        canDeleteMessages: Boolean = false,
-        canInviteUsers: Boolean = false,
-        canRestrictMembers: Boolean = false,
-        canPinMessages: Boolean = false,
-        canPromoteMembers: Boolean = false
+    chatId: Long, userId: Int,
+    canChangeInfo: Boolean = false,
+    canPostMessages: Boolean = false,
+    canEditMessages: Boolean = false,
+    canDeleteMessages: Boolean = false,
+    canInviteUsers: Boolean = false,
+    canRestrictMembers: Boolean = false,
+    canPinMessages: Boolean = false,
+    canPromoteMembers: Boolean = false
 ): Boolean {
 
     val status = getChatMember(chatId, userId).status
@@ -98,15 +150,15 @@ suspend fun TdHandler.hasRequiredPermission(
 
 // TODO: impl this method to parent
 suspend fun TdHandler.checkRequiredPermission(
-        userId: Int, chatId: Long, message: TdApi.Message? = null,
-        canChangeInfo: Boolean = false,
-        canPostMessages: Boolean = false,
-        canEditMessages: Boolean = false,
-        canDeleteMessages: Boolean = false,
-        canInviteUsers: Boolean = false,
-        canRestrictMembers: Boolean = false,
-        canPinMessages: Boolean = false,
-        canPromoteMembers: Boolean = false
+    userId: Int, chatId: Long, message: TdApi.Message? = null,
+    canChangeInfo: Boolean = false,
+    canPostMessages: Boolean = false,
+    canEditMessages: Boolean = false,
+    canDeleteMessages: Boolean = false,
+    canInviteUsers: Boolean = false,
+    canRestrictMembers: Boolean = false,
+    canPinMessages: Boolean = false,
+    canPromoteMembers: Boolean = false
 ): Boolean {
 
     val status = getChatMember(chatId, userId).status

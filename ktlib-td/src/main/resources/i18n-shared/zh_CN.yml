@@ -24,6 +24,9 @@ FN_SUPER_GROUP_ONLY: 请在 <b>超级群组</b> 中使用此命令.
 FN_CHANNEL_ONLY: 请在 <b>频道</b> 中使用此命令.
 FN_PRIVATE_ONLY: 请在 <b>私聊</b> 中使用此命令.
 FN_PUBLIC_ONLY: 请在 <b>群组或频道</b> 中使用此命令.
+FN_MISSING_ARG: 参数 **{}** 需要值, 但缺少.
+FN_ILLEGAL_ARG: |-
+  参数 **{}** 需要 {}, 但为 `{}`, **{}**.
 
 MISSING_PERMISSION: 机器人缺少 {} 权限.
 PERMISSION_CHANGE_INFO: 修改信息

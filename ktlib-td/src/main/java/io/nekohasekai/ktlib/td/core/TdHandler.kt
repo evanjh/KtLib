@@ -154,7 +154,10 @@ open class TdHandler : AbsEvents {
         } else {
 
             originParams = param.split(' ')
-            params = param.replace("  ", " ").split(' ')
+
+            var paramNew = param
+            while (paramNew.contains("  ")) paramNew = paramNew.replace("  ", " ")
+            params = paramNew.split(' ')
 
         }
 

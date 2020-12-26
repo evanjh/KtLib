@@ -24,6 +24,8 @@ FN_SUPER_GROUP_ONLY: 請在 <b>超級群組</b> 中使用此命令.
 FN_CHANNEL_ONLY: 請在 <b>頻道</b> 中使用此命令.
 FN_PRIVATE_ONLY: 請在 <b>私聊</b> 中使用此命令.
 FN_PUBLIC_ONLY: 請在 <b>群組或頻道</b> 中使用此命令.
+FN_MISSING_ARG: 參數 **{}** 需要值, 但缺少.
+FN_ILLEGAL_ARG: 參數 **{}** 需要 {}, 但为 `{}`, **{}**.
 
 MISSING_PERMISSION: 機器人缺少 {} 權限.
 PERMISSION_CHANGE_INFO: 修改訊息

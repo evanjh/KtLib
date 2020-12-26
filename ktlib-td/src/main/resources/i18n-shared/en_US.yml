@@ -24,6 +24,8 @@ FN_SUPER_GROUP_ONLY: Please use this function in <b>supergroup</b>.
 FN_CHANNEL_ONLY: Please use this function in <b>channel</b>.
 FN_PRIVATE_ONLY: Please use this function in <b>private messages</b>.
 FN_PUBLIC_ONLY: Please use this function in <b>group or channel</b>.
+FN_MISSING_ARG: Argument **{}** need value, but missing.
+FN_ILLEGAL_ARG: Argument **{}** need **{}**, but `{}`, **{}**.
 
 MISSING_PERMISSION: Bot lacks {} permisson(s).
 PERMISSION_CHANGE_INFO: Change Info

@@ -34,6 +34,9 @@ val L.FN_SUPER_GROUP_ONLY by string
 val L.FN_CHANNEL_ONLY by string
 val L.FN_PRIVATE_ONLY by string
 val L.FN_PUBLIC_ONLY by string
+val L.FN_MISSING_ARG by string
+val L.FN_ILLEGAL_ARG by string
+
 val L.MISSING_PERMISSION by string
 val L.PERMISSION_CHANGE_INFO by string
 val L.PERMISSION_DELETE_MESSAGES by string
