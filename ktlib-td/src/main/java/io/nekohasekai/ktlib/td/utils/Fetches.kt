@@ -2,6 +2,7 @@
 
 package io.nekohasekai.ktlib.td.utils
 
+import io.nekohasekai.ktlib.core.defaultLog
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.getChat
 import io.nekohasekai.ktlib.td.core.raw.getChats
@@ -27,70 +28,76 @@ suspend fun TdHandler.getChatPinnedMessages(chatId: Long) = fetchAll<Message> {
  * 遍历聊天对话
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Chat>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Chat>) -> Boolean) =
+    coroutineScope {
 
-    var chatId = startsAt
+        var chatId = startsAt
 
-    var chatIds: LongArray
-    var nextChats = longArrayOf()
+        var chatIds: LongArray
+        var nextChats = longArrayOf()
 
-    while (true) {
+        while (true) {
 
-        chatIds =
-            if (nextChats.isNotEmpty()) nextChats else getChats(ChatListMain(), Long.MAX_VALUE, chatId, 114514).chatIds
+            chatIds =
+                if (nextChats.isNotEmpty()) nextChats else getChats(
+                    ChatListMain(),
+                    Long.MAX_VALUE,
+                    chatId,
+                    114514
+                ).chatIds
 
-        if (chatIds.isNotEmpty()) {
+            if (chatIds.isNotEmpty()) {
 
-            chatId = chatIds[chatIds.size - 1]
+                chatId = chatIds[chatIds.size - 1]
 
-            nextChats = getChats(
-                ChatListMain(),
-                getChat(chatId).positions.filter { it.list is ChatListMain }[0].order,
-                chatId,
-                114514
-            ).chatIds
+                nextChats = getChats(
+                    ChatListMain(),
+                    getChat(chatId).positions.filter { it.list is ChatListMain }[0].order,
+                    chatId,
+                    114514
+                ).chatIds
+
+            }
+
+            if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
+
+            if (nextChats.isEmpty()) break
 
         }
 
-        if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
+        println(">> archive")
 
-        if (nextChats.isEmpty()) break
+        nextChats = longArrayOf()
 
-    }
+        while (true) {
 
-    println(">> archive")
-
-    nextChats = longArrayOf()
-
-    while (true) {
-
-        chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(
-            ChatListArchive(),
-            Long.MAX_VALUE,
-            chatId,
-            114514
-        ).chatIds
-
-        if (chatIds.isNotEmpty()) {
-
-            chatId = chatIds[chatIds.size - 1]
-
-            nextChats = getChats(
+            chatIds = if (nextChats.isNotEmpty()) nextChats else getChats(
                 ChatListArchive(),
-                getChat(chatId).positions.filter { it.list is ChatListArchive }[0].order,
+                Long.MAX_VALUE,
                 chatId,
                 114514
             ).chatIds
 
+            if (chatIds.isNotEmpty()) {
+
+                chatId = chatIds[chatIds.size - 1]
+
+                nextChats = getChats(
+                    ChatListArchive(),
+                    getChat(chatId).positions.filter { it.list is ChatListArchive }[0].order,
+                    chatId,
+                    114514
+                ).chatIds
+
+            }
+
+            if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
+
+            if (nextChats.isEmpty()) break
+
         }
 
-        if (!listener(chatIds.map { getChat(it) }.toTypedArray())) break
-
-        if (nextChats.isEmpty()) break
-
     }
-
-}
 
 suspend fun TdHandler.getGroupsInCommon(userId: Int): List<Chat> {
 
@@ -112,7 +119,11 @@ suspend fun TdHandler.getGroupsInCommon(userId: Int): List<Chat> {
  * 遍历聊天对话
  * @param listener 返回 false 中止遍历
  */
-suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(List<Chat>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchGroupsInCommon(
+    userId: Int,
+    startsAt: Long = 0L,
+    listener: suspend CoroutineScope.(List<Chat>) -> Boolean
+) = coroutineScope {
 
     var chatId = startsAt
 
@@ -139,11 +150,18 @@ suspend fun TdHandler.fetchGroupsInCommon(userId: Int, startsAt: Long = 0L, list
 
 }
 
-suspend fun TdHandler.fetchMessages(chatId: Long, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) {
+suspend fun TdHandler.fetchMessages(
+    chatId: Long,
+    startsAt: Long = 0L,
+    listener: suspend CoroutineScope.(Array<Message>) -> Boolean
+) {
     fetchMessages(GetChatHistory(chatId, startsAt, 0, 100, false), listener)
 }
 
-suspend fun TdHandler.fetchMessages(query: GetChatHistory, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchMessages(
+    query: GetChatHistory,
+    listener: suspend CoroutineScope.(Array<Message>) -> Boolean
+) = coroutineScope {
 
     var messages: Array<Message>
     var nextMessages: Array<Message> = arrayOf()
@@ -168,7 +186,10 @@ suspend fun TdHandler.fetchMessages(query: GetChatHistory, listener: suspend Cor
 
 }
 
-suspend fun TdHandler.fetchMessages(query: SearchMessages, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchMessages(
+    query: SearchMessages,
+    listener: suspend CoroutineScope.(Array<Message>) -> Boolean
+) = coroutineScope {
 
     var messages: Array<Message>
     var nextMessages: Array<Message> = arrayOf()
@@ -193,16 +214,23 @@ suspend fun TdHandler.fetchMessages(query: SearchMessages, listener: suspend Cor
 
 }
 
-suspend fun TdHandler.fetchMessages(query: SearchChatMessages, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchMessages(
+    query: SearchChatMessages,
+    listener: suspend CoroutineScope.(Array<Message>) -> Boolean
+) = coroutineScope {
 
     var messages: Array<Message>
     var nextMessages: Array<Message> = arrayOf()
 
     while (true) {
 
+        defaultLog.trace("start search")
+
         messages = if (nextMessages.isNotEmpty()) nextMessages else sync(query).messages
 
         if (messages.isNotEmpty()) {
+
+            defaultLog.trace("next search")
 
             query.fromMessageId = messages[messages.size - 1].id
 
@@ -210,21 +238,35 @@ suspend fun TdHandler.fetchMessages(query: SearchChatMessages, listener: suspend
 
         }
 
-        if (!listener(messages)) break
+        if (!listener(messages)) {
+            defaultLog.trace("accepted")
+            return@coroutineScope
+        }
 
-        if (nextMessages.isEmpty()) break
+        if (nextMessages.isEmpty()) {
+            defaultLog.trace("no more message")
+            return@coroutineScope
+        }
 
     }
 
 }
 
-suspend fun TdHandler.fetchUserMessages(chatId: Long, userId: Int, startsAt: Long = 0L, listener: suspend CoroutineScope.(Array<Message>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchUserMessages(
+    chatId: Long,
+    userId: Int,
+    startsAt: Long = 0L,
+    listener: suspend CoroutineScope.(Array<Message>) -> Boolean
+) = coroutineScope {
 
     fetchMessages(SearchChatMessages(chatId, "", MessageSenderUser(userId), startsAt, 0, 100, null, 0), listener)
 
 }
 
-suspend fun TdHandler.fetchSupergroupUsers(chatId: Long, listener: suspend CoroutineScope.(Array<ChatMember>) -> Boolean) = coroutineScope {
+suspend fun TdHandler.fetchSupergroupUsers(
+    chatId: Long,
+    listener: suspend CoroutineScope.(Array<ChatMember>) -> Boolean
+) = coroutineScope {
 
     val supergroupId = (getChat(chatId).type as ChatTypeSupergroup).supergroupId
 
