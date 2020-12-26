@@ -718,6 +718,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                         if (exception.code == 500) {
 
+                            clientLog.debug("Cancel coroutine due to 500: ${exception.message}")
+
                             continuation.cancel()
 
                         } else {
