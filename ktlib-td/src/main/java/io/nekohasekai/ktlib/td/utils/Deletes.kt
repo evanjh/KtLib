@@ -10,7 +10,8 @@ import kotlin.concurrent.timerTask
 
 infix fun TdHandler.delete(message: Message) = delete(message.chatId, message.id)
 
-fun TdHandler.delete(chatId: Number, vararg messageIds: Long) = send<td.TdApi.Ok>(DeleteMessages(chatId.toLong(), messageIds, true)) { onFailure = null }
+fun TdHandler.delete(chatId: Number, vararg messageIds: Long) =
+    send<Ok>(DeleteMessages(chatId.toLong(), messageIds, true)) { onFailure = null }
 
 suspend infix fun TdHandler.syncDelete(message: Message) = syncDelete(message.chatId, message.id)
 

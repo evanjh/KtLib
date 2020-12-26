@@ -12,6 +12,7 @@ const val Seconds = 1000L
 const val Minutes = Seconds * 60L
 const val Hours = Minutes * 60L
 const val Days = Hours * 24L
+val Long.asSeconds get() = (this / 1000L).toInt()
 
 fun pastHours() = Calendar.getInstance()[Calendar.HOUR_OF_DAY]
 
