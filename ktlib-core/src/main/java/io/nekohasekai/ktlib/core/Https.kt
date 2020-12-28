@@ -28,11 +28,10 @@ fun downloadFile(path: String, file: File) {
     if (!response.isSuccessful) error("HTTP ${response.code}: ${response.body}")
     val contentLength = response.headersContentLength().toFloat()
 
-    println(response.headers)
-
     val output = if (response.code == 206) {
         FileOutputStream(cacheFile, true)
     } else {
+        cacheFile.parentFile.mkdirs()
         cacheFile.outputStream()
     }
 
