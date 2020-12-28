@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a message
@@ -652,7 +653,7 @@ fun TdHandler.sendMessageWith(
 ) = send(SendMessage(chatId, messageThreadId, replyToMessageId, options, replyMarkup, inputMessageContent), stackIgnore + 1, submit)
 
 /**
- * Sends messages grouped together into an album
+ * Sends 2-10 messages grouped together into an album
  * Currently only audio, document, photo and video messages can be grouped into an album
  * Documents and audio files can be only grouped in an album with messages of the same type
  * Returns sent messages
@@ -662,6 +663,7 @@ fun TdHandler.sendMessageWith(
  * @replyToMessageId - Identifier of a message to reply to or 0
  * @options - Options to be used to send the messages
  * @inputMessageContents - Contents of messages to be sent
+ *                         At most 10 messages can be added to an album
  */
 suspend fun TdHandler.sendMessageAlbum(
     chatId: Long,
@@ -774,6 +776,7 @@ fun TdHandler.sendInlineQueryResultMessageWith(
  * @fromChatId - Identifier of the chat from which to forward messages
  * @messageIds - Identifiers of the messages to forward
  *               Message identifiers must be in a strictly increasing order
+ *               At most 100 messages can be forwarded simultaneously
  * @options - Options to be used to send the messages
  * @sendCopy - True, if content of the messages needs to be copied without links to the original messages
  *             Always true if the messages are forwarded to a secret chat

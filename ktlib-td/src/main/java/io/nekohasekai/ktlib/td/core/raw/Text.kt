@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns an HTML code for embedding the message
@@ -54,7 +55,7 @@ fun TdHandler.getPreferredCountryLanguageWith(
 ) = send(GetPreferredCountryLanguage(countryCode), stackIgnore + 1, submit)
 
 /**
- * Uses current user IP address to find their country
+ * Uses the current IP address to find the current country
  * Returns two-letter ISO 3166-1 alpha-2 country code
  * Can be called before authorization
  */

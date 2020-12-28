@@ -31,7 +31,7 @@ fun String.toTlType(): TlType = when (val type = capitalize()) {
     "Bool" -> TlBooleanType
     "Bytes" -> TlArrayType(TlByteType)
     else -> when {
-        type.startsWith("Vector") -> TlArrayType(type.drop(7).dropLast(1).capitalize().toTlType())
+        type.startsWith("Vector<") -> TlArrayType(type.drop(7).dropLast(1).capitalize().toTlType())
         else -> TlRefType(type)
     }
 }

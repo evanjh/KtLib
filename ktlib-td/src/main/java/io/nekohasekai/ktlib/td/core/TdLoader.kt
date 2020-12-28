@@ -8,9 +8,7 @@ import kotlin.system.exitProcess
 
 object TdLoader {
 
-    private val log = mkLog("TdLoader")
-
-    const val version = "1.7.0"
+    const val version = "8139e0d"
 
     var loaded by AtomicBoolean()
 

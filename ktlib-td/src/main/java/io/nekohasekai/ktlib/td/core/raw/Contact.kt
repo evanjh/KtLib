@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Adds a user to the contact list or edits an existing contact by their user identifier
@@ -96,7 +97,7 @@ fun TdHandler.getImportedContactCountWith(
 ) = send(GetImportedContactCount(), stackIgnore + 1, submit)
 
 /**
- * Changes imported contacts using the list of current user contacts saved on the device
+ * Changes imported contacts using the list of contacts saved on the device
  * Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts
  * Query result depends on the result of the previous query, so only one query is possible at the same time
  *

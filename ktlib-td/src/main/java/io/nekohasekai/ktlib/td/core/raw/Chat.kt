@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a chat by its identifier, this is an offline request if the current user is not a bot
@@ -1457,7 +1458,7 @@ fun TdHandler.unpinAllChatMessagesWith(
 ) = send(UnpinAllChatMessages(chatId), stackIgnore + 1, submit)
 
 /**
- * Adds current user as a new member to a chat
+ * Adds the current user as a new member to a chat
  * Private and secret chats can't be joined using this method
  *
  * @chatId - Chat identifier
@@ -1483,7 +1484,7 @@ fun TdHandler.joinChatWith(
 ) = send(JoinChat(chatId), stackIgnore + 1, submit)
 
 /**
- * Removes current user from chat members
+ * Removes the current user from chat members
  * Private and secret chats can't be left using this method
  *
  * @chatId - Chat identifier
@@ -1546,13 +1547,14 @@ fun TdHandler.addChatMemberWith(
 
 /**
  * Adds multiple new members to a chat
- * Currently this option is only available for supergroups and channels
- * This option can't be used to join a chat
+ * Currently this method is only available for supergroups and channels
+ * This method can't be used to join a chat
  * Members can't be added to a channel if it has more than 200 members
  * Members will not be added until the chat state has been synchronized with the server
  *
  * @chatId - Chat identifier
  * @userIds - Identifiers of the users to be added to the chat
+ *            The maximum number of added users is 20 for supergroups and 100 for channels
  */
 suspend fun TdHandler.addChatMembers(
     chatId: Long,
