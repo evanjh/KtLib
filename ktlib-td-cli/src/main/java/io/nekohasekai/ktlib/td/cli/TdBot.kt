@@ -1,10 +1,12 @@
 package io.nekohasekai.ktlib.td.cli
 
+import io.nekohasekai.ktlib.td.core.TdClient
 import io.nekohasekai.ktlib.td.core.raw.checkAuthenticationBotTokenWith
 import kotlinx.coroutines.coroutineScope
-import td.TdApi.*
+import td.TdApi.AuthorizationState
+import td.TdApi.AuthorizationStateWaitPhoneNumber
 
-open class TdBot(var botToken: String) : TdCli() {
+open class TdBot(var botToken: String) : TdClient() {
 
     val botUserId = botToken.substringBefore(':').toInt()
 
