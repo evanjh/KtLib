@@ -345,7 +345,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             if (reportCount in 0..10) {
                 runCatching {
                     runBlocking {
-                        sudo make "Error in Update $event\n\n${error.parse()}" syncTo errorReportChatId
+                        sudo make "Error in event $event\n\n${error.parse()}" syncTo errorReportChatId
                     }
                     reportCount++
                 }.onFailure {
@@ -511,6 +511,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     override suspend fun onConnectionState(state: TdApi.ConnectionState) {
 
+        if (!auth) return
+
         clientLog.debug(state.javaClass.simpleName.substringAfter("ConnectionState"))
 
     }
@@ -542,7 +544,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             } catch (e: TdException) {
 
-                                println(clientLocale.INVALID_BOT_TOKEN.input(e))
+                                println(clientLocale.INVALID_BOT_TOKEN.input(e.message))
 
                             }
 
@@ -556,7 +558,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             } catch (e: TdException) {
 
-                                println(clientLocale.INVALID_PHONE_NUMBER.input(e))
+                                println(clientLocale.INVALID_PHONE_NUMBER.input(e.message))
 
                             }
 
@@ -580,7 +582,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                         } catch (e: TdException) {
 
-                            println(clientLocale.INVALID_ENV_VARIABLE_BOT_TOKEN.input(e))
+                            println(clientLocale.INVALID_ENV_VARIABLE_BOT_TOKEN.input(e.message))
 
                         }
 
@@ -610,7 +612,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             } catch (e: TdException) {
 
-                                println(clientLocale.RESEND_FAILED.input(e))
+                                println(clientLocale.RESEND_FAILED.input(e.message))
 
                             }
 
@@ -630,7 +632,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                                 // TODO: 语言文件
 
-                                println("验证码无效 ($e), 使用 resend 重新发送, reset 重置手机号.")
+                                println("验证码无效 (${e.message}), 使用 resend 重新发送, reset 重置手机号.")
 
                             }
 
@@ -656,7 +658,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             } catch (e: TdException) {
 
-                                println("重新发送失败: $e")
+                                println("重新发送失败: ${e.message}")
 
                             }
 
@@ -674,7 +676,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                             } catch (e: TdException) {
 
-                                println("密码错误 ($e), 使用 destroy 删除账号.")
+                                println("密码错误 (${e.message}), 使用 destroy 删除账号.")
 
                             }
 
