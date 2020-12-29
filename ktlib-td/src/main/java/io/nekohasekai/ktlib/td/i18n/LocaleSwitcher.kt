@@ -32,7 +32,7 @@ class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend 
 
     }
 
-    override suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+    override suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) {
 
         if (!message.fromPrivate && !isChatAdmin(chatId, userId)) {
 

@@ -9,6 +9,7 @@ import io.nekohasekai.ktlib.td.core.TdException
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.parseMarkdown
 import io.nekohasekai.ktlib.td.core.raw.parseTextEntities
+import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.mkData
 import kotlinx.coroutines.CoroutineScope
 import td.TdApi.*
@@ -915,6 +916,20 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
             }
 
         }
+
+    }
+
+    infix fun errorTo(replyToMessage: Message) {
+
+        if (!replyToMessage.fromPrivate) {
+
+            this.replyToMessageId = replyToMessage.id
+
+        }
+
+        onSuccess(context.deleteDelay(replyToMessage))
+
+        this sendTo replyToMessage.chatId
 
     }
 

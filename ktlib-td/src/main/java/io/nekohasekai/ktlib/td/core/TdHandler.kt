@@ -8,6 +8,7 @@ import io.nekohasekai.ktlib.td.core.raw.AbsEvents
 import io.nekohasekai.ktlib.td.core.raw.downloadFile
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.text
+import io.nekohasekai.ktlib.td.extensions.textOrCaption
 import io.nekohasekai.ktlib.td.utils.delete
 import td.TdApi
 import td.TdApi.*
@@ -96,9 +97,7 @@ open class TdHandler : AbsEvents {
 
     fun Message.parseFunction(): TdFunction? {
 
-        if (content !is MessageText) return null
-
-        var param = text!!
+        var param = textOrCaption ?: return null
 
         run fn@{
 
@@ -161,7 +160,7 @@ open class TdHandler : AbsEvents {
 
         }
 
-        return TdFunction(function, param, params, originParams)
+        return TdFunction(function, param, params)
 
     }
 
@@ -302,18 +301,18 @@ open class TdHandler : AbsEvents {
 
     open suspend fun onNewMessage(userId: Int, chatId: Long, message: Message) = Unit
 
-    open suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) = Unit
-    open suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>, originParams: Array<String>) = Unit
+    open suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) = Unit
+    open suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) = Unit
 
-    open suspend fun onStartPayload(userId: Int, chatId: Long, message: Message, payload: String, params: Array<String>) = Unit
-    open suspend fun onUndefinedPayload(userId: Int, chatId: Long, message: Message, payload: String, params: Array<String>) = Unit
+    open suspend fun onStartPayload(userId: Int, chatId: Long, message: Message, payload: String,param: String, params: Array<String>) = Unit
+    open suspend fun onUndefinedPayload(userId: Int, chatId: Long, message: Message, payload: String, param: String,params: Array<String>) = Unit
 
     open suspend fun onNewCallbackQuery(userId: Int, chatId: Long, messageId: Long, queryId: Long, data: Array<ByteArray>) = Unit
     open suspend fun onNewInlineCallbackQuery(userId: Int, inlineMessageId: String, queryId: Long, data: Array<ByteArray>) = Unit
 
     open suspend fun onPersistMessage(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>) = Unit
 
-    open suspend fun onPersistFunction(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>, function: String, param: String, params: Array<String>, originParams: Array<String>) {
+    open suspend fun onPersistFunction(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>, function: String, param: String, params: Array<String>) {
 
         rejectFunction()
 

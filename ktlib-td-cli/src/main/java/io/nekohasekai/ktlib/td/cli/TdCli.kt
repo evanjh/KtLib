@@ -454,6 +454,12 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
+    override suspend fun onConnectionState(state: TdApi.ConnectionState) {
+
+        clientLog.debug(state.javaClass.simpleName.substringAfter("ConnectionState"))
+
+    }
+
     override suspend fun onAuthorizationState(authorizationState: TdApi.AuthorizationState) =
         withContext(Dispatchers.IO) {
 
@@ -683,8 +689,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         message: TdApi.Message,
         function: String,
         param: String,
-        params: Array<String>,
-        originParams: Array<String>
+        params: Array<String>
     ) {
 
         if (function == "cancel") {

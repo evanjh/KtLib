@@ -251,11 +251,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         run predict@{
 
-            if (message.content !is MessageText) return@predict
-
-            val content = (message.content as MessageText).text
-
-            var param = content.text
+            var param = message.textOrCaption ?: return@predict
 
             run fn@{
 
@@ -299,23 +295,10 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             }
 
-            val params: Array<String>
-
-            val originParams: Array<String>
-
-            if (param.isBlank()) {
-
-                originParams = arrayOf()
-                params = originParams
-
-            } else {
-
-                originParams = param.split(' ').toTypedArray()
-
+            val params = if (param.isBlank()) arrayOf() else {
                 var paramNew = param
                 while (paramNew.contains("  ")) paramNew = paramNew.replace("  ", " ")
-                params = paramNew.split(' ').toTypedArray()
-
+                paramNew.split(' ').toTypedArray()
             }
 
             try {
@@ -329,9 +312,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                         sudo removePersist userId
 
                         handler.onPersistCancel(userId, chatId, message, persist.subId, persist.data)
-
                         handler.onPersistRemoveOrCancel(userId, chatId, persist.subId, persist.data)
-
                         handler.onSendCanceledMessage(userId, chatId)
 
                         finishEvent()
@@ -343,9 +324,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                         sudo removePersist userId
 
                         handler.onPersistCancel(userId, chatId, message, persist.subId, persist.data)
-
                         handler.onPersistRemoveOrCancel(userId, chatId, persist.subId, persist.data)
-
                         handler.onSendCanceledMessage(userId, chatId)
 
                     } else if (persist.allowFunction) {
@@ -360,8 +339,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                             persist.data,
                             function,
                             param,
-                            params,
-                            originParams
+                            params
                         )
 
                         finishEvent()
@@ -374,36 +352,29 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                 if ("start" == function) {
 
+                    val paramNew = param.substringAfter(params[0]).trimStart()
+
                     if (param.isNotBlank()) {
 
                         val data = param.split('-').toTypedArray()
+                        val payload = data[0]
+                        val paramsNew = data.shift()
 
                         if (data.isNotEmpty() && payloads.containsKey(data[0])) {
-
-                            userCalled(userId, "startPayload $data[0]")
-
-                            payloads[data[0]]!!.onStartPayload(userId, chatId, message, data[0], data.shift())
-
+                            userCalled(userId, "startPayload ${data[0]}")
+                            payloads[data[0]]!!.onStartPayload(userId, chatId, message, payload, paramNew, paramsNew)
                         } else {
-
-                            userCalled(userId, "undefined startPayload $data[0]")
-
+                            userCalled(userId, "undefined startPayload ${data[0]}")
                             handlers.toLinkedList().forEach {
-
                                 if (this@TdClient == it) return@forEach
-
-                                it.onUndefinedPayload(userId, chatId, message, data[0], data.shift())
-
+                                it.onUndefinedPayload(userId, chatId, message, payload, paramNew, paramsNew)
                             }
-
-                            onUndefinedPayload(userId, chatId, message, data[0], data.shift())
-
+                            onUndefinedPayload(userId, chatId, message, payload, paramNew, paramsNew)
                         }
 
                     } else {
 
                         userCalled(userId, "/start")
-
                         onLaunch(userId, chatId, message)
 
                     }
@@ -411,22 +382,17 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                 } else if (!functions.containsKey(function)) {
 
                     userCalled(userId, "undefined function /$function")
-
                     handlers.toLinkedList().forEach {
-
                         if (this@TdClient == it) return@forEach
-
-                        it.onUndefinedFunction(userId, chatId, message, function, param, params, originParams)
-
+                        it.onUndefinedFunction(userId, chatId, message, function, param, params)
                     }
 
-                    onUndefinedFunction(userId, chatId, message, function, param, params, originParams)
+                    onUndefinedFunction(userId, chatId, message, function, param, params)
 
                 } else {
 
                     userCalled(userId, "function /$function")
-
-                    functions[function]!!.onFunction(userId, chatId, message, function, param, params, originParams)
+                    functions[function]!!.onFunction(userId, chatId, message, function, param, params)
 
                 }
 
@@ -443,7 +409,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         if (persist == null) {
 
             onNewMessage(userId, chatId, message)
-
             processNewMessage()
 
         }
@@ -453,9 +418,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         if (handler == null) {
 
             sudo removePersist userId
-
             warnUserCalled(userId, "message in undefined persist ${persist.persistId}")
-
             handleNewMessage(message)
 
             return
@@ -463,7 +426,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         }
 
         userCalled(userId, "persist message in ${handler.javaClass.simpleName}")
-
         handler.onPersistMessage(userId, chatId, message, persist.subId, persist.data)
 
         finishEvent()
@@ -482,40 +444,25 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         if (!waitForAuth() || userBlocked(senderUserId)) return
 
-        if (payload is CallbackQueryPayloadGame) return
-
-        payload as CallbackQueryPayloadData
+        if (payload !is CallbackQueryPayloadData) return
 
         var dataArray = try {
-
             payload.data.readData(true)
-
         } catch (e: Throwable) {
-
             userCalled(senderUserId, "unknown callback")
-
             // TODO: handle unknown callback
-
             return
-
         }
 
         val dataId = BigInteger(dataArray[0]).toInt()
-
         dataArray = dataArray.shift()
-
         if (!callbackQueries.containsKey(dataId)) {
-
             warnUserCalled(senderUserId, "queried with invalid dataId $dataId")
-
             return
-
         }
 
         val callback = callbackQueries[dataId]!!
-
         userCalled(senderUserId, "queried in ${callback.javaClass.simpleName}")
-
         callback.onNewInlineCallbackQuery(senderUserId, inlineMessageId, id, dataArray)
 
         finishEvent()
@@ -533,48 +480,30 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         if (!waitForAuth() || userBlocked(senderUserId)) return
 
-        if (payload is CallbackQueryPayloadGame) return
-
-        payload as CallbackQueryPayloadData
+        if (payload !is CallbackQueryPayloadData) return
 
         var dataArray = try {
-
             payload.data.readData(true)
-
         } catch (e: Throwable) {
-
             userCalled(senderUserId, "unknown callback")
-
             // TODO: handle unknown callback
-
             return
-
         }
 
         val dataId = dataArray[0].asInt()
-
         if (dataId == -1) {
-
             sudo confirmTo id
-
             return
-
         }
 
         dataArray = dataArray.shift()
-
         if (!callbackQueries.containsKey(dataId)) {
-
             warnUserCalled(senderUserId, "queried with invalid dataId $dataId")
-
             return
-
         }
 
         val callback = callbackQueries[dataId]!!
-
         userCalled(senderUserId, "queried in ${callback.javaClass.simpleName}")
-
         callback.onNewCallbackQuery(senderUserId, chatId, messageId, id, dataArray)
 
         finishEvent()
@@ -586,13 +515,12 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         chatId: Long,
         message: Message,
         payload: String,
+        param: String,
         params: Array<String>
     ) {
 
         if (!message.fromPrivate) return
-
         onLaunch(userId, chatId, message)
-
         finishEvent()
 
     }
@@ -603,14 +531,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         message: Message,
         function: String,
         param: String,
-        params: Array<String>,
-        originParams: Array<String>
+        params: Array<String>
     ) {
 
         if (!message.fromPrivate) return
-
         onLaunch(userId, chatId, message)
-
         finishEvent()
 
     }
@@ -619,17 +544,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         when (authorizationState) {
 
-            is AuthorizationStateWaitTdlibParameters -> {
-
-                setTdlibParameters(options.build())
-
-            }
-
-            is AuthorizationStateWaitEncryptionKey -> {
-
-                checkDatabaseEncryptionKey(encryptionKey ?: byteArrayOf())
-
-            }
+            is AuthorizationStateWaitTdlibParameters -> setTdlibParameters(options.build())
+            is AuthorizationStateWaitEncryptionKey -> checkDatabaseEncryptionKey(encryptionKey ?: byteArrayOf())
 
             is AuthorizationStateReady -> {
 
@@ -638,35 +554,23 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                 try {
 
                     _fullInfo = getUserFullInfo(me.id)
-
                     handlers.toLinkedList().forEach { it.beforeLogin() }
-
                     authing = false
-
                     auth = true
-
                     handlers.toLinkedList().forEach { it.onLogin() }
 
                 } catch (ignored: TdException) {
-
                     return@coroutineScope
-
                 }
 
             }
 
-            is AuthorizationStateLoggingOut -> {
-
-                handlers.toLinkedList().forEach { it.onLogout() }
-
-            }
+            is AuthorizationStateLoggingOut -> handlers.toLinkedList().forEach { it.onLogout() }
 
             is AuthorizationStateClosed -> {
 
                 closed = true
-
                 onDestroy()
-
                 handlers.filterNot { it == this }.toList().forEach { it.onDestroy() }
 
             }
@@ -680,7 +584,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     override suspend fun onMessageSendSucceeded(message: Message, oldMessageId: Long) {
 
         val callback = messageCallbacks.remove(oldMessageId) ?: return
-
         callback.postResult(message)
 
     }
@@ -693,7 +596,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     ) {
 
         val callback = messageCallbacks.remove(oldMessageId) ?: return
-
         callback.postError(TdException(Error(errorCode, errorMessage)))
 
     }
@@ -717,20 +619,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                     onFailure { exception ->
 
                         if (exception.code == 500) {
-
                             clientLog.debug("Cancel coroutine due to 500: ${exception.message}")
-
                             continuation.cancel()
-
                         } else {
-
                             continuation.resumeWithException(TdException(exception).also {
-
                                 it.stackTrace = stackTrace
                                 it.request = function
-
                             })
-
                         }
 
                     }
@@ -755,15 +650,10 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             submit as (TdCallback<Message>.() -> Unit)?
 
             val origin = TdCallback<Message>(stackIgnore + 1).applyIf(submit != null, submit)
-
             callback = TdCallback<Message>(stackIgnore + 1).onSuccess {
-
                 messageCallbacks[it.id] = origin
-
             }.onFailure {
-
                 origin.postError(SendMessageFailedException(it))
-
             } as TdCallback<T>
 
         } else if (function is SendMessageAlbum || function is ForwardMessages) {
@@ -771,75 +661,41 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
             submit as (TdCallback<Messages>.() -> Unit)?
 
             val origin = TdCallback<Messages>(stackIgnore + 1).applyIf(submit != null, submit)
-
             callback = TdCallback<Messages>(stackIgnore + 1).onSuccess { result ->
 
                 val lock = ReentrantLock()
-
                 val resultMap = HashMap<Long, Message>()
 
                 result.messages.forEach { oldMessage ->
-
                     messageCallbacks[oldMessage.id] = TdCallback<Message>(origin.stackTrace).apply {
-
                         onSuccess {
-
                             val finish = lock.withLock {
-
                                 resultMap[oldMessage.id] = it
-
                                 if (resultMap.size == result.messages.size) {
-
                                     for (index in result.messages.indices) {
-
                                         result.messages[index] = resultMap[result.messages[index].id]
-
                                     }
-
                                     true
 
-                                } else {
-
-                                    false
-
-                                }
-
+                                } else false
                             }
-
-                            if (finish) {
-
-                                origin.postResult(result)
-
-                            }
-
+                            if (finish) origin.postResult(result)
                         }
-
                         onFailure {
-
                             origin.postError(SendMessageFailedException(it))
-
                         }
-
                     }
-
                 }
-
             }.onFailure {
-
                 origin.postError(SendMessageFailedException(it))
-
             } as TdCallback<T>
 
         } else {
-
             callback = TdCallback<T>(stackIgnore + 1).applyIf(submit != null, submit)
-
         }
 
         val requestId = requestId.getAndIncrement()
-
         callbacks[requestId] = callback
-
         sendRaw(requestId, function)
 
     }
@@ -855,25 +711,18 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     private fun sendRaw(requestId: Long, function: TdApi.Function<*>) {
 
         check(!closed) { "Client closed" }
-
         TdNative.nativeClientSend(clientId, requestId, function)
 
     }
 
     override suspend fun onSendCanceledMessage(userId: Int, chatId: Long) {
-
         sudo make "Canceled." syncTo chatId
-
     }
 
     override suspend fun onSendTimeoutMessage(userId: Int, chatId: Long) {
-
         try {
-
             getChat(chatId)
-
             onSendCanceledMessage(userId, chatId)
-
         } catch (ignored: TdException) {
         }
 
@@ -882,7 +731,6 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     companion object {
 
         val eventsLog = mkLog("TdEvents")
-
         val timer = Timer("Global Timer")
 
         @Suppress("EXPERIMENTAL_API_USAGE")
@@ -901,6 +749,14 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         lateinit var loopThread: Thread
 
         val loopThreadInitiated get() = Companion::loopThread.isInitialized
+
+        var callbackErrorHandler = { client: TdClient, error: Throwable, callback: Object ->
+            defaultLog.error(error, "TdError - Sync\n\nIn callback$callback")
+        }
+
+        var eventErrorHandler = { client: TdClient, error: Throwable, event: Update ->
+            defaultLog.error(error, "TdError - Sync\n\nIn event$event")
+        }
 
         class LoopThread : Thread("TDLib Loop Thread") {
 
@@ -933,25 +789,15 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                                     val callback = client.callbacks.remove(requestId)!!
 
                                     launch(Dispatchers.Unconfined) {
-
                                         runCatching {
-
                                             if (event is Error) {
-
                                                 callback.postError(TdException(event))
-
                                             } else {
-
                                                 callback.postResult(event)
-
                                             }
-
                                         }.onFailure {
-
-                                            defaultLog.error(it, "TdError - Sync\n\nIn callback$event")
-
+                                            callbackErrorHandler(client, it, event)
                                         }
-
                                     }
 
                                 } else {
@@ -1022,12 +868,10 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                     }.onFailure {
 
                         if (it is CancellationException) return 0L
-
                         if (it is Finish) return 0L
-
                         if (it is FinishWithDelay) return it.delay
 
-                        defaultLog.error(it, "TdError - Sync\n\nIn event $update")
+                        eventErrorHandler(client, it, update)
 
                     }
 
