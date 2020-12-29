@@ -6,6 +6,7 @@ import cn.hutool.core.codec.Base64
 import cn.hutool.core.date.SystemClock
 import cn.hutool.core.io.FileUtil
 import cn.hutool.core.lang.Console
+import cn.hutool.core.util.NumberUtil
 import cn.hutool.core.util.StrUtil
 import cn.hutool.log.level.Level
 import io.nekohasekai.ktlib.core.*
@@ -21,6 +22,7 @@ import org.apache.commons.lang3.SystemUtils
 import org.yaml.snakeyaml.Yaml
 import td.TdApi
 import java.io.File
+import java.util.concurrent.atomic.AtomicInteger
 import kotlin.concurrent.timerTask
 import kotlin.system.exitProcess
 
@@ -318,6 +320,57 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
+    companion object {
+
+        var reportCount by AtomicInteger()
+
+    }
+
+    fun loadErrorReportChat() {
+
+        val errorReportChat = stringConfig("ERROR_REPORT")?.trim() ?: "disable"
+
+        if (errorReportChat == "disable") return
+
+        if (!NumberUtil.isLong(errorReportChat)) {
+            clientLog.warn("Invalid error report chat specified: chatId required, but $errorReportChat")
+            return
+        }
+
+        val errorReportChatId = errorReportChat.toLong()
+        val eventErrorHandlerOld = eventErrorHandler
+
+        eventErrorHandler = { client: TdClient, error: Throwable, event: TdApi.Update ->
+            eventErrorHandlerOld(client, error, event)
+            if (reportCount in 0..10) {
+                runCatching {
+                    runBlocking {
+                        sudo make "Error in Update $event\n\n${error.parse()}" syncTo errorReportChatId
+                    }
+                    reportCount++
+                }.onFailure {
+                    reportCount = -1
+                }
+            }
+        }
+
+        val callbackErrorHandlerOld = callbackErrorHandler
+        callbackErrorHandler = { client: TdClient, error: Throwable, callback: TdApi.Object ->
+            callbackErrorHandlerOld(client, error, callback)
+            if (reportCount in 0..10) {
+                runCatching {
+                    runBlocking {
+                        sudo make "Error in callback $callback\n\n${error.parse()}" syncTo errorReportChatId
+                    }
+                    reportCount++
+                }.onFailure {
+                    reportCount = -1
+                }
+            }
+        }
+
+    }
+
     private lateinit var _database: DatabaseDispatcher
     override val database by ::_database
 
@@ -382,6 +435,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         loadLogLevel()
 
         loadDataDir()
+
+        loadErrorReportChat()
 
     }
 
