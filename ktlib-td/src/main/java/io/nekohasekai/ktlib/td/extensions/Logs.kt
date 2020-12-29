@@ -1,7 +1,6 @@
 package io.nekohasekai.ktlib.td.extensions
 
 import cn.hutool.log.level.Level
-import io.nekohasekai.ktlib.core.defaultLog
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.getUserOrNull
 
@@ -13,7 +12,7 @@ suspend fun TdHandler.warnUserCalled(userId: Int, what: String) {
 
 fun TdHandler.called(what: String, level: Level = Level.TRACE) {
 
-    defaultLog.log(level, "[${me.displayName}] $what")
+    clientLog.log(level, what)
 
 }
 
@@ -43,8 +42,6 @@ suspend fun TdHandler.userCalled(userId: Int, what: String, level: Level = Level
 
     }
 
-    msg = "[${me.displayName}] $what <- $msg"
-
-    defaultLog.log(level, msg)
+    clientLog.log(level, "$what <- $msg")
 
 }

@@ -32,7 +32,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     override val sudo get() = this
 
-    open val clientLog = mkLog(name)
+    override val clientLog = mkLog(name)
 
     var options: TdOptions = TdOptions()
     var encryptionKey: ByteArray? = null

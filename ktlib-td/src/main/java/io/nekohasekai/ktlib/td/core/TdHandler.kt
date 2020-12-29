@@ -7,7 +7,6 @@ import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import io.nekohasekai.ktlib.td.core.raw.AbsEvents
 import io.nekohasekai.ktlib.td.core.raw.downloadFile
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
-import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.ktlib.td.extensions.textOrCaption
 import io.nekohasekai.ktlib.td.utils.delete
 import td.TdApi
@@ -22,6 +21,7 @@ open class TdHandler : AbsEvents {
     open val me get() = sudo.me
     open val fullInfo get() = sudo.fullInfo
     val isBot get() = me.type is UserTypeBot
+    open val clientLog get() = sudo.clientLog
 
     open fun onLoad(client: TdClient) {
 
@@ -43,7 +43,11 @@ open class TdHandler : AbsEvents {
 
     open suspend fun onDestroy() = Unit
 
-    open fun <T : Object> send(function: TdApi.Function<T>, stackIgnore: Int = 0, submit: (TdCallback<T>.() -> Unit)? = null) = sudo.send(function, stackIgnore, submit)
+    open fun <T : Object> send(
+        function: TdApi.Function<T>,
+        stackIgnore: Int = 0,
+        submit: (TdCallback<T>.() -> Unit)? = null
+    ) = sudo.send(function, stackIgnore, submit)
 
     open infix fun sendRaw(function: TdApi.Function<*>) = sudo.sendRaw(function)
 
@@ -141,22 +145,11 @@ open class TdHandler : AbsEvents {
 
         }
 
-        val params: List<String>
-
-        val originParams: List<String>
-
-        if (param.isBlank()) {
-
-            originParams = listOf()
-            params = originParams
-
-        } else {
-
-            originParams = param.split(' ')
+        val params = if (param.isBlank()) listOf() else {
 
             var paramNew = param
             while (paramNew.contains("  ")) paramNew = paramNew.replace("  ", " ")
-            params = paramNew.split(' ')
+            paramNew.split(' ')
 
         }
 
@@ -287,9 +280,27 @@ open class TdHandler : AbsEvents {
 
     }
 
-    open fun writePersist(userId: Int, persistId: Int, subId: Int, vararg data: Any?, allowFunction: Boolean = false, allowCancel: Boolean = true, dontSave: Boolean = false) {
+    open fun writePersist(
+        userId: Int,
+        persistId: Int,
+        subId: Int,
+        vararg data: Any?,
+        allowFunction: Boolean = false,
+        allowCancel: Boolean = true,
+        dontSave: Boolean = false
+    ) {
 
-        sudo.persists.save(TdPersist(userId, persistId, subId, arrayOf(* data), allowFunction, allowCancel, dontSave = dontSave))
+        sudo.persists.save(
+            TdPersist(
+                userId,
+                persistId,
+                subId,
+                arrayOf(* data),
+                allowFunction,
+                allowCancel,
+                dontSave = dontSave
+            )
+        )
 
     }
 
@@ -301,18 +312,69 @@ open class TdHandler : AbsEvents {
 
     open suspend fun onNewMessage(userId: Int, chatId: Long, message: Message) = Unit
 
-    open suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) = Unit
-    open suspend fun onUndefinedFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) = Unit
+    open suspend fun onFunction(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        function: String,
+        param: String,
+        params: Array<String>
+    ) = Unit
 
-    open suspend fun onStartPayload(userId: Int, chatId: Long, message: Message, payload: String,param: String, params: Array<String>) = Unit
-    open suspend fun onUndefinedPayload(userId: Int, chatId: Long, message: Message, payload: String, param: String,params: Array<String>) = Unit
+    open suspend fun onUndefinedFunction(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        function: String,
+        param: String,
+        params: Array<String>
+    ) = Unit
 
-    open suspend fun onNewCallbackQuery(userId: Int, chatId: Long, messageId: Long, queryId: Long, data: Array<ByteArray>) = Unit
-    open suspend fun onNewInlineCallbackQuery(userId: Int, inlineMessageId: String, queryId: Long, data: Array<ByteArray>) = Unit
+    open suspend fun onStartPayload(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        payload: String,
+        param: String,
+        params: Array<String>
+    ) = Unit
+
+    open suspend fun onUndefinedPayload(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        payload: String,
+        param: String,
+        params: Array<String>
+    ) = Unit
+
+    open suspend fun onNewCallbackQuery(
+        userId: Int,
+        chatId: Long,
+        messageId: Long,
+        queryId: Long,
+        data: Array<ByteArray>
+    ) = Unit
+
+    open suspend fun onNewInlineCallbackQuery(
+        userId: Int,
+        inlineMessageId: String,
+        queryId: Long,
+        data: Array<ByteArray>
+    ) = Unit
 
     open suspend fun onPersistMessage(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>) = Unit
 
-    open suspend fun onPersistFunction(userId: Int, chatId: Long, message: Message, subId: Int, data: Array<Any?>, function: String, param: String, params: Array<String>) {
+    open suspend fun onPersistFunction(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        subId: Int,
+        data: Array<Any?>,
+        function: String,
+        param: String,
+        params: Array<String>
+    ) {
 
         rejectFunction()
 
