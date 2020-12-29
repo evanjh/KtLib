@@ -19,7 +19,7 @@ import kotlin.concurrent.timerTask
 
 class ConnectionManager : TdHandler() {
 
-    lateinit var log: NekoLog
+    lateinit var log: KLog
 
     init {
 

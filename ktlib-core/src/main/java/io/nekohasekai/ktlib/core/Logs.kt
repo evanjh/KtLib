@@ -42,9 +42,9 @@ var LOG_LEVEL = Level.INFO
 
 val defaultLog = mkLog("")
 
-fun mkLog(name: String) = NekoLog(name)
+fun mkLog(name: String) = KLog(name)
 
-class NekoLog(name: String) : ConsoleLog(name) {
+class KLog(name: String) : ConsoleLog(name) {
 
     companion object {
 
