@@ -551,7 +551,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         }
 
-        val dataId = dataArray[0].toInt()
+        val dataId = dataArray[0].asInt()
 
         if (dataId == -1) {
 

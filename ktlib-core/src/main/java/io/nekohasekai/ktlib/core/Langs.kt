@@ -105,11 +105,6 @@ private fun <T> List<T>.optimizeReadOnlyList() = when (size) {
     else -> this
 }
 
-val Number.asByteArray get() = BigInteger.valueOf(toLong()).toByteArray()!!
-
-val ByteArray.asLong get() = BigInteger(this).toLong()
-val ByteArray.asInt get() = BigInteger(this).toInt()
-
 fun <T> Array<T>.shift(): Array<T> {
 
     return shift(1)

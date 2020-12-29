@@ -280,12 +280,3 @@ suspend fun TdHandler.fetchSupergroupUsers(
     }
 
 }
-
-suspend fun TdHandler.fetchChatMember(
-    query: SearchChatMembers,
-    listener: suspend CoroutineScope.(Array<ChatMember>) -> Boolean
-) = coroutineScope {
-
-    val members = sync(query)
-
-}

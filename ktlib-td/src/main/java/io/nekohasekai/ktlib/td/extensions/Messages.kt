@@ -102,7 +102,7 @@ val MessageContent.asInput: InputMessageContent?
             val file = InputFileRemote(sticker.sticker.remote.id)
             val thumbnail = if (sticker.thumbnail == null) null else InputThumbnail(InputFileRemote(sticker.thumbnail!!.file.remote.id), sticker.thumbnail!!.width, sticker.thumbnail!!.height)
 
-            InputMessageSticker(file, thumbnail, sticker.width, sticker.height)
+            InputMessageSticker(file, thumbnail, sticker.width, sticker.height, sticker.emoji)
 
         }
 

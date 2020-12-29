@@ -76,9 +76,9 @@ class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend 
 
             val targetLocale = try {
 
-                setup = data[1].toBoolean()
+                setup = data[1].asBoolean()
 
-                data[0].toInt()
+                data[0].asInt()
 
             } catch (e: Exception) {
 

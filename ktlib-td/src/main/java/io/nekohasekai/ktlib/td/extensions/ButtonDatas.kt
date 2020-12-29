@@ -8,9 +8,9 @@ import java.math.BigInteger
 
 fun Boolean.asByteArray() = byteArrayOf(if (this) 1 else 0)
 fun Number.asByteArray(): ByteArray = toLong().toBigInteger().toByteArray()
-fun ByteArray.toLong() = BigInteger(this).toLong()
-fun ByteArray.toInt() = BigInteger(this).toInt()
-fun ByteArray.toBoolean() = this[0].toInt() == 1
+fun ByteArray.asLong() = BigInteger(this).toLong()
+fun ByteArray.asInt() = BigInteger(this).toInt()
+fun ByteArray.asBoolean() = this[0].toInt() == 1
 
 fun mkData(id: Int, vararg dataArray: ByteArray, randomSuffix: Boolean = false): ByteArray {
 

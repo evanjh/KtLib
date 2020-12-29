@@ -8,6 +8,7 @@ import io.nekohasekai.ktlib.db.DatabaseCacheMap
 import io.nekohasekai.ktlib.db.DatabaseDispatcher
 import io.nekohasekai.ktlib.td.core.TdClient
 import io.nekohasekai.ktlib.td.core.persists.TdPersist
+import io.nekohasekai.ktlib.td.extensions.asInt
 import io.nekohasekai.ktlib.td.extensions.mkData
 import io.nekohasekai.ktlib.td.extensions.readData
 import kotlinx.coroutines.launch
@@ -15,7 +16,11 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.statements.api.ExposedBlob
 import java.math.BigInteger
 
-class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDispatcher, tableName: String = "td_unique_persists", cacheTime: Long = 6 * 60 * 60 * 1000L) : DatabaseCacheMap<Pair<Int, Int>, TdPersist>(database, 0, cacheTime), PersistStore {
+class DatabaseUniquePersistStore @JvmOverloads constructor(
+    database: DatabaseDispatcher,
+    tableName: String = "td_unique_persists",
+    cacheTime: Long = 6 * 60 * 60 * 1000L
+) : DatabaseCacheMap<Pair<Int, Int>, TdPersist>(database, 0, cacheTime), PersistStore {
 
     private val table = PersistsTable(tableName)
 
@@ -51,16 +56,16 @@ class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDis
 
                 val dataArray = row[table.data].bytes.readData()
 
-                val dataId = if (dataArray.isEmpty()) 0 else dataArray[0].asInt
+                val dataId = if (dataArray.isEmpty()) 0 else dataArray[0].asInt()
 
                 TdPersist(
-                        row[table.userId],
-                        row[table.persistId],
-                        dataId,
-                        arrayOf(* dataArray.shift().map { it.anyFormByteArray() }.toTypedArray()),
-                        row[table.allowFunction],
-                        row[table.allowCancel],
-                        row[table.createAt]
+                    row[table.userId],
+                    row[table.persistId],
+                    dataId,
+                    arrayOf(* dataArray.shift().map { it.anyFormByteArray() }.toTypedArray()),
+                    row[table.allowFunction],
+                    row[table.allowCancel],
+                    row[table.createAt]
                 )
 
             }
@@ -83,9 +88,12 @@ class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDis
 
             statement[table.userId] = value.userId
             statement[table.persistId] = value.persistId
-            statement[table.data] = ExposedBlob(mkData(value.subId,
+            statement[table.data] = ExposedBlob(
+                mkData(
+                    value.subId,
                     * value.data.map { it?.toByteArray(true) ?: byteArrayOf() }.toTypedArray()
-            ))
+                )
+            )
             statement[table.allowFunction] = value.allowFunction
             statement[table.allowCancel] = value.allowCancel
             statement[table.createAt] = value.createAt
@@ -143,13 +151,14 @@ class DatabaseUniquePersistStore @JvmOverloads constructor(database: DatabaseDis
                 val dataId = BigInteger(dataArray[0]).toInt()
 
                 val persist = TdPersist(
-                        row[table.userId],
-                        row[table.persistId],
-                        dataId,
-                        arrayOf(* dataArray.shift().map { if (it.isEmpty()) null else it.anyFormByteArray() }.toTypedArray()),
-                        row[table.allowFunction],
-                        row[table.allowCancel],
-                        row[table.createAt]
+                    row[table.userId],
+                    row[table.persistId],
+                    dataId,
+                    arrayOf(* dataArray.shift().map { if (it.isEmpty()) null else it.anyFormByteArray() }
+                        .toTypedArray()),
+                    row[table.allowFunction],
+                    row[table.allowCancel],
+                    row[table.createAt]
                 )
 
                 TdClient.events.launch {
