@@ -352,9 +352,9 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                 if ("start" == function) {
 
-                    val paramNew = param.substringAfter(params[0]).trimStart()
-
                     if (param.isNotBlank()) {
+
+                        val paramNew = param.substringAfter(params[0]).trimStart()
 
                         val data = param.split('-').toTypedArray()
                         val payload = data[0]
