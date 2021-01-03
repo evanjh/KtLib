@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a basic group by its identifier
@@ -128,7 +127,7 @@ fun TdHandler.joinGroupCallWith(
 suspend fun TdHandler.toggleGroupCallMuteNewParticipants(
     groupCallId: Int,
     muteNewParticipants: Boolean
-) {
+){
     sync(ToggleGroupCallMuteNewParticipants(groupCallId, muteNewParticipants))
 }
 
@@ -136,7 +135,7 @@ suspend fun TdHandler.toggleGroupCallMuteNewParticipants(
 suspend fun TdHandler.toggleGroupCallMuteNewParticipantsIgnoreException(
     groupCallId: Int,
     muteNewParticipants: Boolean
-) {
+){
     syncOrNull(ToggleGroupCallMuteNewParticipants(groupCallId, muteNewParticipants))
 }
 
@@ -159,7 +158,7 @@ fun TdHandler.toggleGroupCallMuteNewParticipantsWith(
 suspend fun TdHandler.inviteGroupCallParticipants(
     groupCallId: Int,
     userIds: IntArray
-) {
+){
     sync(InviteGroupCallParticipants(groupCallId, userIds))
 }
 
@@ -167,7 +166,7 @@ suspend fun TdHandler.inviteGroupCallParticipants(
 suspend fun TdHandler.inviteGroupCallParticipantsIgnoreException(
     groupCallId: Int,
     userIds: IntArray
-) {
+){
     syncOrNull(InviteGroupCallParticipants(groupCallId, userIds))
 }
 
@@ -190,7 +189,7 @@ suspend fun TdHandler.setGroupCallParticipantIsSpeaking(
     groupCallId: Int,
     source: Int,
     isSpeaking: Boolean
-) {
+){
     sync(SetGroupCallParticipantIsSpeaking(groupCallId, source, isSpeaking))
 }
 
@@ -199,7 +198,7 @@ suspend fun TdHandler.setGroupCallParticipantIsSpeakingIgnoreException(
     groupCallId: Int,
     source: Int,
     isSpeaking: Boolean
-) {
+){
     syncOrNull(SetGroupCallParticipantIsSpeaking(groupCallId, source, isSpeaking))
 }
 
@@ -223,7 +222,7 @@ suspend fun TdHandler.toggleGroupCallParticipantIsMuted(
     groupCallId: Int,
     userId: Int,
     isMuted: Boolean
-) {
+){
     sync(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted))
 }
 
@@ -232,7 +231,7 @@ suspend fun TdHandler.toggleGroupCallParticipantIsMutedIgnoreException(
     groupCallId: Int,
     userId: Int,
     isMuted: Boolean
-) {
+){
     syncOrNull(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted))
 }
 
@@ -257,7 +256,7 @@ fun TdHandler.toggleGroupCallParticipantIsMutedWith(
 suspend fun TdHandler.loadGroupCallParticipants(
     groupCallId: Int,
     limit: Int
-) {
+){
     sync(LoadGroupCallParticipants(groupCallId, limit))
 }
 
@@ -265,7 +264,7 @@ suspend fun TdHandler.loadGroupCallParticipants(
 suspend fun TdHandler.loadGroupCallParticipantsIgnoreException(
     groupCallId: Int,
     limit: Int
-) {
+){
     syncOrNull(LoadGroupCallParticipants(groupCallId, limit))
 }
 
@@ -284,14 +283,14 @@ fun TdHandler.loadGroupCallParticipantsWith(
  */
 suspend fun TdHandler.leaveGroupCall(
     groupCallId: Int
-) {
+){
     sync(LeaveGroupCall(groupCallId))
 }
 
 
 suspend fun TdHandler.leaveGroupCallIgnoreException(
     groupCallId: Int
-) {
+){
     syncOrNull(LeaveGroupCall(groupCallId))
 }
 
@@ -310,14 +309,14 @@ fun TdHandler.leaveGroupCallWith(
  */
 suspend fun TdHandler.discardGroupCall(
     groupCallId: Int
-) {
+){
     sync(DiscardGroupCall(groupCallId))
 }
 
 
 suspend fun TdHandler.discardGroupCallIgnoreException(
     groupCallId: Int
-) {
+){
     syncOrNull(DiscardGroupCall(groupCallId))
 }
 

@@ -649,14 +649,7 @@ interface AbsEvents {
      * @query - Text of the query
      * @offset - Offset of the first entry to return
      */
-    suspend fun onNewInlineQuery(
-        id: Long,
-        senderUserId: Int,
-        userLocation: Location?,
-        chatType: ChatType,
-        query: String,
-        offset: String
-    ) = Unit
+    suspend fun onNewInlineQuery(id: Long, senderUserId: Int, userLocation: Location?, chatType: ChatType, query: String, offset: String) = Unit
 
     /**
      * The user has chosen a result of an inline query
@@ -803,36 +796,19 @@ interface AbsEvents {
 
             is UpdateChatIsBlocked -> onChatIsBlocked(eventObj.chatId, eventObj.isBlocked)
 
-            is UpdateChatHasScheduledMessages -> onChatHasScheduledMessages(
-                eventObj.chatId,
-                eventObj.hasScheduledMessages
-            )
+            is UpdateChatHasScheduledMessages -> onChatHasScheduledMessages(eventObj.chatId, eventObj.hasScheduledMessages)
 
-            is UpdateChatVoiceChat -> onChatVoiceChat(
-                eventObj.chatId,
-                eventObj.voiceChatGroupCallId,
-                eventObj.isVoiceChatEmpty
-            )
+            is UpdateChatVoiceChat -> onChatVoiceChat(eventObj.chatId, eventObj.voiceChatGroupCallId, eventObj.isVoiceChatEmpty)
 
-            is UpdateChatDefaultDisableNotification -> onChatDefaultDisableNotification(
-                eventObj.chatId,
-                eventObj.defaultDisableNotification
-            )
+            is UpdateChatDefaultDisableNotification -> onChatDefaultDisableNotification(eventObj.chatId, eventObj.defaultDisableNotification)
 
-            is UpdateChatReadInbox -> onChatReadInbox(
-                eventObj.chatId,
-                eventObj.lastReadInboxMessageId,
-                eventObj.unreadCount
-            )
+            is UpdateChatReadInbox -> onChatReadInbox(eventObj.chatId, eventObj.lastReadInboxMessageId, eventObj.unreadCount)
 
             is UpdateChatReadOutbox -> onChatReadOutbox(eventObj.chatId, eventObj.lastReadOutboxMessageId)
 
             is UpdateChatUnreadMentionCount -> onChatUnreadMentionCount(eventObj.chatId, eventObj.unreadMentionCount)
 
-            is UpdateChatNotificationSettings -> onChatNotificationSettings(
-                eventObj.chatId,
-                eventObj.notificationSettings
-            )
+            is UpdateChatNotificationSettings -> onChatNotificationSettings(eventObj.chatId, eventObj.notificationSettings)
 
             is UpdateScopeNotificationSettings -> onScopeNotificationSettings(eventObj.scope, eventObj.notificationSettings)
 
@@ -878,12 +854,7 @@ interface AbsEvents {
 
             is UpdateFile -> onFile(eventObj.file)
 
-            is UpdateFileGenerationStart -> onFileGenerationStart(
-                eventObj.generationId,
-                eventObj.originalPath,
-                eventObj.destinationPath,
-                eventObj.conversion
-            )
+            is UpdateFileGenerationStart -> onFileGenerationStart(eventObj.generationId, eventObj.originalPath, eventObj.destinationPath, eventObj.conversion)
 
             is UpdateFileGenerationStop -> onFileGenerationStop(eventObj.generationId)
 
@@ -897,20 +868,9 @@ interface AbsEvents {
 
             is UpdateUserPrivacySettingRules -> onUserPrivacySettingRules(eventObj.setting, eventObj.rules)
 
-            is UpdateUnreadMessageCount -> onUnreadMessageCount(
-                eventObj.chatList,
-                eventObj.unreadCount,
-                eventObj.unreadUnmutedCount
-            )
+            is UpdateUnreadMessageCount -> onUnreadMessageCount(eventObj.chatList, eventObj.unreadCount, eventObj.unreadUnmutedCount)
 
-            is UpdateUnreadChatCount -> onUnreadChatCount(
-                eventObj.chatList,
-                eventObj.totalCount,
-                eventObj.unreadCount,
-                eventObj.unreadUnmutedCount,
-                eventObj.markedAsUnreadCount,
-                eventObj.markedAsUnreadUnmutedCount
-            )
+            is UpdateUnreadChatCount -> onUnreadChatCount(eventObj.chatList, eventObj.totalCount, eventObj.unreadCount, eventObj.unreadUnmutedCount, eventObj.markedAsUnreadCount, eventObj.markedAsUnreadUnmutedCount)
 
             is UpdateOption -> onOption(eventObj.name, eventObj.value)
 
@@ -942,14 +902,7 @@ interface AbsEvents {
 
             is UpdateSuggestedActions -> onSuggestedActions(eventObj.addedActions, eventObj.removedActions)
 
-            is UpdateNewInlineQuery -> onNewInlineQuery(
-                eventObj.id,
-                eventObj.senderUserId,
-                eventObj.userLocation,
-                eventObj.chatType,
-                eventObj.query,
-                eventObj.offset
-            )
+            is UpdateNewInlineQuery -> onNewInlineQuery(eventObj.id, eventObj.senderUserId, eventObj.userLocation, eventObj.chatType, eventObj.query, eventObj.offset)
 
             is UpdateNewChosenInlineResult -> onNewChosenInlineResult(eventObj.senderUserId, eventObj.userLocation, eventObj.query, eventObj.resultId, eventObj.inlineMessageId)
 

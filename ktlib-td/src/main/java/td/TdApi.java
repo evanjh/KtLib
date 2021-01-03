@@ -1,6 +1,6 @@
 package td;
 
-import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.*;
 
 @SuppressWarnings("ALL")
 public class TdApi {
@@ -1175,9 +1175,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -2097433026;
-        }
+        public int getConstructor() { return -2097433026; }
 
     }
 
@@ -1192,8 +1190,7 @@ public class TdApi {
 
         public VectorPathCommand[] commands;
 
-        public ClosedVectorPath() {
-        }
+        public ClosedVectorPath() {}
 
         public ClosedVectorPath(VectorPathCommand[] commands) {
 
@@ -1202,9 +1199,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 589951657;
-        }
+        public int getConstructor() { return 589951657; }
 
     }
 
@@ -1497,12 +1492,9 @@ public class TdApi {
         public String emoji;
         public boolean isAnimated;
         public boolean isMask;
-        @Nullable
-        public MaskPosition maskPosition;
-        @Nullable
-        public ClosedVectorPath[] outline;
-        @Nullable
-        public Thumbnail thumbnail;
+        @Nullable public MaskPosition maskPosition;
+        @Nullable public ClosedVectorPath[] outline;
+        @Nullable public Thumbnail thumbnail;
         public File sticker;
 
         public Sticker() {}
@@ -1523,9 +1515,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 45883239;
-        }
+        public int getConstructor() { return 45883239; }
 
     }
 
@@ -2551,23 +2541,23 @@ public class TdApi {
      * In supergroups and channels, there are more detailed options for administrator privileges
      *
      * @customTitle - A custom title of the administrator
-     * Applicable to supergroups only
+     *                Applicable to supergroups only
      * @canBeEdited - True, if the current user can edit the administrator privileges for the called user
      * @canChangeInfo - True, if the administrator can change the chat title, photo, and other settings
      * @canPostMessages - True, if the administrator can create channel posts
-     * Applicable to channels only
+     *                    Applicable to channels only
      * @canEditMessages - True, if the administrator can edit messages of other users and pin messages
-     * Applicable to channels only
+     *                    Applicable to channels only
      * @canDeleteMessages - True, if the administrator can delete messages of other users
      * @canInviteUsers - True, if the administrator can invite new users to the chat
      * @canRestrictMembers - True, if the administrator can restrict, ban, or unban chat members
      * @canPinMessages - True, if the administrator can pin messages
-     * Applicable to groups only
+     *                   Applicable to groups only
      * @canPromoteMembers - True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them
      * @canManageVoiceChats - True, if the administrator can manage voice chats
-     * Applicable to groups only
+     *                        Applicable to groups only
      * @isAnonymous - True, if the administrator isn't shown in the chat member list and sends messages anonymously
-     * Applicable to supergroups only
+     *                Applicable to supergroups only
      */
     public static class ChatMemberStatusAdministrator extends ChatMemberStatus {
 
@@ -2584,8 +2574,7 @@ public class TdApi {
         public boolean canManageVoiceChats;
         public boolean isAnonymous;
 
-        public ChatMemberStatusAdministrator() {
-        }
+        public ChatMemberStatusAdministrator() {}
 
         public ChatMemberStatusAdministrator(String customTitle, boolean canBeEdited, boolean canChangeInfo, boolean canPostMessages, boolean canEditMessages, boolean canDeleteMessages, boolean canInviteUsers, boolean canRestrictMembers, boolean canPinMessages, boolean canPromoteMembers, boolean canManageVoiceChats, boolean isAnonymous) {
 
@@ -2605,9 +2594,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 306691600;
-        }
+        public int getConstructor() { return 306691600; }
 
     }
 
@@ -4444,17 +4431,14 @@ public class TdApi {
         public long lastReadOutboxMessageId;
         public int unreadMentionCount;
         public ChatNotificationSettings notificationSettings;
-        @Nullable
-        public ChatActionBar actionBar;
+        @Nullable public ChatActionBar actionBar;
         public int voiceChatGroupCallId;
         public boolean isVoiceChatEmpty;
         public long replyMarkupMessageId;
-        @Nullable
-        public DraftMessage draftMessage;
+        @Nullable public DraftMessage draftMessage;
         public String clientData;
 
-        public Chat() {
-        }
+        public Chat() {}
 
         public Chat(long id, ChatType type, String title, @Nullable ChatPhotoInfo photo, ChatPermissions permissions, @Nullable Message lastMessage, ChatPosition[] positions, boolean isMarkedAsUnread, boolean isBlocked, boolean hasScheduledMessages, boolean canBeDeletedOnlyForSelf, boolean canBeDeletedForAllUsers, boolean canBeReported, boolean defaultDisableNotification, int unreadCount, long lastReadInboxMessageId, long lastReadOutboxMessageId, int unreadMentionCount, ChatNotificationSettings notificationSettings, @Nullable ChatActionBar actionBar, int voiceChatGroupCallId, boolean isVoiceChatEmpty, long replyMarkupMessageId, @Nullable DraftMessage draftMessage, String clientData) {
 
@@ -4487,9 +4471,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -923907435;
-        }
+        public int getConstructor() { return -923907435; }
 
     }
 
@@ -9531,8 +9513,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 538893824;
-        }
+        public int getConstructor() { return 538893824; }
 
     }
 
@@ -9541,14 +9522,13 @@ public class TdApi {
      * A newly created voice chat
      *
      * @groupCallId - Identifier of the voice chat
-     * The voice chat can be received through the method getGroupCall
+     *                The voice chat can be received through the method getGroupCall
      */
     public static class MessageVoiceChatStarted extends MessageContent {
 
         public int groupCallId;
 
-        public MessageVoiceChatStarted() {
-        }
+        public MessageVoiceChatStarted() {}
 
         public MessageVoiceChatStarted(int groupCallId) {
 
@@ -9557,9 +9537,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -909274005;
-        }
+        public int getConstructor() { return -909274005; }
 
     }
 
@@ -9573,8 +9551,7 @@ public class TdApi {
 
         public int duration;
 
-        public MessageVoiceChatEnded() {
-        }
+        public MessageVoiceChatEnded() {}
 
         public MessageVoiceChatEnded(int duration) {
 
@@ -9583,9 +9560,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -678902089;
-        }
+        public int getConstructor() { return -678902089; }
 
     }
 
@@ -9594,7 +9569,7 @@ public class TdApi {
      * A message with information about an invite to a voice chat
      *
      * @groupCallId - Identifier of the voice chat
-     * The voice chat can be received through the method getGroupCall
+     *                The voice chat can be received through the method getGroupCall
      * @userIds - Invited user identifiers
      */
     public static class MessageInviteVoiceChatParticipants extends MessageContent {
@@ -9602,8 +9577,7 @@ public class TdApi {
         public int groupCallId;
         public int[] userIds;
 
-        public MessageInviteVoiceChatParticipants() {
-        }
+        public MessageInviteVoiceChatParticipants() {}
 
         public MessageInviteVoiceChatParticipants(int groupCallId, int[] userIds) {
 
@@ -9613,9 +9587,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 46546833;
-        }
+        public int getConstructor() { return 46546833; }
 
     }
 
@@ -9631,8 +9603,7 @@ public class TdApi {
         public String title;
         public int[] memberUserIds;
 
-        public MessageBasicGroupChatCreate() {
-        }
+        public MessageBasicGroupChatCreate() {}
 
         public MessageBasicGroupChatCreate(String title, int[] memberUserIds) {
 
@@ -10740,9 +10711,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1072805625;
-        }
+        public int getConstructor() { return 1072805625; }
 
     }
 
@@ -12060,8 +12029,7 @@ public class TdApi {
 
         public int id;
 
-        public GroupCallId() {
-        }
+        public GroupCallId() {}
 
         public GroupCallId(int id) {
 
@@ -12070,9 +12038,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 350534469;
-        }
+        public int getConstructor() { return 350534469; }
 
     }
 
@@ -12080,8 +12046,7 @@ public class TdApi {
     /**
      * Describes the current call state
      */
-    public static abstract class CallState extends Object {
-    }
+    public static abstract class CallState extends Object {}
 
     /**
      * The call is pending, waiting to be accepted by a user
@@ -12233,8 +12198,7 @@ public class TdApi {
         public int userId;
         public boolean isSpeaking;
 
-        public GroupCallRecentSpeaker() {
-        }
+        public GroupCallRecentSpeaker() {}
 
         public GroupCallRecentSpeaker(int userId, boolean isSpeaking) {
 
@@ -12244,9 +12208,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 903765260;
-        }
+        public int getConstructor() { return 903765260; }
 
     }
 
@@ -12266,7 +12228,7 @@ public class TdApi {
      * @muteNewParticipants - True, if only group call administrators can unmute new participants
      * @allowedChangeMuteNewParticipants - True, if group call administrators can enable or disable mute_new_participants setting
      * @duration - Call duration
-     * For ended calls only
+     *             For ended calls only
      */
     public static class GroupCall extends Object {
 
@@ -12283,8 +12245,7 @@ public class TdApi {
         public boolean allowedChangeMuteNewParticipants;
         public int duration;
 
-        public GroupCall() {
-        }
+        public GroupCall() {}
 
         public GroupCall(int id, boolean isActive, boolean isJoined, boolean needRejoin, boolean canUnmuteSelf, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean muteNewParticipants, boolean allowedChangeMuteNewParticipants, int duration) {
 
@@ -12304,9 +12265,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -276839198;
-        }
+        public int getConstructor() { return -276839198; }
 
     }
 
@@ -12324,8 +12283,7 @@ public class TdApi {
         public String setup;
         public String fingerprint;
 
-        public GroupCallPayloadFingerprint() {
-        }
+        public GroupCallPayloadFingerprint() {}
 
         public GroupCallPayloadFingerprint(String hash, String setup, String fingerprint) {
 
@@ -12336,9 +12294,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -32269671;
-        }
+        public int getConstructor() { return -32269671; }
 
     }
 
@@ -12356,8 +12312,7 @@ public class TdApi {
         public String pwd;
         public GroupCallPayloadFingerprint[] fingerprints;
 
-        public GroupCallPayload() {
-        }
+        public GroupCallPayload() {}
 
         public GroupCallPayload(String ufrag, String pwd, GroupCallPayloadFingerprint[] fingerprints) {
 
@@ -12368,9 +12323,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2059487284;
-        }
+        public int getConstructor() { return 2059487284; }
 
     }
 
@@ -12408,8 +12361,7 @@ public class TdApi {
         public String relAddr;
         public String relPort;
 
-        public GroupCallJoinResponseCandidate() {
-        }
+        public GroupCallJoinResponseCandidate() {}
 
         public GroupCallJoinResponseCandidate(String port, String protocol, String network, String generation, String id, String component, String foundation, String priority, String ip, String type, String tcpType, String relAddr, String relPort) {
 
@@ -12430,9 +12382,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -769797407;
-        }
+        public int getConstructor() { return -769797407; }
 
     }
 
@@ -12448,8 +12398,7 @@ public class TdApi {
         public GroupCallPayload payload;
         public GroupCallJoinResponseCandidate[] candidates;
 
-        public GroupCallJoinResponse() {
-        }
+        public GroupCallJoinResponse() {}
 
         public GroupCallJoinResponse(GroupCallPayload payload, GroupCallJoinResponseCandidate[] candidates) {
 
@@ -12459,9 +12408,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -194586855;
-        }
+        public int getConstructor() { return -194586855; }
 
     }
 
@@ -12477,8 +12424,8 @@ public class TdApi {
      * @isMuted - True, if the participant is muted
      * @canUnmuteSelf - True, if the participant can unmute themself
      * @order - User's order in the group call participant list
-     * The bigger is order, the higher is user in the list
-     * If order is 0, the user must be removed from the participant list
+     *          The bigger is order, the higher is user in the list
+     *          If order is 0, the user must be removed from the participant list
      */
     public static class GroupCallParticipant extends Object {
 
@@ -12491,8 +12438,7 @@ public class TdApi {
         public boolean canUnmuteSelf;
         public long order;
 
-        public GroupCallParticipant() {
-        }
+        public GroupCallParticipant() {}
 
         public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMuted, boolean canBeUnmuted, boolean isMuted, boolean canUnmuteSelf, long order) {
 
@@ -12508,9 +12454,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 149471862;
-        }
+        public int getConstructor() { return 149471862; }
 
     }
 
@@ -12518,8 +12462,7 @@ public class TdApi {
     /**
      * Describes the exact type of a problem with a call
      */
-    public static abstract class CallProblem extends Object {
-    }
+    public static abstract class CallProblem extends Object {}
 
     /**
      * The user heard their own voice
@@ -12527,9 +12470,7 @@ public class TdApi {
     public static class CallProblemEcho extends CallProblem {
 
         @Override
-        public int getConstructor() {
-            return 801116548;
-        }
+        public int getConstructor() { return 801116548; }
 
     }
 
@@ -14518,8 +14459,7 @@ public class TdApi {
 
         public int groupCallId;
 
-        public ChatEventVoiceChatCreated() {
-        }
+        public ChatEventVoiceChatCreated() {}
 
         public ChatEventVoiceChatCreated(int groupCallId) {
 
@@ -14528,9 +14468,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1532557526;
-        }
+        public int getConstructor() { return -1532557526; }
 
     }
 
@@ -14539,14 +14477,13 @@ public class TdApi {
      * A voice chat was discarded
      *
      * @groupCallId - Identifier of the voice chat
-     * The voice chat can be received through the method getGroupCall
+     *                The voice chat can be received through the method getGroupCall
      */
     public static class ChatEventVoiceChatDiscarded extends ChatEventAction {
 
         public int groupCallId;
 
-        public ChatEventVoiceChatDiscarded() {
-        }
+        public ChatEventVoiceChatDiscarded() {}
 
         public ChatEventVoiceChatDiscarded(int groupCallId) {
 
@@ -14555,9 +14492,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -511896882;
-        }
+        public int getConstructor() { return -511896882; }
 
     }
 
@@ -14573,8 +14508,7 @@ public class TdApi {
         public int userId;
         public boolean isMuted;
 
-        public ChatEventVoiceChatParticipantIsMutedToggled() {
-        }
+        public ChatEventVoiceChatParticipantIsMutedToggled() {}
 
         public ChatEventVoiceChatParticipantIsMutedToggled(int userId, boolean isMuted) {
 
@@ -14584,9 +14518,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 701942959;
-        }
+        public int getConstructor() { return 701942959; }
 
     }
 
@@ -14600,8 +14532,7 @@ public class TdApi {
 
         public boolean muteNewParticipants;
 
-        public ChatEventVoiceChatMuteNewParticipantsToggled() {
-        }
+        public ChatEventVoiceChatMuteNewParticipantsToggled() {}
 
         public ChatEventVoiceChatMuteNewParticipantsToggled(boolean muteNewParticipants) {
 
@@ -14610,9 +14541,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 557181074;
-        }
+        public int getConstructor() { return 557181074; }
 
     }
 
@@ -14632,8 +14561,7 @@ public class TdApi {
         public int userId;
         public ChatEventAction action;
 
-        public ChatEvent() {
-        }
+        public ChatEvent() {}
 
         public ChatEvent(long id, int date, int userId, ChatEventAction action) {
 
@@ -14721,8 +14649,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 770025239; }
+        public int getConstructor() { return 770025239; }
 
     }
 
@@ -14730,8 +14657,7 @@ public class TdApi {
     /**
      * Represents the value of a string in a language pack
      */
-    public static abstract class LanguagePackStringValue extends Object {
-    }
+    public static abstract class LanguagePackStringValue extends Object {}
 
     /**
      * An ordinary language pack string
@@ -19022,8 +18948,7 @@ public class TdApi {
         public double x;
         public double y;
 
-        public Point() {
-        }
+        public Point() {}
 
         public Point(double x, double y) {
 
@@ -19033,9 +18958,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 437515705;
-        }
+        public int getConstructor() { return 437515705; }
 
     }
 
@@ -19043,8 +18966,7 @@ public class TdApi {
     /**
      * Represents a vector path command
      */
-    public static abstract class VectorPathCommand extends Object {
-    }
+    public static abstract class VectorPathCommand extends Object {}
 
     /**
      * A straight line to a given point
@@ -19055,8 +18977,7 @@ public class TdApi {
 
         public Point endPoint;
 
-        public VectorPathCommandLine() {
-        }
+        public VectorPathCommandLine() {}
 
         public VectorPathCommandLine(Point endPoint) {
 
@@ -19065,9 +18986,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -614056822;
-        }
+        public int getConstructor() { return -614056822; }
 
     }
 
@@ -19085,8 +19004,7 @@ public class TdApi {
         public Point endControlPoint;
         public Point endPoint;
 
-        public VectorPathCommandCubicBezierCurve() {
-        }
+        public VectorPathCommandCubicBezierCurve() {}
 
         public VectorPathCommandCubicBezierCurve(Point startControlPoint, Point endControlPoint, Point endPoint) {
 
@@ -19097,9 +19015,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1229733434;
-        }
+        public int getConstructor() { return 1229733434; }
 
     }
 
@@ -19107,8 +19023,7 @@ public class TdApi {
     /**
      * Contains notifications about data changes
      */
-    public static abstract class Update extends Object {
-    }
+    public static abstract class Update extends Object {}
 
     /**
      * The user authorization state has changed
@@ -19119,8 +19034,7 @@ public class TdApi {
 
         public AuthorizationState authorizationState;
 
-        public UpdateAuthorizationState() {
-        }
+        public UpdateAuthorizationState() {}
 
         public UpdateAuthorizationState(AuthorizationState authorizationState) {
 
@@ -19703,8 +19617,7 @@ public class TdApi {
         public int voiceChatGroupCallId;
         public boolean isVoiceChatEmpty;
 
-        public UpdateChatVoiceChat() {
-        }
+        public UpdateChatVoiceChat() {}
 
         public UpdateChatVoiceChat(long chatId, int voiceChatGroupCallId, boolean isVoiceChatEmpty) {
 
@@ -19715,9 +19628,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1432971820;
-        }
+        public int getConstructor() { return 1432971820; }
 
     }
 
@@ -19733,8 +19644,7 @@ public class TdApi {
         public long chatId;
         public boolean defaultDisableNotification;
 
-        public UpdateChatDefaultDisableNotification() {
-        }
+        public UpdateChatDefaultDisableNotification() {}
 
         public UpdateChatDefaultDisableNotification(long chatId, boolean defaultDisableNotification) {
 
@@ -20544,8 +20454,7 @@ public class TdApi {
 
         public GroupCall groupCall;
 
-        public UpdateGroupCall() {
-        }
+        public UpdateGroupCall() {}
 
         public UpdateGroupCall(GroupCall groupCall) {
 
@@ -20554,9 +20463,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 808603136;
-        }
+        public int getConstructor() { return 808603136; }
 
     }
 
@@ -20573,8 +20480,7 @@ public class TdApi {
         public int groupCallId;
         public GroupCallParticipant participant;
 
-        public UpdateGroupCallParticipant() {
-        }
+        public UpdateGroupCallParticipant() {}
 
         public UpdateGroupCallParticipant(int groupCallId, GroupCallParticipant participant) {
 
@@ -20584,9 +20490,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -803128071;
-        }
+        public int getConstructor() { return -803128071; }
 
     }
 
@@ -20602,8 +20506,7 @@ public class TdApi {
         public int callId;
         public byte[] data;
 
-        public UpdateNewCallSignalingData() {
-        }
+        public UpdateNewCallSignalingData() {}
 
         public UpdateNewCallSignalingData(int callId, byte[] data) {
 
@@ -21105,8 +21008,7 @@ public class TdApi {
 
         public long id;
         public int senderUserId;
-        @Nullable
-        public Location userLocation;
+        @Nullable public Location userLocation;
         public ChatType chatType;
         public String query;
         public String offset;
@@ -21125,9 +21027,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1918474267;
-        }
+        public int getConstructor() { return 1918474267; }
 
     }
 
@@ -26317,8 +26217,7 @@ public class TdApi {
 
         public long chatId;
 
-        public JoinChat() {
-        }
+        public JoinChat() {}
 
         public JoinChat(long chatId) {
 
@@ -26342,8 +26241,7 @@ public class TdApi {
 
         public long chatId;
 
-        public LeaveChat() {
-        }
+        public LeaveChat() {}
 
         public LeaveChat(long chatId) {
 
@@ -26405,8 +26303,7 @@ public class TdApi {
         public long chatId;
         public int[] userIds;
 
-        public AddChatMembers() {
-        }
+        public AddChatMembers() {}
 
         public AddChatMembers(long chatId, int[] userIds) {
 
@@ -27298,8 +27195,7 @@ public class TdApi {
 
         public long chatId;
 
-        public CreateVoiceChat() {
-        }
+        public CreateVoiceChat() {}
 
         public CreateVoiceChat(long chatId) {
 
@@ -27308,9 +27204,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1741671450;
-        }
+        public int getConstructor() { return -1741671450; }
 
     }
 
@@ -27324,8 +27218,7 @@ public class TdApi {
 
         public int groupCallId;
 
-        public GetGroupCall() {
-        }
+        public GetGroupCall() {}
 
         public GetGroupCall(int groupCallId) {
 
@@ -27334,9 +27227,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 1468491406;
-        }
+        public int getConstructor() { return 1468491406; }
 
     }
 
@@ -27346,9 +27237,9 @@ public class TdApi {
      *
      * @groupCallId - Group call identifier
      * @payload - Group join payload, received from tgcalls
-     * Use null to cancel previous joinGroupCall request
+     *            Use null to cancel previous joinGroupCall request
      * @source - Caller synchronization source identifier
-     * Received from tgcalls
+     *           Received from tgcalls
      * @isMuted - True, if the user's microphone is muted
      */
     public static class JoinGroupCall extends Function<GroupCallJoinResponse> {
@@ -27358,8 +27249,7 @@ public class TdApi {
         public int source;
         public boolean isMuted;
 
-        public JoinGroupCall() {
-        }
+        public JoinGroupCall() {}
 
         public JoinGroupCall(int groupCallId, GroupCallPayload payload, int source, boolean isMuted) {
 
@@ -27371,9 +27261,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -295363385;
-        }
+        public int getConstructor() { return -295363385; }
 
     }
 
@@ -27390,8 +27278,7 @@ public class TdApi {
         public int groupCallId;
         public boolean muteNewParticipants;
 
-        public ToggleGroupCallMuteNewParticipants() {
-        }
+        public ToggleGroupCallMuteNewParticipants() {}
 
         public ToggleGroupCallMuteNewParticipants(int groupCallId, boolean muteNewParticipants) {
 
@@ -27401,9 +27288,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 284082626;
-        }
+        public int getConstructor() { return 284082626; }
 
     }
 
@@ -27414,15 +27299,14 @@ public class TdApi {
      *
      * @groupCallId - Group call identifier
      * @userIds - User identifiers
-     * At most 10 users can be invited simultaneously
+     *            At most 10 users can be invited simultaneously
      */
     public static class InviteGroupCallParticipants extends Function<Ok> {
 
         public int groupCallId;
         public int[] userIds;
 
-        public InviteGroupCallParticipants() {
-        }
+        public InviteGroupCallParticipants() {}
 
         public InviteGroupCallParticipants(int groupCallId, int[] userIds) {
 
@@ -27432,9 +27316,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -943374128;
-        }
+        public int getConstructor() { return -943374128; }
 
     }
 
@@ -27452,8 +27334,7 @@ public class TdApi {
         public int source;
         public boolean isSpeaking;
 
-        public SetGroupCallParticipantIsSpeaking() {
-        }
+        public SetGroupCallParticipantIsSpeaking() {}
 
         public SetGroupCallParticipantIsSpeaking(int groupCallId, int source, boolean isSpeaking) {
 
@@ -27464,9 +27345,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return -1032120655;
-        }
+        public int getConstructor() { return -1032120655; }
 
     }
 
@@ -27484,8 +27363,7 @@ public class TdApi {
         public int userId;
         public boolean isMuted;
 
-        public ToggleGroupCallParticipantIsMuted() {
-        }
+        public ToggleGroupCallParticipantIsMuted() {}
 
         public ToggleGroupCallParticipantIsMuted(int groupCallId, int userId, boolean isMuted) {
 
@@ -27496,9 +27374,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 2089046203;
-        }
+        public int getConstructor() { return 2089046203; }
 
     }
 
@@ -27509,7 +27385,7 @@ public class TdApi {
      * Use the field groupCall.loaded_all_participants to check whether all participants has already been loaded
      *
      * @groupCallId - Group call identifier
-     * The group call must be previously received through getGroupCall and must be joined or being joined
+     *                The group call must be previously received through getGroupCall and must be joined or being joined
      * @limit - Maximum number of participants to load
      */
     public static class LoadGroupCallParticipants extends Function<Ok> {
@@ -27517,8 +27393,7 @@ public class TdApi {
         public int groupCallId;
         public int limit;
 
-        public LoadGroupCallParticipants() {
-        }
+        public LoadGroupCallParticipants() {}
 
         public LoadGroupCallParticipants(int groupCallId, int limit) {
 
@@ -27528,9 +27403,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 938720974;
-        }
+        public int getConstructor() { return 938720974; }
 
     }
 
@@ -27544,8 +27417,7 @@ public class TdApi {
 
         public int groupCallId;
 
-        public LeaveGroupCall() {
-        }
+        public LeaveGroupCall() {}
 
         public LeaveGroupCall(int groupCallId) {
 
@@ -27554,9 +27426,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 980152233;
-        }
+        public int getConstructor() { return 980152233; }
 
     }
 
@@ -27571,8 +27441,7 @@ public class TdApi {
 
         public int groupCallId;
 
-        public DiscardGroupCall() {
-        }
+        public DiscardGroupCall() {}
 
         public DiscardGroupCall(int groupCallId) {
 
@@ -27581,9 +27450,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() {
-            return 833933657;
-        }
+        public int getConstructor() { return 833933657; }
 
     }
 
@@ -27600,8 +27467,7 @@ public class TdApi {
         public MessageSender sender;
         public boolean isBlocked;
 
-        public ToggleMessageSenderIsBlocked() {
-        }
+        public ToggleMessageSenderIsBlocked() {}
 
         public ToggleMessageSenderIsBlocked(MessageSender sender, boolean isBlocked) {
 
@@ -27811,8 +27677,7 @@ public class TdApi {
 
         public Contact[] contacts;
 
-        public ChangeImportedContacts() {
-        }
+        public ChangeImportedContacts() {}
 
         public ChangeImportedContacts(Contact[] contacts) {
 
@@ -31249,9 +31114,7 @@ public class TdApi {
     public static class GetCountryCode extends Function<Text> {
 
         @Override
-        public int getConstructor() {
-            return 1540593906;
-        }
+        public int getConstructor() { return 1540593906; }
 
     }
 

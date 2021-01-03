@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Adds a user to the contact list or edits an existing contact by their user identifier

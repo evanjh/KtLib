@@ -14,9 +14,15 @@ object TdApiGenerator {
     @JvmStatic
     fun main(args: Array<String>) {
 
+        var projectRoot = File(".")
+
+        File(projectRoot, "ktlib").apply {
+            if (isDirectory) projectRoot = this
+        }
+
         val scheme = "https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl"
 
-        val file = File("ktlib-td-api-generator/td_api.tl")
+        val file = File(projectRoot, "ktlib-td-api-generator/td_api.tl")
 
         if (!file.isFile) {
 
@@ -24,13 +30,13 @@ object TdApiGenerator {
 
         }
 
-        FileUtil.del("ktlib-td/src/main/java/io/nekohasekai/ktlib/td/core/raw")
+        FileUtil.del("$projectRoot/ktlib-td/src/main/java/io/nekohasekai/ktlib/td/core/raw")
 
         val api = generateApi(file.readBytes())
 
         api.forEach { (path, src) ->
 
-            with(File("ktlib-td/src/main/java/$path")) {
+            with(File("$projectRoot/ktlib-td/src/main/java/$path")) {
 
                 println("write $path")
 

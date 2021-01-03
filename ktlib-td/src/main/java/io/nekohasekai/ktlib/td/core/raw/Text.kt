@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns an HTML code for embedding the message

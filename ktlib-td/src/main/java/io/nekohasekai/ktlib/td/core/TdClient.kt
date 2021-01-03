@@ -861,11 +861,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                 client.handlers.toLinkedList().forEach { handler ->
 
-                    handler.runCatching {
-
-                        handler.onUpdate(update)
-
-                    }.onFailure {
+                    handler.runCatching { onUpdate(update) }.onFailure {
 
                         if (it is CancellationException) return 0L
                         if (it is Finish) return 0L
