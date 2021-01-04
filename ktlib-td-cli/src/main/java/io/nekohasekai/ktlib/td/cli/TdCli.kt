@@ -15,6 +15,7 @@ import io.nekohasekai.ktlib.td.core.*
 import io.nekohasekai.ktlib.td.core.raw.*
 import io.nekohasekai.ktlib.td.extensions.*
 import io.nekohasekai.ktlib.td.i18n.*
+import io.nekohasekai.ktlib.td.utils.deleteDelay
 import io.nekohasekai.ktlib.td.utils.make
 import io.nekohasekai.ktlib.td.utils.removeKeyboard
 import kotlinx.coroutines.*
@@ -751,11 +752,9 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
         if (function == "cancel") {
 
-            if (!message.fromPrivateOrDelete) return
-
             userCalled(userId, "nothing to cancel")
 
-            sudo make localeFor(userId).NOTHING_TO_CANCEL withMarkup removeKeyboard() sendTo chatId
+            sudo make localeFor(userId).NOTHING_TO_CANCEL withMarkup removeKeyboard() onSuccess deleteDelay(message) sendTo chatId
 
         } else if (!message.fromPrivate) {
 

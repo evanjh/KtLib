@@ -2,7 +2,9 @@
 
 package io.nekohasekai.ktlib.nsfw
 
+import ai.djl.inference.Predictor
 import ai.djl.modality.Classifications
+import ai.djl.modality.cv.BufferedImageFactory
 import ai.djl.modality.cv.Image
 import ai.djl.modality.cv.transform.Resize
 import ai.djl.modality.cv.transform.ToTensor
@@ -17,9 +19,16 @@ import java.io.File
 
 object NSFW {
 
-    val classNames = listOf("drawings", "hentai", "neutral", "porn", "sexy")
+    const val DRAWINGS = "drawings"
+    const val HENTAI = "hentai"
+    const val NEUTRAL = "neutral"
+    const val PORN = "porn"
+    const val SEXY = "sexy"
+
+    val classNames = listOf(DRAWINGS, HENTAI, NEUTRAL, PORN, SEXY)
 
     lateinit var model: ZooModel<Image, Classifications>
+    lateinit var predictor: Predictor<Image, Classifications>
 
     fun loadModel(cachePath: File) {
 
@@ -62,6 +71,18 @@ object NSFW {
                 .build()
         )
 
+        predictor = model.newPredictor()
+
+    }
+
+    fun predict(vararg image: File): List<Map<String, Double>> {
+        if (::model.isInitialized) error("Init first")
+        val images = image.map { BufferedImageFactory.getInstance().fromFile(it.toPath()) }
+        return predictor.batchPredict(images).map { classifications ->
+            mapOf(* classifications.items<Classifications.Classification>().map {
+                it.className to it.probability
+            }.toTypedArray())
+        }
     }
 
 }

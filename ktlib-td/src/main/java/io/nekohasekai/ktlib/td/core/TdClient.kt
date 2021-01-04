@@ -973,7 +973,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
     }
 
-    open suspend fun onNewMessageLast(userId: Int, chatId: Long, message: Message) = Unit
+    open suspend fun onNewMessageLast(userId: Int, chatId: Long, message: Message) {
+        if (message.fromPrivate) {
+            onLaunch(userId, chatId, message)
+        }
+    }
 
     open suspend fun onDropMessages(senderUserId: Int, lastMessage: MessageNode) {
 
