@@ -55,6 +55,8 @@ object NSFW {
                 }
             }
 
+            cacheFile.delete()
+
         }
 
         model = ModelZoo.loadModel(
@@ -76,7 +78,7 @@ object NSFW {
     }
 
     fun predict(vararg image: File): List<Map<String, Double>> {
-        if (::model.isInitialized) error("Init first")
+        if (!::model.isInitialized) error("Init first")
         val images = image.map { BufferedImageFactory.getInstance().fromFile(it.toPath()) }
         return predictor.batchPredict(images).map { classifications ->
             mapOf(* classifications.items<Classifications.Classification>().map {

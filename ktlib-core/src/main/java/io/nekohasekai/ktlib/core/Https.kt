@@ -65,6 +65,7 @@ fun downloadFile(path: String, file: File) {
             }
 
             override fun finish() {
+                println()
                 FileUtil.move(cacheFile, file, true)
             }
         })

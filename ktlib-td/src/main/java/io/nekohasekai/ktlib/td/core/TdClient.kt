@@ -859,17 +859,21 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             suspend fun process(): Long {
 
-                client.handlers.toLinkedList().forEach { handler ->
+                runCatching {
 
-                    handler.runCatching { onUpdate(update) }.onFailure {
+                    client.handlers.toLinkedList().forEach { handler ->
 
-                        if (it is CancellationException) return 0L
-                        if (it is Finish) return 0L
-                        if (it is FinishWithDelay) return it.delay
-
-                        eventErrorHandler(client, it, update)
+                        handler.onUpdate(update)
 
                     }
+
+                }.onFailure {
+
+                    if (it is CancellationException) return 0L
+                    if (it is Finish) return 0L
+                    if (it is FinishWithDelay) return it.delay
+
+                    eventErrorHandler(client, it, update)
 
                 }
 
