@@ -5,16 +5,16 @@ import io.nekohasekai.td.proxy.impl.Proxy
 import java.io.File
 
 object FileParser : Parser<File> {
-    
+
     override fun parseProxies(value: File): List<Proxy> {
-        
+
         runCatching {
 
             return StringParser.parseProxies(Base64.decodeStr(value.readText()))
 
         }
-        
+
         return listOf()
-        
+
     }
 }

@@ -1,6 +1,6 @@
 package io.nekohasekai.ktlib.core
 
-fun Boolean.toStatusString(radio: Boolean = false) : String {
+fun Boolean.toStatusString(radio: Boolean = false): String {
 
     return if (radio) {
 

@@ -65,16 +65,32 @@ val MessageContent.asInput: InputMessageContent?
         is MessageAnimation -> {
 
             val file = InputFileRemote(animation.animation.remote.id!!)
-            val thumbnail = if (animation.thumbnail == null) null else InputThumbnail(InputFileRemote(animation.thumbnail!!.file.remote.id), animation.thumbnail!!.width, animation.thumbnail!!.height)
+            val thumbnail = if (animation.thumbnail == null) null else InputThumbnail(
+                InputFileRemote(animation.thumbnail!!.file.remote.id),
+                animation.thumbnail!!.width,
+                animation.thumbnail!!.height
+            )
 
-            InputMessageAnimation(file, thumbnail, intArrayOf(), animation.duration, animation.width, animation.height, caption)
+            InputMessageAnimation(
+                file,
+                thumbnail,
+                intArrayOf(),
+                animation.duration,
+                animation.width,
+                animation.height,
+                caption
+            )
 
         }
 
         is MessageAudio -> {
 
             val file = InputFileRemote(audio.audio.remote.id)
-            val thumbnail = if (audio.albumCoverThumbnail == null) null else InputThumbnail(InputFileRemote(audio.albumCoverThumbnail!!.file.remote.id), audio.albumCoverThumbnail!!.width, audio.albumCoverThumbnail!!.height)
+            val thumbnail = if (audio.albumCoverThumbnail == null) null else InputThumbnail(
+                InputFileRemote(audio.albumCoverThumbnail!!.file.remote.id),
+                audio.albumCoverThumbnail!!.width,
+                audio.albumCoverThumbnail!!.height
+            )
 
             InputMessageAudio(file, thumbnail, audio.duration, audio.title, audio.performer, caption)
 
@@ -83,7 +99,11 @@ val MessageContent.asInput: InputMessageContent?
         is MessageDocument -> {
 
             val file = InputFileRemote(document.document.remote.id)
-            val thumbnail = if (document.thumbnail == null) null else InputThumbnail(InputFileRemote(document.thumbnail!!.file.remote.id), document.thumbnail!!.width, document.thumbnail!!.height)
+            val thumbnail = if (document.thumbnail == null) null else InputThumbnail(
+                InputFileRemote(document.thumbnail!!.file.remote.id),
+                document.thumbnail!!.width,
+                document.thumbnail!!.height
+            )
 
             InputMessageDocument(file, thumbnail, true, caption)
 
@@ -100,7 +120,11 @@ val MessageContent.asInput: InputMessageContent?
         is MessageSticker -> {
 
             val file = InputFileRemote(sticker.sticker.remote.id)
-            val thumbnail = if (sticker.thumbnail == null) null else InputThumbnail(InputFileRemote(sticker.thumbnail!!.file.remote.id), sticker.thumbnail!!.width, sticker.thumbnail!!.height)
+            val thumbnail = if (sticker.thumbnail == null) null else InputThumbnail(
+                InputFileRemote(sticker.thumbnail!!.file.remote.id),
+                sticker.thumbnail!!.width,
+                sticker.thumbnail!!.height
+            )
 
             InputMessageSticker(file, thumbnail, sticker.width, sticker.height, sticker.emoji)
 
@@ -109,16 +133,34 @@ val MessageContent.asInput: InputMessageContent?
         is MessageVideo -> {
 
             val file = InputFileRemote(video.video.remote.id)
-            val thumbnail = if (video.thumbnail == null) null else InputThumbnail(InputFileRemote(video.thumbnail!!.file.remote.id), video.thumbnail!!.width, video.thumbnail!!.height)
+            val thumbnail = if (video.thumbnail == null) null else InputThumbnail(
+                InputFileRemote(video.thumbnail!!.file.remote.id),
+                video.thumbnail!!.width,
+                video.thumbnail!!.height
+            )
 
-            InputMessageVideo(file, thumbnail, intArrayOf(), video.duration, video.width, video.height, video.supportsStreaming, caption, 0)
+            InputMessageVideo(
+                file,
+                thumbnail,
+                intArrayOf(),
+                video.duration,
+                video.width,
+                video.height,
+                video.supportsStreaming,
+                caption,
+                0
+            )
 
         }
 
         is MessageVideoNote -> {
 
             val file = InputFileRemote(videoNote.video.remote.id)
-            val thumbnail = if (videoNote.thumbnail == null) null else InputThumbnail(InputFileRemote(videoNote.thumbnail!!.file.remote.id), videoNote.thumbnail!!.width, videoNote.thumbnail!!.height)
+            val thumbnail = if (videoNote.thumbnail == null) null else InputThumbnail(
+                InputFileRemote(videoNote.thumbnail!!.file.remote.id),
+                videoNote.thumbnail!!.width,
+                videoNote.thumbnail!!.height
+            )
 
             InputMessageVideoNote(file, thumbnail, videoNote.duration, videoNote.length)
 

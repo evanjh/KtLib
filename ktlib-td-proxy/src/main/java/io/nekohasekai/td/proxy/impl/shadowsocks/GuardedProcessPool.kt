@@ -67,7 +67,8 @@ class GuardedProcessPool(val dir: File, private val onFatal: suspend (IOExceptio
                     running = false
                     when {
                         System.currentTimeMillis() - startTime < 1000 -> throw IOException(
-                                "$cmdName exits too fast (exit code: $exitCode)")
+                            "$cmdName exits too fast (exit code: $exitCode)"
+                        )
                         exitCode == 128 + 9 -> System.err.println("$cmdName was killed")
                         else -> System.err.println("$cmdName unexpectedly exits with code $exitCode")
                     }

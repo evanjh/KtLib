@@ -20,10 +20,10 @@ suspend fun TdHandler.getChannelMessageSender(message: Message): Int {
         if (getUser(it.userId).type is UserTypeDeleted) return@forEach
 
         searchChatMessages(message.chatId, null, MessageSenderUser(it.userId), message.id, -1, 2, null, 0)
-                .messages.takeIf { messages -> messages.isNotEmpty() }
-                ?.forEach { msg ->
-                    if (msg.id == message.id) return it.userId
-                }
+            .messages.takeIf { messages -> messages.isNotEmpty() }
+            ?.forEach { msg ->
+                if (msg.id == message.id) return it.userId
+            }
 
     }
 
@@ -34,10 +34,10 @@ suspend fun TdHandler.getChannelMessageSender(message: Message): Int {
 suspend fun TdHandler.isChannelMessageSendByMe(message: Message): Boolean {
 
     searchChatMessages(message.chatId, null, MessageSenderUser(sudo.me.id), message.id, -1, 2, null, 0)
-            .messages.takeIf { messages -> messages.isNotEmpty() }
-            ?.forEach { msg ->
-                if (msg.id == message.id) return true
-            }
+        .messages.takeIf { messages -> messages.isNotEmpty() }
+        ?.forEach { msg ->
+            if (msg.id == message.id) return true
+        }
 
 
     return false

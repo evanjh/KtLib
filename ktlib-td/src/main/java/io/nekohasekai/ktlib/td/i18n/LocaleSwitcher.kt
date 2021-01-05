@@ -11,7 +11,10 @@ import io.nekohasekai.ktlib.td.utils.*
 import kotlinx.coroutines.delay
 import td.TdApi.*
 
-class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend (userId: Int, chatId: Long, message: Message) -> Unit)? = null) : TdHandler() {
+class LocaleSwitcher(
+    private val dataId: Int,
+    private val setupWizard: (suspend (userId: Int, chatId: Long, message: Message) -> Unit)? = null
+) : TdHandler() {
 
     companion object {
 
@@ -20,8 +23,8 @@ class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend 
     }
 
     fun def() = BotCommand(
-            command,
-            clientLocale.SELECT_LANGUAGE_DEF
+        command,
+        clientLocale.SELECT_LANGUAGE_DEF
     )
 
     override fun onLoad() {
@@ -32,7 +35,14 @@ class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend 
 
     }
 
-    override suspend fun onFunction(userId: Int, chatId: Long, message: Message, function: String, param: String, params: Array<String>) {
+    override suspend fun onFunction(
+        userId: Int,
+        chatId: Long,
+        message: Message,
+        function: String,
+        param: String,
+        params: Array<String>
+    ) {
 
         if (!message.fromPrivate && !isChatAdmin(chatId, userId)) {
 
@@ -66,7 +76,13 @@ class LocaleSwitcher(private val dataId: Int, private val setupWizard: (suspend 
 
     }
 
-    override suspend fun onNewCallbackQuery(userId: Int, chatId: Long, messageId: Long, queryId: Long, data: Array<ByteArray>) {
+    override suspend fun onNewCallbackQuery(
+        userId: Int,
+        chatId: Long,
+        messageId: Long,
+        queryId: Long,
+        data: Array<ByteArray>
+    ) {
 
         runCatching {
 

@@ -30,7 +30,7 @@ interface LinkParser : Parser<String> {
 
         override fun parseProxy(link: String): Proxy {
 
-            val messages = hashMapOf<String,Throwable>()
+            val messages = hashMapOf<String, Throwable>()
 
             implements.forEach { parser ->
 
@@ -46,7 +46,12 @@ interface LinkParser : Parser<String> {
 
             }
 
-            error("unable to parse proxy: $link\n\n${messages.map { throwable -> "${throwable.key}: ${throwable.value.let { it.message ?: it.javaClass.simpleName }}" }.joinToString { "\n" }}")
+            error(
+                "unable to parse proxy: $link\n\n${
+                    messages.map { throwable -> "${throwable.key}: ${throwable.value.let { it.message ?: it.javaClass.simpleName }}" }
+                        .joinToString { "\n" }
+                }"
+            )
 
         }
 

@@ -16,7 +16,14 @@ class GetIdCommand : TdHandler() {
         initFunction("id")
     }
 
-    override suspend fun onFunction(userId: Int, chatId: Long, message: td.TdApi.Message, function: String, param: String, params: Array<String>) {
+    override suspend fun onFunction(
+        userId: Int,
+        chatId: Long,
+        message: td.TdApi.Message,
+        function: String,
+        param: String,
+        params: Array<String>
+    ) {
 
         if (!isBot && !isMyMessage(message)) return
 

@@ -8,7 +8,7 @@ interface LinkSaver<Type : Proxy> {
     fun toLink(protocol: String, proxy: Type): String
 
     companion object : LinkSaver<Proxy> {
-        
+
         private val implements = hashMapOf<Class<out Proxy>, LinkSaver<out Proxy>>()
 
         fun <T : Proxy> addSaver(clazz: Class<T>, saver: LinkSaver<T>) = implements.put(clazz, saver)
@@ -19,7 +19,8 @@ interface LinkSaver<Type : Proxy> {
 
             fun <T : Proxy> LinkSaver<T>.toLinkInternal(proxy: Proxy) = @Suppress("UNCHECKED_CAST") toLink(proxy as T)
 
-            val proxySaver = (implements[proxy::class.java] ?: error("no saver for ${proxy.javaClass.simpleName} found"))
+            val proxySaver =
+                (implements[proxy::class.java] ?: error("no saver for ${proxy.javaClass.simpleName} found"))
 
             return proxySaver.toLinkInternal(proxy)
 
@@ -27,9 +28,11 @@ interface LinkSaver<Type : Proxy> {
 
         override fun toLink(protocol: String, proxy: Proxy): String {
 
-            fun <T : Proxy> LinkSaver<T>.toLinkInternal(protocol: String, proxy: Proxy) = @Suppress("UNCHECKED_CAST") toLink(protocol, proxy as T)
+            fun <T : Proxy> LinkSaver<T>.toLinkInternal(protocol: String, proxy: Proxy) =
+                @Suppress("UNCHECKED_CAST") toLink(protocol, proxy as T)
 
-            val proxySaver = (implements[proxy::class.java] ?: error("no saver for ${proxy.javaClass.simpleName} found"))
+            val proxySaver =
+                (implements[proxy::class.java] ?: error("no saver for ${proxy.javaClass.simpleName} found"))
 
             return proxySaver.toLinkInternal(protocol, proxy)
 

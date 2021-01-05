@@ -1,7 +1,11 @@
 package io.nekohasekai.ktlib.db
 
-import io.nekohasekai.ktlib.core.*
-import org.jetbrains.exposed.sql.*
+import io.nekohasekai.ktlib.core.anyFormByteArray
+import io.nekohasekai.ktlib.core.fromByteArray
+import io.nekohasekai.ktlib.core.toByteArray
+import org.jetbrains.exposed.sql.Column
+import org.jetbrains.exposed.sql.ColumnType
+import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.statements.api.ExposedBlob
 import org.jetbrains.exposed.sql.statements.api.PreparedStatementApi
 import org.jetbrains.exposed.sql.vendors.currentDialect
@@ -54,7 +58,10 @@ class KryoColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value
         when {
-            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(index, toSetValue)
+            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
+                index,
+                toSetValue
+            )
             toSetValue == null -> stmt.setInputStream(index, toSetValue)
             else -> super.setParameter(stmt, index, toSetValue)
         }
@@ -103,7 +110,10 @@ class KryoAnyColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value
         when {
-            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(index, toSetValue)
+            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
+                index,
+                toSetValue
+            )
             toSetValue == null -> stmt.setInputStream(index, toSetValue)
             else -> super.setParameter(stmt, index, toSetValue)
         }

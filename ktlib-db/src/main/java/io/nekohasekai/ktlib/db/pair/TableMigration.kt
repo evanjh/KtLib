@@ -2,7 +2,9 @@ package io.nekohasekai.ktlib.db.pair
 
 import io.nekohasekai.ktlib.core.defaultLog
 import org.jetbrains.exposed.exceptions.ExposedSQLException
-import org.jetbrains.exposed.sql.*
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.Transaction
 
 fun migrateDatabase(schemeTable: SchemeTable, currentVersion: Int, migration: (fromVersion: Int) -> Unit) {
 

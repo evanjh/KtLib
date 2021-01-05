@@ -1,7 +1,7 @@
 package io.nekohasekai.td.proxy.impl.mtproto
 
-import io.nekohasekai.td.proxy.parser.LinkParser
 import io.nekohasekai.td.proxy.impl.Proxy
+import io.nekohasekai.td.proxy.parser.LinkParser
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.net.URI
 
@@ -10,9 +10,9 @@ object MTProtoLinkParser : LinkParser {
     override val name = "mtproto"
 
     private val telegramDomains = mutableSetOf(
-            "t.me",
-            "telegram.me",
-            "telegram.dog"
+        "t.me",
+        "telegram.me",
+        "telegram.dog"
     )
 
     override fun parseProxy(link: String): Proxy {
@@ -21,7 +21,7 @@ object MTProtoLinkParser : LinkParser {
 
         val httpUrl = if (scheme == "tg" || scheme.startsWith("tg:")) {
 
-            link.replace(URI.create(link).scheme + "://","https://").toHttpUrl()
+            link.replace(URI.create(link).scheme + "://", "https://").toHttpUrl()
 
         } else if (scheme == "http" || scheme == "https") {
 

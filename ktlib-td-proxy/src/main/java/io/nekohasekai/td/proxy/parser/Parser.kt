@@ -4,15 +4,18 @@ import cn.hutool.json.JSON
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.td.proxy.impl.Proxy
 import io.nekohasekai.td.proxy.impl.mtproto.MTProtoProxy
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import td.TdApi
 import java.io.File
 
-suspend fun TdHandler.addProxyAsync(proxy: Proxy, callback: suspend (TdApi.Proxy) -> Unit = {}) = withContext(Dispatchers.IO) {
+suspend fun TdHandler.addProxyAsync(proxy: Proxy, callback: suspend (TdApi.Proxy) -> Unit = {}) =
+    withContext(Dispatchers.IO) {
 
-    async { sync<TdApi.Proxy>(proxy.mkInput()).also { callback(it) } }
+        async { sync<TdApi.Proxy>(proxy.mkInput()).also { callback(it) } }
 
-}
+    }
 
 fun Proxy.mkInput(): TdApi.AddProxy {
 

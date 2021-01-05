@@ -30,7 +30,7 @@ object MTProtoLinkSaver : LinkSaver<MTProtoProxy> {
 
         } else {
 
-            "$protocol://proxy".addMTProtoParams(proxy).replace("/?","?")
+            "$protocol://proxy".addMTProtoParams(proxy).replace("/?", "?")
 
         }
 

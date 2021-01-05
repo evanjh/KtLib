@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.Transaction
 
 class UpsertStatement<Key : Any>(table: Table, conflictColumn: Column<*>? = null, conflictIndex: Index? = null) :
-        InsertStatement<Key>(table, false) {
+    InsertStatement<Key>(table, false) {
 
     private val indexName: String
     private val indexColumns: List<Column<*>>
@@ -45,12 +45,13 @@ class UpsertStatement<Key : Any>(table: Table, conflictColumn: Column<*>? = null
             append(" DO UPDATE SET ")
 
             values.keys.filter { it !in indexColumns }
-                    .joinTo(this) { "${transaction.identity(it)}=EXCLUDED.${transaction.identity(it)}" }
+                .joinTo(this) { "${transaction.identity(it)}=EXCLUDED.${transaction.identity(it)}" }
 
         } else {
 
             append(" ON DUPLICATE KEY UPDATE ")
-            values.keys.filter { it !in indexColumns }.joinTo(this) { "${transaction.identity(it)}=VALUES(${transaction.identity(it)})" }
+            values.keys.filter { it !in indexColumns }
+                .joinTo(this) { "${transaction.identity(it)}=VALUES(${transaction.identity(it)})" }
 
         }
     }

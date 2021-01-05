@@ -896,7 +896,12 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
         val messageOld = context.getMessage(chatId.toLong(), messageId)
         return context.sync(
             when {
-                messageOld.content is MessageText && input is InputMessageText -> EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
+                messageOld.content is MessageText && input is InputMessageText -> EditMessageText(
+                    chatId.toLong(),
+                    messageId,
+                    replyMarkup,
+                    input
+                )
                 input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
                 caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
                 else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)
@@ -936,7 +941,12 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
         context.send<Message>(
             when {
-                message.content is MessageText && input is InputMessageText -> EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
+                message.content is MessageText && input is InputMessageText -> EditMessageText(
+                    chatId.toLong(),
+                    messageId,
+                    replyMarkup,
+                    input
+                )
                 input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
                 caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
                 else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)

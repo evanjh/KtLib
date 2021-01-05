@@ -2,7 +2,7 @@ package io.nekohasekai.ktlib.core
 
 import java.io.File
 
-fun File.find(iterator: (File) -> Boolean) : File? {
+fun File.find(iterator: (File) -> Boolean): File? {
 
     if (iterator(this)) return this
 
@@ -18,7 +18,7 @@ fun File.find(iterator: (File) -> Boolean) : File? {
 
 }
 
-fun File.readPackageName() : String {
+fun File.readPackageName(): String {
 
     var packageName = ""
 

@@ -78,7 +78,8 @@ class KLog(name: String) : ConsoleLog(name) {
 
         }
 
-        val dict = Dict.create().set("date", DateUtil.now()).set("level", level.toString()).set("name", name).set("msg", logMsg)
+        val dict = Dict.create().set("date", DateUtil.now()).set("level", level.toString()).set("name", name)
+            .set("msg", logMsg)
 
         val logFormat = if (name.isBlank()) "[{level}] {msg}" else "[{level}] [{name}] {msg}"
 

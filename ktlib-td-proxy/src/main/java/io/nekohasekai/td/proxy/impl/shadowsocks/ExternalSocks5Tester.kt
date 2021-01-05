@@ -5,7 +5,9 @@ import io.nekohasekai.ktlib.td.core.TdException
 import io.nekohasekai.ktlib.td.core.TdHandler
 import io.nekohasekai.ktlib.td.core.raw.testProxyWith
 import io.nekohasekai.td.proxy.impl.Proxy
-import io.nekohasekai.td.proxy.tester.*
+import io.nekohasekai.td.proxy.tester.ProxyTester
+import io.nekohasekai.td.proxy.tester.testDcTarget
+import io.nekohasekai.td.proxy.tester.testTimeout
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withTimeoutOrNull
 import td.TdApi

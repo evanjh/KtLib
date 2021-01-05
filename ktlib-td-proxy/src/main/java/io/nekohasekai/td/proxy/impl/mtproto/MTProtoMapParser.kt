@@ -1,7 +1,7 @@
 package io.nekohasekai.td.proxy.impl.mtproto
 
-import io.nekohasekai.td.proxy.parser.MapParser
 import io.nekohasekai.td.proxy.impl.Proxy
+import io.nekohasekai.td.proxy.parser.MapParser
 
 object MTProtoMapParser : MapParser {
 

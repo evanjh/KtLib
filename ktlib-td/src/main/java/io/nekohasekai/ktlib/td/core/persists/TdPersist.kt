@@ -4,14 +4,14 @@ import cn.hutool.core.date.SystemClock
 
 data class TdPersist(
 
-        var userId: Int,
-        var persistId: Int,
-        var subId: Int,
-        var data: Array<Any?>,
-        var allowFunction: Boolean,
-        var allowCancel: Boolean,
-        var createAt: Int = (SystemClock.now() / 1000L).toInt(),
-        var dontSave: Boolean = false
+    var userId: Int,
+    var persistId: Int,
+    var subId: Int,
+    var data: Array<Any?>,
+    var allowFunction: Boolean,
+    var allowCancel: Boolean,
+    var createAt: Int = (SystemClock.now() / 1000L).toInt(),
+    var dontSave: Boolean = false
 
 ) {
 

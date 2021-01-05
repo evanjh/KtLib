@@ -64,7 +64,12 @@ interface MapParser : Parser<Map<String, String>> {
 
             }
 
-            error("unable to parse proxy: $value\n\n${messages.map { throwable -> "${throwable.key}: ${throwable.value.let { it.message ?: it.javaClass.simpleName }}" }.joinToString("\n")}")
+            error(
+                "unable to parse proxy: $value\n\n${
+                    messages.map { throwable -> "${throwable.key}: ${throwable.value.let { it.message ?: it.javaClass.simpleName }}" }
+                        .joinToString("\n")
+                }"
+            )
 
         }
 

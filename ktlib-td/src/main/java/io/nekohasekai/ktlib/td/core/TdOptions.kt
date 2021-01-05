@@ -1,6 +1,6 @@
 package io.nekohasekai.ktlib.td.core
 
-import td.TdApi.*
+import td.TdApi.TdlibParameters
 import java.io.File
 
 class TdOptions {
@@ -23,7 +23,23 @@ class TdOptions {
 
     fun build(): TdlibParameters {
 
-        return TdlibParameters(useTestDc, databaseDirectory, filesDirectory, useFileDatabase, useChatInfoDatabase, useMessageDatabase, useSecretChats, apiId, apiHash, systemLanguageCode, deviceModel, systemVersion, applicationVersion, enableStorageOptimizer, ignoreFileNames)
+        return TdlibParameters(
+            useTestDc,
+            databaseDirectory,
+            filesDirectory,
+            useFileDatabase,
+            useChatInfoDatabase,
+            useMessageDatabase,
+            useSecretChats,
+            apiId,
+            apiHash,
+            systemLanguageCode,
+            deviceModel,
+            systemVersion,
+            applicationVersion,
+            enableStorageOptimizer,
+            ignoreFileNames
+        )
 
     }
 

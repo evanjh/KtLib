@@ -16,7 +16,9 @@ import org.jetbrains.exposed.dao.id.IdTable
 import org.jetbrains.exposed.exceptions.ExposedSQLException
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import org.jetbrains.exposed.sql.statements.*
+import org.jetbrains.exposed.sql.statements.StatementContext
+import org.jetbrains.exposed.sql.statements.UpsertStatement
+import org.jetbrains.exposed.sql.statements.expandArgs
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.sqlite.SQLiteDataSource
@@ -155,9 +157,9 @@ fun forceCreateTables(vararg tables: Table) {
 }
 
 inline fun <T : Table> T.upsert(
-        conflictColumn: Column<*>? = null,
-        conflictIndex: Index? = null,
-        body: T.(UpsertStatement<Number>) -> Unit
+    conflictColumn: Column<*>? = null,
+    conflictIndex: Index? = null,
+    body: T.(UpsertStatement<Number>) -> Unit
 ) = UpsertStatement<Number>(this, conflictColumn, conflictIndex).apply {
     body(this)
     execute(TransactionManager.current())
@@ -166,16 +168,17 @@ inline fun <T : Table> T.upsert(
 private val dbLog = mkLog("Database")
 
 abstract class DatabaseCache<ID, T>(
-        val id: ID,
-        var value: T?,
-        var changed: Boolean
+    val id: ID,
+    var value: T?,
+    var changed: Boolean
 ) {
 
     fun remove() = set(null)
 
     fun set(value: T?) {
         if (this.value == value ||
-                ArrayUtil.isArray(value) && ArrayUtil.isArray(this.value) && ArrayUtil.equals(value, this.value)) return
+            ArrayUtil.isArray(value) && ArrayUtil.isArray(this.value) && ArrayUtil.equals(value, this.value)
+        ) return
         write(value)
     }
 
@@ -199,7 +202,12 @@ abstract class KeyValueTable<ID : Comparable<ID>, T>(tableName: String) : IdTabl
 
 }
 
-open class KeyValueCacheMap<ID : Comparable<ID>, T>(database: DatabaseDispatcher, val table: KeyValueTable<ID, T>, capacity: Int = -1, timeout: Long = 0) : DatabaseCacheMap<ID, T>(database, capacity, timeout) {
+open class KeyValueCacheMap<ID : Comparable<ID>, T>(
+    database: DatabaseDispatcher,
+    val table: KeyValueTable<ID, T>,
+    capacity: Int = -1,
+    timeout: Long = 0
+) : DatabaseCacheMap<ID, T>(database, capacity, timeout) {
 
     override fun read(id: ID): T? {
 
@@ -226,7 +234,12 @@ open class KeyValueCacheMap<ID : Comparable<ID>, T>(database: DatabaseDispatcher
 
 }
 
-open class IdTableCacheMap<ID : Comparable<ID>, T : Entity<ID>>(database: DatabaseDispatcher, val entityClass: EntityClass<ID, T>, capacity: Int = -1, timeout: Long = 3 * 60 * 60 * 100L) : DatabaseCacheMap<ID, T>(database, capacity, timeout) {
+open class IdTableCacheMap<ID : Comparable<ID>, T : Entity<ID>>(
+    database: DatabaseDispatcher,
+    val entityClass: EntityClass<ID, T>,
+    capacity: Int = -1,
+    timeout: Long = 3 * 60 * 60 * 100L
+) : DatabaseCacheMap<ID, T>(database, capacity, timeout) {
 
     override fun read(id: ID): T? = entityClass.findById(id)
 
@@ -246,12 +259,13 @@ open class IdTableCacheMap<ID : Comparable<ID>, T : Entity<ID>>(database: Databa
 
 @Suppress("UNCHECKED_CAST")
 open class TwoIndexExistsCacheMap<IX, IY>(
-        database: DatabaseDispatcher,
-        val table: Table,
-        val xColumn: Column<IX>,
-        val yColumn: Column<IY>,
-        capacity: Int = -1,
-        timeout: Long = 0) : DatabaseCacheMap<Pair<IX, IY>, Boolean>(database, capacity, timeout) {
+    database: DatabaseDispatcher,
+    val table: Table,
+    val xColumn: Column<IX>,
+    val yColumn: Column<IY>,
+    capacity: Int = -1,
+    timeout: Long = 0
+) : DatabaseCacheMap<Pair<IX, IY>, Boolean>(database, capacity, timeout) {
 
     override fun read(id: Pair<IX, IY>) = table.select { (xColumn eq id.first) and (yColumn eq id.second) }.count() > 0L
 
@@ -282,15 +296,17 @@ open class TwoIndexExistsCacheMap<IX, IY>(
 
 @Suppress("UNCHECKED_CAST")
 open class TwoIndexCacheMap<IX, IY, T>(
-        database: DatabaseDispatcher,
-        val table: Table,
-        val xColumn: Column<IX>,
-        val yColumn: Column<IY>,
-        val tColumn: Column<T>,
-        capacity: Int = -1,
-        timeout: Long = 0) : DatabaseCacheMap<Pair<IX, IY>, T>(database, capacity, timeout) {
+    database: DatabaseDispatcher,
+    val table: Table,
+    val xColumn: Column<IX>,
+    val yColumn: Column<IY>,
+    val tColumn: Column<T>,
+    capacity: Int = -1,
+    timeout: Long = 0
+) : DatabaseCacheMap<Pair<IX, IY>, T>(database, capacity, timeout) {
 
-    override fun read(id: Pair<IX, IY>) = table.select { (xColumn eq id.first) and (yColumn eq id.second) }.firstOrNull()?.get(tColumn)
+    override fun read(id: Pair<IX, IY>) =
+        table.select { (xColumn eq id.first) and (yColumn eq id.second) }.firstOrNull()?.get(tColumn)
 
     override fun write(id: Pair<IX, IY>, value: T) {
 
@@ -337,7 +353,8 @@ open class TwoIndexCacheMap<IX, IY, T>(
 
 }
 
-abstract class DatabaseCacheMap<ID, T>(val database: DatabaseDispatcher, capacity: Int = -1, timeout: Long = 0) : LFUCache<ID, DatabaseCache<ID, T>>(capacity, timeout) {
+abstract class DatabaseCacheMap<ID, T>(val database: DatabaseDispatcher, capacity: Int = -1, timeout: Long = 0) :
+    LFUCache<ID, DatabaseCache<ID, T>>(capacity, timeout) {
 
     init {
 

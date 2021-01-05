@@ -62,7 +62,12 @@ internal val L.HELP_DEF by string
 internal val L.CANCEL_DEF by string
 
 val TdClient.HELP_COMMAND by receive<TdClient, TdApi.BotCommand> { TdApi.BotCommand("help", clientLocale.HELP_DEF) }
-val TdClient.CANCEL_COMMAND by receive<TdClient, TdApi.BotCommand> { TdApi.BotCommand("cancel", clientLocale.CANCEL_DEF) }
+val TdClient.CANCEL_COMMAND by receive<TdClient, TdApi.BotCommand> {
+    TdApi.BotCommand(
+        "cancel",
+        clientLocale.CANCEL_DEF
+    )
+}
 
 // Switcher
 

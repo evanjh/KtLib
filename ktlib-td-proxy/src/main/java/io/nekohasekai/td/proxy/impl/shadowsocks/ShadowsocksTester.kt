@@ -39,10 +39,10 @@ object ShadowsocksTester : ExternalSocks5Tester<ShadowsocksProxy>() {
         try {
 
             process = createProxyProcess(
-                    ShadowsocksImpl.ssDirectory,
-                    ShadowsocksImpl.ssExecutable.canonicalPath,
-                    "--local-addr", "127.0.0.1:$localPort",
-                    "--config", cacheFile.canonicalPath
+                ShadowsocksImpl.ssDirectory,
+                ShadowsocksImpl.ssExecutable.canonicalPath,
+                "--local-addr", "127.0.0.1:$localPort",
+                "--config", cacheFile.canonicalPath
             )
 
             delay(300L)

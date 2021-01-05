@@ -3,7 +3,10 @@
 package io.nekohasekai.ktlib.td.core.persists.store
 
 import cn.hutool.core.date.SystemClock
-import io.nekohasekai.ktlib.core.*
+import io.nekohasekai.ktlib.core.anyFormByteArray
+import io.nekohasekai.ktlib.core.defaultLog
+import io.nekohasekai.ktlib.core.shift
+import io.nekohasekai.ktlib.core.toByteArray
 import io.nekohasekai.ktlib.db.DatabaseCacheMap
 import io.nekohasekai.ktlib.db.DatabaseDispatcher
 import io.nekohasekai.ktlib.td.core.TdClient

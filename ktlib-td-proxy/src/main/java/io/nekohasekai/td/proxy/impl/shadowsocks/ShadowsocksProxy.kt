@@ -15,12 +15,14 @@ class ShadowsocksProxy() : Proxy {
 
     var name: String = ""
 
-    constructor(host: String = "",
-                remotePort: Int = 443,
-                password: String = "",
-                method: String = "aes-256-cfb",
-                plugin: String = "",
-                remarks: String? = null) : this() {
+    constructor(
+        host: String = "",
+        remotePort: Int = 443,
+        password: String = "",
+        method: String = "aes-256-cfb",
+        plugin: String = "",
+        remarks: String? = null
+    ) : this() {
 
         this.server = host
         this.port = remotePort

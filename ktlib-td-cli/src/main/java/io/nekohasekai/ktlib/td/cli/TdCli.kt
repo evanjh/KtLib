@@ -345,7 +345,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         }
 
         val callbackErrorHandlerOld = contextErrorHandler
-        contextErrorHandler = { client: TdClient, error: Throwable,  context: Any? ->
+        contextErrorHandler = { client: TdClient, error: Throwable, context: Any? ->
             callbackErrorHandlerOld(client, error, context)
             if (reportCount in 0..10) {
                 runCatching {

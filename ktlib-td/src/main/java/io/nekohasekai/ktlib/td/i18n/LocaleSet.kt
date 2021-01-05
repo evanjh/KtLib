@@ -37,16 +37,17 @@ class LocaleSet(private val locale: LocaleController, private val dirName: Strin
 
     init {
 
-        javaClass.classLoader.getResourceAsStream("${if (dirName != null) "i18n-$dirName" else "i18n"}/${locale.LANG}.yml")?.use {
+        javaClass.classLoader.getResourceAsStream("${if (dirName != null) "i18n-$dirName" else "i18n"}/${locale.LANG}.yml")
+            ?.use {
 
-            @Suppress("UNCHECKED_CAST")
-            (Yaml().loadAs(it, HashMap::class.java) as HashMap<String, *>).forEach { (key, value) ->
+                @Suppress("UNCHECKED_CAST")
+                (Yaml().loadAs(it, HashMap::class.java) as HashMap<String, *>).forEach { (key, value) ->
 
-                strings[key] = (strings[key] ?: value)
+                    strings[key] = (strings[key] ?: value)
+
+                }
 
             }
-
-        }
 
     }
 

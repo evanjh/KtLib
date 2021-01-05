@@ -9,7 +9,12 @@ import com.esotericsoftware.kryo.util.Pool
 import org.objenesis.instantiator.util.UnsafeUtils
 import java.io.ByteArrayOutputStream
 
-fun <T> mkPool(threadSafe: Boolean = true, softReferences: Boolean = true, maximumCapacity: Int = Int.MAX_VALUE, initializer: () -> T) = object : Pool<T>(threadSafe, softReferences, maximumCapacity) {
+fun <T> mkPool(
+    threadSafe: Boolean = true,
+    softReferences: Boolean = true,
+    maximumCapacity: Int = Int.MAX_VALUE,
+    initializer: () -> T
+) = object : Pool<T>(threadSafe, softReferences, maximumCapacity) {
 
     init {
         hideOpenJDK11IllegalWarning()

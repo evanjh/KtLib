@@ -4,7 +4,9 @@ package io.nekohasekai.td.proxy.parser.td
 
 import io.nekohasekai.ktlib.td.extensions.text
 import io.nekohasekai.td.proxy.impl.Proxy
-import io.nekohasekai.td.proxy.parser.*
+import io.nekohasekai.td.proxy.parser.LinkParser
+import io.nekohasekai.td.proxy.parser.Parser
+import io.nekohasekai.td.proxy.parser.StringParser
 import td.TdApi
 
 object MessageParser : Parser<TdApi.Message> {

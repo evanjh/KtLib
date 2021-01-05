@@ -1,4 +1,3 @@
-
 package io.nekohasekai.ktlib.td.cli
 
 import io.nekohasekai.ktlib.td.i18n.LocaleController

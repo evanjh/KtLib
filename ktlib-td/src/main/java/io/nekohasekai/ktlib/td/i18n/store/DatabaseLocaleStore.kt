@@ -2,10 +2,20 @@
 
 package io.nekohasekai.ktlib.td.i18n.store
 
-import io.nekohasekai.ktlib.db.*
-import org.jetbrains.exposed.sql.*
+import io.nekohasekai.ktlib.db.DatabaseCacheMap
+import io.nekohasekai.ktlib.db.DatabaseDispatcher
+import io.nekohasekai.ktlib.db.upsert
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Table
+import org.jetbrains.exposed.sql.deleteWhere
+import org.jetbrains.exposed.sql.select
 
-class DatabaseLocaleStore @JvmOverloads constructor(database: DatabaseDispatcher, tableName: String = "td_locales", capability: Int = 0, cacheTime: Long = 0L) : DatabaseCacheMap<Long, Int>(database, capability, cacheTime), LocaleStore {
+class DatabaseLocaleStore @JvmOverloads constructor(
+    database: DatabaseDispatcher,
+    tableName: String = "td_locales",
+    capability: Int = 0,
+    cacheTime: Long = 0L
+) : DatabaseCacheMap<Long, Int>(database, capability, cacheTime), LocaleStore {
 
     private val table = LocaleTable(tableName)
 

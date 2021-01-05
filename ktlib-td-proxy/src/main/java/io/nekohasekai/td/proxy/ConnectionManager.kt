@@ -106,9 +106,9 @@ class ConnectionManager : TdHandler() {
     var lastUpdate = -1L
 
     val urls = listOf(
-            "https://gitlab.com/NekohaSekai/nekox-proxy-list/-/raw/master/proxy_list",
-            "https://nekox-dev.github.io/ProxyList/proxy_list",
-            "https://gitee.com/nekoshizuku/AwesomeRepo/raw/master/proxy_list"
+        "https://gitlab.com/NekohaSekai/nekox-proxy-list/-/raw/master/proxy_list",
+        "https://nekox-dev.github.io/ProxyList/proxy_list",
+        "https://gitee.com/nekoshizuku/AwesomeRepo/raw/master/proxy_list"
     )
 
     var updating = false
@@ -167,10 +167,10 @@ class ConnectionManager : TdHandler() {
             runCatching {
 
                 val proxyList = HttpUtil.createGet(it)
-                        .setConnectionTimeout(2000)
-                        .setReadTimeout(2000)
-                        .execute()
-                        .body()
+                    .setConnectionTimeout(2000)
+                    .setReadTimeout(2000)
+                    .execute()
+                    .body()
 
                 var needReload = getProxies().proxies.let { it.isEmpty() || it.all { proxy -> !proxy.isEnabled } }
 

@@ -55,11 +55,13 @@ class TdCallback<T> {
 
         }.onFailure { throwable ->
 
-            defaultLog.error("Error in success callback ($result), see exception in next message.", Throwable(throwable).also {
+            defaultLog.error(
+                "Error in success callback ($result), see exception in next message.",
+                Throwable(throwable).also {
 
-                it.stackTrace = stackTrace
+                    it.stackTrace = stackTrace
 
-            })
+                })
 
             throw throwable
 
@@ -75,11 +77,13 @@ class TdCallback<T> {
 
         }.onFailure { throwable ->
 
-            defaultLog.error("Error in error callback ($error), see exception in next message.", Throwable(throwable).also {
+            defaultLog.error(
+                "Error in error callback ($error), see exception in next message.",
+                Throwable(throwable).also {
 
-                it.stackTrace = stackTrace
+                    it.stackTrace = stackTrace
 
-            })
+                })
 
             throw throwable
 

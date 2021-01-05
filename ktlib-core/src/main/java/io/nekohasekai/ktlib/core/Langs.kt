@@ -5,10 +5,14 @@ package io.nekohasekai.ktlib.core
 import cn.hutool.core.collection.CollUtil
 import cn.hutool.core.util.ArrayUtil
 import cn.hutool.core.util.StrUtil
-import java.math.BigInteger
 import java.util.*
-import java.util.concurrent.atomic.*
-import kotlin.reflect.*
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.atomic.AtomicReference
+import kotlin.reflect.KMutableProperty0
+import kotlin.reflect.KProperty
+import kotlin.reflect.KProperty0
 
 fun <T> T.applyIf(boolean: Boolean, block: (T.() -> Unit)?): T {
     if (boolean) block?.invoke(this)
@@ -177,7 +181,8 @@ class Receiver<T, R>(val getter: T.(property: KProperty<*>) -> R) {
 }
 
 fun <T : Any, R> receiveLazy(initializer: T.(property: KProperty<*>) -> R) = receiveHashLazy({ it }, initializer)
-fun <T : Any, H : Any, R> receiveHashLazy(hash: (T) -> H, initializer: T.(property: KProperty<*>) -> R) = LazyReceiver(hash, initializer)
+fun <T : Any, H : Any, R> receiveHashLazy(hash: (T) -> H, initializer: T.(property: KProperty<*>) -> R) =
+    LazyReceiver(hash, initializer)
 
 class LazyReceiver<T : Any, H : Any, R>(val hash: (T) -> H, val initializer: T.(property: KProperty<*>) -> R) {
 

@@ -19,4 +19,5 @@ suspend fun TdHandler.upsertCommands(vararg commands: TdApi.BotCommand) {
 
 }
 
-private infix fun TdApi.BotCommand.ne(command: TdApi.BotCommand) = this.command != command.command || this.description != command.description
+private infix fun TdApi.BotCommand.ne(command: TdApi.BotCommand) =
+    this.command != command.command || this.description != command.description

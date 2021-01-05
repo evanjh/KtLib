@@ -34,8 +34,11 @@ open class LocaleController(val LANG: String) {
 
         fun receiveLocaleSet(name: String? = null) = receiveLazy<LocaleController, LocaleSet> { getLocaleSet(name) }
 
-        fun receiveLocaleString(set: LocaleController.() -> LocaleSet) = receive<LocaleController, String> { set().getString(it.name) }
-        fun receiveLocaleStringList(set: LocaleController.() -> LocaleSet) = receive<LocaleController, Map<String, String>> { set().getStringList(it.name) }
+        fun receiveLocaleString(set: LocaleController.() -> LocaleSet) =
+            receive<LocaleController, String> { set().getString(it.name) }
+
+        fun receiveLocaleStringList(set: LocaleController.() -> LocaleSet) =
+            receive<LocaleController, Map<String, String>> { set().getStringList(it.name) }
 
         val localesById = HashMap<Int, LocaleController>()
         val localesByKey = HashMap<String, LocaleController>()
