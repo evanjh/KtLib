@@ -359,6 +359,10 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             }
         }
 
+        Thread.setDefaultUncaughtExceptionHandler { thread, exception ->
+            contextErrorHandler(this, exception, thread)
+        }
+
     }
 
     private lateinit var _database: DatabaseDispatcher
