@@ -6,7 +6,6 @@ import cn.hutool.core.codec.Base64
 import cn.hutool.core.date.SystemClock
 import cn.hutool.core.io.FileUtil
 import cn.hutool.core.lang.Console
-import cn.hutool.core.util.NumberUtil
 import cn.hutool.core.util.StrUtil
 import cn.hutool.log.level.Level
 import io.nekohasekai.ktlib.core.*
@@ -80,7 +79,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
     open val readConfigFromEnvironment = true
 
     fun stringConfig(key: String) = config[key]?.toString() ?: if (readConfigFromEnvironment) {
-        SystemUtils.getEnvironmentVariable(key, null)
+        SystemUtils.getEnvironmentVariable(key, null)?.takeIf { it.isNotBlank() }
     } else null
 
     fun boolConfig(key: String, default: Boolean = false) = ((config[key]?.toString()
@@ -327,18 +326,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
-    fun loadErrorReportChat() {
+    fun registerErrorReport(errorReportChatId: Long) {
 
-        val errorReportChat = stringConfig("ERROR_REPORT")?.trim() ?: "disable"
-
-        if (errorReportChat == "disable") return
-
-        if (!NumberUtil.isLong(errorReportChat)) {
-            clientLog.warn("Invalid error report chat specified: chatId required, but $errorReportChat")
-            return
-        }
-
-        val errorReportChatId = errorReportChat.toLong()
         val eventErrorHandlerOld = eventErrorHandler
 
         eventErrorHandler = { client: TdClient, error: Throwable, event: TdApi.Update ->
@@ -355,8 +344,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             }
         }
 
-        val callbackErrorHandlerOld = callbackErrorHandler
-        callbackErrorHandler = { client: TdClient, error: Throwable, callback: TdApi.Object ->
+        val callbackErrorHandlerOld = contextErrorHandler
+        contextErrorHandler = { client: TdClient, error: Throwable, callback: TdApi.Object ->
             callbackErrorHandlerOld(client, error, callback)
             if (reportCount in 0..10) {
                 runCatching {
@@ -436,8 +425,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         loadLogLevel()
 
         loadDataDir()
-
-        loadErrorReportChat()
 
     }
 

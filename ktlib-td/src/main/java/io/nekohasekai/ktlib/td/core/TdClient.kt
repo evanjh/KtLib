@@ -750,12 +750,12 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
         val loopThreadInitiated get() = Companion::loopThread.isInitialized
 
-        var callbackErrorHandler = { client: TdClient, error: Throwable, callback: Object ->
-            defaultLog.error(error, "TdError - Sync\n\nIn callback$callback")
+        var contextErrorHandler = { client: TdClient, error: Throwable, context: Any? ->
+            client.clientLog.error(error, "TdError - Sync\n\nIn context $context")
         }
 
         var eventErrorHandler = { client: TdClient, error: Throwable, event: Update ->
-            defaultLog.error(error, "TdError - Sync\n\nIn event$event")
+            client.clientLog.error(error, "TdError - Sync\n\nIn event$event")
         }
 
         class LoopThread : Thread("TDLib Loop Thread") {
@@ -796,7 +796,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                                                 callback.postResult(event)
                                             }
                                         }.onFailure {
-                                            callbackErrorHandler(client, it, event)
+                                            contextErrorHandler(client, it, event)
                                         }
                                     }
 

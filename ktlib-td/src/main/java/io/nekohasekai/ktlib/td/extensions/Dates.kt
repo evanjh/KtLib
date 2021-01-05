@@ -45,22 +45,18 @@ fun String.parseTime(inSecond: Boolean = false): Long {
 
     var count = -1
 
-    for (index in 0 until length) {
-
+    if (NumberUtil.isNumber(this)) {
+        time = toLong()
+    } else for (index in 0 until length) {
         val str = substring(index, index + 1)
-
         if (NumberUtil.isInteger(str)) {
-
             val integer = NumberUtil.parseInt(str)
-
             count = if (count == -1) {
                 integer
             } else {
                 count * 10 + integer
             }
-
             continue
-
         }
 
         if (count == -1) return -1
@@ -78,6 +74,8 @@ fun String.parseTime(inSecond: Boolean = false): Long {
     }
 
     if (count != -1) time += count
+
+    if (time < 0) return time
 
     if (inSecond) time *= 1000
 
