@@ -345,12 +345,12 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
         }
 
         val callbackErrorHandlerOld = contextErrorHandler
-        contextErrorHandler = { client: TdClient, error: Throwable, callback: TdApi.Object ->
-            callbackErrorHandlerOld(client, error, callback)
+        contextErrorHandler = { client: TdClient, error: Throwable,  context: Any? ->
+            callbackErrorHandlerOld(client, error, context)
             if (reportCount in 0..10) {
                 runCatching {
                     runBlocking {
-                        sudo make "Error in callback $callback\n\n${error.parse()}" syncTo errorReportChatId
+                        sudo make "Error in context $context\n\n${error.parse()}" syncTo errorReportChatId
                     }
                     reportCount++
                 }.onFailure {
