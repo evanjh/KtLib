@@ -7,6 +7,8 @@ import cn.hutool.core.util.ArrayUtil
 import io.nekohasekai.ktlib.core.*
 import io.nekohasekai.ktlib.td.core.TdException
 import io.nekohasekai.ktlib.td.core.TdHandler
+import io.nekohasekai.ktlib.td.core.raw.getMessage
+import io.nekohasekai.ktlib.td.core.raw.getMessageWith
 import io.nekohasekai.ktlib.td.core.raw.parseMarkdown
 import io.nekohasekai.ktlib.td.core.raw.parseTextEntities
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
@@ -67,7 +69,7 @@ infix fun TdHandler.makeFile(text: String): MessageFactory {
 
 }
 
-infix fun TdHandler.makeFile(file: File): MessageFactory {
+infix fun TdHandler.make(file: File): MessageFactory {
 
     return make { inputFile = file.path }
 
@@ -122,6 +124,26 @@ infix fun TdHandler.make(ex: Throwable): MessageFactory {
 
 }
 
+infix fun TdHandler.makeInlineButton(block: (InlineButtonBuilder.() -> Unit)): MessageFactory {
+
+    return MessageFactory(this).apply {
+
+        replyMarkup = inlineButton(block)
+
+    }
+
+}
+
+infix fun TdHandler.makeInlineButton(buttons: ReplyMarkupInlineKeyboard?): MessageFactory {
+
+    return MessageFactory(this).apply {
+
+        replyMarkup = buttons
+
+    }
+
+}
+
 fun inlineButton(block: InlineButtonBuilder.() -> Unit): ReplyMarkupInlineKeyboard {
 
     return InlineButtonBuilder().apply(block).build()
@@ -158,7 +180,12 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
         fun dataButton(text: String, id: Int, vararg dataArray: ByteArray) {
 
-            add(InlineKeyboardButton(text, InlineKeyboardButtonTypeCallback(mkData(id, *dataArray, randomSuffix = true))))
+            add(
+                InlineKeyboardButton(
+                    text,
+                    InlineKeyboardButtonTypeCallback(mkData(id, *dataArray, randomSuffix = true))
+                )
+            )
 
         }
 
@@ -184,11 +211,13 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
     fun urlLine(text: String, url: String) = newLine().urlButton(text, url)
 
-    fun loginUrlLine(text: String, url: String, id: Int, forwardText: String) = newLine().loginUrlButton(text, url, id, forwardText)
+    fun loginUrlLine(text: String, url: String, id: Int, forwardText: String) =
+        newLine().loginUrlButton(text, url, id, forwardText)
 
     fun gameLine(text: String) = newLine().gameButton(text)
 
-    fun switchLine(text: String, query: String, inCurrentChat: Boolean = true) = newLine().switchButton(text, query, inCurrentChat)
+    fun switchLine(text: String, query: String, inCurrentChat: Boolean = true) =
+        newLine().switchButton(text, query, inCurrentChat)
 
     fun dataLine(text: String, id: Int, vararg dataArray: ByteArray) = newLine().dataButton(text, id, * dataArray)
 
@@ -268,8 +297,8 @@ class KeyboardButtonBuilder : LinkedList<KeyboardButtonBuilder.Line>(), Builder<
     override fun build(): ReplyMarkupShowKeyboard {
 
         return ReplyMarkupShowKeyboard(
-                map { it.toTypedArray() }.toTypedArray(),
-                resizeKeyboard, oneTime, isPersonal
+            map { it.toTypedArray() }.toTypedArray(),
+            resizeKeyboard, oneTime, isPersonal
         )
 
     }
@@ -353,7 +382,8 @@ class TextBuilder(var textFormatted: FormattedText? = null) : Builder<InputMessa
 
 }
 
-fun inputForward(message: Message, block: (ForwardBuilder.() -> Unit)? = null) = inputForward(message.chatId, message.id, block)
+fun inputForward(message: Message, block: (ForwardBuilder.() -> Unit)? = null) =
+    inputForward(message.chatId, message.id, block)
 
 fun inputForward(chatId: Number, messageId: Long, block: (ForwardBuilder.() -> Unit)? = null): InputMessageForwarded {
 
@@ -386,7 +416,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     lateinit var chatId: Number
     var messageId by Delegates.notNull<Long>()
-    lateinit var input: InputMessageContent
+    var input: InputMessageContent? = null
 
     var replyToMessageId = 0L
     var messageThreadId: Number = 0L
@@ -461,6 +491,16 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
+    infix fun atCaption(messageId: Long): MessageFactory {
+
+        at(messageId)
+        this.caption = (input as InputMessageText).text
+        input = null
+
+        return this
+
+    }
+
     infix fun at(message: Message): MessageFactory {
 
         this.chatId = message.chatId
@@ -470,11 +510,20 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
+    infix fun atCaption(message: Message): MessageFactory {
+
+        at(message)
+        this.caption = (input as InputMessageText).text
+        input = null
+
+        return this
+
+    }
+
 
     infix fun to(chatId: Number): MessageFactory {
 
         this.chatId = chatId
-
         return this
 
     }
@@ -691,7 +740,11 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    fun file(file: String, forceDocument: Boolean = false, block: (FileBuilder.() -> Unit)? = null): InputMessageDocument {
+    fun file(
+        file: String,
+        forceDocument: Boolean = false,
+        block: (FileBuilder.() -> Unit)? = null
+    ): InputMessageDocument {
 
         return InputMessageDocument(InputFileLocal(file), null, forceDocument, null).applyIfNot(block == null) {
 
@@ -701,7 +754,11 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    fun fileId(fileId: String, forceDocument: Boolean = false, block: (FileBuilder.() -> Unit)? = null): InputMessageDocument {
+    fun fileId(
+        fileId: String,
+        forceDocument: Boolean = false,
+        block: (FileBuilder.() -> Unit)? = null
+    ): InputMessageDocument {
 
         return InputMessageDocument(InputFileRemote(fileId), null, forceDocument, null).applyIfNot(block == null) {
 
@@ -717,8 +774,12 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    infix fun mkSend(chatId: Number) = SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
-    fun mkSend() = SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
+    infix fun mkSend(chatId: Number) =
+        SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
+
+    fun mkSend() =
+        SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input)
+
     fun mkEdit(chatId: Number, messageId: Long) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
     infix fun mkEditTo(chatId: Number) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
     infix fun mkEditAt(messageId: Long) = EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
@@ -762,7 +823,16 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
         val successCallback = onSuccess
         val failureCallback = onFailure
 
-        context.send<Message>(SendMessage(chatId.toLong(), messageThreadId.toLong(), replyToMessageId, mkOptions(), replyMarkup, input), 1) {
+        context.send<Message>(
+            SendMessage(
+                chatId.toLong(),
+                messageThreadId.toLong(),
+                replyToMessageId,
+                mkOptions(),
+                replyMarkup,
+                input
+            ), 1
+        ) {
 
             onSuccess = successCallback
 
@@ -810,11 +880,8 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
             }
 
             onFailure {
-
                 oldFailureHandler?.invoke(this, it)
-
                 continuation.resume(Unit)
-
             }
 
             sendOrEditTo(chatId)
@@ -823,100 +890,64 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    infix fun sendOrEditTo(chatId: Number) {
+    infix fun sendOrEditTo(chatId: Number) = if (!edit) sendTo(chatId) else editTo(chatId)
 
-        if (!edit) sendTo(chatId) else editTo(chatId)
-
+    suspend fun syncEditTo(chatId: Number, messageId: Long): Message {
+        val messageOld = context.getMessage(chatId.toLong(), messageId)
+        return context.sync(
+            when {
+                messageOld.content is MessageText && input is InputMessageText -> EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
+                input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
+                caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
+                else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)
+            }
+        )
     }
 
-    suspend fun syncEditTo(chatId: Number, messageId: Long): Message = context.sync(EditMessageText(chatId.toLong(), messageId, replyMarkup, input))
-
-    suspend infix fun syncEditTo(chatId: Number): Message = context.sync(EditMessageText(chatId.toLong(), messageId, replyMarkup, input))
-
-    suspend infix fun syncEditAt(messageId: Long): Message = context.sync(EditMessageText(chatId.toLong(), messageId, replyMarkup, input))
-
-    suspend infix fun syncEditTo(message: Message): Message = context.sync(EditMessageText(message.chatId, message.id, replyMarkup, input))
+    suspend infix fun syncEditTo(chatId: Number) = syncEditTo(chatId, messageId)
+    suspend infix fun syncEditAt(messageId: Long) = syncEditTo(chatId, messageId)
+    suspend infix fun syncEditTo(message: Message) = syncEditTo(message.chatId, message.id)
 
     fun editTo(chatId: Number, messageId: Long) {
-
-        val successCallback = onSuccess
         val failureCallback = onFailure
 
-        context.send<Message>(EditMessageText(chatId.toLong(), messageId, replyMarkup, input), 1) {
-
-            onSuccess = successCallback
-
-            if (failureCallback != null) {
-
-                onFailure = failureCallback
-
+        context.getMessageWith(chatId.toLong(), messageId) {
+            onSuccess {
+                editTo(it)
             }
-
+            if (failureCallback != null) {
+                onFailure = failureCallback
+            }
         }
 
     }
 
-    infix fun editTo(chatId: Number) {
+    infix fun editTo(chatId: Number) = editTo(chatId, messageId)
 
-        val successCallback = onSuccess
-        val failureCallback = onFailure
+    infix fun editAt(messageId: Long) = editTo(chatId, messageId)
 
-        context.send<Message>(EditMessageText(chatId.toLong(), messageId, replyMarkup, input), 1) {
-
-            onSuccess = successCallback
-
-            if (failureCallback != null) {
-
-                onFailure = failureCallback
-
-            }
-
-        }
-
-    }
-
-    infix fun editAt(messageId: Long) {
-
-        val successCallback = onSuccess
-        val failureCallback = onFailure
-
-        context.send<Message>(mkEditAt(messageId), 1) {
-
-            onSuccess = successCallback
-
-            if (failureCallback != null) {
-
-                onFailure = failureCallback
-
-            }
-
-        }
-
-    }
-
-    infix fun editOrSendToChat(message: Message) {
-
-        if (message.canBeEdited) editTo(message) else sendTo(message.chatId)
-
-    }
+    infix fun editOrSendToChat(message: Message) = if (message.canBeEdited) editTo(message) else sendTo(message.chatId)
 
     infix fun editTo(message: Message) {
+        this at message
 
         val successCallback = onSuccess
         val failureCallback = onFailure
 
-        context.send<Message>(mkEdit(message.chatId, message.id), 1) {
-
+        context.send<Message>(
+            when {
+                message.content is MessageText && input is InputMessageText -> EditMessageText(chatId.toLong(), messageId, replyMarkup, input)
+                input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
+                caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
+                else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)
+            }, 1
+        ) {
             onSuccess = successCallback
-
             if (failureCallback != null) {
-
                 onFailure = failureCallback
-
             }
 
         }
-
     }
 
     infix fun errorTo(replyToMessage: Message) {
