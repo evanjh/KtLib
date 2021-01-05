@@ -2,6 +2,7 @@ package io.nekohasekai.ktlib.td.generator
 
 import cn.hutool.core.io.FileUtil
 import io.nekohasekai.ktlib.core.downloadFile
+import io.nekohasekai.ktlib.core.find
 import io.nekohasekai.ktlib.td.generator.builder.*
 import io.nekohasekai.ktlib.td.generator.tl.*
 import io.nekohasekai.ktlib.td.generator.tl.parser.parseTlData
@@ -14,11 +15,7 @@ object TdApiGenerator {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        var projectRoot = File(".")
-
-        File(projectRoot, "ktlib").apply {
-            if (isDirectory) projectRoot = this
-        }
+        val projectRoot = File(".").canonicalFile.parentFile.find { it.isDirectory && it.name == "ktlib-td" }!!.parentFile
 
         val scheme = "https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl"
 
