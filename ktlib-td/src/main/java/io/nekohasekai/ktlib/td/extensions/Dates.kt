@@ -45,7 +45,7 @@ fun String.parseTime(inSecond: Boolean = false): Long {
 
     var count = -1
 
-    if (NumberUtil.isNumber(this)) {
+    if (NumberUtil.isLong(this)) {
         time = toLong()
     } else for (index in 0 until length) {
         val str = substring(index, index + 1)
