@@ -2,12 +2,14 @@
 
 package io.nekohasekai.ktlib.core
 
+import cn.hutool.core.io.FileUtil
 import com.esotericsoftware.kryo.Kryo
 import com.esotericsoftware.kryo.io.ByteBufferInput
 import com.esotericsoftware.kryo.io.ByteBufferOutput
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
 import com.esotericsoftware.kryo.util.Pool
+import okhttp3.internal.closeQuietly
 import org.objenesis.instantiator.util.UnsafeUtils
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -28,7 +30,7 @@ fun ByteBufferInput.readFile(file: File?, bufferSize: Int = DEFAULT_BUFFER_SIZE)
     var bytesCopied = 0L
     val buffer = ByteArray(bufferSize)
     val bsl = bufferSize.toLong()
-    val output = file?.outputStream()
+    val output = file?.let { FileUtil.touch(it).outputStream() }
     var bytes: Int
     do {
         bytes = minOf(length - bytesCopied, bsl).toInt()
@@ -37,7 +39,7 @@ fun ByteBufferInput.readFile(file: File?, bufferSize: Int = DEFAULT_BUFFER_SIZE)
         bytesCopied += bytes
     } while (length - bytesCopied > 0)
     output?.flush()
-    output?.close()
+    output?.closeQuietly()
 }
 
 fun ByteBufferOutput.writeFile(file: File) {

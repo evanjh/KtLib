@@ -4,7 +4,9 @@ package io.nekohasekai.ktlib.td.utils
 
 import io.nekohasekai.ktlib.core.mkLog
 import io.nekohasekai.ktlib.td.core.TdHandler
+import io.nekohasekai.ktlib.td.core.raw.deleteFile
 import io.nekohasekai.ktlib.td.core.raw.downloadFile
+import io.nekohasekai.ktlib.td.core.raw.getFile
 import kotlinx.coroutines.delay
 import java.io.File
 
@@ -54,6 +56,12 @@ suspend fun TdHandler.download(file: td.TdApi.File): File {
 
     }
 
-    return File(path)
+    val downloaded = File(path)
+
+    if (downloaded.isFile) return downloaded
+
+    deleteFile(file.id)
+
+    return download(getFile(file.id))
 
 }
