@@ -572,6 +572,7 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                 closed = true
                 onDestroy()
                 handlers.filterNot { it == this }.toList().forEach { it.onDestroy() }
+                clients.remove(clientId)
 
             }
         }
