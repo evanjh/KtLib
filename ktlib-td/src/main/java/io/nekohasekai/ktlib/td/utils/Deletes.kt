@@ -4,6 +4,7 @@ package io.nekohasekai.ktlib.td.utils
 
 import io.nekohasekai.ktlib.td.core.TdClient
 import io.nekohasekai.ktlib.td.core.TdHandler
+import io.nekohasekai.ktlib.td.core.raw.deleteFile
 import kotlinx.coroutines.*
 import td.TdApi.*
 import kotlin.concurrent.timerTask
@@ -76,4 +77,15 @@ fun TdHandler.deleteDelayIf(condition: Boolean, vararg with: Message, timeMs: Lo
 
     }
 
+}
+
+suspend fun TdHandler.deleteUploaded(message: Message) {
+    val docId = (message.content as MessageDocument).document.document.id
+    deleteFile(docId)
+}
+
+fun TdHandler.deleteUploaded() :  suspend CoroutineScope.(Message) -> Unit {
+    return {
+        deleteUploaded(it)
+    }
 }

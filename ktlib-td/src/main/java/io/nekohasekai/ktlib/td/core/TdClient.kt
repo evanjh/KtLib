@@ -565,10 +565,13 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             }
 
-            is AuthorizationStateLoggingOut -> handlers.toLinkedList().forEach { it.onLogout() }
+            is AuthorizationStateLoggingOut -> {
+                authing = false
+                auth = false
+                handlers.toLinkedList().forEach { it.onLogout() }
+            }
 
             is AuthorizationStateClosed -> {
-
                 closed = true
                 onDestroy()
                 handlers.filterNot { it == this }.toList().forEach { it.onDestroy() }

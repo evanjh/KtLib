@@ -22,10 +22,30 @@ fun ByteBufferOutput.writeByteArray(bytes: ByteArray) {
     writeInt(bytes.size)
     writeBytes(bytes)
 }
+
+fun ByteBufferInput.readFile(file: File?, bufferSize: Int = DEFAULT_BUFFER_SIZE) {
+    val length = readLong()
+    var bytesCopied = 0L
+    val buffer = ByteArray(bufferSize)
+    val bsl = bufferSize.toLong()
+    val output = file?.outputStream()
+    var bytes: Int
+    do {
+        bytes = minOf(length - bytesCopied, bsl).toInt()
+        readBytes(buffer, 0, bytes)
+        output?.write(buffer, 0, bytes)
+        bytesCopied += bytes
+    } while (length - bytesCopied > 0)
+    output?.flush()
+    output?.close()
+}
+
 fun ByteBufferOutput.writeFile(file: File) {
     writeLong(file.length())
     file.inputStream().copyTo(this)
 }
+
+inline fun <reified T> ByteBufferInput.readKryo() = readByteArray().fromByteArray<T>()
 fun ByteBufferOutput.writeKryo(obj: Any) {
     writeByteArray(obj.toByteArray())
 }
