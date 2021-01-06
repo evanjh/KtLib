@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package io.nekohasekai.ktlib.db
 
 import io.nekohasekai.ktlib.core.anyFormByteArray

@@ -197,13 +197,13 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
     }
 
-    fun newLine(block: (Line.() -> Unit)? = null): Line {
+    fun newLine(atFirst: Boolean = false,block: (Line.() -> Unit)? = null): Line {
 
         return Line().apply {
 
             block?.invoke(this)
 
-            add(this)
+            if (atFirst) addFirst(this) else add(this)
 
         }
 

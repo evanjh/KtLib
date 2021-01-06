@@ -3,11 +3,32 @@
 package io.nekohasekai.ktlib.core
 
 import com.esotericsoftware.kryo.Kryo
+import com.esotericsoftware.kryo.io.ByteBufferInput
+import com.esotericsoftware.kryo.io.ByteBufferOutput
 import com.esotericsoftware.kryo.io.Input
 import com.esotericsoftware.kryo.io.Output
 import com.esotericsoftware.kryo.util.Pool
 import org.objenesis.instantiator.util.UnsafeUtils
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.InputStream
+import java.io.OutputStream
+
+fun InputStream.byteBuffer() = ByteBufferInput(this)
+fun OutputStream.byteBuffer() = ByteBufferOutput(this)
+
+fun ByteBufferInput.readByteArray() = readBytes(readInt())
+fun ByteBufferOutput.writeByteArray(bytes: ByteArray) {
+    writeInt(bytes.size)
+    writeBytes(bytes)
+}
+fun ByteBufferOutput.writeFile(file: File) {
+    writeLong(file.length())
+    file.inputStream().copyTo(this)
+}
+fun ByteBufferOutput.writeKryo(obj: Any) {
+    writeByteArray(obj.toByteArray())
+}
 
 fun <T> mkPool(
     threadSafe: Boolean = true,
