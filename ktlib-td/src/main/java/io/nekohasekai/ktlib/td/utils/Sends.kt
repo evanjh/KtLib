@@ -408,6 +408,10 @@ interface CaptionInterface {
 
     var caption: FormattedText?
 
+    companion object : CaptionInterface {
+        override var caption: FormattedText? = null
+    }
+
 }
 
 const val WHEN_ONLINE = -1
@@ -589,7 +593,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    private lateinit var _captionInterface: CaptionInterface
+    private var _captionInterface: CaptionInterface = CaptionInterface
 
     override var caption
         get() = _captionInterface.caption
