@@ -5,7 +5,6 @@ package io.nekohasekai.ktlib.td.core
 import io.nekohasekai.ktlib.core.toLinkedList
 import io.nekohasekai.ktlib.td.core.persists.TdPersist
 import io.nekohasekai.ktlib.td.core.raw.AbsEvents
-import io.nekohasekai.ktlib.td.core.raw.downloadFile
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.textOrCaption
 import io.nekohasekai.ktlib.td.utils.delete
@@ -73,18 +72,6 @@ open class TdHandler : AbsEvents {
 
     val Message.delete get() = DeleteMessages(chatId, longArrayOf(id), true)
     val Message.deleteForSelf get() = DeleteMessages(chatId, longArrayOf(id), false)
-
-    open suspend fun Document.download(): java.io.File {
-
-        if (!document.local.isDownloadingCompleted) {
-
-            document = downloadFile(document.id, 1, 0, 0, true)
-
-        }
-
-        return java.io.File(document.local.path!!)
-
-    }
 
     inline fun <reified T : TdHandler> findHandler(): T {
 

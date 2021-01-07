@@ -2,11 +2,10 @@
 
 package io.nekohasekai.ktlib.td.utils
 
+import cn.hutool.core.io.FileUtil
 import io.nekohasekai.ktlib.core.mkLog
 import io.nekohasekai.ktlib.td.core.TdHandler
-import io.nekohasekai.ktlib.td.core.raw.deleteFile
 import io.nekohasekai.ktlib.td.core.raw.downloadFile
-import io.nekohasekai.ktlib.td.core.raw.getFile
 import kotlinx.coroutines.delay
 import java.io.File
 
@@ -16,7 +15,7 @@ suspend fun TdHandler.download(file: td.TdApi.File): File {
 
     var path: String
 
-    if (!file.local.isDownloadingCompleted) {
+    if (!file.local.isDownloadingCompleted || !FileUtil.isFile(file.local.path)) {
 
         var times = 0
 
@@ -56,12 +55,6 @@ suspend fun TdHandler.download(file: td.TdApi.File): File {
 
     }
 
-    val downloaded = File(path)
-
-    if (downloaded.isFile) return downloaded
-
-    deleteFile(file.id)
-
-    return download(getFile(file.id))
+    return File(path)
 
 }
