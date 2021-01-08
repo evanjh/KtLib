@@ -9,6 +9,7 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.nekohasekai.ktlib.core.defaultLog
 import io.nekohasekai.ktlib.core.mkLog
+import okhttp3.internal.closeQuietly
 import org.jetbrains.exposed.dao.Entity
 import org.jetbrains.exposed.dao.EntityClass
 import org.jetbrains.exposed.dao.id.EntityID
@@ -21,6 +22,7 @@ import org.jetbrains.exposed.sql.statements.UpsertStatement
 import org.jetbrains.exposed.sql.statements.expandArgs
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.transactions.transactionManager
 import org.sqlite.SQLiteDataSource
 import java.io.File
 import java.util.concurrent.locks.ReentrantReadWriteLock
@@ -39,14 +41,12 @@ interface DatabaseDispatcher : DataSource {
     val database: Database
 
     operator fun <R> invoke(statement: Transaction.() -> R): R
-
     fun <R> write(statement: Transaction.() -> R): R
-
     fun registerCache(cache: DatabaseCacheMap<*, *>)
-
     fun saveCache()
-
     fun saveAndGc()
+
+    fun close()
 
 }
 
@@ -78,9 +78,13 @@ abstract class AbstractDispatcher : DatabaseDispatcher {
 
     }
 
+    override fun close() {
+        database.transactionManager.currentOrNull()?.close()
+    }
 }
 
-open class WriteLockDataSourceDispatcher(val dataSource: DataSource) : AbstractDispatcher(), DataSource by dataSource {
+abstract class WriteLockDataSourceDispatcher(val dataSource: DataSource) : AbstractDispatcher(),
+    DataSource by dataSource {
 
     override val database by lazy { Database.connect(this) }
 
@@ -112,48 +116,29 @@ fun openSqliteDatabase(file: File): DatabaseDispatcher {
 
     FileUtil.touch(file)
 
-    return WriteLockDataSourceDispatcher(HikariDataSource(HikariConfig().apply {
-
+    return object : WriteLockDataSourceDispatcher(HikariDataSource(HikariConfig().apply {
         dataSource = SQLiteDataSource().apply {
-
             url = "jdbc:sqlite:${file.canonicalPath}"
-
         }
-
-    }))
-
-}
-
-fun openInMemorySqliteDatabase(shared: Boolean = false): DatabaseDispatcher {
-
-    return WriteLockDataSourceDispatcher(SQLiteDataSource().apply {
-
-        url = if (!shared) "jdbc:sqlite::memory:" else "jdbc:sqlite::memory:?cache=shared"
-
-    })
+    })) {
+        override fun close() {
+            super.close()
+            (dataSource as HikariDataSource).closeQuietly()
+        }
+    }
 
 }
 
 fun forceCreateTables(vararg tables: Table) {
-
     for (table in tables) {
-
         try {
-
             SchemaUtils.createMissingTablesAndColumns(table)
-
         } catch (e: ExposedSQLException) {
-
             defaultLog.warn("Destroy old table ${table.nameInDatabaseCase()}")
-
             SchemaUtils.drop(table)
-
             SchemaUtils.createMissingTablesAndColumns(table)
-
         }
-
     }
-
 }
 
 inline fun <T : Table> T.upsert(

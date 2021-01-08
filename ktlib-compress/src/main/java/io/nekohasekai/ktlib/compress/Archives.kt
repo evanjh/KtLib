@@ -50,12 +50,15 @@ fun TarArchiveOutputStream.writeFile(path: String, file: File = File(path)) {
 }
 
 fun TarArchiveOutputStream.writeFile(path: String, input: String) {
-    writeFile(path, input)
+    val bytes = input.toByteArray()
+    writeFile(path, bytes.inputStream(), bytes.size.toLong())
 }
 
-fun TarArchiveOutputStream.writeFile(path: String, input: InputStream) {
+fun TarArchiveOutputStream.writeFile(path: String, input: InputStream, length: Long) {
 
-    putArchiveEntry(TarArchiveEntry(path))
+    putArchiveEntry(TarArchiveEntry(path).apply {
+        size = length
+    })
 
     input.copyTo(this)
 
