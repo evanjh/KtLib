@@ -48,3 +48,17 @@ fun TarArchiveOutputStream.writeFile(path: String, file: File = File(path)) {
     closeArchiveEntry()
 
 }
+
+fun TarArchiveOutputStream.writeFile(path: String, input: String) {
+    writeFile(path, input)
+}
+
+fun TarArchiveOutputStream.writeFile(path: String, input: InputStream) {
+
+    putArchiveEntry(TarArchiveEntry(path))
+
+    input.copyTo(this)
+
+    closeArchiveEntry()
+
+}

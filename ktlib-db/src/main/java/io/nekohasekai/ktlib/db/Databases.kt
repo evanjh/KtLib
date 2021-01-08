@@ -244,7 +244,6 @@ open class IdTableCacheMap<ID : Comparable<ID>, T : Entity<ID>>(
     override fun read(id: ID): T? = entityClass.findById(id)
 
     override fun write(id: ID, value: T) {
-
         value.flush()
 
     }
