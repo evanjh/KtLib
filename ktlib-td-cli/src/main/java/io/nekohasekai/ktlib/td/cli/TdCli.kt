@@ -747,7 +747,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
             sudo make localeFor(userId).NOTHING_TO_CANCEL withMarkup removeKeyboard() onSuccess deleteDelay(message) sendTo chatId
 
-        } else if (!message.fromPrivate) {
+        } else if (message.fromPrivate) {
 
             userCalled(userId, "undefined function, transfer to launch")
 
