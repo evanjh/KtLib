@@ -8,7 +8,7 @@ import kotlin.system.exitProcess
 
 object TdLoader {
 
-    const val version = "71ac1f6"
+    const val version = "e72c129"
 
     var loaded by AtomicBoolean()
 
