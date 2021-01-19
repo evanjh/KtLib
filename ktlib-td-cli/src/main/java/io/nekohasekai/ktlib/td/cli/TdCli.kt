@@ -426,6 +426,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     open fun onLoadConfig() {
 
+        System.setProperty("kotlinx.coroutines.stacktrace.recovery", "true")
+
         loadLogLevel()
 
         loadDataDir()
