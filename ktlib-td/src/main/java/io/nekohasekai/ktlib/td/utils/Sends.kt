@@ -878,7 +878,6 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
             onSuccess {
 
                 oldSuccessHandler?.invoke(this, it)
-
                 continuation.resume(Unit)
 
             }

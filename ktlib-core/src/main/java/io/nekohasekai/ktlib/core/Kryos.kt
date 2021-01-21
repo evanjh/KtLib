@@ -90,7 +90,12 @@ fun hideOpenJDK11IllegalWarning() {
 
 inline operator fun <T, R> Pool<T>.invoke(function: T.() -> R): R = obtain().let { function(it).apply { free(it) } }
 
-val globalKryo = mkPool { Kryo().apply { isRegistrationRequired = false } }
+val globalKryo = mkPool {
+    Kryo().apply {
+        isRegistrationRequired = false
+        references = true
+    }
+}
 
 fun Any.toByteArray(withClass: Boolean = false): ByteArray {
 

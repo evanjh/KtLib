@@ -10,13 +10,13 @@ suspend fun TdHandler.warnUserCalled(userId: Int, what: String) {
 
 }
 
-fun TdHandler.called(what: String, level: Level = Level.TRACE) {
+fun TdHandler.called(what: String, level: Level = Level.DEBUG) {
 
     clientLog.log(level, what)
 
 }
 
-suspend fun TdHandler.userCalled(userId: Int, what: String, level: Level = Level.TRACE) {
+suspend fun TdHandler.userCalled(userId: Int, what: String, level: Level = Level.DEBUG) {
 
     val user = getUserOrNull(userId)
 

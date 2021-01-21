@@ -77,7 +77,6 @@ class DatabasePersistStore @JvmOverloads constructor(
         }.onFailure {
 
             defaultLog.warn(it)
-
             table.deleteWhere { table.userId eq id }
 
         }.getOrNull()

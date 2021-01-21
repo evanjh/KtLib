@@ -328,10 +328,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     fun registerErrorReport(errorReportChatId: Long) {
 
-        val eventErrorHandlerOld = eventErrorHandler
-
         eventErrorHandler = { client: TdClient, error: Throwable, event: TdApi.Update ->
-            eventErrorHandlerOld(client, error, event)
+            client.clientLog.error(error, "TdError - Sync\n\nIn event$event")
             if (reportCount in 0..10) {
                 runCatching {
                     runBlocking {
@@ -344,9 +342,8 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
             }
         }
 
-        val callbackErrorHandlerOld = contextErrorHandler
         contextErrorHandler = { client: TdClient, error: Throwable, context: Any? ->
-            callbackErrorHandlerOld(client, error, context)
+            client.clientLog.error(error, "TdError - Sync\n\nIn context $context")
             if (reportCount in 0..10) {
                 runCatching {
                     runBlocking {
@@ -708,7 +705,11 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
                     super.onAuthorizationState(authorizationState)
 
-                    clientLog.info("Login User ${me.displayNameFormatted}")
+                    events.launch {
+
+                        clientLog.info("Login User ${me.displayNameFormatted}")
+
+                    }
 
                 } else {
 

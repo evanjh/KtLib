@@ -64,10 +64,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
     val callbacks = ConcurrentHashMap<Long, TdCallback<*>>()
     val messageCallbacks = ConcurrentHashMap<Long, TdCallback<Message>>()
 
-    private lateinit var _me: User
-    override val me by ::_me
-    private lateinit var _fullInfo: UserFullInfo
-    override val fullInfo by ::_fullInfo
+    override val me by lazy { runBlocking { getMe() } }
+    override val fullInfo by lazy { runBlocking { getUserFullInfo(me.id) } }
 
     infix fun addHandler(handler: TdHandler) {
 
@@ -549,11 +547,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
             is AuthorizationStateReady -> {
 
-                _me = getMe()
-
                 try {
 
-                    _fullInfo = getUserFullInfo(me.id)
                     handlers.toLinkedList().forEach { it.beforeLogin() }
                     authing = false
                     auth = true
@@ -717,6 +712,9 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
         check(!closed) { "Client closed" }
         TdNative.nativeClientSend(clientId, requestId, function)
 
+        val fName = function.javaClass.simpleName
+        clientLog.trace("java send $requestId $fName")
+
     }
 
     override suspend fun onSendCanceledMessage(userId: Int, chatId: Long) {
@@ -788,7 +786,11 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
 
                                 if (requestId != 0L) {
 
-                                    if (!client.callbacks.containsKey(requestId)) continue
+                                    if (!client.callbacks.containsKey(requestId)) {
+                                        val uName = event.javaClass.simpleName
+                                        client.clientLog.trace("java received $requestId $uName (no handler)")
+                                        continue
+                                    }
 
                                     val callback = client.callbacks.remove(requestId)!!
 
@@ -802,6 +804,8 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                                         }.onFailure {
                                             contextErrorHandler(client, it, event)
                                         }
+                                        val uName = event.javaClass.simpleName
+                                        client.clientLog.trace("java received $requestId $uName")
                                     }
 
                                 } else {
@@ -870,6 +874,9 @@ open class TdClient(val tag: String = "", val name: String = tag) : TdHandler() 
                         handler.onUpdate(update)
 
                     }
+
+                    val uName = update.javaClass.simpleName
+                    client.clientLog.trace("java received $uName")
 
                 }.onFailure {
 
