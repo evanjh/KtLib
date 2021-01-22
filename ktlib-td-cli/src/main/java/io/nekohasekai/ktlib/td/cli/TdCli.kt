@@ -221,21 +221,25 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     fun loadConfig() {
 
-        val configFile = configFile
+        if (::configFile.isInitialized) {
 
-        if (configFile.isFile && configFile.canRead()) {
+            val configFile = configFile
 
-            try {
+            if (configFile.isFile && configFile.canRead()) {
 
-                val pmConfig = Yaml().loadAs(configFile.readText(), MutableMap::class.java)
+                try {
 
-                config.putAll(mapOf(* pmConfig.map { it.key!!.toString() to (it.value ?: "") }.toTypedArray()))
+                    val pmConfig = Yaml().loadAs(configFile.readText(), MutableMap::class.java)
 
-            } catch (e: Exception) {
+                    config.putAll(mapOf(* pmConfig.map { it.key!!.toString() to (it.value ?: "") }.toTypedArray()))
 
-                clientLog.error(e, "Parse config failed : ${configFile.path}")
+                } catch (e: Exception) {
 
-                exitProcess(100)
+                    clientLog.error(e, "Parse config failed : ${configFile.path}")
+
+                    exitProcess(100)
+
+                }
 
             }
 

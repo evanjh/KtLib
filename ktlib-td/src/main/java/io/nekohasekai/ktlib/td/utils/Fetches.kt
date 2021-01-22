@@ -65,8 +65,6 @@ suspend fun TdHandler.fetchChats(startsAt: Long = 0L, listener: suspend Coroutin
 
         }
 
-        println(">> archive")
-
         nextChats = longArrayOf()
 
         while (true) {
