@@ -6,7 +6,7 @@ dependencies {
     api("org.jetbrains.exposed:exposed-dao:$vExposed")
     api("org.jetbrains.exposed:exposed-jdbc:$vExposed")
 
-    val vHutool = "5.5.5"
+    val vHutool = "5.5.7"
     api("cn.hutool:hutool-cache:$vHutool")
 
     api("com.zaxxer:HikariCP:3.4.5")

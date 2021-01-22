@@ -1,6 +1,6 @@
 dependencies {
 
-    val vHutool = "5.5.5"
+    val vHutool = "5.5.7"
     api("cn.hutool:hutool-core:$vHutool")
     api("cn.hutool:hutool-log:$vHutool")
     api("cn.hutool:hutool-json:$vHutool")
