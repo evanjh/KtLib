@@ -7,6 +7,7 @@ include(
     ":ktlib-nsfw",
     ":ktlib-ocr",
     ":ktlib-opencc",
+    ":ktlib-stt",
     ":ktlib-td",
     ":ktlib-td-api-generator",
     ":ktlib-td-cli",
