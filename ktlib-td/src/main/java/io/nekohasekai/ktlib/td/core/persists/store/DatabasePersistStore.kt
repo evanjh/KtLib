@@ -3,6 +3,7 @@
 package io.nekohasekai.ktlib.td.core.persists.store
 
 import cn.hutool.core.date.SystemClock
+import com.esotericsoftware.kryo.KryoException
 import io.nekohasekai.ktlib.core.anyFormByteArray
 import io.nekohasekai.ktlib.core.defaultLog
 import io.nekohasekai.ktlib.core.shift
@@ -147,7 +148,11 @@ class DatabasePersistStore @JvmOverloads constructor(
 
             result.forEach { row ->
 
-                val dataArray = row[table.data].bytes.readData()
+                val dataArray = try {
+                    row[table.data].bytes.readData()
+                } catch (e: KryoException) {
+                    arrayOf()
+                }
 
                 val dataId = BigInteger(dataArray[0]).toInt()
 

@@ -197,7 +197,7 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
     }
 
-    fun newLine(atFirst: Boolean = false,block: (Line.() -> Unit)? = null): Line {
+    fun newLine(atFirst: Boolean = false, block: (Line.() -> Unit)? = null): Line {
 
         return Line().apply {
 
@@ -839,12 +839,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
         ) {
 
             onSuccess = successCallback
-
-            if (failureCallback != null) {
-
-                onFailure = failureCallback
-
-            }
+            onFailure = failureCallback
 
         }
 
@@ -923,9 +918,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
             onSuccess {
                 editTo(it)
             }
-            if (failureCallback != null) {
-                onFailure = failureCallback
-            }
+            onFailure = failureCallback
         }
 
     }
@@ -956,9 +949,7 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
             }, 1
         ) {
             onSuccess = successCallback
-            if (failureCallback != null) {
-                onFailure = failureCallback
-            }
+            onFailure = failureCallback
 
         }
     }
