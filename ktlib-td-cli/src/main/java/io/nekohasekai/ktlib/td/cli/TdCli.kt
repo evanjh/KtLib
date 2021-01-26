@@ -127,7 +127,7 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     open fun onArgument(argument: String, value: String?) {
 
-        if (::configFile.isInitialized && argument == "config") {
+        if (configFile != null && argument == "config") {
 
             if (value == null) {
 
@@ -217,13 +217,11 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
 
     }
 
-    open lateinit var configFile: File
+    open var configFile = File("config.yml")
 
     fun loadConfig() {
 
-        if (::configFile.isInitialized) {
-
-            val configFile = configFile
+        val configFile = configFile
 
             if (configFile.isFile && configFile.canRead()) {
 
@@ -242,8 +240,6 @@ open class TdCli(tag: String = "", name: String = tag) : TdClient(tag, name), Da
                 }
 
             }
-
-        }
 
         onLoadConfig()
 
