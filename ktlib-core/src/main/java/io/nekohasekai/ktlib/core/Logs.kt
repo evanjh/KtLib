@@ -7,39 +7,26 @@ import cn.hutool.core.lang.Console
 import cn.hutool.core.lang.Dict
 import cn.hutool.core.util.StrUtil
 import cn.hutool.log.GlobalLogFactory
-import cn.hutool.log.Log
 import cn.hutool.log.LogFactory
 import cn.hutool.log.dialect.console.ConsoleLog
 import cn.hutool.log.level.Level
 
-object NekoLogFactory : LogFactory("Neko Log") {
+object KLogFactory : LogFactory("Neko Log") {
 
-    override fun createLog(name: String?): Log {
+    override fun createLog(name: String?) = if (name != null) mkLog(name) else defaultLog
 
-        return if (name != null) mkLog(name) else defaultLog
-
-    }
-
-    override fun createLog(clazz: Class<*>?): Log {
-
-        return if (clazz != null) mkLog(clazz.simpleName).apply {
-
-            when (clazz) {
-
-                GlobalLogFactory::class.java -> logLevel = Level.INFO
-
-            }
-
-        } else defaultLog
-
-    }
+    override fun createLog(clazz: Class<*>?) = if (clazz != null) mkLog(clazz.simpleName).apply {
+        when (clazz) {
+            GlobalLogFactory::class.java -> logLevel = Level.INFO
+        }
+    } else defaultLog
 }
 
 var LOG_LEVEL = Level.INFO
     set(value) {
         field = value
+        defaultLog.logLevel = value
     }
-
 val defaultLog = mkLog("")
 
 fun mkLog(name: String) = KLog(name)
@@ -47,13 +34,9 @@ fun mkLog(name: String) = KLog(name)
 class KLog(name: String) : ConsoleLog(name) {
 
     companion object {
-
         init {
-
-            LogFactory.setCurrentLogFactory(NekoLogFactory)
-
+            LogFactory.setCurrentLogFactory(KLogFactory)
         }
-
     }
 
     lateinit var logLevel: Level
