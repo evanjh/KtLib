@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a message
@@ -1280,6 +1281,64 @@ fun TdHandler.clearAllDraftMessagesWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ClearAllDraftMessages(excludeSecretChats), stackIgnore + 1, submit)
+
+/**
+ * Returns information about a file with messages exported from another app
+ *
+ * @messageFileHead - Beginning of the message file
+ *                    Up to 100 first lines
+ */
+suspend fun TdHandler.getMessageFileType(
+    messageFileHead: String? = null
+) = sync(GetMessageFileType(messageFileHead))
+
+suspend fun TdHandler.getMessageFileTypeOrNull(
+    messageFileHead: String? = null
+) = syncOrNull(GetMessageFileType(messageFileHead))
+
+fun TdHandler.getMessageFileTypeWith(
+    messageFileHead: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<MessageFileType>.() -> Unit)? = null
+) = send(GetMessageFileType(messageFileHead), stackIgnore + 1, submit)
+
+/**
+ * Imports messages exported from another app
+ *
+ * @chatId - Identifier of a chat to which the messages will be imported
+ *           It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right
+ * @messageFile - File with messages to import
+ *                Only inputFileLocal and inputFileGenerated are supported
+ *                The file must not be previously uploaded
+ * @attachedFiles - Files used in the imported messages
+ *                  Only inputFileLocal and inputFileGenerated are supported
+ *                  The files must not be previously uploaded
+ */
+suspend fun TdHandler.importMessages(
+    chatId: Long,
+    messageFile: InputFile? = null,
+    attachedFiles: Array<InputFile>
+) {
+    sync(ImportMessages(chatId, messageFile, attachedFiles))
+}
+
+
+suspend fun TdHandler.importMessagesIgnoreException(
+    chatId: Long,
+    messageFile: InputFile? = null,
+    attachedFiles: Array<InputFile>
+) {
+    syncOrNull(ImportMessages(chatId, messageFile, attachedFiles))
+}
+
+
+fun TdHandler.importMessagesWith(
+    chatId: Long,
+    messageFile: InputFile? = null,
+    attachedFiles: Array<InputFile>,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ImportMessages(chatId, messageFile, attachedFiles), stackIgnore + 1, submit)
 
 /**
  * Changes the block state of a message sender

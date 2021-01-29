@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a basic group by its identifier
@@ -119,7 +120,7 @@ fun TdHandler.joinGroupCallWith(
 
 /**
  * Toggles whether new participants of a group call can be unmuted only by administrators of the group call
- * Requires can_manage_voice_chats rights in the corresponding chat and allowed_change_mute_mew_participants group call flag
+ * Requires groupCall.can_be_managed and allowed_change_mute_mew_participants group call flag
  *
  * @groupCallId - Group call identifier
  * @muteNewParticipants - New value of the mute_new_participants setting
@@ -245,6 +246,40 @@ fun TdHandler.toggleGroupCallParticipantIsMutedWith(
 ) = send(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted), stackIgnore + 1, submit)
 
 /**
+ * Changes a group call participant's volume level
+ * If the current user can manage the group call, then the participant's volume level will be changed for all users with default volume level
+ *
+ * @groupCallId - Group call identifier
+ * @userId - User identifier
+ * @volumeLevel - New participant's volume level
+ */
+suspend fun TdHandler.setGroupCallParticipantVolumeLevel(
+    groupCallId: Int,
+    userId: Int,
+    volumeLevel: Int
+) {
+    sync(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
+}
+
+
+suspend fun TdHandler.setGroupCallParticipantVolumeLevelIgnoreException(
+    groupCallId: Int,
+    userId: Int,
+    volumeLevel: Int
+) {
+    syncOrNull(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
+}
+
+
+fun TdHandler.setGroupCallParticipantVolumeLevelWith(
+    groupCallId: Int,
+    userId: Int,
+    volumeLevel: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel), stackIgnore + 1, submit)
+
+/**
  * Loads more group call participants
  * The loaded participants will be received through updates
  * Use the field groupCall.loaded_all_participants to check whether all participants has already been loaded
@@ -303,7 +338,7 @@ fun TdHandler.leaveGroupCallWith(
 
 /**
  * Discards a group call
- * Requires can_manage_voice_chats rights in the corresponding chat
+ * Requires groupCall.can_be_managed
  *
  * @groupCallId - Group call identifier
  */

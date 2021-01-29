@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a chat by its identifier, this is an offline request if the current user is not a bot
@@ -409,6 +410,34 @@ fun TdHandler.deleteChatHistoryWith(
 ) = send(DeleteChatHistory(chatId, removeFromChatList, revoke), stackIgnore + 1, submit)
 
 /**
+ * Deletes a chat along with all messages in the corresponding chat for all chat members
+ * Requires owner privileges
+ * For group chats this will release the username and remove all members
+ * Chats with more than 1000 members can't be deleted using this method
+ *
+ * @chatId - Chat identifier
+ */
+suspend fun TdHandler.deleteChat(
+    chatId: Long
+) {
+    sync(DeleteChat(chatId))
+}
+
+
+suspend fun TdHandler.deleteChatIgnoreException(
+    chatId: Long
+) {
+    syncOrNull(DeleteChat(chatId))
+}
+
+
+fun TdHandler.deleteChatWith(
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(DeleteChat(chatId), stackIgnore + 1, submit)
+
+/**
  * Returns approximate number of messages of the specified type in the chat
  *
  * @chatId - Identifier of the chat in which to count messages
@@ -754,32 +783,36 @@ fun TdHandler.createNewBasicGroupChatWith(
  * Returns the newly created chat
  *
  * @title - Title of the new chat
- * @isChannel - True, if a channel chat should be created
+ * @isChannel - True, if a channel chat needs to be created
  * @description - Chat description
  * @location - Chat location if a location-based supergroup is being created
+ * @forImport - True, if the supergroup is created for importing messages using importMessage
  */
 suspend fun TdHandler.createNewSupergroupChat(
     title: String? = null,
     isChannel: Boolean,
     description: String? = null,
-    location: ChatLocation? = null
-) = sync(CreateNewSupergroupChat(title, isChannel, description, location))
+    location: ChatLocation? = null,
+    forImport: Boolean
+) = sync(CreateNewSupergroupChat(title, isChannel, description, location, forImport))
 
 suspend fun TdHandler.createNewSupergroupChatOrNull(
     title: String? = null,
     isChannel: Boolean,
     description: String? = null,
-    location: ChatLocation? = null
-) = syncOrNull(CreateNewSupergroupChat(title, isChannel, description, location))
+    location: ChatLocation? = null,
+    forImport: Boolean
+) = syncOrNull(CreateNewSupergroupChat(title, isChannel, description, location, forImport))
 
 fun TdHandler.createNewSupergroupChatWith(
     title: String? = null,
     isChannel: Boolean,
     description: String? = null,
     location: ChatLocation? = null,
+    forImport: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Chat>.() -> Unit)? = null
-) = send(CreateNewSupergroupChat(title, isChannel, description, location), stackIgnore + 1, submit)
+) = send(CreateNewSupergroupChat(title, isChannel, description, location, forImport), stackIgnore + 1, submit)
 
 /**
  * Creates a new secret chat
@@ -989,7 +1022,7 @@ fun TdHandler.reorderChatFiltersWith(
 /**
  * Changes the chat title
  * Supported only for basic groups, supergroups and channels
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @chatId - Chat identifier
  * @title - New title of the chat
@@ -1020,7 +1053,7 @@ fun TdHandler.setChatTitleWith(
 /**
  * Changes the photo of a chat
  * Supported only for basic groups, supergroups and channels
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @chatId - Chat identifier
  * @photo - New chat photo
@@ -1234,7 +1267,7 @@ fun TdHandler.setChatClientDataWith(
 /**
  * Changes information about a chat
  * Available for basic groups, supergroups, and channels
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @chatId - Identifier of the chat
  * @description - New chat description
@@ -1264,7 +1297,7 @@ fun TdHandler.setChatDescriptionWith(
 
 /**
  * Changes the discussion group of a channel chat
- * Requires can_change_info rights in the channel if it is specified
+ * Requires can_change_info administrator right in the channel if it is specified
  *
  * @chatId - Identifier of the channel chat
  *           Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup)
@@ -1511,7 +1544,6 @@ fun TdHandler.leaveChatWith(
 /**
  * Adds a new member to a chat
  * Members can't be added to private or secret chats
- * Members will not be added until the chat state has been synchronized with the server
  *
  * @chatId - Chat identifier
  * @userId - Identifier of the user
@@ -1549,7 +1581,6 @@ fun TdHandler.addChatMemberWith(
  * Currently this method is only available for supergroups and channels
  * This method can't be used to join a chat
  * Members can't be added to a channel if it has more than 200 members
- * Members will not be added until the chat state has been synchronized with the server
  *
  * @chatId - Chat identifier
  * @userIds - Identifiers of the users to be added to the chat
@@ -1582,7 +1613,6 @@ fun TdHandler.addChatMembersWith(
  * Changes the status of a chat member, needs appropriate privileges
  * This function is currently not suitable for adding new members to the chat and transferring chat ownership
  * Instead, use addChatMember or transferChatOwnership
- * The chat member status will not be changed until it has been synchronized with the server
  *
  * @chatId - Chat identifier
  * @userId - User identifier
@@ -1613,6 +1643,49 @@ fun TdHandler.setChatMemberStatusWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(SetChatMemberStatus(chatId, userId, status), stackIgnore + 1, submit)
+
+/**
+ * Bans a member in a chat
+ * Members can't be banned in private or secret chats
+ * In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless [unbanned](#unbanchatmember) first
+ *
+ * @chatId - Chat identifier
+ * @userId - Identifier of the user
+ * @bannedUntilDate - Point in time (Unix timestamp) when the user will be unbanned
+ *                    0 if never
+ *                    If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
+ *                    Ignored in basic groups
+ * @revokeMessages - Pass true to delete all messages in the chat for the user
+ *                   Always true for supergroups and channels
+ */
+suspend fun TdHandler.banChatMember(
+    chatId: Long,
+    userId: Int,
+    bannedUntilDate: Int,
+    revokeMessages: Boolean
+) {
+    sync(BanChatMember(chatId, userId, bannedUntilDate, revokeMessages))
+}
+
+
+suspend fun TdHandler.banChatMemberIgnoreException(
+    chatId: Long,
+    userId: Int,
+    bannedUntilDate: Int,
+    revokeMessages: Boolean
+) {
+    syncOrNull(BanChatMember(chatId, userId, bannedUntilDate, revokeMessages))
+}
+
+
+fun TdHandler.banChatMemberWith(
+    chatId: Long,
+    userId: Int,
+    bannedUntilDate: Int,
+    revokeMessages: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(BanChatMember(chatId, userId, bannedUntilDate, revokeMessages), stackIgnore + 1, submit)
 
 /**
  * Changes the owner of a chat
@@ -1813,31 +1886,31 @@ fun TdHandler.setPinnedChatsWith(
 ) = send(SetPinnedChats(chatList, chatIds), stackIgnore + 1, submit)
 
 /**
- * Generates a new invite link for a chat
- * The previously generated link is revoked
+ * Replaces current permanent invite link for a chat with a new permanent invite link
  * Available for basic groups, supergroups, and channels
  * Requires administrator privileges and can_invite_users right
  *
  * @chatId - Chat identifier
  */
-suspend fun TdHandler.generateChatInviteLink(
+suspend fun TdHandler.replacePermanentChatInviteLink(
     chatId: Long
-) = sync(GenerateChatInviteLink(chatId))
+) = sync(ReplacePermanentChatInviteLink(chatId))
 
-suspend fun TdHandler.generateChatInviteLinkOrNull(
+suspend fun TdHandler.replacePermanentChatInviteLinkOrNull(
     chatId: Long
-) = syncOrNull(GenerateChatInviteLink(chatId))
+) = syncOrNull(ReplacePermanentChatInviteLink(chatId))
 
-fun TdHandler.generateChatInviteLinkWith(
+fun TdHandler.replacePermanentChatInviteLinkWith(
     chatId: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
-) = send(GenerateChatInviteLink(chatId), stackIgnore + 1, submit)
+) = send(ReplacePermanentChatInviteLink(chatId), stackIgnore + 1, submit)
 
 /**
  * Checks the validity of an invite link for a chat and returns information about the corresponding chat
  *
  * @inviteLink - Invite link to be checked
+ *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
  */
 suspend fun TdHandler.checkChatInviteLink(
     inviteLink: String? = null
@@ -1855,9 +1928,9 @@ fun TdHandler.checkChatInviteLinkWith(
 
 /**
  * Uses an invite link to add the current user to the chat if possible
- * The new member will not be added until the chat state has been synchronized with the server
  *
  * @inviteLink - Invite link to import
+ *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
  */
 suspend fun TdHandler.joinChatByInviteLink(
     inviteLink: String? = null
@@ -2009,7 +2082,7 @@ fun TdHandler.removeChatActionBarWith(
 
 /**
  * Reports a chat to the Telegram moderators
- * A chat can be reported only from the chat action bar, or if this is a private chats with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
+ * A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
  *
  * @chatId - Chat identifier
  * @reason - The reason for reporting the chat

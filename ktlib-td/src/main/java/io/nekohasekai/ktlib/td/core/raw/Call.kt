@@ -2,8 +2,34 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
+
+/**
+ * Deletes all call messages
+ *
+ * @revoke - Pass true to delete the messages for all users
+ */
+suspend fun TdHandler.deleteAllCallMessages(
+    revoke: Boolean
+) {
+    sync(DeleteAllCallMessages(revoke))
+}
+
+
+suspend fun TdHandler.deleteAllCallMessagesIgnoreException(
+    revoke: Boolean
+) {
+    syncOrNull(DeleteAllCallMessages(revoke))
+}
+
+
+fun TdHandler.deleteAllCallMessagesWith(
+    revoke: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(DeleteAllCallMessages(revoke), stackIgnore + 1, submit)
 
 /**
  * Creates a new call

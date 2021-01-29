@@ -1,6 +1,6 @@
 package td;
 
-import org.jetbrains.annotations.*;
+import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("ALL")
 public class TdApi {
@@ -1207,9 +1207,9 @@ public class TdApi {
     /**
      * Describes one answer option of a poll
      *
-     * @text - Option text, 1-100 characters
+     * @text - Option text
      * @voterCount - Number of voters for this option, available only for closed or voted polls
-     * @votePercentage - The percentage of votes for this option, 0-100
+     * @votePercentage - The percentage of votes for this option
      * @isChosen - True, if the option was chosen by the user
      * @isBeingChosen - True, if the option is being chosen by a pending setPollAnswer request
      */
@@ -1271,9 +1271,9 @@ public class TdApi {
      * A poll in quiz mode, which has exactly one correct answer option and can be answered only once
      *
      * @correctOptionId - 0-based identifier of the correct answer option
-     *                    -1 for a yet unanswered poll
-     * @explanation - Text that is shown when the user chooses an incorrect answer or taps on the lamp icon, 0-200 characters with at most 2 line feeds
-     *                Empty for a yet unanswered poll
+     * -1 for a yet unanswered poll
+     * @explanation - Text that is shown when the user chooses an incorrect answer or taps on the lamp icon
+     * Empty for a yet unanswered poll
      */
     public static class PollTypeQuiz extends PollType {
 
@@ -1812,7 +1812,7 @@ public class TdApi {
      * Describes a poll
      *
      * @id - Unique poll identifier
-     * @question - Poll question, 1-300 characters
+     * @question - Poll question
      * @options - List of poll answer options
      * @totalVoterCount - Total number of voters, participating in the poll
      * @recentVoterUserIds - User identifiers of recent voters, if the poll is non-anonymous
@@ -2268,6 +2268,7 @@ public class TdApi {
      * @isSupport - True, if the user is Telegram support account
      * @restrictionReason - If non-empty, it contains a human-readable description of the reason why access to this user must be restricted
      * @isScam - True, if many users reported this user as a scam
+     * @isFake - True, if many users reported this user as a fake account
      * @haveAccess - If false, the user is inaccessible, and the only information known about the user is inside this class
      *               It can't be passed to any method except GetUser
      * @type - Type of the user
@@ -2289,13 +2290,14 @@ public class TdApi {
         public boolean isSupport;
         public String restrictionReason;
         public boolean isScam;
+        public boolean isFake;
         public boolean haveAccess;
         public UserType type;
         public String languageCode;
 
         public User() {}
 
-        public User(int id, String firstName, String lastName, String username, String phoneNumber, UserStatus status, @Nullable ProfilePhoto profilePhoto, boolean isContact, boolean isMutualContact, boolean isVerified, boolean isSupport, String restrictionReason, boolean isScam, boolean haveAccess, UserType type, String languageCode) {
+        public User(int id, String firstName, String lastName, String username, String phoneNumber, UserStatus status, @Nullable ProfilePhoto profilePhoto, boolean isContact, boolean isMutualContact, boolean isVerified, boolean isSupport, String restrictionReason, boolean isScam, boolean isFake, boolean haveAccess, UserType type, String languageCode) {
 
             this.id = id;
             this.firstName = firstName;
@@ -2310,6 +2312,7 @@ public class TdApi {
             this.isSupport = isSupport;
             this.restrictionReason = restrictionReason;
             this.isScam = isScam;
+            this.isFake = isFake;
             this.haveAccess = haveAccess;
             this.type = type;
             this.languageCode = languageCode;
@@ -2317,7 +2320,9 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -824771497; }
+        public int getConstructor() {
+            return -740667178;
+        }
 
     }
 
@@ -2660,6 +2665,7 @@ public class TdApi {
      * @bannedUntilDate - Point in time (Unix timestamp) when the user will be unbanned
      *                    0 if never
      *                    If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
+     *                    Always 0 in basic groups
      */
     public static class ChatMemberStatusBanned extends ChatMemberStatus {
 
@@ -2991,7 +2997,204 @@ public class TdApi {
     public static class SupergroupMembersFilterBots extends SupergroupMembersFilter {
 
         @Override
-        public int getConstructor() { return 492138918; }
+        public int getConstructor() {
+            return 492138918;
+        }
+
+    }
+
+
+    /**
+     * Contains a chat invite link
+     *
+     * @inviteLink - Chat invite link
+     * @administratorUserId - User identifier of an administrator created the link
+     * @date - Point in time (Unix timestamp) when the link was created
+     * @editDate - Point in time (Unix timestamp) when the link was last edited
+     * 0 if never or unknown
+     * @expireDate - Point in time (Unix timestamp) when the link will expire
+     * 0 if never
+     * @memberLimit - Maximum number of members, which can join the chat using the link simultaneously
+     * 0 if not limited
+     * @memberCount - Number of chat members, which joined the chat using the link
+     * @isPermanent - True, if the link is permanent
+     * Permanent invite link can't have expire date or usage limit
+     * There is exactly one permanent invite link for each administrator with can_invite_users right at a given time
+     * @isExpired - True, if the link is already expired
+     * @isRevoked - True, if the link was revoked
+     */
+    public static class ChatInviteLink extends Object {
+
+        public String inviteLink;
+        public int administratorUserId;
+        public int date;
+        public int editDate;
+        public int expireDate;
+        public int memberLimit;
+        public int memberCount;
+        public boolean isPermanent;
+        public boolean isExpired;
+        public boolean isRevoked;
+
+        public ChatInviteLink() {
+        }
+
+        public ChatInviteLink(String inviteLink, int administratorUserId, int date, int editDate, int expireDate, int memberLimit, int memberCount, boolean isPermanent, boolean isExpired, boolean isRevoked) {
+
+            this.inviteLink = inviteLink;
+            this.administratorUserId = administratorUserId;
+            this.date = date;
+            this.editDate = editDate;
+            this.expireDate = expireDate;
+            this.memberLimit = memberLimit;
+            this.memberCount = memberCount;
+            this.isPermanent = isPermanent;
+            this.isExpired = isExpired;
+            this.isRevoked = isRevoked;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -1578952370;
+        }
+
+    }
+
+
+    /**
+     * Contains a list of chat invite links
+     *
+     * @totalCount - Approximate total count of chat invite links found
+     * @inviteLinks - List of invite links
+     */
+    public static class ChatInviteLinks extends Object {
+
+        public int totalCount;
+        public ChatInviteLink[] inviteLinks;
+
+        public ChatInviteLinks() {
+        }
+
+        public ChatInviteLinks(int totalCount, ChatInviteLink[] inviteLinks) {
+
+            this.totalCount = totalCount;
+            this.inviteLinks = inviteLinks;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 112891427;
+        }
+
+    }
+
+
+    /**
+     * Describes a chat member joined a chat by an invite link
+     *
+     * @userId - User identifier
+     * @joinedChatDate - Point in time (Unix timestamp) when the user joined the chat
+     */
+    public static class ChatInviteLinkMember extends Object {
+
+        public int userId;
+        public int joinedChatDate;
+
+        public ChatInviteLinkMember() {
+        }
+
+        public ChatInviteLinkMember(int userId, int joinedChatDate) {
+
+            this.userId = userId;
+            this.joinedChatDate = joinedChatDate;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -1094006899;
+        }
+
+    }
+
+
+    /**
+     * Contains a list of chat members joined a chat by an invite link
+     *
+     * @totalCount - Approximate total count of chat members found
+     * @members - List of chat members, joined a chat by an invite link
+     */
+    public static class ChatInviteLinkMembers extends Object {
+
+        public int totalCount;
+        public ChatInviteLinkMember[] members;
+
+        public ChatInviteLinkMembers() {
+        }
+
+        public ChatInviteLinkMembers(int totalCount, ChatInviteLinkMember[] members) {
+
+            this.totalCount = totalCount;
+            this.members = members;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 315635051;
+        }
+
+    }
+
+
+    /**
+     * Contains information about a chat invite link
+     *
+     * @chatId - Chat identifier of the invite link
+     * 0 if the user has no access to the chat before joining
+     * @accessibleFor - If non-zero, the amount of time for which read access to the chat will remain available, in seconds
+     * @type - Contains information about the type of the chat
+     * @title - Title of the chat
+     * @photo - Chat photo
+     * @memberCount - Number of members in the chat
+     * @memberUserIds - User identifiers of some chat members that may be known to the current user
+     * @isPublic - True, if the chat is a public supergroup or channel, i.e
+     * It has a username or it is a location-based supergroup
+     */
+    public static class ChatInviteLinkInfo extends Object {
+
+        public long chatId;
+        public int accessibleFor;
+        public ChatType type;
+        public String title;
+        @Nullable
+        public ChatPhotoInfo photo;
+        public int memberCount;
+        public int[] memberUserIds;
+        public boolean isPublic;
+
+        public ChatInviteLinkInfo() {
+        }
+
+        public ChatInviteLinkInfo(long chatId, int accessibleFor, ChatType type, String title, @Nullable ChatPhotoInfo photo, int memberCount, int[] memberUserIds, boolean isPublic) {
+
+            this.chatId = chatId;
+            this.accessibleFor = accessibleFor;
+            this.type = type;
+            this.title = title;
+            this.photo = photo;
+            this.memberCount = memberCount;
+            this.memberUserIds = memberUserIds;
+            this.isPublic = isPublic;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 910695551;
+        }
 
     }
 
@@ -3004,7 +3207,7 @@ public class TdApi {
      * @status - Status of the current user in the group
      * @isActive - True, if the group is active
      * @upgradedToSupergroupId - Identifier of the supergroup to which this group was upgraded
-     *                           0 if none
+     * 0 if none
      */
     public static class BasicGroup extends Object {
 
@@ -3040,20 +3243,21 @@ public class TdApi {
      * @creatorUserId - User identifier of the creator of the group
      *                  0 if unknown
      * @members - Group members
-     * @inviteLink - Invite link for this group
-     *               Available only after it has been generated at least once and only for the group creator
+     * @inviteLink - Permanent invite link for this group
+     *               Only for the group creator
      */
     public static class BasicGroupFullInfo extends Object {
 
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
         public String description;
         public int creatorUserId;
         public ChatMember[] members;
-        public String inviteLink;
+        public ChatInviteLink inviteLink;
 
         public BasicGroupFullInfo() {}
 
-        public BasicGroupFullInfo(@Nullable ChatPhoto photo, String description, int creatorUserId, ChatMember[] members, String inviteLink) {
+        public BasicGroupFullInfo(@Nullable ChatPhoto photo, String description, int creatorUserId, ChatMember[] members, ChatInviteLink inviteLink) {
 
             this.photo = photo;
             this.description = description;
@@ -3064,7 +3268,9 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -127204719; }
+        public int getConstructor() {
+            return -1652891652;
+        }
 
     }
 
@@ -3092,7 +3298,8 @@ public class TdApi {
      * @isChannel - True, if the supergroup is a channel
      * @isVerified - True, if the supergroup or channel is verified
      * @restrictionReason - If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted
-     * @isScam - True, if many users reported this supergroup as a scam
+     * @isScam - True, if many users reported this supergroup or channel as a scam
+     * @isFake - True, if many users reported this supergroup or channel as a fake account
      */
     public static class Supergroup extends Object {
 
@@ -3109,10 +3316,11 @@ public class TdApi {
         public boolean isVerified;
         public String restrictionReason;
         public boolean isScam;
+        public boolean isFake;
 
         public Supergroup() {}
 
-        public Supergroup(int id, String username, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean isSlowModeEnabled, boolean isChannel, boolean isVerified, String restrictionReason, boolean isScam) {
+        public Supergroup(int id, String username, int date, ChatMemberStatus status, int memberCount, boolean hasLinkedChat, boolean hasLocation, boolean signMessages, boolean isSlowModeEnabled, boolean isChannel, boolean isVerified, String restrictionReason, boolean isScam, boolean isFake) {
 
             this.id = id;
             this.username = username;
@@ -3127,11 +3335,12 @@ public class TdApi {
             this.isVerified = isVerified;
             this.restrictionReason = restrictionReason;
             this.isScam = isScam;
+            this.isFake = isFake;
 
         }
 
         @Override
-        public int getConstructor() { return -103091; }
+        public int getConstructor() { return -1696836042; }
 
     }
 
@@ -3165,7 +3374,8 @@ public class TdApi {
      * @stickerSetId - Identifier of the supergroup sticker set
      *                 0 if none
      * @location - Location to which the supergroup is connected
-     * @inviteLink - Invite link for this chat
+     * @inviteLink - Permanent invite link for this chat
+     *               For chat administrators with can_invite_users right only
      * @upgradedFromBasicGroupId - Identifier of the basic group from which supergroup was upgraded
      *                             0 if none
      * @upgradedFromMaxMessageId - Identifier of the last message in the basic group from which supergroup was upgraded
@@ -3173,7 +3383,8 @@ public class TdApi {
      */
     public static class SupergroupFullInfo extends Object {
 
-        @Nullable public ChatPhoto photo;
+        @Nullable
+        public ChatPhoto photo;
         public String description;
         public int memberCount;
         public int administratorCount;
@@ -3190,13 +3401,14 @@ public class TdApi {
         public boolean isAllHistoryAvailable;
         public long stickerSetId;
         @Nullable public ChatLocation location;
-        public String inviteLink;
+        public ChatInviteLink inviteLink;
         public int upgradedFromBasicGroupId;
         public long upgradedFromMaxMessageId;
 
-        public SupergroupFullInfo() {}
+        public SupergroupFullInfo() {
+        }
 
-        public SupergroupFullInfo(@Nullable ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean canSetUsername, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean isAllHistoryAvailable, long stickerSetId, @Nullable ChatLocation location, String inviteLink, int upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
+        public SupergroupFullInfo(@Nullable ChatPhoto photo, String description, int memberCount, int administratorCount, int restrictedCount, int bannedCount, long linkedChatId, int slowModeDelay, double slowModeDelayExpiresIn, boolean canGetMembers, boolean canSetUsername, boolean canSetStickerSet, boolean canSetLocation, boolean canGetStatistics, boolean isAllHistoryAvailable, long stickerSetId, @Nullable ChatLocation location, ChatInviteLink inviteLink, int upgradedFromBasicGroupId, long upgradedFromMaxMessageId) {
 
             this.photo = photo;
             this.description = description;
@@ -3222,7 +3434,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -1112328416; }
+        public int getConstructor() { return -1429024907; }
 
     }
 
@@ -3230,7 +3442,8 @@ public class TdApi {
     /**
      * Describes the current secret chat state
      */
-    public static abstract class SecretChatState extends Object {}
+    public static abstract class SecretChatState extends Object {
+    }
 
     /**
      * The secret chat is not yet created
@@ -3498,15 +3711,41 @@ public class TdApi {
 
 
     /**
+     * The message was imported from an exported message history
+     *
+     * @senderName - Name of the sender
+     */
+    public static class MessageForwardOriginMessageImport extends MessageForwardOrigin {
+
+        public String senderName;
+
+        public MessageForwardOriginMessageImport() {
+        }
+
+        public MessageForwardOriginMessageImport(String senderName) {
+
+            this.senderName = senderName;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -739561951;
+        }
+
+    }
+
+
+    /**
      * Contains information about a forwarded message
      *
      * @origin - Origin of a forwarded message
      * @date - Point in time (Unix timestamp) when the message was originally sent
      * @publicServiceAnnouncementType - The type of a public service announcement for the forwarded message
      * @fromChatId - For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time
-     *               0 if unknown
+     * 0 if unknown
      * @fromMessageId - For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time
-     *                  0 if unknown
+     * 0 if unknown
      */
     public static class MessageForwardInfo extends Object {
 
@@ -4555,75 +4794,6 @@ public class TdApi {
 
 
     /**
-     * Contains a chat invite link
-     *
-     * @inviteLink - Chat invite link
-     */
-    public static class ChatInviteLink extends Object {
-
-        public String inviteLink;
-
-        public ChatInviteLink() {}
-
-        public ChatInviteLink(String inviteLink) {
-
-            this.inviteLink = inviteLink;
-
-        }
-
-        @Override
-        public int getConstructor() { return -882072492; }
-
-    }
-
-
-    /**
-     * Contains information about a chat invite link
-     *
-     * @chatId - Chat identifier of the invite link
-     *           0 if the user has no access to the chat before joining
-     * @accessibleFor - If non-zero, the amount of time for which read access to the chat will remain available, in seconds
-     * @type - Contains information about the type of the chat
-     * @title - Title of the chat
-     * @photo - Chat photo
-     * @memberCount - Number of members in the chat
-     * @memberUserIds - User identifiers of some chat members that may be known to the current user
-     * @isPublic - True, if the chat is a public supergroup or channel, i.e
-     *             It has a username or it is a location-based supergroup
-     */
-    public static class ChatInviteLinkInfo extends Object {
-
-        public long chatId;
-        public int accessibleFor;
-        public ChatType type;
-        public String title;
-        @Nullable public ChatPhotoInfo photo;
-        public int memberCount;
-        public int[] memberUserIds;
-        public boolean isPublic;
-
-        public ChatInviteLinkInfo() {}
-
-        public ChatInviteLinkInfo(long chatId, int accessibleFor, ChatType type, String title, @Nullable ChatPhotoInfo photo, int memberCount, int[] memberUserIds, boolean isPublic) {
-
-            this.chatId = chatId;
-            this.accessibleFor = accessibleFor;
-            this.type = type;
-            this.title = title;
-            this.photo = photo;
-            this.memberCount = memberCount;
-            this.memberUserIds = memberUserIds;
-            this.isPublic = isPublic;
-
-        }
-
-        @Override
-        public int getConstructor() { return 910695551; }
-
-    }
-
-
-    /**
      * Describes a type of public chats
      */
     public static abstract class PublicChatType extends Object {}
@@ -4684,7 +4854,22 @@ public class TdApi {
     public static class ChatActionBarReportUnrelatedLocation extends ChatActionBar {
 
         @Override
-        public int getConstructor() { return 758175489; }
+        public int getConstructor() {
+            return 758175489;
+        }
+
+    }
+
+
+    /**
+     * The chat is a recently created group chat, to which new members can be invited
+     */
+    public static class ChatActionBarInviteMembers extends ChatActionBar {
+
+        @Override
+        public int getConstructor() {
+            return 1985313904;
+        }
 
     }
 
@@ -4700,7 +4885,8 @@ public class TdApi {
         public boolean canUnarchive;
         public int distance;
 
-        public ChatActionBarReportAddBlock() {}
+        public ChatActionBarReportAddBlock() {
+        }
 
         public ChatActionBarReportAddBlock(boolean canUnarchive, int distance) {
 
@@ -7152,29 +7338,6 @@ public class TdApi {
 
 
     /**
-     * Applies if a user enters new credentials using Android Pay
-     *
-     * @data - JSON-encoded data with the credential identifier
-     */
-    public static class InputCredentialsAndroidPay extends InputCredentials {
-
-        public String data;
-
-        public InputCredentialsAndroidPay() {}
-
-        public InputCredentialsAndroidPay(String data) {
-
-            this.data = data;
-
-        }
-
-        @Override
-        public int getConstructor() { return 1979566832; }
-
-    }
-
-
-    /**
      * Applies if a user enters new credentials using Apple Pay
      *
      * @data - JSON-encoded data with the credential identifier
@@ -7193,6 +7356,32 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return -1246570799; }
+
+    }
+
+
+    /**
+     * Applies if a user enters new credentials using Google Pay
+     *
+     * @data - JSON-encoded data with the credential identifier
+     */
+    public static class InputCredentialsGooglePay extends InputCredentials {
+
+        public String data;
+
+        public InputCredentialsGooglePay() {
+        }
+
+        public InputCredentialsGooglePay(String data) {
+
+            this.data = data;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 844384100;
+        }
 
     }
 
@@ -7539,9 +7728,9 @@ public class TdApi {
     /**
      * Represents a date according to the Gregorian calendar
      *
-     * @day - Day of the month, 1-31
-     * @month - Month, 1-12
-     * @year - Year, 1-9999
+     * @day - Day of the month
+     * @month - Month
+     * @year - Year
      */
     public static class Date extends Object {
 
@@ -7549,7 +7738,8 @@ public class TdApi {
         public int month;
         public int year;
 
-        public Date() {}
+        public Date() {
+        }
 
         public Date(int day, int month, int year) {
 
@@ -11025,7 +11215,7 @@ public class TdApi {
      * Polls can't be sent to secret chats
      * Polls can be sent only to a private chat with a bot
      *
-     * @question - Poll question, 1-255 characters (up to 300 characters for bots)
+     * @question - Poll question
      * @options - List of poll answer options, 2-10 strings 1-100 characters each
      * @isAnonymous - True, if the poll voters are anonymous
      *                Non-anonymous polls can't be sent or forwarded to channels
@@ -12419,10 +12609,13 @@ public class TdApi {
      * @userId - Identifier of the user
      * @source - User's synchronization source
      * @isSpeaking - True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking
-     * @canBeMuted - True, if the current user can mute the participant
-     * @canBeUnmuted - True, if the current user can allow the participant to unmute themself or unmute the participant (only for self)
+     * @canBeMutedForAllUsers - True, if the current user can mute the participant for all other group call participants
+     * @canBeUnmutedForAllUsers - True, if the current user can allow the participant to unmute themself or unmute the participant (if the participant is the current user)
+     * @canBeMutedOnlyForSelf - True, if the current user can mute the participant only for self
+     * @canBeUnmutedOnlyForSelf - True, if the current user can unmute the participant for self
      * @isMuted - True, if the participant is muted
      * @canUnmuteSelf - True, if the participant can unmute themself
+     * @volumeLevel - Participant's volume level
      * @order - User's order in the group call participant list
      *          The bigger is order, the higher is user in the list
      *          If order is 0, the user must be removed from the participant list
@@ -12432,29 +12625,38 @@ public class TdApi {
         public int userId;
         public int source;
         public boolean isSpeaking;
-        public boolean canBeMuted;
-        public boolean canBeUnmuted;
+        public boolean canBeMutedForAllUsers;
+        public boolean canBeUnmutedForAllUsers;
+        public boolean canBeMutedOnlyForSelf;
+        public boolean canBeUnmutedOnlyForSelf;
         public boolean isMuted;
         public boolean canUnmuteSelf;
+        public int volumeLevel;
         public long order;
 
-        public GroupCallParticipant() {}
+        public GroupCallParticipant() {
+        }
 
-        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMuted, boolean canBeUnmuted, boolean isMuted, boolean canUnmuteSelf, long order) {
+        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMutedForAllUsers, boolean canBeUnmutedForAllUsers, boolean canBeMutedOnlyForSelf, boolean canBeUnmutedOnlyForSelf, boolean isMuted, boolean canUnmuteSelf, int volumeLevel, long order) {
 
             this.userId = userId;
             this.source = source;
             this.isSpeaking = isSpeaking;
-            this.canBeMuted = canBeMuted;
-            this.canBeUnmuted = canBeUnmuted;
+            this.canBeMutedForAllUsers = canBeMutedForAllUsers;
+            this.canBeUnmutedForAllUsers = canBeUnmutedForAllUsers;
+            this.canBeMutedOnlyForSelf = canBeMutedOnlyForSelf;
+            this.canBeUnmutedOnlyForSelf = canBeUnmutedOnlyForSelf;
             this.isMuted = isMuted;
             this.canUnmuteSelf = canUnmuteSelf;
+            this.volumeLevel = volumeLevel;
             this.order = order;
 
         }
 
         @Override
-        public int getConstructor() { return 149471862; }
+        public int getConstructor() {
+            return -244567479;
+        }
 
     }
 
@@ -12462,7 +12664,8 @@ public class TdApi {
     /**
      * Describes the exact type of a problem with a call
      */
-    public static abstract class CallProblem extends Object {}
+    public static abstract class CallProblem extends Object {
+    }
 
     /**
      * The user heard their own voice
@@ -15271,7 +15474,7 @@ public class TdApi {
      * A PNG or TGV (gzipped subset of SVG with MIME type "application/x-tgwallpattern") pattern to be combined with the background fill chosen by the user
      *
      * @fill - Description of the background fill
-     * @intensity - Intensity of the pattern when it is shown above the filled background, 0-100
+     * @intensity - Intensity of the pattern when it is shown above the filled background
      * @isMoving - True, if the background needs to be slightly moved when device is tilted
      */
     public static class BackgroundTypePattern extends BackgroundType {
@@ -15585,7 +15788,82 @@ public class TdApi {
     public static class CheckChatUsernameResultPublicGroupsUnavailable extends CheckChatUsernameResult {
 
         @Override
-        public int getConstructor() { return -51833641; }
+        public int getConstructor() {
+            return -51833641;
+        }
+
+    }
+
+
+    /**
+     * Contains information about a file with messages exported from another app
+     */
+    public static abstract class MessageFileType extends Object {
+    }
+
+    /**
+     * The messages was exported from a private chat
+     *
+     * @name - Name of the other party
+     * May be empty if unrecognized
+     */
+    public static class MessageFileTypePrivate extends MessageFileType {
+
+        public String name;
+
+        public MessageFileTypePrivate() {
+        }
+
+        public MessageFileTypePrivate(String name) {
+
+            this.name = name;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -521908524;
+        }
+
+    }
+
+
+    /**
+     * The messages was exported from a group chat
+     *
+     * @title - Title of the group chat
+     * May be empty if unrecognized
+     */
+    public static class MessageFileTypeGroup extends MessageFileType {
+
+        public String title;
+
+        public MessageFileTypeGroup() {
+        }
+
+        public MessageFileTypeGroup(String title) {
+
+            this.title = title;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -219836568;
+        }
+
+    }
+
+
+    /**
+     * The messages was exported from a chat of unknown type
+     */
+    public static class MessageFileTypeUnknown extends MessageFileType {
+
+        @Override
+        public int getConstructor() {
+            return 1176353458;
+        }
 
     }
 
@@ -15593,7 +15871,8 @@ public class TdApi {
     /**
      * Contains content of a push message notification
      */
-    public static abstract class PushMessageContent extends Object {}
+    public static abstract class PushMessageContent extends Object {
+    }
 
     /**
      * A general message with hidden content
@@ -15604,7 +15883,8 @@ public class TdApi {
 
         public boolean isPinned;
 
-        public PushMessageContentHidden() {}
+        public PushMessageContentHidden() {
+        }
 
         public PushMessageContentHidden(boolean isPinned) {
 
@@ -17194,7 +17474,22 @@ public class TdApi {
     public static class ChatReportReasonUnrelatedLocation extends ChatReportReason {
 
         @Override
-        public int getConstructor() { return 2632403; }
+        public int getConstructor() {
+            return 2632403;
+        }
+
+    }
+
+
+    /**
+     * The chat represents a fake account
+     */
+    public static class ChatReportReasonFake extends ChatReportReason {
+
+        @Override
+        public int getConstructor() {
+            return -1713230446;
+        }
 
     }
 
@@ -17208,7 +17503,8 @@ public class TdApi {
 
         public String text;
 
-        public ChatReportReasonCustom() {}
+        public ChatReportReasonCustom() {
+        }
 
         public ChatReportReasonCustom(String text) {
 
@@ -17217,7 +17513,8 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 544575454; }
+        public int getConstructor() {
+            return 544575454; }
 
     }
 
@@ -18180,7 +18477,22 @@ public class TdApi {
     public static class SuggestedActionCheckPhoneNumber extends SuggestedAction {
 
         @Override
-        public int getConstructor() { return 648771563; }
+        public int getConstructor() {
+            return 648771563;
+        }
+
+    }
+
+
+    /**
+     * Suggests the user to see a hint about meaning of one and two ticks on sent message
+     */
+    public static class SuggestedActionSeeTicksHint extends SuggestedAction {
+
+        @Override
+        public int getConstructor() {
+            return 1061871714;
+        }
 
     }
 
@@ -18194,7 +18506,8 @@ public class TdApi {
 
         public int count;
 
-        public Count() {}
+        public Count() {
+        }
 
         public Count(int count) {
 
@@ -18203,7 +18516,9 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1295577348; }
+        public int getConstructor() {
+            return 1295577348;
+        }
 
     }
 
@@ -23168,6 +23483,35 @@ public class TdApi {
 
 
     /**
+     * Deletes a chat along with all messages in the corresponding chat for all chat members
+     * Requires owner privileges
+     * For group chats this will release the username and remove all members
+     * Chats with more than 1000 members can't be deleted using this method
+     *
+     * @chatId - Chat identifier
+     */
+    public static class DeleteChat extends Function<Ok> {
+
+        public long chatId;
+
+        public DeleteChat() {
+        }
+
+        public DeleteChat(long chatId) {
+
+            this.chatId = chatId;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -171253666;
+        }
+
+    }
+
+
+    /**
      * Searches for messages with given words in the chat
      * Returns the results in reverse chronological order, i.e
      * In order of decreasing message_id
@@ -23350,6 +23694,32 @@ public class TdApi {
 
 
     /**
+     * Deletes all call messages
+     *
+     * @revoke - Pass true to delete the messages for all users
+     */
+    public static class DeleteAllCallMessages extends Function<Ok> {
+
+        public boolean revoke;
+
+        public DeleteAllCallMessages() {
+        }
+
+        public DeleteAllCallMessages(boolean revoke) {
+
+            this.revoke = revoke;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -1466445325;
+        }
+
+    }
+
+
+    /**
      * Returns information about the recent locations of chat members that were sent to the chat
      * Returns up to 1 location message per user
      *
@@ -23361,7 +23731,8 @@ public class TdApi {
         public long chatId;
         public int limit;
 
-        public SearchChatRecentLocationMessages() {}
+        public SearchChatRecentLocationMessages() {
+        }
 
         public SearchChatRecentLocationMessages(long chatId, int limit) {
 
@@ -25500,9 +25871,10 @@ public class TdApi {
      * Returns the newly created chat
      *
      * @title - Title of the new chat
-     * @isChannel - True, if a channel chat should be created
+     * @isChannel - True, if a channel chat needs to be created
      * @description - Chat description
      * @location - Chat location if a location-based supergroup is being created
+     * @forImport - True, if the supergroup is created for importing messages using importMessage
      */
     public static class CreateNewSupergroupChat extends Function<Chat> {
 
@@ -25510,20 +25882,24 @@ public class TdApi {
         public boolean isChannel;
         public String description;
         public ChatLocation location;
+        public boolean forImport;
 
         public CreateNewSupergroupChat() {}
 
-        public CreateNewSupergroupChat(String title, boolean isChannel, String description, ChatLocation location) {
+        public CreateNewSupergroupChat(String title, boolean isChannel, String description, ChatLocation location, boolean forImport) {
 
             this.title = title;
             this.isChannel = isChannel;
             this.description = description;
             this.location = location;
+            this.forImport = forImport;
 
         }
 
         @Override
-        public int getConstructor() { return -8999251; }
+        public int getConstructor() {
+            return -830232895;
+        }
 
     }
 
@@ -25787,7 +26163,7 @@ public class TdApi {
     /**
      * Changes the chat title
      * Supported only for basic groups, supergroups and channels
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @chatId - Chat identifier
      * @title - New title of the chat
@@ -25797,7 +26173,8 @@ public class TdApi {
         public long chatId;
         public String title;
 
-        public SetChatTitle() {}
+        public SetChatTitle() {
+        }
 
         public SetChatTitle(long chatId, String title) {
 
@@ -25815,7 +26192,7 @@ public class TdApi {
     /**
      * Changes the photo of a chat
      * Supported only for basic groups, supergroups and channels
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @chatId - Chat identifier
      * @photo - New chat photo
@@ -25826,7 +26203,8 @@ public class TdApi {
         public long chatId;
         public InputChatPhoto photo;
 
-        public SetChatPhoto() {}
+        public SetChatPhoto() {
+        }
 
         public SetChatPhoto(long chatId, InputChatPhoto photo) {
 
@@ -26007,7 +26385,7 @@ public class TdApi {
     /**
      * Changes information about a chat
      * Available for basic groups, supergroups, and channels
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @chatId - Identifier of the chat
      * @description - New chat description
@@ -26017,7 +26395,8 @@ public class TdApi {
         public long chatId;
         public String description;
 
-        public SetChatDescription() {}
+        public SetChatDescription() {
+        }
 
         public SetChatDescription(long chatId, String description) {
 
@@ -26034,7 +26413,7 @@ public class TdApi {
 
     /**
      * Changes the discussion group of a channel chat
-     * Requires can_change_info rights in the channel if it is specified
+     * Requires can_change_info administrator right in the channel if it is specified
      *
      * @chatId - Identifier of the channel chat
      *           Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup)
@@ -26049,7 +26428,8 @@ public class TdApi {
         public long chatId;
         public long discussionChatId;
 
-        public SetChatDiscussionGroup() {}
+        public SetChatDiscussionGroup() {
+        }
 
         public SetChatDiscussionGroup(long chatId, long discussionChatId) {
 
@@ -26258,7 +26638,6 @@ public class TdApi {
     /**
      * Adds a new member to a chat
      * Members can't be added to private or secret chats
-     * Members will not be added until the chat state has been synchronized with the server
      *
      * @chatId - Chat identifier
      * @userId - Identifier of the user
@@ -26292,7 +26671,6 @@ public class TdApi {
      * Currently this method is only available for supergroups and channels
      * This method can't be used to join a chat
      * Members can't be added to a channel if it has more than 200 members
-     * Members will not be added until the chat state has been synchronized with the server
      *
      * @chatId - Chat identifier
      * @userIds - Identifiers of the users to be added to the chat
@@ -26322,7 +26700,6 @@ public class TdApi {
      * Changes the status of a chat member, needs appropriate privileges
      * This function is currently not suitable for adding new members to the chat and transferring chat ownership
      * Instead, use addChatMember or transferChatOwnership
-     * The chat member status will not be changed until it has been synchronized with the server
      *
      * @chatId - Chat identifier
      * @userId - User identifier
@@ -26351,12 +26728,55 @@ public class TdApi {
 
 
     /**
+     * Bans a member in a chat
+     * Members can't be banned in private or secret chats
+     * In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless [unbanned](#unbanchatmember) first
+     *
+     * @chatId - Chat identifier
+     * @userId - Identifier of the user
+     * @bannedUntilDate - Point in time (Unix timestamp) when the user will be unbanned
+     *                    0 if never
+     *                    If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever
+     *                    Ignored in basic groups
+     * @revokeMessages - Pass true to delete all messages in the chat for the user
+     *                   Always true for supergroups and channels
+     */
+    public static class BanChatMember extends Function<Ok> {
+
+        public long chatId;
+        public int userId;
+        public int bannedUntilDate;
+        public boolean revokeMessages;
+
+        public BanChatMember() {
+        }
+
+        public BanChatMember(long chatId, int userId, int bannedUntilDate, boolean revokeMessages) {
+
+            this.chatId = chatId;
+            this.userId = userId;
+            this.bannedUntilDate = bannedUntilDate;
+            this.revokeMessages = revokeMessages;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 2051274506;
+        }
+
+    }
+
+
+    /**
      * Checks whether the current session can be used to transfer a chat ownership to another user
      */
     public static class CanTransferOwnership extends Function<CanTransferOwnershipResult> {
 
         @Override
-        public int getConstructor() { return 634602508; }
+        public int getConstructor() {
+            return 634602508;
+        }
 
     }
 
@@ -26938,27 +27358,93 @@ public class TdApi {
 
 
     /**
-     * Generates a new invite link for a chat
-     * The previously generated link is revoked
+     * Returns information about a file with messages exported from another app
+     *
+     * @messageFileHead - Beginning of the message file
+     *                    Up to 100 first lines
+     */
+    public static class GetMessageFileType extends Function<MessageFileType> {
+
+        public String messageFileHead;
+
+        public GetMessageFileType() {
+        }
+
+        public GetMessageFileType(String messageFileHead) {
+
+            this.messageFileHead = messageFileHead;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -490270764;
+        }
+
+    }
+
+
+    /**
+     * Imports messages exported from another app
+     *
+     * @chatId - Identifier of a chat to which the messages will be imported
+     * It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right
+     * @messageFile - File with messages to import
+     * Only inputFileLocal and inputFileGenerated are supported
+     * The file must not be previously uploaded
+     * @attachedFiles - Files used in the imported messages
+     * Only inputFileLocal and inputFileGenerated are supported
+     * The files must not be previously uploaded
+     */
+    public static class ImportMessages extends Function<Ok> {
+
+        public long chatId;
+        public InputFile messageFile;
+        public InputFile[] attachedFiles;
+
+        public ImportMessages() {
+        }
+
+        public ImportMessages(long chatId, InputFile messageFile, InputFile[] attachedFiles) {
+
+            this.chatId = chatId;
+            this.messageFile = messageFile;
+            this.attachedFiles = attachedFiles;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return -1864116784;
+        }
+
+    }
+
+
+    /**
+     * Replaces current permanent invite link for a chat with a new permanent invite link
      * Available for basic groups, supergroups, and channels
      * Requires administrator privileges and can_invite_users right
      *
      * @chatId - Chat identifier
      */
-    public static class GenerateChatInviteLink extends Function<ChatInviteLink> {
+    public static class ReplacePermanentChatInviteLink extends Function<ChatInviteLink> {
 
         public long chatId;
 
-        public GenerateChatInviteLink() {}
+        public ReplacePermanentChatInviteLink() {
+        }
 
-        public GenerateChatInviteLink(long chatId) {
+        public ReplacePermanentChatInviteLink(long chatId) {
 
             this.chatId = chatId;
 
         }
 
         @Override
-        public int getConstructor() { return 1945532500; }
+        public int getConstructor() {
+            return 425646768;
+        }
 
     }
 
@@ -26967,12 +27453,14 @@ public class TdApi {
      * Checks the validity of an invite link for a chat and returns information about the corresponding chat
      *
      * @inviteLink - Invite link to be checked
+     *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
      */
     public static class CheckChatInviteLink extends Function<ChatInviteLinkInfo> {
 
         public String inviteLink;
 
-        public CheckChatInviteLink() {}
+        public CheckChatInviteLink() {
+        }
 
         public CheckChatInviteLink(String inviteLink) {
 
@@ -26988,15 +27476,16 @@ public class TdApi {
 
     /**
      * Uses an invite link to add the current user to the chat if possible
-     * The new member will not be added until the chat state has been synchronized with the server
      *
      * @inviteLink - Invite link to import
+     *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
      */
     public static class JoinChatByInviteLink extends Function<Chat> {
 
         public String inviteLink;
 
-        public JoinChatByInviteLink() {}
+        public JoinChatByInviteLink() {
+        }
 
         public JoinChatByInviteLink(String inviteLink) {
 
@@ -27268,7 +27757,7 @@ public class TdApi {
 
     /**
      * Toggles whether new participants of a group call can be unmuted only by administrators of the group call
-     * Requires can_manage_voice_chats rights in the corresponding chat and allowed_change_mute_mew_participants group call flag
+     * Requires groupCall.can_be_managed and allowed_change_mute_mew_participants group call flag
      *
      * @groupCallId - Group call identifier
      * @muteNewParticipants - New value of the mute_new_participants setting
@@ -27278,7 +27767,8 @@ public class TdApi {
         public int groupCallId;
         public boolean muteNewParticipants;
 
-        public ToggleGroupCallMuteNewParticipants() {}
+        public ToggleGroupCallMuteNewParticipants() {
+        }
 
         public ToggleGroupCallMuteNewParticipants(int groupCallId, boolean muteNewParticipants) {
 
@@ -27380,12 +27870,45 @@ public class TdApi {
 
 
     /**
+     * Changes a group call participant's volume level
+     * If the current user can manage the group call, then the participant's volume level will be changed for all users with default volume level
+     *
+     * @groupCallId - Group call identifier
+     * @userId - User identifier
+     * @volumeLevel - New participant's volume level
+     */
+    public static class SetGroupCallParticipantVolumeLevel extends Function<Ok> {
+
+        public int groupCallId;
+        public int userId;
+        public int volumeLevel;
+
+        public SetGroupCallParticipantVolumeLevel() {
+        }
+
+        public SetGroupCallParticipantVolumeLevel(int groupCallId, int userId, int volumeLevel) {
+
+            this.groupCallId = groupCallId;
+            this.userId = userId;
+            this.volumeLevel = volumeLevel;
+
+        }
+
+        @Override
+        public int getConstructor() {
+            return 1899733334;
+        }
+
+    }
+
+
+    /**
      * Loads more group call participants
      * The loaded participants will be received through updates
      * Use the field groupCall.loaded_all_participants to check whether all participants has already been loaded
      *
      * @groupCallId - Group call identifier
-     *                The group call must be previously received through getGroupCall and must be joined or being joined
+     * The group call must be previously received through getGroupCall and must be joined or being joined
      * @limit - Maximum number of participants to load
      */
     public static class LoadGroupCallParticipants extends Function<Ok> {
@@ -27393,7 +27916,8 @@ public class TdApi {
         public int groupCallId;
         public int limit;
 
-        public LoadGroupCallParticipants() {}
+        public LoadGroupCallParticipants() {
+        }
 
         public LoadGroupCallParticipants(int groupCallId, int limit) {
 
@@ -27433,7 +27957,7 @@ public class TdApi {
 
     /**
      * Discards a group call
-     * Requires can_manage_voice_chats rights in the corresponding chat
+     * Requires groupCall.can_be_managed
      *
      * @groupCallId - Group call identifier
      */
@@ -28863,7 +29387,7 @@ public class TdApi {
 
     /**
      * Changes the sticker set of a supergroup
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @supergroupId - Identifier of the supergroup
      * @stickerSetId - New value of the supergroup sticker set identifier
@@ -28874,7 +29398,8 @@ public class TdApi {
         public int supergroupId;
         public long stickerSetId;
 
-        public SetSupergroupStickerSet() {}
+        public SetSupergroupStickerSet() {
+        }
 
         public SetSupergroupStickerSet(int supergroupId, long stickerSetId) {
 
@@ -28891,7 +29416,7 @@ public class TdApi {
 
     /**
      * Toggles sender signatures messages sent in a channel
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @supergroupId - Identifier of the channel
      * @signMessages - New value of sign_messages
@@ -28901,7 +29426,8 @@ public class TdApi {
         public int supergroupId;
         public boolean signMessages;
 
-        public ToggleSupergroupSignMessages() {}
+        public ToggleSupergroupSignMessages() {
+        }
 
         public ToggleSupergroupSignMessages(int supergroupId, boolean signMessages) {
 
@@ -28918,7 +29444,7 @@ public class TdApi {
 
     /**
      * Toggles whether the message history of a supergroup is available to new members
-     * Requires can_change_info rights
+     * Requires can_change_info administrator right
      *
      * @supergroupId - The identifier of the supergroup
      * @isAllHistoryAvailable - The new value of is_all_history_available
@@ -28928,7 +29454,8 @@ public class TdApi {
         public int supergroupId;
         public boolean isAllHistoryAvailable;
 
-        public ToggleSupergroupIsAllHistoryAvailable() {}
+        public ToggleSupergroupIsAllHistoryAvailable() {
+        }
 
         public ToggleSupergroupIsAllHistoryAvailable(int supergroupId, boolean isAllHistoryAvailable) {
 
@@ -29006,32 +29533,6 @@ public class TdApi {
 
         @Override
         public int getConstructor() { return 1427643098; }
-
-    }
-
-
-    /**
-     * Deletes a supergroup or channel along with all messages in the corresponding chat
-     * This will release the supergroup or channel username and remove all members
-     * Requires owner privileges in the supergroup or channel
-     * Chats with more than 1000 members can't be deleted using this method
-     *
-     * @supergroupId - Identifier of the supergroup or channel
-     */
-    public static class DeleteSupergroup extends Function<Ok> {
-
-        public int supergroupId;
-
-        public DeleteSupergroup() {}
-
-        public DeleteSupergroup(int supergroupId) {
-
-            this.supergroupId = supergroupId;
-
-        }
-
-        @Override
-        public int getConstructor() { return -1999855965; }
 
     }
 
@@ -29922,7 +30423,7 @@ public class TdApi {
 
     /**
      * Reports a chat to the Telegram moderators
-     * A chat can be reported only from the chat action bar, or if this is a private chats with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
+     * A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
      *
      * @chatId - Chat identifier
      * @reason - The reason for reporting the chat
@@ -29934,7 +30435,8 @@ public class TdApi {
         public ChatReportReason reason;
         public long[] messageIds;
 
-        public ReportChat() {}
+        public ReportChat() {
+        }
 
         public ReportChat(long chatId, ChatReportReason reason, long[] messageIds) {
 
@@ -31554,7 +32056,7 @@ public class TdApi {
      * Adds a message to TDLib internal log
      * Can be called synchronously
      *
-     * @verbosityLevel - The minimum verbosity level needed for the message to be logged, 0-1023
+     * @verbosityLevel - The minimum verbosity level needed for the message to be logged
      * @text - Text of a message to log
      */
     public static class AddLogMessage extends Function<Ok> {
@@ -31562,7 +32064,8 @@ public class TdApi {
         public int verbosityLevel;
         public String text;
 
-        public AddLogMessage() {}
+        public AddLogMessage() {
+        }
 
         public AddLogMessage(int verbosityLevel, String text) {
 

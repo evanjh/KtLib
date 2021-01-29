@@ -2,8 +2,9 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
+import io.nekohasekai.ktlib.td.core.TdCallback
+import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a supergroup or a channel by its identifier
@@ -76,7 +77,7 @@ fun TdHandler.setSupergroupUsernameWith(
 
 /**
  * Changes the sticker set of a supergroup
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @supergroupId - Identifier of the supergroup
  * @stickerSetId - New value of the supergroup sticker set identifier
@@ -107,7 +108,7 @@ fun TdHandler.setSupergroupStickerSetWith(
 
 /**
  * Toggles sender signatures messages sent in a channel
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @supergroupId - Identifier of the channel
  * @signMessages - New value of sign_messages
@@ -137,7 +138,7 @@ fun TdHandler.toggleSupergroupSignMessagesWith(
 
 /**
  * Toggles whether the message history of a supergroup is available to new members
- * Requires can_change_info rights
+ * Requires can_change_info administrator right
  *
  * @supergroupId - The identifier of the supergroup
  * @isAllHistoryAvailable - The new value of is_all_history_available
@@ -199,31 +200,3 @@ fun TdHandler.reportSupergroupSpamWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ReportSupergroupSpam(supergroupId, userId, messageIds), stackIgnore + 1, submit)
-
-/**
- * Deletes a supergroup or channel along with all messages in the corresponding chat
- * This will release the supergroup or channel username and remove all members
- * Requires owner privileges in the supergroup or channel
- * Chats with more than 1000 members can't be deleted using this method
- *
- * @supergroupId - Identifier of the supergroup or channel
- */
-suspend fun TdHandler.deleteSupergroup(
-    supergroupId: Int
-){
-    sync(DeleteSupergroup(supergroupId))
-}
-
-
-suspend fun TdHandler.deleteSupergroupIgnoreException(
-    supergroupId: Int
-){
-    syncOrNull(DeleteSupergroup(supergroupId))
-}
-
-
-fun TdHandler.deleteSupergroupWith(
-    supergroupId: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(DeleteSupergroup(supergroupId), stackIgnore + 1, submit)

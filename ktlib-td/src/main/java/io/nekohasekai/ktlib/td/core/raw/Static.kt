@@ -3,7 +3,6 @@
 package io.nekohasekai.ktlib.td.core.raw
 
 import td.TdApi.*
-import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text
@@ -330,7 +329,7 @@ fun syncRaw(f: GetLogTagVerbosityLevel) = io.nekohasekai.ktlib.td.core.syncRaw<L
  * Adds a message to TDLib internal log
  * Can be called synchronously
  *
- * @verbosityLevel - The minimum verbosity level needed for the message to be logged, 0-1023
+ * @verbosityLevel - The minimum verbosity level needed for the message to be logged
  * @text - Text of a message to log
  */
 fun addLogMessage(
