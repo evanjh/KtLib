@@ -152,6 +152,8 @@ class DatabasePersistStore @JvmOverloads constructor(
                     row[table.data].bytes.readData()
                 } catch (e: KryoException) {
                     arrayOf()
+                } catch (e: IndexOutOfBoundsException) {
+                    arrayOf()
                 }
 
                 val dataId = BigInteger(dataArray[0]).toInt()
