@@ -19,15 +19,10 @@ object TdLoader {
         repeat(3) {
 
             try {
-
                 downloadFile(url, dist)
-
                 return
-
             } catch (e: Exception) {
-
                 exception = e
-
             }
 
         }
@@ -41,34 +36,20 @@ object TdLoader {
         val exceptions = LinkedList<Throwable>()
 
         runCatching {
-
             System.loadLibrary("zlib1")
-
             return
-
         }.onFailure {
-
             exceptions.add(it)
-
         }
 
-
         System.getenv("PATH").split(";").forEach { path ->
-
             if (!File(path, "git.exe").isFile) return@forEach
-
-            val mingwBin = File(path, "../${if (isX64) "mingw64" else "mingw32"}/bin").canonicalFile
-
+            val mingwBin = File(path, "mingw64").canonicalFile
             runCatching {
-
                 System.load("$mingwBin\\zlib1.dll")
-
                 return
-
             }.onFailure {
-
                 exceptions.add(it)
-
             }
 
         }
@@ -84,46 +65,27 @@ object TdLoader {
 
     private fun tryLoadOpenSSL() {
 
-        val (libcrypto, libssl) = if (isX64) {
-
-            arrayOf("libcrypto-1_1-x64", "libssl-1_1-x64")
-
-        } else {
-
-            arrayOf("libcrypto-1_1", "libssl-1_1")
-
-        }
+        val (libcrypto, libssl) = arrayOf("libcrypto-1_1-x64", "libssl-1_1-x64")
 
         val exceptions = LinkedList<Throwable>()
 
         runCatching {
-
             System.loadLibrary(libcrypto)
             System.loadLibrary(libssl)
-
         }.onFailure {
-
             exceptions.add(it)
-
         }
 
         System.getenv("PATH").split(";").forEach { path ->
 
             if (!File(path, "git.exe").isFile) return@forEach
-
-            val mingwBin = File(path, "../${if (isX64) "mingw64" else "mingw32"}/bin").canonicalFile
-
+            val mingwBin = File(path, "../mingw64").canonicalFile
             runCatching {
-
                 System.load("$mingwBin\\$libcrypto.dll")
                 System.load("$mingwBin\\$libssl.dll")
-
                 return
-
             }.onFailure {
-
                 exceptions.add(it)
-
             }
 
         }
@@ -139,18 +101,12 @@ object TdLoader {
     private fun checkVCRuntime() {
 
         runCatching {
-
             System.loadLibrary("vcruntime140")
-
         }.onFailure {
-
             defaultLog.error(it)
-
             defaultLog.error("Visual C++ Runtime 2015 not installed.")
             defaultLog.error("Check out https://github.com/abbodi1406/vcredist/releases")
-
             exitProcess(100)
-
         }
 
     }
@@ -170,7 +126,6 @@ object TdLoader {
         if (isWindows) {
 
             checkVCRuntime()
-
             tryLoadZLib()
             tryLoadOpenSSL()
 
@@ -181,81 +136,53 @@ object TdLoader {
         var jniFile = File("$libsDir/${executablePrefix}tdjni.${executableSuffix}")
 
         runCatching<Unit> {
-
             System.loadLibrary("tdjni")
-
             return
-
         }.recoverCatching {
-
             errMsg = it.message ?: it.javaClass.simpleName
-
             if (!jniFile.isFile) error("$jniFile not found.")
-
             System.load(jniFile.path)
-
             loaded = true
-
             return
-
         }.recoverCatching {
-
             errMsg += "\n\n" + it.message
-
         }
 
         jniFile = File("$libsDir/${executablePrefix}tdjni.$version.${executableSuffix}")
 
         fun jniLoad() {
-
             runCatching {
-
                 System.load(jniFile.canonicalPath)
-
             }.onFailure {
-
                 errMsg += "\n\n" + it.message
-
                 error(errMsg)
-
             }
-
         }
 
         if (jniFile.isFile || !allowDownload) {
-
             jniLoad()
-
             return
-
         }
 
         runCatching {
 
             val url = "https://github.com/TdBotProject/LibTDJni/releases/download/td@$version/" + when {
-
                 isLinux -> "libtdjni." + when {
                     isX64 -> "x86_64"
-                    isX86 -> "x86"
                     isArm64 -> "arm64v8"
                     else -> error("unsupported")
                 } + ".so"
-
-                isWin32 -> "tdjni.x86.dll"
                 isWin64 -> "tdjni.x86_64.dll"
-
                 else -> error("unsupported")
             }
 
             // 删除旧版本
             jniFile.parentFile?.listFiles()?.filter { it.name.contains("tdjni") }?.forEach { it.delete() }
-
             downloadFile3(url, jniFile)
 
         }.onFailure {
 
             errMsg += "\n\n" + it.parse()
-
             error(errMsg)
 
         }

@@ -41,30 +41,30 @@ class KryoColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun notNullValueToDB(value: Any): Any {
         return if (clazz.isInstance(value)) {
             ExposedBlob(value.toByteArray())
-        } else if (currentDialect.dataTypeProvider.blobAsStream && value is Blob) {
-            value.binaryStream
+            /* } else if (currentDialect.dataTypeProvider.blobAsStream && value is Blob) {
+                 value.binaryStream*/
         } else {
             value
         }
     }
 
     @Suppress("IMPLICIT_CAST_TO_ANY")
-    override fun readObject(rs: ResultSet, index: Int) = if (currentDialect.dataTypeProvider.blobAsStream) {
+    override fun readObject(rs: ResultSet, index: Int) =/* if (currentDialect.dataTypeProvider.blobAsStream) {
         rs.getBytes(index)
-    } else {
+    } else {*/
         rs.getBlob(index)?.binaryStream
-    }?.let { valueFromDB(it) }
+            /* }*/?.let { valueFromDB(it) }
 
     override fun nonNullValueToString(value: Any) = "?"
 
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value
         when {
-            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
-                index,
-                toSetValue
-            )
-            toSetValue == null -> stmt.setInputStream(index, toSetValue)
+            /* currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
+                 index,
+                 toSetValue
+             )*/
+            toSetValue == null -> stmt.setInputStream(index, null)
             else -> super.setParameter(stmt, index, toSetValue)
         }
     }
@@ -93,30 +93,30 @@ class KryoAnyColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun notNullValueToDB(value: Any): Any {
         return if (clazz.isInstance(value)) {
             ExposedBlob(value.toByteArray(true))
-        } else if (currentDialect.dataTypeProvider.blobAsStream && value is Blob) {
-            value.binaryStream
+            /* } else if (currentDialect.dataTypeProvider.blobAsStream && value is Blob) {
+                 value.binaryStream*/
         } else {
             value
         }
     }
 
     @Suppress("IMPLICIT_CAST_TO_ANY")
-    override fun readObject(rs: ResultSet, index: Int) = if (currentDialect.dataTypeProvider.blobAsStream) {
+    override fun readObject(rs: ResultSet, index: Int) = /*if (currentDialect.dataTypeProvider.blobAsStream) {
         rs.getBytes(index)
-    } else {
+    } else {*/
         rs.getBlob(index)?.binaryStream
-    }?.let { valueFromDB(it) }
+            /*}*/?.let { valueFromDB(it) }
 
     override fun nonNullValueToString(value: Any) = "?"
 
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value
         when {
-            currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
+            /*currentDialect.dataTypeProvider.blobAsStream && toSetValue is InputStream -> stmt.setInputStream(
                 index,
                 toSetValue
-            )
-            toSetValue == null -> stmt.setInputStream(index, toSetValue)
+            )*/
+            toSetValue == null -> stmt.setInputStream(index, null)
             else -> super.setParameter(stmt, index, toSetValue)
         }
     }
