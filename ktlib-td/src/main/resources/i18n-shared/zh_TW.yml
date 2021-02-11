@@ -57,7 +57,7 @@ NOTHING_TO_CANCEL: |-
   無事可做.
 
 LICENSE: |-
-  {} 基於 <a href="{}">GNU 通用公共許可證 v3</a> 發行, 歡迎訪問 {}.
+  {} 基於 <a href="{}">GNU Affero 通用公共許可證 v3</a> 發行, 歡迎訪問 {}.
 HELP_DEF: |-
   顯示幫助消息
 CANCEL_DEF: |-
