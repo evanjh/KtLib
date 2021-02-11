@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a chat by its identifier, this is an offline request if the current user is not a bot
@@ -419,14 +418,14 @@ fun TdHandler.deleteChatHistoryWith(
  */
 suspend fun TdHandler.deleteChat(
     chatId: Long
-) {
+){
     sync(DeleteChat(chatId))
 }
 
 
 suspend fun TdHandler.deleteChatIgnoreException(
     chatId: Long
-) {
+){
     syncOrNull(DeleteChat(chatId))
 }
 
@@ -1647,7 +1646,7 @@ fun TdHandler.setChatMemberStatusWith(
 /**
  * Bans a member in a chat
  * Members can't be banned in private or secret chats
- * In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless [unbanned](#unbanchatmember) first
+ * In supergroups and channels, the user will not be able to return to the group on their own using invite links, etc., unless unbanned first
  *
  * @chatId - Chat identifier
  * @userId - Identifier of the user
@@ -1663,7 +1662,7 @@ suspend fun TdHandler.banChatMember(
     userId: Int,
     bannedUntilDate: Int,
     revokeMessages: Boolean
-) {
+){
     sync(BanChatMember(chatId, userId, bannedUntilDate, revokeMessages))
 }
 
@@ -1673,7 +1672,7 @@ suspend fun TdHandler.banChatMemberIgnoreException(
     userId: Int,
     bannedUntilDate: Int,
     revokeMessages: Boolean
-) {
+){
     syncOrNull(BanChatMember(chatId, userId, bannedUntilDate, revokeMessages))
 }
 

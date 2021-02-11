@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a message
@@ -1318,7 +1317,7 @@ suspend fun TdHandler.importMessages(
     chatId: Long,
     messageFile: InputFile? = null,
     attachedFiles: Array<InputFile>
-) {
+){
     sync(ImportMessages(chatId, messageFile, attachedFiles))
 }
 
@@ -1327,7 +1326,7 @@ suspend fun TdHandler.importMessagesIgnoreException(
     chatId: Long,
     messageFile: InputFile? = null,
     attachedFiles: Array<InputFile>
-) {
+){
     syncOrNull(ImportMessages(chatId, messageFile, attachedFiles))
 }
 

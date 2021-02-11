@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns information about a basic group by its identifier
@@ -257,7 +256,7 @@ suspend fun TdHandler.setGroupCallParticipantVolumeLevel(
     groupCallId: Int,
     userId: Int,
     volumeLevel: Int
-) {
+){
     sync(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
 }
 
@@ -266,7 +265,7 @@ suspend fun TdHandler.setGroupCallParticipantVolumeLevelIgnoreException(
     groupCallId: Int,
     userId: Int,
     volumeLevel: Int
-) {
+){
     syncOrNull(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
 }
 

@@ -3,6 +3,7 @@
 package io.nekohasekai.ktlib.td.core.raw
 
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text

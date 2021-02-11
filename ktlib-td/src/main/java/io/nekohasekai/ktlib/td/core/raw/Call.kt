@@ -2,9 +2,8 @@
 
 package io.nekohasekai.ktlib.td.core.raw
 
-import io.nekohasekai.ktlib.td.core.TdCallback
-import io.nekohasekai.ktlib.td.core.TdHandler
 import td.TdApi.*
+import io.nekohasekai.ktlib.td.core.*
 
 /**
  * Deletes all call messages
@@ -13,14 +12,14 @@ import td.TdApi.*
  */
 suspend fun TdHandler.deleteAllCallMessages(
     revoke: Boolean
-) {
+){
     sync(DeleteAllCallMessages(revoke))
 }
 
 
 suspend fun TdHandler.deleteAllCallMessagesIgnoreException(
     revoke: Boolean
-) {
+){
     syncOrNull(DeleteAllCallMessages(revoke))
 }
 
