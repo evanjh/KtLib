@@ -189,11 +189,7 @@ class InlineButtonBuilder : LinkedList<InlineButtonBuilder.Line>(), Builder<Repl
 
         }
 
-        fun textButton(text: String) {
-
-            add(InlineKeyboardButton(text, InlineKeyboardButtonTypeCallback(byteArrayOf(-1))))
-
-        }
+        fun textButton(text: String) = dataButton(text, -1)
 
     }
 
