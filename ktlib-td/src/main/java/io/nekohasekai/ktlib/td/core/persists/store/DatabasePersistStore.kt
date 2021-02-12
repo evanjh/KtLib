@@ -3,7 +3,6 @@
 package io.nekohasekai.ktlib.td.core.persists.store
 
 import cn.hutool.core.date.SystemClock
-import com.esotericsoftware.kryo.KryoException
 import io.nekohasekai.ktlib.core.anyFormByteArray
 import io.nekohasekai.ktlib.core.defaultLog
 import io.nekohasekai.ktlib.core.shift
@@ -30,7 +29,7 @@ class DatabasePersistStore @JvmOverloads constructor(
     cacheTime: Long = 6 * 60 * 60 * 1000L
 ) : DatabaseCacheMap<Int, TdPersist>(database, 0, cacheTime), PersistStore {
 
-    private val table = PersistTable(tableName)
+    val table = PersistTable(tableName)
 
     init {
 
@@ -148,13 +147,7 @@ class DatabasePersistStore @JvmOverloads constructor(
 
             result.forEach { row ->
 
-                val dataArray = try {
-                    row[table.data].bytes.readData()
-                } catch (e: KryoException) {
-                    arrayOf()
-                } catch (e: IndexOutOfBoundsException) {
-                    arrayOf()
-                }
+                val dataArray = row[table.data].bytes.readData()
 
                 val dataId = BigInteger(dataArray[0]).toInt()
 
