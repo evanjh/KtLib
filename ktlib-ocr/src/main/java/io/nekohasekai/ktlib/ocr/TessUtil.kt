@@ -4,6 +4,7 @@ package io.nekohasekai.ktlib.ocr
 
 import cn.hutool.core.util.CharsetUtil
 import cn.hutool.core.util.RuntimeUtil
+import io.nekohasekai.ktlib.core.defaultLog
 import net.sourceforge.tess4j.ITessAPI
 import net.sourceforge.tess4j.TessAPI1
 import net.sourceforge.tess4j.util.ImageIOHelper
@@ -15,14 +16,22 @@ import kotlin.math.ceil
 object TessUtil {
 
     lateinit var handle: ITessAPI.TessBaseAPI
+    var failed = false
 
-    fun initTess() {
+    fun initTess(): Boolean {
 
-        if (::handle.isInitialized) return
+        if (::handle.isInitialized) return true
 
-        handle = TessAPI1.TessBaseAPICreate()
-        RuntimeUtil.addShutdownHook { TessAPI1.TessBaseAPIDelete(handle) }
-        TessAPI1.TessBaseAPIInit3(handle, null, "chi_sim+chi_tra+eng")
+        if (!failed) try {
+            handle = TessAPI1.TessBaseAPICreate()
+            RuntimeUtil.addShutdownHook { TessAPI1.TessBaseAPIDelete(handle) }
+            TessAPI1.TessBaseAPIInit3(handle, null, "chi_sim+chi_tra+eng")
+        } catch (e: Exception) {
+            failed = true
+            defaultLog.error(e, "Init tesseract failed: ")
+        }
+
+        return !failed
 
     }
 
