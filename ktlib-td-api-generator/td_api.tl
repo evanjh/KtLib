@@ -2104,9 +2104,9 @@ groupCallRecentSpeaker user_id:int32 is_speaking:Bool = GroupCallRecentSpeaker;
 //@loaded_all_participants True, if all group call participants are loaded
 //@recent_speakers Recently speaking users in the group call
 //@mute_new_participants True, if only group call administrators can unmute new participants
-//@allowed_change_mute_new_participants True, if group call administrators can enable or disable mute_new_participants setting
+//@can_change_mute_new_participants True, if the current user can enable or disable mute_new_participants setting
 //@duration Call duration; for ended calls only
-groupCall id:int32 is_active:Bool is_joined:Bool need_rejoin:Bool can_unmute_self:Bool can_be_managed:Bool participant_count:int32 loaded_all_participants:Bool recent_speakers:vector<groupCallRecentSpeaker> mute_new_participants:Bool allowed_change_mute_new_participants:Bool duration:int32 = GroupCall;
+groupCall id:int32 is_active:Bool is_joined:Bool need_rejoin:Bool can_unmute_self:Bool can_be_managed:Bool participant_count:int32 loaded_all_participants:Bool recent_speakers:vector<groupCallRecentSpeaker> mute_new_participants:Bool can_change_mute_new_participants:Bool duration:int32 = GroupCall;
 
 //@description Describes a payload fingerprint for interaction with tgcalls @hash Value of the field hash @setup Value of the field setup @fingerprint Value of the field fingerprint
 groupCallPayloadFingerprint hash:string setup:string fingerprint:string = GroupCallPayloadFingerprint;
@@ -2128,13 +2128,14 @@ groupCallJoinResponse payload:groupCallPayload candidates:vector<groupCallJoinRe
 //@is_speaking True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking
 //@can_be_muted_for_all_users True, if the current user can mute the participant for all other group call participants
 //@can_be_unmuted_for_all_users True, if the current user can allow the participant to unmute themself or unmute the participant (if the participant is the current user)
-//@can_be_muted_only_for_self True, if the current user can mute the participant only for self
-//@can_be_unmuted_only_for_self True, if the current user can unmute the participant for self
-//@is_muted True, if the participant is muted
-//@can_unmute_self True, if the participant can unmute themself
+//@can_be_muted_for_current_user True, if the current user can mute the participant only for self
+//@can_be_unmuted_for_current_user True, if the current user can unmute the participant for self
+//@is_muted_for_all_users True, if the participant is muted for all users
+//@is_muted_for_current_user True, if the participant is muted for the current user
+//@can_unmute_self True, if the participant is muted for all users, but can unmute themself
 //@volume_level Participant's volume level; 1-20000 in hundreds of percents
 //@order User's order in the group call participant list. The bigger is order, the higher is user in the list. If order is 0, the user must be removed from the participant list
-groupCallParticipant user_id:int32 source:int32 is_speaking:Bool can_be_muted_for_all_users:Bool can_be_unmuted_for_all_users:Bool can_be_muted_only_for_self:Bool can_be_unmuted_only_for_self:Bool is_muted:Bool can_unmute_self:Bool volume_level:int32 order:int64 = GroupCallParticipant;
+groupCallParticipant user_id:int32 source:int32 is_speaking:Bool can_be_muted_for_all_users:Bool can_be_unmuted_for_all_users:Bool can_be_muted_for_current_user:Bool can_be_unmuted_for_current_user:Bool is_muted_for_all_users:Bool is_muted_for_current_user:Bool can_unmute_self:Bool volume_level:int32 order:int64 = GroupCallParticipant;
 
 
 //@class CallProblem @description Describes the exact type of a problem with a call
@@ -4454,7 +4455,7 @@ getGroupCall group_call_id:int32 = GroupCall;
 //@description Joins a group call @group_call_id Group call identifier @payload Group join payload, received from tgcalls. Use null to cancel previous joinGroupCall request @source Caller synchronization source identifier; received from tgcalls @is_muted True, if the user's microphone is muted
 joinGroupCall group_call_id:int32 payload:groupCallPayload source:int32 is_muted:Bool = GroupCallJoinResponse;
 
-//@description Toggles whether new participants of a group call can be unmuted only by administrators of the group call. Requires groupCall.can_be_managed and allowed_change_mute_mew_participants group call flag
+//@description Toggles whether new participants of a group call can be unmuted only by administrators of the group call. Requires groupCall.can_change_mute_new_participants group call flag
 //@group_call_id Group call identifier @mute_new_participants New value of the mute_new_participants setting
 toggleGroupCallMuteNewParticipants group_call_id:int32 mute_new_participants:Bool = Ok;
 

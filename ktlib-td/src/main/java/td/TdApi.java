@@ -12380,7 +12380,7 @@ public class TdApi {
      * @loadedAllParticipants - True, if all group call participants are loaded
      * @recentSpeakers - Recently speaking users in the group call
      * @muteNewParticipants - True, if only group call administrators can unmute new participants
-     * @allowedChangeMuteNewParticipants - True, if group call administrators can enable or disable mute_new_participants setting
+     * @canChangeMuteNewParticipants - True, if the current user can enable or disable mute_new_participants setting
      * @duration - Call duration
      *             For ended calls only
      */
@@ -12396,12 +12396,12 @@ public class TdApi {
         public boolean loadedAllParticipants;
         public GroupCallRecentSpeaker[] recentSpeakers;
         public boolean muteNewParticipants;
-        public boolean allowedChangeMuteNewParticipants;
+        public boolean canChangeMuteNewParticipants;
         public int duration;
 
         public GroupCall() {}
 
-        public GroupCall(int id, boolean isActive, boolean isJoined, boolean needRejoin, boolean canUnmuteSelf, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean muteNewParticipants, boolean allowedChangeMuteNewParticipants, int duration) {
+        public GroupCall(int id, boolean isActive, boolean isJoined, boolean needRejoin, boolean canUnmuteSelf, boolean canBeManaged, int participantCount, boolean loadedAllParticipants, GroupCallRecentSpeaker[] recentSpeakers, boolean muteNewParticipants, boolean canChangeMuteNewParticipants, int duration) {
 
             this.id = id;
             this.isActive = isActive;
@@ -12413,13 +12413,13 @@ public class TdApi {
             this.loadedAllParticipants = loadedAllParticipants;
             this.recentSpeakers = recentSpeakers;
             this.muteNewParticipants = muteNewParticipants;
-            this.allowedChangeMuteNewParticipants = allowedChangeMuteNewParticipants;
+            this.canChangeMuteNewParticipants = canChangeMuteNewParticipants;
             this.duration = duration;
 
         }
 
         @Override
-        public int getConstructor() { return -276839198; }
+        public int getConstructor() { return -1901188965; }
 
     }
 
@@ -12575,10 +12575,11 @@ public class TdApi {
      * @isSpeaking - True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking
      * @canBeMutedForAllUsers - True, if the current user can mute the participant for all other group call participants
      * @canBeUnmutedForAllUsers - True, if the current user can allow the participant to unmute themself or unmute the participant (if the participant is the current user)
-     * @canBeMutedOnlyForSelf - True, if the current user can mute the participant only for self
-     * @canBeUnmutedOnlyForSelf - True, if the current user can unmute the participant for self
-     * @isMuted - True, if the participant is muted
-     * @canUnmuteSelf - True, if the participant can unmute themself
+     * @canBeMutedForCurrentUser - True, if the current user can mute the participant only for self
+     * @canBeUnmutedForCurrentUser - True, if the current user can unmute the participant for self
+     * @isMutedForAllUsers - True, if the participant is muted for all users
+     * @isMutedForCurrentUser - True, if the participant is muted for the current user
+     * @canUnmuteSelf - True, if the participant is muted for all users, but can unmute themself
      * @volumeLevel - Participant's volume level
      * @order - User's order in the group call participant list
      *          The bigger is order, the higher is user in the list
@@ -12591,25 +12592,27 @@ public class TdApi {
         public boolean isSpeaking;
         public boolean canBeMutedForAllUsers;
         public boolean canBeUnmutedForAllUsers;
-        public boolean canBeMutedOnlyForSelf;
-        public boolean canBeUnmutedOnlyForSelf;
-        public boolean isMuted;
+        public boolean canBeMutedForCurrentUser;
+        public boolean canBeUnmutedForCurrentUser;
+        public boolean isMutedForAllUsers;
+        public boolean isMutedForCurrentUser;
         public boolean canUnmuteSelf;
         public int volumeLevel;
         public long order;
 
         public GroupCallParticipant() {}
 
-        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMutedForAllUsers, boolean canBeUnmutedForAllUsers, boolean canBeMutedOnlyForSelf, boolean canBeUnmutedOnlyForSelf, boolean isMuted, boolean canUnmuteSelf, int volumeLevel, long order) {
+        public GroupCallParticipant(int userId, int source, boolean isSpeaking, boolean canBeMutedForAllUsers, boolean canBeUnmutedForAllUsers, boolean canBeMutedForCurrentUser, boolean canBeUnmutedForCurrentUser, boolean isMutedForAllUsers, boolean isMutedForCurrentUser, boolean canUnmuteSelf, int volumeLevel, long order) {
 
             this.userId = userId;
             this.source = source;
             this.isSpeaking = isSpeaking;
             this.canBeMutedForAllUsers = canBeMutedForAllUsers;
             this.canBeUnmutedForAllUsers = canBeUnmutedForAllUsers;
-            this.canBeMutedOnlyForSelf = canBeMutedOnlyForSelf;
-            this.canBeUnmutedOnlyForSelf = canBeUnmutedOnlyForSelf;
-            this.isMuted = isMuted;
+            this.canBeMutedForCurrentUser = canBeMutedForCurrentUser;
+            this.canBeUnmutedForCurrentUser = canBeUnmutedForCurrentUser;
+            this.isMutedForAllUsers = isMutedForAllUsers;
+            this.isMutedForCurrentUser = isMutedForCurrentUser;
             this.canUnmuteSelf = canUnmuteSelf;
             this.volumeLevel = volumeLevel;
             this.order = order;
@@ -12617,7 +12620,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return -244567479; }
+        public int getConstructor() { return -216253527; }
 
     }
 
@@ -27662,7 +27665,7 @@ public class TdApi {
 
     /**
      * Toggles whether new participants of a group call can be unmuted only by administrators of the group call
-     * Requires groupCall.can_be_managed and allowed_change_mute_mew_participants group call flag
+     * Requires groupCall.can_change_mute_new_participants group call flag
      *
      * @groupCallId - Group call identifier
      * @muteNewParticipants - New value of the mute_new_participants setting

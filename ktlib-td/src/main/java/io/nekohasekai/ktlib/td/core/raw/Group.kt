@@ -119,7 +119,7 @@ fun TdHandler.joinGroupCallWith(
 
 /**
  * Toggles whether new participants of a group call can be unmuted only by administrators of the group call
- * Requires groupCall.can_be_managed and allowed_change_mute_mew_participants group call flag
+ * Requires groupCall.can_change_mute_new_participants group call flag
  *
  * @groupCallId - Group call identifier
  * @muteNewParticipants - New value of the mute_new_participants setting

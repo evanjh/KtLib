@@ -15,16 +15,16 @@ object TdApiGenerator {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        println(File(".").canonicalPath)
-
-        val projectRoot = (
-                File(".").find { it.isDirectory && it.name == "ktlib-td" }
-                    ?: File(".").canonicalFile.parentFile.find { it.isDirectory && it.name == "ktlib-td" }
-                )!!.parentFile
+        var projectRoot = File(".")
+        if (File("ktlib/ktlib-td").isDirectory) {
+            projectRoot = File("ktlib")
+        }
 
         val scheme = "https://raw.githubusercontent.com/tdlib/td/master/td/generate/scheme/td_api.tl"
 
         val file = File(projectRoot, "ktlib-td-api-generator/td_api.tl")
+
+        println(file.canonicalPath)
 
         if (!file.isFile) {
 
