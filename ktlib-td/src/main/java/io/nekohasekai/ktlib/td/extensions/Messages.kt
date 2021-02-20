@@ -111,9 +111,10 @@ val MessageContent.asInput: InputMessageContent?
 
         is MessagePhoto -> {
 
-            val file = InputFileRemote(photo.sizes[0].photo.remote.id)
+            val photo = photo.sizes.maxByOrNull { it.photo.expectedSize }!!
+            val file = InputFileRemote(photo.photo.remote.id)
 
-            InputMessagePhoto(file, null, intArrayOf(), photo.sizes[0].width, photo.sizes[0].height, caption, 0)
+            InputMessagePhoto(file, null, intArrayOf(), photo.width, photo.height, caption, 0)
 
         }
 
