@@ -23,5 +23,5 @@ suspend fun TdHandler.getChatUsername(chat: Chat): String? {
         is ChatTypeBasicGroup -> null
         is ChatTypeSupergroup -> getSupergroup(type.supergroupId).username
         else -> error("unknown type")
-    }
+    }.takeIf { !it.isNullOrBlank() }
 }
