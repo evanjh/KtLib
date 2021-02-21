@@ -16,7 +16,7 @@ fun String.htmlLink(url: String) = "<a href=\"$url\">${HtmlUtil.escape(this)}</a
 fun String.htmlInlineMention(userId: Int) = htmlLink("tg://user?id=$userId")
 val TdApi.User.htmlInlineMention get() = displayName.htmlInlineMention(id)
 val TdApi.User.htmlIdMention get() = id.toString().htmlInlineMention(id)
-val TdApi.User.htmlDisplayExpanded get() = htmlInlineMention + if (username.isNullOrBlank()) " ($id)" else " ($id @$username)"
+val TdApi.User.htmlDisplayExpanded get() = displayName.htmlCode + " (" + htmlIdMention + (if (username.isNullOrBlank()) ")" else " @$username)")
 
 val TdApi.FormattedText.htmlString: String
     get() {
