@@ -14,11 +14,12 @@ import io.nekohasekai.ktlib.td.core.raw.parseTextEntities
 import io.nekohasekai.ktlib.td.extensions.fromPrivate
 import io.nekohasekai.ktlib.td.extensions.mkData
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import td.TdApi.*
 import java.io.File
 import java.util.*
-import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 import kotlin.properties.Delegates
 
@@ -805,9 +806,18 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
     }
 
     suspend infix fun syncTo(chatId: Number): Message {
-
-        return context.sync(mkSend(chatId))
-
+        try {
+            val result = context.sync(mkSend(chatId))
+            coroutineScope {
+                onSuccess?.invoke(this, result)
+            }
+            return result
+        } catch (e: TdException) {
+            coroutineScope {
+                onFailure?.invoke(this, e)
+            }
+            throw e
+        }
     }
 
     suspend infix fun syncReplyTo(replyToMessage: Message): Message {
@@ -835,7 +845,11 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
         ) {
 
             onSuccess = successCallback
-            onFailure = failureCallback
+
+            val onFailure = onFailure
+            onFailure {
+                (failureCallback ?: onFailure)!!(it)
+            }
 
         }
 
@@ -859,23 +873,25 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     }
 
-    suspend infix fun syncOrEditTo(chatId: Number) {
+    suspend infix fun syncOrEditTo(chatId: Number): Message {
 
-        suspendCoroutine { continuation: Continuation<Unit> ->
+        return suspendCoroutine { continuation ->
 
-            val oldSuccessHandler = onSuccess
-            val oldFailureHandler = onFailure
+            val successCallback = onSuccess
+            val failureCallback = onFailure
 
             onSuccess {
 
-                oldSuccessHandler?.invoke(this, it)
-                continuation.resume(Unit)
+                successCallback?.invoke(this, it)
+                continuation.resume(it)
 
             }
 
+            val onFailure = onFailure
+
             onFailure {
-                oldFailureHandler?.invoke(this, it)
-                continuation.resume(Unit)
+                (failureCallback ?: onFailure)!!(it)
+                continuation.resumeWithException(it)
             }
 
             sendOrEditTo(chatId)
@@ -888,19 +904,30 @@ class MessageFactory(val context: TdHandler) : CaptionInterface {
 
     suspend fun syncEditTo(chatId: Number, messageId: Long): Message {
         val messageOld = context.getMessage(chatId.toLong(), messageId)
-        return context.sync(
-            when {
-                messageOld.content is MessageText && input is InputMessageText -> EditMessageText(
-                    chatId.toLong(),
-                    messageId,
-                    replyMarkup,
-                    input
-                )
-                input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
-                caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
-                else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)
+        try {
+            val result = context.sync(
+                when {
+                    messageOld.content is MessageText && input is InputMessageText -> EditMessageText(
+                        chatId.toLong(),
+                        messageId,
+                        replyMarkup,
+                        input
+                    )
+                    input != null -> EditMessageMedia(chatId.toLong(), messageId, replyMarkup, input)
+                    caption != null -> EditMessageCaption(chatId.toLong(), messageId, replyMarkup, caption)
+                    else -> EditMessageReplyMarkup(chatId.toLong(), messageId, replyMarkup)
+                }
+            )
+            coroutineScope {
+                onSuccess?.invoke(this, result)
             }
-        )
+            return result
+        } catch (e: TdException) {
+            coroutineScope {
+                onFailure?.invoke(this, e)
+            }
+            throw e
+        }
     }
 
     suspend infix fun syncEditTo(chatId: Number) = syncEditTo(chatId, messageId)
