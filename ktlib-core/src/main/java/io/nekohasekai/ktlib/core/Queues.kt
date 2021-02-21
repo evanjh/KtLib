@@ -32,13 +32,13 @@ fun mkFastPool(capacity: Int = 1, onClear: (() -> Unit)? = null) =
 fun mkFastContext(capacity: Int = 1, onClear: (() -> Unit)? = null) =
     mkFastPool(capacity, onClear).asCoroutineDispatcher()
 
-fun ExecutorService.executeTimed(time: Long = 5000L, runnable: () -> Unit) {
+fun ExecutorService.executeTimed(time: Long = 5000L, runnable: suspend CoroutineScope.() -> Unit) {
 
     execute {
 
         val start = SystemClock.now()
 
-        runnable()
+        runBlocking(block = runnable)
 
         val delay = time - (SystemClock.now() - start)
 
