@@ -9,6 +9,7 @@ import io.nekohasekai.ktlib.td.core.raw.getUser
 import io.nekohasekai.ktlib.td.extensions.*
 import io.nekohasekai.ktlib.td.utils.isMyMessage
 import io.nekohasekai.ktlib.td.utils.make
+import io.nekohasekai.ktlib.td.utils.makeHtml
 
 class GetIdCommand : TdHandler() {
 
@@ -72,7 +73,7 @@ class GetIdCommand : TdHandler() {
 
             }
 
-            sudo make text replyTo message
+            sudo makeHtml text replyTo message
 
         }
 
