@@ -1,3 +1,4 @@
+import org.gradle.internal.jvm.Jvm
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -25,6 +26,9 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "11"
+            noReflect = false
+            noStdlib = false
+            useIR = true
         }
     }
 }
