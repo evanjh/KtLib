@@ -6,7 +6,7 @@ dependencies {
     api(project(":ktlib-core"))
     api(project(":ktlib-compress"))
 
-    api("net.java.dev.jna:jna:5.6.0")
+    api("net.java.dev.jna:jna:5.7.0")
     api("org.bytedeco:javacpp:1.5.4")
     api("org.bytedeco:javacpp:1.5.4:linux-x86_64")
     api("ai.djl.tensorflow:tensorflow-model-zoo:0.9.0")

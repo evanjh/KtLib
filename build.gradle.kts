@@ -1,4 +1,3 @@
-import org.gradle.internal.jvm.Jvm
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -19,15 +18,9 @@ allprojects {
     apply(plugin = "com.github.ben-manes.versions")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 
-    dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    }
-
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             jvmTarget = "11"
-            noReflect = false
-            noStdlib = false
             useIR = true
         }
     }
