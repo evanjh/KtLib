@@ -197,10 +197,9 @@ interface AbsEvents {
      * A chat voice chat state has changed
      *
      * @chatId - Chat identifier
-     * @voiceChatGroupCallId - New value of voice_chat_group_call_id
-     * @isVoiceChatEmpty - New value of is_voice_chat_empty
+     * @voiceChat - New value of voice_chat
      */
-    suspend fun onChatVoiceChat(chatId: Long, voiceChatGroupCallId: Int, isVoiceChatEmpty: Boolean) = Unit
+    suspend fun onChatVoiceChat(chatId: Long, voiceChat: VoiceChat) = Unit
 
     /**
      * The value of the default disable_notification parameter, used when a message is sent to the chat, was changed
@@ -250,6 +249,14 @@ interface AbsEvents {
      * @notificationSettings - The new notification settings
      */
     suspend fun onScopeNotificationSettings(scope: NotificationSettingsScope, notificationSettings: ScopeNotificationSettings) = Unit
+
+    /**
+     * The message Time To Live setting for a chat was changed
+     *
+     * @chatId - Chat identifier
+     * @messageTtlSetting - New value of message_ttl_setting
+     */
+    suspend fun onChatMessageTtlSetting(chatId: Long, messageTtlSetting: Int) = Unit
 
     /**
      * The chat action bar was changed
@@ -752,6 +759,19 @@ interface AbsEvents {
      */
     suspend fun onPollAnswer(pollId: Long, userId: Int, optionIds: IntArray) = Unit
 
+    /**
+     * User rights changed in a chat
+     * For bots only
+     *
+     * @chatId - Chat identifier
+     * @actorUserId - Identifier of the user, changing the rights
+     * @date - Point in time (Unix timestamp) when the user rights was changed
+     * @inviteLink - If user has joined the chat using an invite link, the invite link
+     * @oldChatMember - Previous chat member
+     * @newChatMember - New chat member
+     */
+    suspend fun onChatMember(chatId: Long, actorUserId: Int, date: Int, inviteLink: ChatInviteLink?, oldChatMember: ChatMember, newChatMember: ChatMember) = Unit
+
     suspend fun onUpdate(eventObj: Update) {
 
         when (eventObj) {
@@ -798,7 +818,7 @@ interface AbsEvents {
 
             is UpdateChatHasScheduledMessages -> onChatHasScheduledMessages(eventObj.chatId, eventObj.hasScheduledMessages)
 
-            is UpdateChatVoiceChat -> onChatVoiceChat(eventObj.chatId, eventObj.voiceChatGroupCallId, eventObj.isVoiceChatEmpty)
+            is UpdateChatVoiceChat -> onChatVoiceChat(eventObj.chatId, eventObj.voiceChat)
 
             is UpdateChatDefaultDisableNotification -> onChatDefaultDisableNotification(eventObj.chatId, eventObj.defaultDisableNotification)
 
@@ -811,6 +831,8 @@ interface AbsEvents {
             is UpdateChatNotificationSettings -> onChatNotificationSettings(eventObj.chatId, eventObj.notificationSettings)
 
             is UpdateScopeNotificationSettings -> onScopeNotificationSettings(eventObj.scope, eventObj.notificationSettings)
+
+            is UpdateChatMessageTtlSetting -> onChatMessageTtlSetting(eventObj.chatId, eventObj.messageTtlSetting)
 
             is UpdateChatActionBar -> onChatActionBar(eventObj.chatId, eventObj.actionBar)
 
@@ -921,6 +943,8 @@ interface AbsEvents {
             is UpdatePoll -> onPoll(eventObj.poll)
 
             is UpdatePollAnswer -> onPollAnswer(eventObj.pollId, eventObj.userId, eventObj.optionIds)
+
+            is UpdateChatMember -> onChatMember(eventObj.chatId, eventObj.actorUserId, eventObj.date, eventObj.inviteLink, eventObj.oldChatMember, eventObj.newChatMember)
 
         }
 

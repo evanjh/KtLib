@@ -49,6 +49,30 @@ fun TdHandler.destroyWith(
 ) = send(Destroy(), stackIgnore + 1, submit)
 
 /**
+ * Returns an HTTP URL which can be used to automatically authorize the current user on a website after clicking an HTTP link
+ * Use the method getExternalLinkInfo to find whether a prior user confirmation is needed
+ *
+ * @link - The HTTP link
+ * @allowWriteAccess - True, if the current user allowed the bot, returned in getExternalLinkInfo, to send them messages
+ */
+suspend fun TdHandler.getExternalLink(
+    link: String? = null,
+    allowWriteAccess: Boolean
+) = sync(GetExternalLink(link, allowWriteAccess))
+
+suspend fun TdHandler.getExternalLinkOrNull(
+    link: String? = null,
+    allowWriteAccess: Boolean
+) = syncOrNull(GetExternalLink(link, allowWriteAccess))
+
+fun TdHandler.getExternalLinkWith(
+    link: String? = null,
+    allowWriteAccess: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+) = send(GetExternalLink(link, allowWriteAccess), stackIgnore + 1, submit)
+
+/**
  * Sets the list of commands supported by the bot
  * For bots only
  *

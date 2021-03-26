@@ -65,3 +65,24 @@ fun TdHandler.getLoginUrlWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<HttpUrl>.() -> Unit)? = null
 ) = send(GetLoginUrl(chatId, messageId, buttonId, allowWriteAccess), stackIgnore + 1, submit)
+
+/**
+ * Returns information about an action to be done when the current user clicks an HTTP link
+ * This method can be used to automatically authorize the current user on a website
+ * Don't use this method for links from secret chats if link preview is disabled in secret chats
+ *
+ * @link - The HTTP link
+ */
+suspend fun TdHandler.getExternalLinkInfo(
+    link: String? = null
+) = sync(GetExternalLinkInfo(link))
+
+suspend fun TdHandler.getExternalLinkInfoOrNull(
+    link: String? = null
+) = syncOrNull(GetExternalLinkInfo(link))
+
+fun TdHandler.getExternalLinkInfoWith(
+    link: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<LoginUrlInfo>.() -> Unit)? = null
+) = send(GetExternalLinkInfo(link), stackIgnore + 1, submit)

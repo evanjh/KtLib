@@ -1082,6 +1082,37 @@ fun TdHandler.setChatPhotoWith(
 ) = send(SetChatPhoto(chatId, photo), stackIgnore + 1, submit)
 
 /**
+ * Changes the message TTL setting (sets a new self-destruct timer) in a chat
+ * Requires can_delete_messages administrator right in basic groups, supergroups and channels Message TTL setting of a chat with the current user (Saved Messages) and the chat 777000 (Telegram) can't be changed
+ *
+ * @chatId - Chat identifier
+ * @ttl - New TTL value, in seconds
+ *        Must be one of 0, 86400, 604800 unless chat is secret
+ */
+suspend fun TdHandler.setChatMessageTtlSetting(
+    chatId: Long,
+    ttl: Int
+){
+    sync(SetChatMessageTtlSetting(chatId, ttl))
+}
+
+
+suspend fun TdHandler.setChatMessageTtlSettingIgnoreException(
+    chatId: Long,
+    ttl: Int
+){
+    syncOrNull(SetChatMessageTtlSetting(chatId, ttl))
+}
+
+
+fun TdHandler.setChatMessageTtlSettingWith(
+    chatId: Long,
+    ttl: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(SetChatMessageTtlSetting(chatId, ttl), stackIgnore + 1, submit)
+
+/**
  * Changes the chat members permissions
  * Supported only for basic groups and supergroups
  * Requires can_restrict_members administrator right
@@ -1885,31 +1916,304 @@ fun TdHandler.setPinnedChatsWith(
 ) = send(SetPinnedChats(chatList, chatIds), stackIgnore + 1, submit)
 
 /**
- * Replaces current permanent invite link for a chat with a new permanent invite link
+ * Replaces current primary invite link for a chat with a new primary invite link
  * Available for basic groups, supergroups, and channels
  * Requires administrator privileges and can_invite_users right
  *
  * @chatId - Chat identifier
  */
-suspend fun TdHandler.replacePermanentChatInviteLink(
+suspend fun TdHandler.replacePrimaryChatInviteLink(
     chatId: Long
-) = sync(ReplacePermanentChatInviteLink(chatId))
+) = sync(ReplacePrimaryChatInviteLink(chatId))
 
-suspend fun TdHandler.replacePermanentChatInviteLinkOrNull(
+suspend fun TdHandler.replacePrimaryChatInviteLinkOrNull(
     chatId: Long
-) = syncOrNull(ReplacePermanentChatInviteLink(chatId))
+) = syncOrNull(ReplacePrimaryChatInviteLink(chatId))
 
-fun TdHandler.replacePermanentChatInviteLinkWith(
+fun TdHandler.replacePrimaryChatInviteLinkWith(
     chatId: Long,
     stackIgnore: Int = 0,
     submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
-) = send(ReplacePermanentChatInviteLink(chatId), stackIgnore + 1, submit)
+) = send(ReplacePrimaryChatInviteLink(chatId), stackIgnore + 1, submit)
+
+/**
+ * Creates a new invite link for a chat
+ * Available for basic groups, supergroups, and channels
+ * Requires administrator privileges and can_invite_users right in the chat
+ *
+ * @chatId - Chat identifier
+ * @expireDate - Point in time (Unix timestamp) when the link will expire
+ *               Pass 0 if never
+ * @memberLimit - Maximum number of chat members that can join the chat by the link simultaneously
+ *                Pass 0 if not limited
+ */
+suspend fun TdHandler.createChatInviteLink(
+    chatId: Long,
+    expireDate: Int,
+    memberLimit: Int
+) = sync(CreateChatInviteLink(chatId, expireDate, memberLimit))
+
+suspend fun TdHandler.createChatInviteLinkOrNull(
+    chatId: Long,
+    expireDate: Int,
+    memberLimit: Int
+) = syncOrNull(CreateChatInviteLink(chatId, expireDate, memberLimit))
+
+fun TdHandler.createChatInviteLinkWith(
+    chatId: Long,
+    expireDate: Int,
+    memberLimit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
+) = send(CreateChatInviteLink(chatId, expireDate, memberLimit), stackIgnore + 1, submit)
+
+/**
+ * Edits a non-primary invite link for a chat
+ * Available for basic groups, supergroups, and channels
+ * Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+ *
+ * @chatId - Chat identifier
+ * @inviteLink - Invite link to be edited
+ * @expireDate - Point in time (Unix timestamp) when the link will expire
+ *               Pass 0 if never
+ * @memberLimit - Maximum number of chat members that can join the chat by the link simultaneously
+ *                Pass 0 if not limited
+ */
+suspend fun TdHandler.editChatInviteLink(
+    chatId: Long,
+    inviteLink: String? = null,
+    expireDate: Int,
+    memberLimit: Int
+) = sync(EditChatInviteLink(chatId, inviteLink, expireDate, memberLimit))
+
+suspend fun TdHandler.editChatInviteLinkOrNull(
+    chatId: Long,
+    inviteLink: String? = null,
+    expireDate: Int,
+    memberLimit: Int
+) = syncOrNull(EditChatInviteLink(chatId, inviteLink, expireDate, memberLimit))
+
+fun TdHandler.editChatInviteLinkWith(
+    chatId: Long,
+    inviteLink: String? = null,
+    expireDate: Int,
+    memberLimit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
+) = send(EditChatInviteLink(chatId, inviteLink, expireDate, memberLimit), stackIgnore + 1, submit)
+
+/**
+ * Returns information about an invite link
+ * Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
+ *
+ * @chatId - Chat identifier
+ * @inviteLink - Invite link to get
+ */
+suspend fun TdHandler.getChatInviteLink(
+    chatId: Long,
+    inviteLink: String? = null
+) = sync(GetChatInviteLink(chatId, inviteLink))
+
+suspend fun TdHandler.getChatInviteLinkOrNull(
+    chatId: Long,
+    inviteLink: String? = null
+) = syncOrNull(GetChatInviteLink(chatId, inviteLink))
+
+fun TdHandler.getChatInviteLinkWith(
+    chatId: Long,
+    inviteLink: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLink>.() -> Unit)? = null
+) = send(GetChatInviteLink(chatId, inviteLink), stackIgnore + 1, submit)
+
+/**
+ * Returns list of chat administrators with number of their invite links
+ * Requires owner privileges in the chat
+ *
+ * @chatId - Chat identifier
+ */
+suspend fun TdHandler.getChatInviteLinkCounts(
+    chatId: Long
+) = sync(GetChatInviteLinkCounts(chatId))
+
+suspend fun TdHandler.getChatInviteLinkCountsOrNull(
+    chatId: Long
+) = syncOrNull(GetChatInviteLinkCounts(chatId))
+
+fun TdHandler.getChatInviteLinkCountsWith(
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLinkCounts>.() -> Unit)? = null
+) = send(GetChatInviteLinkCounts(chatId), stackIgnore + 1, submit)
+
+/**
+ * Returns invite links for a chat created by specified administrator
+ * Requires administrator privileges and can_invite_users right in the chat to get own links and owner privileges to get other links
+ *
+ * @chatId - Chat identifier
+ * @creatorUserId - User identifier of a chat administrator
+ *                  Must be an identifier of the current user for non-owner
+ * @isRevoked - Pass true if revoked links needs to be returned instead of active or expired
+ * @offsetDate - Creation date of an invite link starting after which to return invite links
+ *               Use 0 to get results from the beginning
+ * @offsetInviteLink - Invite link starting after which to return invite links
+ *                     Use empty string to get results from the beginning
+ * @limit - Maximum number of invite links to return
+ */
+suspend fun TdHandler.getChatInviteLinks(
+    chatId: Long,
+    creatorUserId: Int,
+    isRevoked: Boolean,
+    offsetDate: Int,
+    offsetInviteLink: String? = null,
+    limit: Int
+) = sync(GetChatInviteLinks(chatId, creatorUserId, isRevoked, offsetDate, offsetInviteLink, limit))
+
+suspend fun TdHandler.getChatInviteLinksOrNull(
+    chatId: Long,
+    creatorUserId: Int,
+    isRevoked: Boolean,
+    offsetDate: Int,
+    offsetInviteLink: String? = null,
+    limit: Int
+) = syncOrNull(GetChatInviteLinks(chatId, creatorUserId, isRevoked, offsetDate, offsetInviteLink, limit))
+
+fun TdHandler.getChatInviteLinksWith(
+    chatId: Long,
+    creatorUserId: Int,
+    isRevoked: Boolean,
+    offsetDate: Int,
+    offsetInviteLink: String? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLinks>.() -> Unit)? = null
+) = send(GetChatInviteLinks(chatId, creatorUserId, isRevoked, offsetDate, offsetInviteLink, limit), stackIgnore + 1, submit)
+
+/**
+ * Returns chat members joined a chat by an invite link
+ * Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+ *
+ * @chatId - Chat identifier
+ * @inviteLink - Invite link for which to return chat members
+ * @offsetMember - A chat member from which to return next chat members
+ *                 Use null to get results from the beginning
+ * @limit - Maximum number of chat members to return
+ */
+suspend fun TdHandler.getChatInviteLinkMembers(
+    chatId: Long,
+    inviteLink: String? = null,
+    offsetMember: ChatInviteLinkMember? = null,
+    limit: Int
+) = sync(GetChatInviteLinkMembers(chatId, inviteLink, offsetMember, limit))
+
+suspend fun TdHandler.getChatInviteLinkMembersOrNull(
+    chatId: Long,
+    inviteLink: String? = null,
+    offsetMember: ChatInviteLinkMember? = null,
+    limit: Int
+) = syncOrNull(GetChatInviteLinkMembers(chatId, inviteLink, offsetMember, limit))
+
+fun TdHandler.getChatInviteLinkMembersWith(
+    chatId: Long,
+    inviteLink: String? = null,
+    offsetMember: ChatInviteLinkMember? = null,
+    limit: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLinkMembers>.() -> Unit)? = null
+) = send(GetChatInviteLinkMembers(chatId, inviteLink, offsetMember, limit), stackIgnore + 1, submit)
+
+/**
+ * Revokes invite link for a chat
+ * Available for basic groups, supergroups, and channels
+ * Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+ * If a primary link is revoked, then additionally to the revoked link returns new primary link
+ *
+ * @chatId - Chat identifier
+ * @inviteLink - Invite link to be revoked
+ */
+suspend fun TdHandler.revokeChatInviteLink(
+    chatId: Long,
+    inviteLink: String? = null
+) = sync(RevokeChatInviteLink(chatId, inviteLink))
+
+suspend fun TdHandler.revokeChatInviteLinkOrNull(
+    chatId: Long,
+    inviteLink: String? = null
+) = syncOrNull(RevokeChatInviteLink(chatId, inviteLink))
+
+fun TdHandler.revokeChatInviteLinkWith(
+    chatId: Long,
+    inviteLink: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<ChatInviteLinks>.() -> Unit)? = null
+) = send(RevokeChatInviteLink(chatId, inviteLink), stackIgnore + 1, submit)
+
+/**
+ * Deletes revoked chat invite links
+ * Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+ *
+ * @chatId - Chat identifier
+ * @inviteLink - Invite link to revoke
+ */
+suspend fun TdHandler.deleteRevokedChatInviteLink(
+    chatId: Long,
+    inviteLink: String? = null
+){
+    sync(DeleteRevokedChatInviteLink(chatId, inviteLink))
+}
+
+
+suspend fun TdHandler.deleteRevokedChatInviteLinkIgnoreException(
+    chatId: Long,
+    inviteLink: String? = null
+){
+    syncOrNull(DeleteRevokedChatInviteLink(chatId, inviteLink))
+}
+
+
+fun TdHandler.deleteRevokedChatInviteLinkWith(
+    chatId: Long,
+    inviteLink: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(DeleteRevokedChatInviteLink(chatId, inviteLink), stackIgnore + 1, submit)
+
+/**
+ * Deletes all revoked chat invite links created by a given chat administrator
+ * Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links
+ *
+ * @chatId - Chat identifier
+ * @creatorUserId - User identifier of a chat administrator, which links will be deleted
+ *                  Must be an identifier of the current user for non-owner
+ */
+suspend fun TdHandler.deleteAllRevokedChatInviteLinks(
+    chatId: Long,
+    creatorUserId: Int
+){
+    sync(DeleteAllRevokedChatInviteLinks(chatId, creatorUserId))
+}
+
+
+suspend fun TdHandler.deleteAllRevokedChatInviteLinksIgnoreException(
+    chatId: Long,
+    creatorUserId: Int
+){
+    syncOrNull(DeleteAllRevokedChatInviteLinks(chatId, creatorUserId))
+}
+
+
+fun TdHandler.deleteAllRevokedChatInviteLinksWith(
+    chatId: Long,
+    creatorUserId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(DeleteAllRevokedChatInviteLinks(chatId, creatorUserId), stackIgnore + 1, submit)
 
 /**
  * Checks the validity of an invite link for a chat and returns information about the corresponding chat
  *
  * @inviteLink - Invite link to be checked
- *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
+ *               Must have URL "t.me", "telegram.me", or "telegram.dog" and query beginning with "/joinchat/" or "/+"
  */
 suspend fun TdHandler.checkChatInviteLink(
     inviteLink: String? = null
@@ -1929,7 +2233,7 @@ fun TdHandler.checkChatInviteLinkWith(
  * Uses an invite link to add the current user to the chat if possible
  *
  * @inviteLink - Invite link to import
- *               Must begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/"
+ *               Must have URL "t.me", "telegram.me", or "telegram.dog" and query beginning with "/joinchat/" or "/+"
  */
 suspend fun TdHandler.joinChatByInviteLink(
     inviteLink: String? = null
@@ -2084,34 +2388,77 @@ fun TdHandler.removeChatActionBarWith(
  * A chat can be reported only from the chat action bar, or if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
  *
  * @chatId - Chat identifier
- * @reason - The reason for reporting the chat
  * @messageIds - Identifiers of reported messages, if any
+ * @reason - The reason for reporting the chat
+ * @text - Additional report details
  */
 suspend fun TdHandler.reportChat(
     chatId: Long,
+    messageIds: LongArray,
     reason: ChatReportReason? = null,
-    messageIds: LongArray
+    text: String? = null
 ){
-    sync(ReportChat(chatId, reason, messageIds))
+    sync(ReportChat(chatId, messageIds, reason, text))
 }
 
 
 suspend fun TdHandler.reportChatIgnoreException(
     chatId: Long,
+    messageIds: LongArray,
     reason: ChatReportReason? = null,
-    messageIds: LongArray
+    text: String? = null
 ){
-    syncOrNull(ReportChat(chatId, reason, messageIds))
+    syncOrNull(ReportChat(chatId, messageIds, reason, text))
 }
 
 
 fun TdHandler.reportChatWith(
     chatId: Long,
-    reason: ChatReportReason? = null,
     messageIds: LongArray,
+    reason: ChatReportReason? = null,
+    text: String? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(ReportChat(chatId, reason, messageIds), stackIgnore + 1, submit)
+) = send(ReportChat(chatId, messageIds, reason, text), stackIgnore + 1, submit)
+
+/**
+ * Reports a chat photo to the Telegram moderators
+ * A chat photo can be reported only if this is a private chat with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators
+ *
+ * @chatId - Chat identifier
+ * @fileId - Identifier of the photo to report
+ *           Only full photos from chatPhoto can be reported
+ * @reason - The reason for reporting the chat photo
+ * @text - Additional report details
+ */
+suspend fun TdHandler.reportChatPhoto(
+    chatId: Long,
+    fileId: Int,
+    reason: ChatReportReason? = null,
+    text: String? = null
+){
+    sync(ReportChatPhoto(chatId, fileId, reason, text))
+}
+
+
+suspend fun TdHandler.reportChatPhotoIgnoreException(
+    chatId: Long,
+    fileId: Int,
+    reason: ChatReportReason? = null,
+    text: String? = null
+){
+    syncOrNull(ReportChatPhoto(chatId, fileId, reason, text))
+}
+
+
+fun TdHandler.reportChatPhotoWith(
+    chatId: Long,
+    fileId: Int,
+    reason: ChatReportReason? = null,
+    text: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ReportChatPhoto(chatId, fileId, reason, text), stackIgnore + 1, submit)
 
 /**
  * Returns an HTTP URL with the chat statistics

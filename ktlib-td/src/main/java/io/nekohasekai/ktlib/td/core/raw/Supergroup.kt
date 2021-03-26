@@ -166,6 +166,32 @@ fun TdHandler.toggleSupergroupIsAllHistoryAvailableWith(
 ) = send(ToggleSupergroupIsAllHistoryAvailable(supergroupId, isAllHistoryAvailable), stackIgnore + 1, submit)
 
 /**
+ * Upgrades supergroup to a broadcast group
+ * Requires owner privileges in the supergroup
+ *
+ * @supergroupId - Identifier of the supergroup
+ */
+suspend fun TdHandler.toggleSupergroupIsBroadcastGroup(
+    supergroupId: Int
+){
+    sync(ToggleSupergroupIsBroadcastGroup(supergroupId))
+}
+
+
+suspend fun TdHandler.toggleSupergroupIsBroadcastGroupIgnoreException(
+    supergroupId: Int
+){
+    syncOrNull(ToggleSupergroupIsBroadcastGroup(supergroupId))
+}
+
+
+fun TdHandler.toggleSupergroupIsBroadcastGroupWith(
+    supergroupId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ToggleSupergroupIsBroadcastGroup(supergroupId), stackIgnore + 1, submit)
+
+/**
  * Reports some messages from a user in a supergroup as spam
  * Requires administrator rights in the supergroup
  *

@@ -146,6 +146,27 @@ fun TdHandler.removeProxyWith(
 ) = send(RemoveProxy(proxyId), stackIgnore + 1, submit)
 
 /**
+ * Returns an HTTPS link, which can be used to add a proxy
+ * Available only for SOCKS5 and MTProto proxies
+ * Can be called before authorization
+ *
+ * @proxyId - Proxy identifier
+ */
+suspend fun TdHandler.getProxyLink(
+    proxyId: Int
+) = sync(GetProxyLink(proxyId))
+
+suspend fun TdHandler.getProxyLinkOrNull(
+    proxyId: Int
+) = syncOrNull(GetProxyLink(proxyId))
+
+fun TdHandler.getProxyLinkWith(
+    proxyId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+) = send(GetProxyLink(proxyId), stackIgnore + 1, submit)
+
+/**
  * Computes time needed to receive a response from a Telegram server through a proxy
  * Can be called before authorization
  *

@@ -46,7 +46,7 @@ fun TdHandler.getBasicGroupFullInfoWith(
 
 /**
  * Creates a voice chat (a group call bound to a chat)
- * Available only for basic groups and supergroups
+ * Available only for basic groups, supergroups and channels
  * Requires can_manage_voice_chats rights
  *
  * @chatId - Chat identifier
@@ -88,34 +88,73 @@ fun TdHandler.getGroupCallWith(
  * Joins a group call
  *
  * @groupCallId - Group call identifier
- * @payload - Group join payload, received from tgcalls
- *            Use null to cancel previous joinGroupCall request
+ * @participantAlias - Identifier of the group call participant, which will be used to join the call
+ *                     Voice chats only
+ * @payload - Group join payload
+ *            Received from tgcalls
  * @source - Caller synchronization source identifier
  *           Received from tgcalls
  * @isMuted - True, if the user's microphone is muted
+ * @inviteHash - If non-empty, invite hash to be used to join the group call without being muted by administrators
  */
 suspend fun TdHandler.joinGroupCall(
     groupCallId: Int,
-    payload: GroupCallPayload? = null,
-    source: Int,
-    isMuted: Boolean
-) = sync(JoinGroupCall(groupCallId, payload, source, isMuted))
-
-suspend fun TdHandler.joinGroupCallOrNull(
-    groupCallId: Int,
-    payload: GroupCallPayload? = null,
-    source: Int,
-    isMuted: Boolean
-) = syncOrNull(JoinGroupCall(groupCallId, payload, source, isMuted))
-
-fun TdHandler.joinGroupCallWith(
-    groupCallId: Int,
+    participantAlias: MessageSender? = null,
     payload: GroupCallPayload? = null,
     source: Int,
     isMuted: Boolean,
+    inviteHash: String? = null
+) = sync(JoinGroupCall(groupCallId, participantAlias, payload, source, isMuted, inviteHash))
+
+suspend fun TdHandler.joinGroupCallOrNull(
+    groupCallId: Int,
+    participantAlias: MessageSender? = null,
+    payload: GroupCallPayload? = null,
+    source: Int,
+    isMuted: Boolean,
+    inviteHash: String? = null
+) = syncOrNull(JoinGroupCall(groupCallId, participantAlias, payload, source, isMuted, inviteHash))
+
+fun TdHandler.joinGroupCallWith(
+    groupCallId: Int,
+    participantAlias: MessageSender? = null,
+    payload: GroupCallPayload? = null,
+    source: Int,
+    isMuted: Boolean,
+    inviteHash: String? = null,
     stackIgnore: Int = 0,
     submit: (TdCallback<GroupCallJoinResponse>.() -> Unit)? = null
-) = send(JoinGroupCall(groupCallId, payload, source, isMuted), stackIgnore + 1, submit)
+) = send(JoinGroupCall(groupCallId, participantAlias, payload, source, isMuted, inviteHash), stackIgnore + 1, submit)
+
+/**
+ * Sets group call title
+ * Requires groupCall.can_be_managed group call flag
+ *
+ * @groupCallId - Group call identifier
+ * @title - New group call title
+ */
+suspend fun TdHandler.setGroupCallTitle(
+    groupCallId: Int,
+    title: String? = null
+){
+    sync(SetGroupCallTitle(groupCallId, title))
+}
+
+
+suspend fun TdHandler.setGroupCallTitleIgnoreException(
+    groupCallId: Int,
+    title: String? = null
+){
+    syncOrNull(SetGroupCallTitle(groupCallId, title))
+}
+
+
+fun TdHandler.setGroupCallTitleWith(
+    groupCallId: Int,
+    title: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(SetGroupCallTitle(groupCallId, title), stackIgnore + 1, submit)
 
 /**
  * Toggles whether new participants of a group call can be unmuted only by administrators of the group call
@@ -148,6 +187,32 @@ fun TdHandler.toggleGroupCallMuteNewParticipantsWith(
 ) = send(ToggleGroupCallMuteNewParticipants(groupCallId, muteNewParticipants), stackIgnore + 1, submit)
 
 /**
+ * Revokes invite link for a group call
+ * Requires groupCall.can_be_managed group call flag
+ *
+ * @groupCallId - Group call identifier
+ */
+suspend fun TdHandler.revokeGroupCallInviteLink(
+    groupCallId: Int
+){
+    sync(RevokeGroupCallInviteLink(groupCallId))
+}
+
+
+suspend fun TdHandler.revokeGroupCallInviteLinkIgnoreException(
+    groupCallId: Int
+){
+    syncOrNull(RevokeGroupCallInviteLink(groupCallId))
+}
+
+
+fun TdHandler.revokeGroupCallInviteLinkWith(
+    groupCallId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(RevokeGroupCallInviteLink(groupCallId), stackIgnore + 1, submit)
+
+/**
  * Invites users to a group call
  * Sends a service message of type messageInviteToGroupCall for voice chats
  *
@@ -177,6 +242,86 @@ fun TdHandler.inviteGroupCallParticipantsWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(InviteGroupCallParticipants(groupCallId, userIds), stackIgnore + 1, submit)
+
+/**
+ * Returns invite link to a voice chat in a public chat
+ *
+ * @groupCallId - Group call identifier
+ * @canSelfUnmute - Pass true if the invite_link should contain an invite hash, passing which to joinGroupCall would allow the invited user to unmute themself
+ *                  Requires groupCall.can_be_managed group call flag
+ */
+suspend fun TdHandler.getGroupCallInviteLink(
+    groupCallId: Int,
+    canSelfUnmute: Boolean
+) = sync(GetGroupCallInviteLink(groupCallId, canSelfUnmute))
+
+suspend fun TdHandler.getGroupCallInviteLinkOrNull(
+    groupCallId: Int,
+    canSelfUnmute: Boolean
+) = syncOrNull(GetGroupCallInviteLink(groupCallId, canSelfUnmute))
+
+fun TdHandler.getGroupCallInviteLinkWith(
+    groupCallId: Int,
+    canSelfUnmute: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<HttpUrl>.() -> Unit)? = null
+) = send(GetGroupCallInviteLink(groupCallId, canSelfUnmute), stackIgnore + 1, submit)
+
+/**
+ * Starts recording of a group call
+ * Requires groupCall.can_be_managed group call flag
+ *
+ * @groupCallId - Group call identifier
+ * @title - Group call recording title
+ */
+suspend fun TdHandler.startGroupCallRecording(
+    groupCallId: Int,
+    title: String? = null
+){
+    sync(StartGroupCallRecording(groupCallId, title))
+}
+
+
+suspend fun TdHandler.startGroupCallRecordingIgnoreException(
+    groupCallId: Int,
+    title: String? = null
+){
+    syncOrNull(StartGroupCallRecording(groupCallId, title))
+}
+
+
+fun TdHandler.startGroupCallRecordingWith(
+    groupCallId: Int,
+    title: String? = null,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(StartGroupCallRecording(groupCallId, title), stackIgnore + 1, submit)
+
+/**
+ * Ends recording of a group call
+ * Requires groupCall.can_be_managed group call flag
+ *
+ * @groupCallId - Group call identifier
+ */
+suspend fun TdHandler.endGroupCallRecording(
+    groupCallId: Int
+){
+    sync(EndGroupCallRecording(groupCallId))
+}
+
+
+suspend fun TdHandler.endGroupCallRecordingIgnoreException(
+    groupCallId: Int
+){
+    syncOrNull(EndGroupCallRecording(groupCallId))
+}
+
+
+fun TdHandler.endGroupCallRecordingWith(
+    groupCallId: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(EndGroupCallRecording(groupCallId), stackIgnore + 1, submit)
 
 /**
  * Informs TDLib that a group call participant speaking state has changed
@@ -215,68 +360,103 @@ fun TdHandler.setGroupCallParticipantIsSpeakingWith(
  * Toggles whether a group call participant is muted, unmuted, or allowed to unmute themself
  *
  * @groupCallId - Group call identifier
- * @userId - User identifier
+ * @participant - Participant identifier
  * @isMuted - Pass true if the user must be muted and false otherwise
  */
 suspend fun TdHandler.toggleGroupCallParticipantIsMuted(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     isMuted: Boolean
 ){
-    sync(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted))
+    sync(ToggleGroupCallParticipantIsMuted(groupCallId, participant, isMuted))
 }
 
 
 suspend fun TdHandler.toggleGroupCallParticipantIsMutedIgnoreException(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     isMuted: Boolean
 ){
-    syncOrNull(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted))
+    syncOrNull(ToggleGroupCallParticipantIsMuted(groupCallId, participant, isMuted))
 }
 
 
 fun TdHandler.toggleGroupCallParticipantIsMutedWith(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     isMuted: Boolean,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(ToggleGroupCallParticipantIsMuted(groupCallId, userId, isMuted), stackIgnore + 1, submit)
+) = send(ToggleGroupCallParticipantIsMuted(groupCallId, participant, isMuted), stackIgnore + 1, submit)
 
 /**
  * Changes a group call participant's volume level
  * If the current user can manage the group call, then the participant's volume level will be changed for all users with default volume level
  *
  * @groupCallId - Group call identifier
- * @userId - User identifier
+ * @participant - Participant identifier
  * @volumeLevel - New participant's volume level
  */
 suspend fun TdHandler.setGroupCallParticipantVolumeLevel(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     volumeLevel: Int
 ){
-    sync(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
+    sync(SetGroupCallParticipantVolumeLevel(groupCallId, participant, volumeLevel))
 }
 
 
 suspend fun TdHandler.setGroupCallParticipantVolumeLevelIgnoreException(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     volumeLevel: Int
 ){
-    syncOrNull(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel))
+    syncOrNull(SetGroupCallParticipantVolumeLevel(groupCallId, participant, volumeLevel))
 }
 
 
 fun TdHandler.setGroupCallParticipantVolumeLevelWith(
     groupCallId: Int,
-    userId: Int,
+    participant: MessageSender? = null,
     volumeLevel: Int,
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
-) = send(SetGroupCallParticipantVolumeLevel(groupCallId, userId, volumeLevel), stackIgnore + 1, submit)
+) = send(SetGroupCallParticipantVolumeLevel(groupCallId, participant, volumeLevel), stackIgnore + 1, submit)
+
+/**
+ * Toggles whether a group call participant hand is rased
+ *
+ * @groupCallId - Group call identifier
+ * @participant - Participant identifier
+ * @isHandRaised - Pass true if the user's hand should be raised
+ *                 Only self hand can be raised
+ *                 Requires groupCall.can_be_managed group call flag to lower other's hand
+ */
+suspend fun TdHandler.toggleGroupCallParticipantIsHandRaised(
+    groupCallId: Int,
+    participant: MessageSender? = null,
+    isHandRaised: Boolean
+){
+    sync(ToggleGroupCallParticipantIsHandRaised(groupCallId, participant, isHandRaised))
+}
+
+
+suspend fun TdHandler.toggleGroupCallParticipantIsHandRaisedIgnoreException(
+    groupCallId: Int,
+    participant: MessageSender? = null,
+    isHandRaised: Boolean
+){
+    syncOrNull(ToggleGroupCallParticipantIsHandRaised(groupCallId, participant, isHandRaised))
+}
+
+
+fun TdHandler.toggleGroupCallParticipantIsHandRaisedWith(
+    groupCallId: Int,
+    participant: MessageSender? = null,
+    isHandRaised: Boolean,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Ok>.() -> Unit)? = null
+) = send(ToggleGroupCallParticipantIsHandRaised(groupCallId, participant, isHandRaised), stackIgnore + 1, submit)
 
 /**
  * Loads more group call participants

@@ -301,6 +301,35 @@ fun TdHandler.deleteFileWith(
 ) = send(DeleteFile(fileId), stackIgnore + 1, submit)
 
 /**
+ * Returns a file with a segment of a group call stream in a modified OGG format
+ *
+ * @groupCallId - Group call identifier
+ * @timeOffset - Point in time when the stream segment begins
+ *               Unix timestamp in milliseconds
+ * @scale - Segment duration scale
+ *          Segment's duration is 1000/(2**scale) milliseconds
+ */
+suspend fun TdHandler.getGroupCallStreamSegment(
+    groupCallId: Int,
+    timeOffset: Long,
+    scale: Int
+) = sync(GetGroupCallStreamSegment(groupCallId, timeOffset, scale))
+
+suspend fun TdHandler.getGroupCallStreamSegmentOrNull(
+    groupCallId: Int,
+    timeOffset: Long,
+    scale: Int
+) = syncOrNull(GetGroupCallStreamSegment(groupCallId, timeOffset, scale))
+
+fun TdHandler.getGroupCallStreamSegmentWith(
+    groupCallId: Int,
+    timeOffset: Long,
+    scale: Int,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<FilePart>.() -> Unit)? = null
+) = send(GetGroupCallStreamSegment(groupCallId, timeOffset, scale), stackIgnore + 1, submit)
+
+/**
  * Uploads a PNG image with a sticker
  * For bots only
  * Returns the uploaded file

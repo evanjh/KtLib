@@ -34,6 +34,26 @@ fun TdHandler.getMessageEmbeddingCodeWith(
 ) = send(GetMessageEmbeddingCode(chatId, messageId, forAlbum), stackIgnore + 1, submit)
 
 /**
+ * Returns a confirmation text to be shown to the user before starting message import
+ *
+ * @chatId - Identifier of a chat to which the messages will be imported
+ *           It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right
+ */
+suspend fun TdHandler.getMessageImportConfirmationText(
+    chatId: Long
+) = sync(GetMessageImportConfirmationText(chatId))
+
+suspend fun TdHandler.getMessageImportConfirmationTextOrNull(
+    chatId: Long
+) = syncOrNull(GetMessageImportConfirmationText(chatId))
+
+fun TdHandler.getMessageImportConfirmationTextWith(
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<Text>.() -> Unit)? = null
+) = send(GetMessageImportConfirmationText(chatId), stackIgnore + 1, submit)
+
+/**
  * Returns an IETF language tag of the language preferred in the country, which should be used to fill native fields in Telegram Passport personal details
  * Returns a 404 error if unknown
  *
@@ -78,24 +98,3 @@ fun TdHandler.getInviteTextWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Text>.() -> Unit)? = null
 ) = send(GetInviteText(), stackIgnore + 1, submit)
-
-/**
- * Returns an HTTPS link, which can be used to add a proxy
- * Available only for SOCKS5 and MTProto proxies
- * Can be called before authorization
- *
- * @proxyId - Proxy identifier
- */
-suspend fun TdHandler.getProxyLink(
-    proxyId: Int
-) = sync(GetProxyLink(proxyId))
-
-suspend fun TdHandler.getProxyLinkOrNull(
-    proxyId: Int
-) = syncOrNull(GetProxyLink(proxyId))
-
-fun TdHandler.getProxyLinkWith(
-    proxyId: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Text>.() -> Unit)? = null
-) = send(GetProxyLink(proxyId), stackIgnore + 1, submit)

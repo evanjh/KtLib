@@ -320,6 +320,7 @@ fun TdHandler.searchChatMessagesWith(
  *
  * @chatList - Chat list in which to search messages
  *             Pass null to search in all chats regardless of their chat list
+ *             Only Main and Archive chat lists are supported
  * @query - Query to search for
  * @offsetDate - The date of the message starting from which the results should be fetched
  *               Use 0 or any date in the future to get results from the last message
@@ -840,29 +841,6 @@ fun TdHandler.resendMessagesWith(
 ) = send(ResendMessages(chatId, messageIds), stackIgnore + 1, submit)
 
 /**
- * Changes the current TTL setting (sets a new self-destruct timer) in a secret chat and sends the corresponding message
- *
- * @chatId - Chat identifier
- * @ttl - New TTL value, in seconds
- */
-suspend fun TdHandler.sendChatSetTtlMessage(
-    chatId: Long,
-    ttl: Int
-) = sync(SendChatSetTtlMessage(chatId, ttl))
-
-suspend fun TdHandler.sendChatSetTtlMessageOrNull(
-    chatId: Long,
-    ttl: Int
-) = syncOrNull(SendChatSetTtlMessage(chatId, ttl))
-
-fun TdHandler.sendChatSetTtlMessageWith(
-    chatId: Long,
-    ttl: Int,
-    stackIgnore: Int = 0,
-    submit: (TdCallback<Message>.() -> Unit)? = null
-) = send(SendChatSetTtlMessage(chatId, ttl), stackIgnore + 1, submit)
-
-/**
  * Adds a local message to a chat
  * The message is persistent across application restarts only if the message database is used
  * Returns the added message
@@ -1338,6 +1316,25 @@ fun TdHandler.importMessagesWith(
     stackIgnore: Int = 0,
     submit: (TdCallback<Ok>.() -> Unit)? = null
 ) = send(ImportMessages(chatId, messageFile, attachedFiles), stackIgnore + 1, submit)
+
+/**
+ * Returns list of user and chat, which can be used as aliases to join a voice chat in the chat
+ *
+ * @chatId - Chat identifier
+ */
+suspend fun TdHandler.getAvailableVoiceChatAliases(
+    chatId: Long
+) = sync(GetAvailableVoiceChatAliases(chatId))
+
+suspend fun TdHandler.getAvailableVoiceChatAliasesOrNull(
+    chatId: Long
+) = syncOrNull(GetAvailableVoiceChatAliases(chatId))
+
+fun TdHandler.getAvailableVoiceChatAliasesWith(
+    chatId: Long,
+    stackIgnore: Int = 0,
+    submit: (TdCallback<MessageSenders>.() -> Unit)? = null
+) = send(GetAvailableVoiceChatAliases(chatId), stackIgnore + 1, submit)
 
 /**
  * Changes the block state of a message sender
