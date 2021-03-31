@@ -12682,6 +12682,7 @@ public class TdApi {
      * @participant - Identifier of the group call participant
      * @source - User's synchronization source
      * @bio - The participant user's bio or the participant chat's description
+     * @isCurrentUser - True, if the participant is the current user
      * @isSpeaking - True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking
      * @isHandRaised - True, if the participant hand is raised
      * @canBeMutedForAllUsers - True, if the current user can mute the participant for all other group call participants
@@ -12702,6 +12703,7 @@ public class TdApi {
         public MessageSender participant;
         public int source;
         public String bio;
+        public boolean isCurrentUser;
         public boolean isSpeaking;
         public boolean isHandRaised;
         public boolean canBeMutedForAllUsers;
@@ -12716,11 +12718,12 @@ public class TdApi {
 
         public GroupCallParticipant() {}
 
-        public GroupCallParticipant(MessageSender participant, int source, String bio, boolean isSpeaking, boolean isHandRaised, boolean canBeMutedForAllUsers, boolean canBeUnmutedForAllUsers, boolean canBeMutedForCurrentUser, boolean canBeUnmutedForCurrentUser, boolean isMutedForAllUsers, boolean isMutedForCurrentUser, boolean canUnmuteSelf, int volumeLevel, String order) {
+        public GroupCallParticipant(MessageSender participant, int source, String bio, boolean isCurrentUser, boolean isSpeaking, boolean isHandRaised, boolean canBeMutedForAllUsers, boolean canBeUnmutedForAllUsers, boolean canBeMutedForCurrentUser, boolean canBeUnmutedForCurrentUser, boolean isMutedForAllUsers, boolean isMutedForCurrentUser, boolean canUnmuteSelf, int volumeLevel, String order) {
 
             this.participant = participant;
             this.source = source;
             this.bio = bio;
+            this.isCurrentUser = isCurrentUser;
             this.isSpeaking = isSpeaking;
             this.isHandRaised = isHandRaised;
             this.canBeMutedForAllUsers = canBeMutedForAllUsers;
@@ -12736,7 +12739,7 @@ public class TdApi {
         }
 
         @Override
-        public int getConstructor() { return 1947836963; }
+        public int getConstructor() { return 150506893; }
 
     }
 
