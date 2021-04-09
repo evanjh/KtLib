@@ -23,10 +23,7 @@ object KLogFactory : LogFactory("Neko Log") {
 }
 
 var LOG_LEVEL = Level.INFO
-    set(value) {
-        field = value
-        defaultLog.logLevel = value
-    }
+
 val defaultLog = mkLog("")
 
 fun mkLog(name: String) = KLog(name)
