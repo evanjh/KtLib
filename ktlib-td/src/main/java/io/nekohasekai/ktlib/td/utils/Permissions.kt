@@ -48,9 +48,11 @@ suspend fun TdHandler.checkChatAdmin(chatId: Long, userId: Int, message: TdApi.M
 
     if (isChatAdmin(chatId, userId)) return false
 
+    val text = localeFor(userId).NO_PERMISSION
+
     sudo make {
 
-        inputMarkdown = localeFor(userId).NO_PERMISSION
+        inputMarkdown = text
 
         message?.id?.also { replyToMessageId = it }
 
@@ -98,9 +100,11 @@ suspend fun TdHandler.checkRequiredPermission(
         )
     ) return false
 
+    val text = localeFor(userId).NO_PERMISSION
+
     sudo make {
 
-        inputMarkdown = localeFor(userId).NO_PERMISSION
+        inputMarkdown = text
 
         message?.id?.also { replyToMessageId = it }
 
@@ -179,9 +183,11 @@ suspend fun TdHandler.checkRequiredPermission(
 
     }
 
+    val text = localeFor(userId).NO_PERMISSION
+
     sudo make {
 
-        inputMarkdown = localeFor(chatId, userId).NO_PERMISSION
+        inputMarkdown = text
 
         message?.id?.also { replyToMessageId = it }
 
