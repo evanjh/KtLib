@@ -9,7 +9,8 @@ import io.nekohasekai.ktlib.td.extensions.*
 import io.nekohasekai.ktlib.td.i18n.store.LocaleStore
 import io.nekohasekai.ktlib.td.utils.*
 import kotlinx.coroutines.delay
-import td.TdApi.*
+import td.TdApi.BotCommand
+import td.TdApi.Message
 
 class LocaleSwitcher(
     private val dataId: Int,
@@ -48,7 +49,9 @@ class LocaleSwitcher(
 
             val L = localeFor(userId)
 
-            sudo make L.SELECT_LANGUAGE_NO_PERMISSION.input("/$command") replyTo message
+            sudo make L.SELECT_LANGUAGE_NO_PERMISSION.input("/$command") onSuccess deleteDelayIf(
+                !message.fromPrivate, message
+            ) replyTo message
 
             return
 
