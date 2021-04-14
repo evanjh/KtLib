@@ -30,7 +30,7 @@ open class LocaleController(val LANG: String) {
 
     companion object {
 
-        val supportedLangs = arrayOf("en_US", "zh_CN", "zh_TW")
+        val supportedLangs = arrayOf("en_US", "zh_CN", "zh_TW", "ru_RU")
 
         fun receiveLocaleSet(name: String? = null) = receiveLazy<LocaleController, LocaleSet> { getLocaleSet(name) }
 
