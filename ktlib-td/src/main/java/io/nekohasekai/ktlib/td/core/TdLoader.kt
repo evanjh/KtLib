@@ -111,13 +111,7 @@ object TdLoader {
 
     }
 
-    /**
-     * 尝试加载 TDLib
-     *
-     * @param libsDir 从加载的目录
-     * @param allowDownload 允许下载, 支持 Windows 32 64 / Linux x86 x86_64 arm64v8
-     */
-    fun tryLoad(cacheDir: File, allowDownload: Boolean = true) {
+    fun tryLoad(cacheDir: File, downloadOnly: Boolean = false) {
 
         if (loaded) return
 
@@ -159,8 +153,10 @@ object TdLoader {
             }
         }
 
-        if (jniFile.isFile || !allowDownload) {
-            jniLoad()
+        if (jniFile.isFile) {
+            if (!downloadOnly) {
+                jniLoad()
+            }
             return
         }
 
@@ -187,7 +183,9 @@ object TdLoader {
 
         }
 
-        jniLoad()
+        if (!downloadOnly) {
+            jniLoad()
+        }
 
     }
 
