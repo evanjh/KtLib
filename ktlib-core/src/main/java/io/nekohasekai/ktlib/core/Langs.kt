@@ -14,6 +14,10 @@ import kotlin.reflect.KMutableProperty0
 import kotlin.reflect.KProperty
 import kotlin.reflect.KProperty0
 
+operator fun StringBuilder.plusAssign(s: String) {
+    append(s)
+}
+
 fun <T> T.applyIf(boolean: Boolean, block: (T.() -> Unit)?): T {
     if (boolean) block?.invoke(this)
     return this
