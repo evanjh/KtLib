@@ -53,7 +53,7 @@ class KryoColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         when (val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value) {
             is InputStream -> stmt.setInputStream(index, toSetValue)
-            null -> stmt.setInputStream(index, toSetValue)
+            null -> stmt.setNull(index, this)
             else -> super.setParameter(stmt, index, toSetValue)
         }
     }
@@ -94,7 +94,7 @@ class KryoAnyColumnType<T : Any>(val clazz: KClass<T>) : ColumnType() {
     override fun setParameter(stmt: PreparedStatementApi, index: Int, value: Any?) {
         when (val toSetValue = (value as? ExposedBlob)?.bytes?.inputStream() ?: value) {
             is InputStream -> stmt.setInputStream(index, toSetValue)
-            null -> stmt.setInputStream(index, toSetValue)
+            null -> stmt.setNull(index, this)
             else -> super.setParameter(stmt, index, toSetValue)
         }
     }
