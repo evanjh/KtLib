@@ -57,8 +57,6 @@ CANCELED: |-
 NOTHING_TO_CANCEL: |-
   无事可做.
 
-LICENSE: |-
-  {} 基于 <a href="{}">GNU Affero 通用公共许可证 v3</a> 发行, 欢迎访问 {}.
 HELP_DEF: |-
   显示帮助消息
 CANCEL_DEF: |-
@@ -72,4 +70,4 @@ SELECT_LANGUAGE_NO_PERMISSION: |-
   只有管理员能修改群组/频道语言, 您可以私聊BOT使用 {} 设置个人语言.
 LANGUAGE_SELECTED: |-
   已<b>设定</b>为简体中文.
-  请注意, 这种在地化可能不完整. 您可以联系 @nekohasekai 帮助我们改进翻译.
+  请注意, 这种在地化可能不完整. 您可以帮助我们改进翻译.
